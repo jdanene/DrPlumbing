@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dr Plumbing &amp; Heating</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Caveat:wght@600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F5F1EA; --surface:#FFFFFF; --tint:#EDE6DA; --ink:#17252B; --muted:#4A5559; --line:#DDD4C5; --line-strong:#B9AE9C;
+  --accent:#B4552A; --accent-hover:#9C4621; --accent-ink:#8E3F1C; --on-accent:#FFFFFF;
+  --band:#17252B; --band-ink:#F5F1EA; --band-muted:#C9C2B6; --band-accent:#E7A07A;
+  --ph:#E3DACB; --ph-stripe:rgba(23,37,43,.07); --ph-ink:#3F4A4E;
+  --stage:#E9E1D3; --ground:#DCD2C1; --shadow:0 18px 40px rgba(23,37,43,.14);
+  --display:'Bricolage Grotesque','Avenir Next Condensed','Arial Narrow',sans-serif;
+  --body:'Public Sans',-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  --script:'Caveat','Bradley Hand','Segoe Script',cursive;
+  --wrap:1200px; --gutter:clamp(16px,4vw,40px); --header:76px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#10191D; --surface:#172329; --tint:#1C2A31; --ink:#EFE9DF; --muted:#A9B2B4; --line:#2A3A41; --line-strong:#40525A;
+    --accent-ink:#E7A07A; --band:#0B1215; --band-ink:#EFE9DF; --band-muted:#A9B2B4;
+    --ph:#223239; --ph-stripe:rgba(239,233,223,.06); --ph-ink:#C9C2B6;
+    --stage:#1C2A31; --ground:#16222A; --shadow:0 18px 40px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#10191D; --surface:#172329; --tint:#1C2A31; --ink:#EFE9DF; --muted:#A9B2B4; --line:#2A3A41; --line-strong:#40525A;
+  --accent-ink:#E7A07A; --band:#0B1215; --band-ink:#EFE9DF; --band-muted:#A9B2B4;
+  --ph:#223239; --ph-stripe:rgba(239,233,223,.06); --ph-ink:#C9C2B6;
+  --stage:#1C2A31; --ground:#16222A; --shadow:0 18px 40px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.02;letter-spacing:-0.02em}
+p{margin:0;text-wrap:pretty}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1:focus,h2:focus{outline:none}
+.wrap{width:100%;max-width:calc(var(--wrap) + 2*var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--accent)}
+.muted{color:var(--muted)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .15s,transform .15s,border-color .15s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-outline{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-outline:hover{background:var(--tint)}
+.btn-light{background:#FFFFFF;color:#17252B}
+.btn-ghost-light{border-color:#FFFFFF;color:#FFFFFF}
+.btn-ghost-light:hover{background:rgba(255,255,255,.12)}
+.btn svg{flex-shrink:0}
+.link-arrow{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-ink);text-decoration:none}
+.link-arrow:hover{text-decoration:underline}
+
+/* Logo */
+.logo{display:inline-flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink)}
+.logo .mark{font-family:var(--display);font-weight:800;font-size:38px;line-height:.85;letter-spacing:-.04em}
+.logo .mark span{color:var(--accent)}
+.logo .words{font-size:9.5px;font-weight:700;letter-spacing:.24em;line-height:1;padding-top:5px;border-top:2px solid var(--accent)}
+.logo.on-dark{color:var(--band-ink)}
+.logo.on-dark .mark span{color:var(--band-accent)}
+.logo.on-dark .words{border-color:var(--band-accent)}
+
+/* Top bar + header */
+.topbar{background:var(--band);color:var(--band-muted);font-size:13.5px}
+.topbar .wrap{display:flex;justify-content:space-between;gap:16px;min-height:38px;align-items:center}
+.topbar b{color:var(--band-ink);font-weight:600}
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:var(--header)}
+.main-nav{display:flex;align-items:center;gap:6px}
+.main-nav > a,.main-nav > .nav-drop > button{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px;border-radius:999px;font-weight:600;font-size:15.5px;text-decoration:none;background:none;border:0;cursor:pointer;color:var(--ink)}
+.main-nav > a:hover,.main-nav > .nav-drop > button:hover{background:var(--tint)}
+.main-nav a[aria-current="page"],.main-nav .nav-drop.is-current > button{color:var(--accent-ink)}
+.header-actions{display:flex;gap:10px;align-items:center}
+.nav-drop{position:relative}
+.nav-drop > button svg{transition:transform .2s}
+.nav-drop > button[aria-expanded="true"] svg{transform:rotate(180deg)}
+.drop-panel{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:640px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;animation:drop .18s ease-out}
+.drop-panel a{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border-radius:12px;text-decoration:none}
+.drop-panel a:hover{background:var(--tint)}
+.drop-panel a b{font-size:16px}
+.drop-panel a span{font-size:14px;color:var(--muted);line-height:1.4}
+.drop-panel .all{grid-column:1 / -1;flex-direction:row;justify-content:space-between;align-items:center;border-top:1px solid var(--line);border-radius:0 0 10px 10px;margin-top:4px;font-weight:700;color:var(--accent-ink)}
+.menu-btn{display:none;width:48px;height:48px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;align-items:center;justify-content:center;cursor:pointer}
+.call-icon{display:none;width:48px;height:48px;border-radius:999px;background:var(--accent);color:var(--on-accent);align-items:center;justify-content:center}
+
+/* Mobile drawer */
+.drawer{position:fixed;left:0;right:0;bottom:0;top:calc(var(--header) + env(safe-area-inset-top,0px));z-index:39;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;padding:20px var(--gutter) calc(110px + env(safe-area-inset-bottom,0px));animation:drop .2s ease-out}
+.drawer h2{font-size:13px;font-family:var(--body);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin:8px 0 10px}
+.drawer-list{display:flex;flex-direction:column;gap:8px}
+.drawer-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;padding:12px 16px;background:var(--surface);border-radius:14px;text-decoration:none}
+.drawer-list a span{display:flex;flex-direction:column;line-height:1.3}
+.drawer-list a b{font-size:17px}
+.drawer-list a small{font-size:14px;color:var(--muted)}
+.drawer-pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.drawer-pages a{display:flex;align-items:center;min-height:56px;padding:0 16px;border:1.5px solid var(--line-strong);border-radius:14px;font-weight:700;text-decoration:none}
+.drawer-phone{margin-top:24px;padding:18px;border-radius:16px;background:var(--tint);display:flex;flex-direction:column;gap:4px}
+.drawer-phone b{font-family:var(--display);font-size:28px;user-select:all}
+
+/* Mobile action bar */
+.action-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--surface);border-top:1px solid var(--line);padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom,0px));gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.action-bar .btn{min-height:50px;padding:0 12px}
+
+/* Views */
+.view{display:none}
+.view.is-active{display:block;animation:rise .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translate(var(--dx,0),-6px)}to{opacity:1;transform:translate(var(--dx,0),0)}}
+.drop-panel{--dx:-50%}
+@media (prefers-reduced-motion: reduce){.view.is-active,.drawer,.drop-panel{animation:none}.btn{transition:none}}
+section{scroll-margin-top:calc(var(--header) + 16px)}
+.block{padding-block:clamp(64px,9vw,112px)}
+.block-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 48px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
+.block-head > div{display:flex;flex-direction:column;gap:14px;max-width:720px}
+.h2{font-size:clamp(34px,5vw,54px);font-weight:800}
+.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.6;color:var(--muted)}
+
+/* Photo placeholders */
+.ph{background-color:var(--ph);background-image:repeating-linear-gradient(135deg,var(--ph-stripe) 0 2px,transparent 2px 14px);color:var(--ph-ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;border-radius:20px;width:100%;max-width:100%}
+.ph b{font-size:15px;line-height:1.3}
+.ph small{font-size:13px;line-height:1.35}
+.ph svg{opacity:.8}
+.ph.dark{background-color:#243840;background-image:repeating-linear-gradient(135deg,rgba(245,241,234,.07) 0 2px,transparent 2px 14px);color:#D9D2C5}
+
+/* Hero */
+.hero{padding-block:clamp(40px,6vw,72px) 32px}
+.hero-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px 32px;align-items:end}
+.hero-grid .h-text{grid-column:span 7;display:flex;flex-direction:column;gap:22px}
+.hero-grid .h-side{grid-column:9 / span 4;display:flex;flex-direction:column;gap:22px}
+.hero h1{font-size:clamp(42px,6.6vw,82px);font-weight:800;letter-spacing:-.03em;line-height:.97}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.stage{position:relative;margin-top:36px;border-radius:28px;background:var(--stage);overflow:hidden;display:flex;justify-content:center;align-items:flex-end;padding:56px 24px 18px}
+.stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:var(--ground)}
+.stage svg{position:relative;z-index:1;width:100%;max-width:980px;height:auto}
+.stage .rate-card{position:absolute;left:24px;top:24px;z-index:2;max-width:290px;background:var(--surface);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);display:flex;gap:12px}
+.rate-card .ic{width:38px;height:38px;border-radius:10px;background:var(--tint);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rate-card b{display:block;font-size:16px}
+.rate-card span{font-size:14.5px;line-height:1.45;color:var(--muted)}
+.stage .caption{position:absolute;right:20px;bottom:12px;z-index:2;font-size:12.5px;color:var(--muted);font-weight:600}
+
+/* Trust */
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 24px;padding-block:24px;border-block:1px solid var(--line);margin-top:40px}
+.trust div{display:flex;gap:12px;align-items:center;font-weight:600;font-size:16px;line-height:1.3}
+.trust svg{flex-shrink:0;color:var(--accent-ink)}
+
+/* Service picker tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tile{display:flex;flex-direction:column;background:var(--surface);border-radius:20px;overflow:hidden;text-decoration:none;border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.tile .ph{border-radius:0;aspect-ratio:16/9}
+.tile .t-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:8px;flex-grow:1}
+.tile h3{font-size:24px;font-weight:700}
+.tile p{font-size:15.5px;line-height:1.55;color:var(--muted);flex-grow:1}
+.tile .link-arrow{margin-top:6px;font-size:15px}
+
+/* Owner */
+.owner{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px 32px;align-items:center}
+.owner .photos{grid-column:span 6;position:relative;padding:0 56px 48px 0}
+.owner .photos .main{aspect-ratio:4/5}
+.owner .photos .inset{position:absolute;right:0;bottom:0;width:44%;aspect-ratio:1/1;border:6px solid var(--bg)}
+.owner .copy{grid-column:8 / span 5;display:flex;flex-direction:column;gap:20px}
+.signature{display:flex;flex-direction:column;line-height:1.1}
+.signature .sig{font-family:var(--script);font-size:46px;color:var(--ink)}
+.signature small{font-size:14.5px;color:var(--muted)}
+
+/* Band */
+.band{background:var(--band);color:var(--band-ink)}
+.band .lead{color:var(--band-muted)}
+.band .eyebrow{color:var(--band-accent)}
+.van-band{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px 32px;align-items:center}
+.van-band .shots{grid-column:span 7;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.van-band .shots .big{grid-column:1 / -1;aspect-ratio:16/9}
+.van-band .shots .ph:not(.big){aspect-ratio:4/3}
+.van-band .copy{grid-column:9 / span 4;display:flex;flex-direction:column;gap:20px}
+
+/* Gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(200px,auto);gap:16px}
+.gallery .feature{grid-column:span 2;grid-row:span 2;position:relative;border-radius:20px;overflow:hidden;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;min-height:420px}
+.gallery .feature .ph{border-radius:0}
+.gallery .label{position:absolute;left:16px;bottom:16px;background:var(--surface);border-radius:12px;padding:10px 14px;line-height:1.35}
+.gallery .label b{display:block;font-size:15.5px}
+.gallery .label span{font-size:13.5px;color:var(--muted)}
+
+/* Why */
+.why{background:var(--tint);border-radius:28px;padding:clamp(28px,5vw,64px)}
+.why-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:36px}
+.why-grid div{display:flex;flex-direction:column;gap:10px;padding-top:20px;border-top:2px solid var(--ink)}
+.why-grid h3{font-size:22px;font-weight:700}
+.why-grid p{font-size:15.5px;line-height:1.55;color:var(--muted)}
+
+/* Reviews */
+.reviews{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px}
+.reviews figure{grid-column:span 7;margin:0;display:flex;flex-direction:column;gap:24px}
+.reviews blockquote{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(26px,3.2vw,38px);line-height:1.2;letter-spacing:-.01em}
+.reviews figcaption{display:flex;gap:14px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:999px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700}
+.reviews .slots{grid-column:span 5;display:flex;flex-direction:column;gap:16px}
+.slot{flex-grow:1;border:2px dashed var(--line-strong);border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:120px}
+
+/* Area */
+.area{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;align-items:center}
+.cities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 20px;margin:8px 0 0;padding:0;list-style:none;font-size:15.5px;font-weight:500}
+.cities li{display:flex;align-items:center;gap:8px}
+.cities li::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--accent);flex-shrink:0}
+
+/* CTA + footer */
+.cta{background:var(--accent);color:#FFFFFF;border-radius:28px;padding:clamp(32px,5vw,64px);display:flex;justify-content:space-between;align-items:center;gap:28px 48px;flex-wrap:wrap}
+.cta h2{font-size:clamp(32px,4.4vw,52px);font-weight:800;max-width:640px}
+.cta p{color:#FFF1E8;font-size:18px;margin-top:12px}
+.cta .phone-text{font-family:var(--display);font-weight:800;font-size:22px;user-select:all}
+.site-footer{margin-top:clamp(64px,8vw,96px);background:var(--band);color:var(--band-muted);padding-block:56px 32px;font-size:15px}
+.foot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+.foot-grid h3{font-family:var(--body);font-size:15px;color:var(--band-ink);margin-bottom:12px;letter-spacing:0}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{color:var(--band-ink);text-decoration:underline}
+.foot-base{margin-top:40px;padding-top:20px;border-top:1px solid #34474F;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13.5px}
+
+/* Service page */
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:14px;font-weight:600;color:var(--muted)}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.svc-hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:center;padding-block:clamp(32px,5vw,64px)}
+.svc-hero .copy{grid-column:span 6;display:flex;flex-direction:column;gap:20px}
+.svc-hero h1{font-size:clamp(40px,5.6vw,68px);font-weight:800}
+.svc-hero .ph{grid-column:8 / span 5;aspect-ratio:5/4}
+.svc-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-block:4px;margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter)}
+.svc-tabs::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line-strong);background:transparent;font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap;cursor:pointer;color:var(--ink)}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-current="page"],.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.svc-sec{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px 32px;padding-block:56px;border-top:1px solid var(--line-strong)}
+.svc-sec .s-head{grid-column:span 4;display:flex;flex-direction:column;gap:14px}
+.svc-sec .s-head h2{font-size:clamp(28px,3vw,36px);font-weight:800}
+.svc-sec .s-head p{color:var(--muted)}
+.svc-sec .s-body{grid-column:6 / span 7}
+.svc-sec .s-body > p{font-size:clamp(18px,1.8vw,21px);line-height:1.6}
+.items{display:grid;gap:0 32px;margin:0;padding:0;list-style:none}
+.items li{display:flex;gap:14px;padding-block:20px;border-top:1px solid var(--line)}
+.items .num{font-family:var(--display);font-weight:800;color:var(--accent-ink);min-width:26px;font-size:18px;line-height:1.3}
+.items .chk{color:var(--accent-ink);flex-shrink:0;margin-top:2px}
+.items h3{font-size:19px;font-weight:700;line-height:1.3;letter-spacing:-.005em}
+.items p{font-size:15.5px;color:var(--muted);margin-top:4px;line-height:1.55}
+.other{padding-block:40px 8px;border-top:1px solid var(--line-strong)}
+.other h2{font-size:22px;margin-bottom:14px}
+.other .svc-tabs{flex-wrap:wrap;overflow:visible;margin:0;padding:0}
+
+/* Services index */
+.svc-index{padding-block:clamp(40px,6vw,72px) 0}
+.svc-index h1{font-size:clamp(40px,6vw,72px);font-weight:800;margin:16px 0 14px}
+
+/* About */
+.about-hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:end;padding-block:clamp(32px,5vw,64px)}
+.about-hero .copy{grid-column:span 5;display:flex;flex-direction:column;gap:20px;padding-bottom:12px}
+.about-hero h1{font-size:clamp(42px,6vw,76px);font-weight:800}
+.about-hero .ph{grid-column:7 / span 6;aspect-ratio:5/4}
+.letter{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px 32px;align-items:start}
+.letter .ph{grid-column:span 4;aspect-ratio:4/5;position:sticky;top:calc(var(--header) + 24px)}
+.letter .copy{grid-column:6 / span 7;display:flex;flex-direction:column;gap:20px;max-width:640px}
+.letter .copy p{font-size:clamp(18px,1.7vw,20px);line-height:1.7}
+.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.strip .ph{aspect-ratio:4/3}
+.fill{background:var(--tint);border-radius:4px;padding:0 4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* Work */
+.work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 24px;margin-top:32px}
+.work-card{display:flex;flex-direction:column;gap:14px}
+.work-card .pics{aspect-ratio:4/3;border-radius:18px;overflow:hidden;display:grid;gap:4px}
+.work-card .pics .ph{border-radius:0;height:100%}
+.work-card .cat{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.work-card h3{font-size:22px;font-weight:700}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Book */
+.book{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px 32px;padding-block:clamp(32px,5vw,64px);align-items:start}
+.book .intro{grid-column:span 5;display:flex;flex-direction:column;gap:20px}
+.book .intro h1{font-size:clamp(40px,5.6vw,64px);font-weight:800}
+.book .panel{grid-column:7 / span 6;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.5vw,36px)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.field label,.field legend{font-weight:600;font-size:15px}
+.field input,.field select,.field textarea{width:100%;min-height:52px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line-strong);background:var(--bg);font-size:16px}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.field .err{color:#B3261E;font-size:14px;font-weight:600}
+.field.bad input{border-color:#B3261E}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+fieldset.field{border:0;padding:0;margin:0 0 18px}
+.times{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.times label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1.5px solid var(--line-strong);border-radius:999px;font-weight:600;cursor:pointer}
+.times input{accent-color:var(--accent);width:18px;height:18px;min-height:0}
+.times label:has(input:checked){border-color:var(--ink);background:var(--tint)}
+.demo-note{font-size:13.5px;color:var(--muted);margin-top:12px}
+.done{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.done .ok{width:56px;height:56px;border-radius:999px;background:var(--accent);color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.summary{width:100%;border-top:1px solid var(--line);margin-top:4px}
+.summary div{display:flex;justify-content:space-between;gap:16px;padding-block:10px;border-bottom:1px solid var(--line);font-size:15.5px}
+.summary dt{color:var(--muted)}
+.summary dd{margin:0;font-weight:600;text-align:right}
+
+/* Responsive */
+@media (max-width: 1080px){
+  .main-nav{display:none}
+  .menu-btn{display:inline-flex}
+  .header-actions .btn{display:none}
+  .call-icon{display:inline-flex}
+  .topbar .t-right{display:none}
+}
+@media (max-width: 900px){
+  .hero-grid .h-text,.hero-grid .h-side,.owner .photos,.owner .copy,.van-band .shots,.van-band .copy,.reviews figure,.reviews .slots,.svc-hero .copy,.svc-hero .ph,.svc-sec .s-head,.svc-sec .s-body,.about-hero .copy,.about-hero .ph,.letter .ph,.letter .copy,.book .intro,.book .panel{grid-column:1 / -1}
+  .letter .ph{position:static;aspect-ratio:4/3}
+  .tiles,.work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trust,.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .area{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .svc-hero .ph{aspect-ratio:16/10}
+  .owner .photos{padding:0 40px 40px 0}
+}
+@media (max-width: 760px){
+  :root{--header:68px}
+  .action-bar{display:grid}
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .topbar{display:none}
+  .logo .mark{font-size:32px}
+  .logo .words{font-size:8.5px}
+  .call-icon{display:none}
+  .stage{padding:14px 8px 10px;border-radius:20px;margin-top:28px;flex-direction:column;align-items:stretch}
+  .stage .rate-card{position:relative;left:auto;top:auto;max-width:none;margin:0 0 16px;box-shadow:none;border:1px solid var(--line)}
+  .stage-wrap{display:flex;flex-direction:column}
+  .stage .caption{right:12px;bottom:6px;font-size:11px}
+  .items{grid-template-columns:1fr !important}
+  .cities{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cta .btn{flex-grow:1}
+  .two{grid-template-columns:1fr}
+}
+@media (max-width: 560px){
+  .tiles{grid-template-columns:1fr}
+  .tile{flex-direction:row;align-items:stretch}
+  .tile .ph{aspect-ratio:auto;width:96px;flex-shrink:0;padding:6px}
+  .tile .ph b{font-size:11px}
+  .tile .ph svg,.tile .ph small{display:none}
+  .tile .t-body{padding:14px 16px;gap:4px}
+  .tile h3{font-size:19px}
+  .tile p{font-size:14px}
+  .tile .link-arrow{display:none}
+  .work-grid,.strip,.gallery{grid-template-columns:1fr}
+  .gallery .feature{grid-column:auto;grid-row:auto;min-height:260px}
+  .trust{grid-template-columns:1fr 1fr;font-size:14px}
+  .trust div{font-size:14.5px}
+  .why-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .cta-row .btn{flex-grow:1}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Locally owned in <b>Newcastle, WA</b> · Serving homes from Everett to Kent</span>
+    <span class="t-right">Licensed &amp; insured · Flat-rate pricing</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#home" aria-label="Dr Plumbing and Heating, home">
+      <span class="mark">D<span>R</span></span>
+      <span class="words">PLUMBING &amp; HEATING</span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <div class="nav-drop" id="navServices">
+        <button type="button" id="dropBtn" aria-expanded="false" aria-controls="dropPanel">Services
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="drop-panel" id="dropPanel" hidden></div>
+      </div>
+      <a href="#work" data-nav="work">Our Work</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#home-reviews" data-nav="reviews">Reviews</a>
+      <a href="#home-area" data-nav="area">Service Area</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-outline" href="tel:2066718888">(206) 671-8888</a>
+      <a class="btn btn-primary" href="#book">Book a visit</a>
+      <a class="call-icon" href="tel:2066718888" aria-label="Call (206) 671-8888">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      </a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <svg id="menuIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <h2>What do you need help with?</h2>
+  <div class="drawer-list" id="drawerList"></div>
+  <div class="drawer-pages">
+    <a href="#about">About us</a>
+    <a href="#work">Our work</a>
+    <a href="#services">All services</a>
+    <a href="#book">Book a visit</a>
+  </div>
+  <div class="drawer-phone">
+    <span class="muted">Call us</span>
+    <b>(206) 671-8888</b>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- HOME -->
+<div class="view" data-view="home">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="h-text">
+          <div class="eyebrow">Residential plumbing &amp; heating</div>
+          <h1 tabindex="-1">Plumbing, heating and cooling for your home.</h1>
+        </div>
+        <div class="h-side">
+          <p class="lead">We are a locally owned team of licensed technicians in Newcastle. We fix leaks, replace water heaters and keep your heat running, at a flat rate you approve before we start.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#book">Book a visit
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-outline" href="#services">See services</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="rate-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div><b>Flat-rate pricing</b><span>You see the price first. No surprise fees at the end.</span></div>
+        </div>
+        <svg viewBox="0 0 1000 400" role="img" aria-label="The Dr Plumbing and Heating van, a high-roof Sprinter with a white, copper and slate wrap">
+          <defs><clipPath id="vanClip"><path d="M40 300 Q40 282 58 274 L112 252 Q132 242 162 238 L256 80 Q264 62 288 60 L936 60 Q962 60 962 86 L962 332 Q962 346 948 346 L858 346 A58 58 0 0 0 742 346 L248 346 A58 58 0 0 0 132 346 L56 346 Q40 346 40 332 Z"/></clipPath></defs>
+          <ellipse cx="500" cy="392" rx="470" ry="8" fill="#17252B" opacity="0.2"/>
+          <path d="M40 300 Q40 282 58 274 L112 252 Q132 242 162 238 L256 80 Q264 62 288 60 L936 60 Q962 60 962 86 L962 332 Q962 346 948 346 L858 346 A58 58 0 0 0 742 346 L248 346 A58 58 0 0 0 132 346 L56 346 Q40 346 40 332 Z" fill="#FFFFFF"/>
+          <g clip-path="url(#vanClip)">
+            <path d="M840 60 L1000 60 L1000 352 L740 352 Z" fill="#B4552A"/>
+            <path d="M806 60 L824 60 L724 352 L706 352 Z" fill="#B4552A" opacity="0.45"/>
+            <rect x="0" y="282" width="1000" height="6" fill="#B4552A"/>
+            <rect x="0" y="288" width="1000" height="70" fill="#17252B"/>
+          </g>
+          <path d="M40 300 Q40 282 58 274 L112 252 Q132 242 162 238 L256 80 Q264 62 288 60 L936 60 Q962 60 962 86 L962 332 Q962 346 948 346 L858 346 A58 58 0 0 0 742 346 L248 346 A58 58 0 0 0 132 346 L56 346 Q40 346 40 332 Z" fill="none" stroke="#17252B" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M356 64 L356 286 M566 64 L566 282 M938 64 L938 282" stroke="#17252B" stroke-opacity="0.22" stroke-width="2" fill="none"/>
+          <path d="M190 232 L266 102 Q272 92 284 92 L346 92 L346 232 Z" fill="#2B3F47"/>
+          <path d="M292 92 L310 92 L256 232 L238 232 Z" fill="#FFFFFF" opacity="0.14"/>
+          <rect x="226" y="156" width="16" height="40" rx="5" fill="#17252B"/>
+          <path d="M54 274 L104 254 L110 264 L58 284 Z" fill="#E7E1D6" stroke="#17252B" stroke-width="2"/>
+          <rect x="952" y="110" width="10" height="70" rx="3" fill="#9A3B2E"/>
+          <rect x="318" y="248" width="22" height="6" rx="3" fill="#17252B" opacity="0.5"/>
+          <text x="392" y="176" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="120" letter-spacing="-4" fill="#17252B">D<tspan fill="#B4552A">R</tspan></text>
+          <rect x="396" y="190" width="318" height="4" fill="#B4552A"/>
+          <text x="396" y="222" font-family="'Public Sans', sans-serif" font-weight="700" font-size="22" letter-spacing="4.2" fill="#17252B">PLUMBING &amp; HEATING</text>
+          <text x="396" y="258" font-family="'Public Sans', sans-serif" font-weight="600" font-size="17" fill="#17252B" opacity="0.8">Plumbing · Heating · Water Heaters</text>
+          <text x="394" y="330" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="36" fill="#FFFFFF">(206) 671-8888</text>
+          <text x="948" y="262" text-anchor="end" font-family="'Public Sans', sans-serif" font-weight="700" font-size="16" fill="#FFFFFF">[website].com</text>
+          <text x="272" y="272" text-anchor="middle" font-family="'Public Sans', sans-serif" font-weight="600" font-size="12" fill="#17252B" opacity="0.7">Lic. [WA LICENSE #]</text>
+          <circle cx="190" cy="346" r="46" fill="#1E2426"/><circle cx="190" cy="346" r="25" fill="#A7AFB2"/><circle cx="190" cy="346" r="8" fill="#1E2426"/>
+          <circle cx="800" cy="346" r="46" fill="#1E2426"/><circle cx="800" cy="346" r="25" fill="#A7AFB2"/><circle cx="800" cy="346" r="8" fill="#1E2426"/>
+        </svg>
+        <span class="caption">Van wrap concept · Mercedes-Benz Sprinter</span>
+      </div>
+
+      <div class="trust">
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Licensed &amp; insured</div>
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Family owned in Newcastle</div>
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Emergency HVAC service</div>
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6.3 7 1-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7-1z"/></svg>HomeAdvisor certified</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="home-services" style="padding-top:48px">
+    <div class="wrap">
+      <div class="block-head">
+        <div>
+          <div class="eyebrow">Services</div>
+          <h2 class="h2">What do you need help with?</h2>
+        </div>
+        <p class="lead" style="max-width:380px">Pick a service to see what we do and how we price it.</p>
+      </div>
+      <div class="tiles" id="homeTiles"></div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap owner">
+      <div class="photos">
+        <div class="ph main">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <b>PHOTO: The owner and his family, smiling</b>
+          <small>Outdoors, natural light, at home or beside the van</small>
+        </div>
+        <div class="ph inset"><b>PHOTO: Owner on a job</b></div>
+      </div>
+      <div class="copy">
+        <div class="eyebrow">Meet the owner</div>
+        <h2 class="h2">Hi, I'm <span class="fill">[First name]</span>.</h2>
+        <p class="lead">I started Dr Plumbing &amp; Heating to give local families the service I would want in my own home. My family and I live in <span class="fill">[City]</span>, so the homes we work on belong to our neighbors.</p>
+        <p class="lead">When you call, you get a straight answer, a fair price and a technician who treats your house with care.</p>
+        <div class="signature"><span class="sig">[First name]</span><small>Owner, Dr Plumbing &amp; Heating</small></div>
+        <a class="btn btn-outline" href="#about" style="align-self:flex-start">Read our story</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band block">
+    <div class="wrap van-band">
+      <div class="shots">
+        <div class="ph dark big"><b>PHOTO: The van in a customer's driveway</b><small>3/4 front angle, logo and phone number readable</small></div>
+        <div class="ph dark"><b>PHOTO: Rear doors open, shelves stocked</b></div>
+        <div class="ph dark"><b>PHOTO: Technician at a front door</b></div>
+      </div>
+      <div class="copy">
+        <div class="eyebrow">On your street</div>
+        <h2 class="h2">Look for the Dr Plumbing van.</h2>
+        <p class="lead">When our van pulls into your driveway, a licensed, insured technician is at your door. We explain the problem and the flat-rate price before any work begins.</p>
+        <a class="btn btn-light" href="#book" style="align-self:flex-start">Book a visit</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="block-head">
+        <div>
+          <div class="eyebrow">Our work</div>
+          <h2 class="h2">Recent jobs in local homes.</h2>
+        </div>
+        <a class="btn btn-outline" href="#work">See all projects</a>
+      </div>
+      <div class="gallery">
+        <div class="feature">
+          <div class="ph"><b>BEFORE</b><small>Old water heater</small></div>
+          <div class="ph"><b>AFTER</b><small>Same angle</small></div>
+          <div class="label"><b>Water heater replacement</b><span>[City] · [Month Year]</span></div>
+        </div>
+        <div class="ph"><b>PHOTO: Tankless unit on wall</b><small>[Job] · [City]</small></div>
+        <div class="ph"><b>PHOTO: Finished shower valve</b><small>[Job] · [City]</small></div>
+        <div class="ph"><b>PHOTO: Heat pump outdoor unit</b><small>[Job] · [City]</small></div>
+        <div class="ph"><b>PHOTO: Kitchen sink and faucet</b><small>[Job] · [City]</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="why">
+        <h2 class="h2">Why homeowners call Dr Plumbing.</h2>
+        <div class="why-grid" id="whyHome"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="home-reviews" style="padding-top:0">
+    <div class="wrap reviews">
+      <figure>
+        <svg width="48" height="38" viewBox="0 0 56 44" fill="var(--accent)" aria-hidden="true"><path d="M0 44V26C0 11 8 2 22 0l2 6c-8 2-12 7-12 14h10v24zm32 0V26C32 11 40 2 54 0l2 6c-8 2-12 7-12 14h10v24z"/></svg>
+        <blockquote>They were incredibly responsive and scheduled an appointment quickly… I was also pleasantly surprised by the fair pricing.</blockquote>
+        <figcaption><span class="avatar">N</span><span><b>Nancy</b><br><span class="muted">Homeowner · [City]</span></span></figcaption>
+      </figure>
+      <div class="slots">
+        <div class="slot"><b>[Review #2 from Google or HomeAdvisor]</b><span class="muted">Short quote, first name, city</span></div>
+        <div class="slot"><b>[Review #3 from Google or HomeAdvisor]</b><span class="muted">Short quote, first name, city</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="home-area" style="padding-top:0">
+    <div class="wrap area">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="eyebrow">Service area</div>
+        <h2 class="h2">Serving homes from Everett to Kent.</h2>
+        <p class="lead">We are based in Newcastle and cover the greater Seattle area and the Eastside.</p>
+        <ul class="cities" id="cities"></ul>
+      </div>
+      <div class="ph" style="aspect-ratio:1/1;max-height:520px">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>
+        <b>MAP: Service area, Everett to Kent</b><small>Shaded map with Newcastle pinned</small>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="cta" data-cta="Something leaking, cold or broken?"></div></div>
+</div>
+
+<!-- SERVICES INDEX -->
+<div class="view" data-view="services">
+  <section class="svc-index">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Services</span></nav>
+      <h1 tabindex="-1">Our services</h1>
+      <p class="lead" style="max-width:640px">Choose a service to see what we do. Not sure what you need? Call us and describe the problem.</p>
+    </div>
+  </section>
+  <section class="block" style="padding-top:40px">
+    <div class="wrap"><div class="tiles" id="indexTiles"></div></div>
+  </section>
+  <div class="wrap"><div class="cta" data-cta="Not sure which service you need?"></div></div>
+</div>
+
+<!-- SERVICE DETAIL (filled by script) -->
+<div class="view" data-view="service">
+  <div class="wrap" id="svcPage"></div>
+  <div class="wrap" style="margin-top:48px"><div class="cta" id="svcCta"></div></div>
+</div>
+
+<!-- ABOUT -->
+<div class="view" data-view="about">
+  <section>
+    <div class="wrap about-hero">
+      <div class="copy">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>About us</span></nav>
+        <h1 tabindex="-1">A family business on your street.</h1>
+        <p class="lead">Dr Plumbing &amp; Heating is family owned and run from Newcastle, Washington. We work in homes from Everett to Kent.</p>
+        <div class="cta-row"><a class="btn btn-primary" href="#book">Book a visit</a><a class="btn btn-outline" href="#services">See services</a></div>
+      </div>
+      <div class="ph">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <b>PHOTO: The owner and his family, smiling</b>
+        <small>The biggest photo on the page. Relaxed, outdoors, natural light.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap letter">
+      <div class="ph"><b>PHOTO: Owner beside the van, in uniform</b></div>
+      <div class="copy">
+        <div class="eyebrow">A note from the owner</div>
+        <h2 class="h2">Why I started Dr Plumbing &amp; Heating.</h2>
+        <p>I have worked in plumbing and heating for <span class="fill">[number]</span> years. In <span class="fill">[year]</span>, I started my own company to do honest work at a fair price.</p>
+        <p>My family and I live in <span class="fill">[City]</span>. <span class="fill">[One or two sentences about your family: who they are and what you do together.]</span></p>
+        <p>When you call, you get a straight answer and a flat-rate price before we start. If I would not do it in my own house, I will not recommend it for yours.</p>
+        <div class="signature"><span class="sig">[First name]</span><small>Owner, Dr Plumbing &amp; Heating</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="why">
+        <h2 class="h2">What we stand for.</h2>
+        <div class="why-grid" id="whyAbout"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="block-head"><div><div class="eyebrow">Behind the van</div><h2 class="h2">The people who come to your home.</h2></div></div>
+      <div class="strip">
+        <div class="ph"><b>PHOTO: A family moment</b></div>
+        <div class="ph"><b>PHOTO: Owner with a customer</b></div>
+        <div class="ph"><b>PHOTO: The van at a job</b></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="cta" data-cta="We would like to meet you."></div></div>
+</div>
+
+<!-- WORK -->
+<div class="view" data-view="work">
+  <section class="block" style="padding-top:clamp(32px,5vw,64px)">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Our work</span></nav>
+      <h1 tabindex="-1" style="font-size:clamp(40px,6vw,76px);font-weight:800;margin:16px 0 14px">Real jobs in real homes.</h1>
+      <p class="lead" style="max-width:640px;margin-bottom:28px">Every photo here is a Dr Plumbing &amp; Heating project, taken on the job.</p>
+      <div class="chips" id="workChips" role="group" aria-label="Filter projects"></div>
+      <div class="work-grid" id="workGrid"></div>
+    </div>
+  </section>
+  <div class="wrap"><div class="cta" data-cta="Want work like this in your home?"></div></div>
+</div>
+
+<!-- BOOK -->
+<div class="view" data-view="book">
+  <div class="wrap book">
+    <div class="intro">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Book a visit</span></nav>
+      <h1 tabindex="-1">Book a visit.</h1>
+      <p class="lead">Tell us what is going on. We will call you to confirm a time and give you a flat-rate price before any work starts.</p>
+      <div class="drawer-phone" style="margin-top:4px"><span class="muted">Prefer to talk? Call us.</span><b>(206) 671-8888</b></div>
+    </div>
+    <div class="panel">
+      <form id="bookForm" novalidate>
+        <div class="two">
+          <div class="field" id="f-name"><label for="bName">Your name</label><input id="bName" name="name" autocomplete="name" required><span class="err" hidden>Enter your name.</span></div>
+          <div class="field" id="f-phone"><label for="bPhone">Phone</label><input id="bPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required><span class="err" hidden>Enter a phone number we can call.</span></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="bCity">City</label><select id="bCity" name="city"></select></div>
+          <div class="field"><label for="bService">Service</label><select id="bService" name="service"></select></div>
+        </div>
+        <div class="field"><label for="bMsg">What is going on?</label><textarea id="bMsg" name="message" placeholder="Example: water heater is leaking from the bottom"></textarea></div>
+        <fieldset class="field">
+          <legend>Best time to reach you</legend>
+          <div class="times">
+            <label><input type="radio" name="time" id="tMorning" value="Morning" checked> Morning</label>
+            <label><input type="radio" name="time" id="tAfternoon" value="Afternoon"> Afternoon</label>
+            <label><input type="radio" name="time" id="tEvening" value="Evening"> Evening</label>
+          </div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit" style="width:100%">Send request</button>
+        <p class="demo-note">Demo site: this form does not send anything yet.</p>
+      </form>
+      <div class="done" id="bookDone" hidden>
+        <div class="ok"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></div>
+        <h2 style="font-size:34px;font-weight:800">Request ready.</h2>
+        <p class="muted">On the live site, this request would go to Dr Plumbing &amp; Heating, and we would call you to confirm a time. In this demo, nothing was sent.</p>
+        <dl class="summary" id="bookSummary"></dl>
+        <div class="cta-row" style="width:100%"><button class="btn btn-outline" type="button" id="bookAgain">Edit request</button><a class="btn btn-primary" href="#home">Back to home</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <a class="logo on-dark" href="#home" aria-label="Dr Plumbing and Heating, home"><span class="mark">D<span>R</span></span><span class="words">PLUMBING &amp; HEATING</span></a>
+        <p>Family owned and run from Newcastle, Washington.</p>
+      </div>
+      <div><h3>Services</h3><ul id="footServices"></ul></div>
+      <div><h3>Company</h3><ul><li><a href="#about">About us</a></li><li><a href="#work">Our work</a></li><li><a href="#home-reviews">Reviews</a></li><li><a href="#home-area">Service area</a></li><li><a href="#book">Book a visit</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li style="color:var(--band-ink);font-weight:700;font-size:18px;user-select:all">(206) 671-8888</li><li>[EMAIL]</li><li>[HOURS]</li><li>WA Contractor Lic. [LICENSE #]</li></ul></div>
+    </div>
+    <div class="foot-base"><span>© 2026 Dr Plumbing &amp; Heating Group LLC</span><span>Licensed · Bonded · Insured</span></div>
+  </div>
+</footer>
+
+<nav class="action-bar" aria-label="Quick actions">
+  <a class="btn btn-outline" href="tel:2066718888">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+    Call
+  </a>
+  <a class="btn btn-primary" href="#book">Book a visit</a>
+</nav>
+
+<script>
+(function () {
+  var SERVICES = [
+    { id: 'plumbing', tab: 'Plumbing', title: 'Plumbing', cta: 'plumbing', short: 'Leaks, fixtures, gas lines and repiping.', photo: 'Finished bathroom or kitchen plumbing',
+      lead: 'We repair, replace and install the plumbing in your home, from a single faucet to a whole-house repipe.',
+      sections: [
+        { heading: 'Our plumbing services', items: [
+          ['Leak detection', 'We find hidden leaks in walls, floors and slabs before they do more damage.'],
+          ['Burst pipe repair', 'We shut off the water, repair the pipe and get your home back in service.'],
+          ['Piping and repiping', 'We replace corroded or failing pipe, from a single run to the whole house.'],
+          ['Trenchless water line replacement', 'We replace your main water line with minimal digging.'],
+          ['Gas line repair and installation', 'We install and repair gas lines for ranges, dryers, fireplaces and water heaters.'],
+          ['Toilet repair and installation', 'We fix running, leaking and clogged toilets and install new ones.'],
+          ['Faucets, fixtures and sinks', 'We install and repair kitchen and bathroom fixtures.'],
+          ['Showers and tubs', 'We repair and replace valves, drains and trim.'],
+          ['Garbage disposals', 'We repair jammed or leaking disposals and install new ones.'],
+          ['Sump pumps', 'We install and service sump pumps that keep water out of basements and crawlspaces.'],
+          ['Water filtration systems', 'We install softeners and filters that treat the water for the whole house.']
+        ] }
+      ] },
+    { id: 'water-heaters', tab: 'Water heaters', title: 'Water heaters', cta: 'water heater', short: 'Tank, tankless and heat pump, gas or electric.', photo: 'Water heater you installed',
+      lead: 'We repair and replace water heaters of every type: gas or electric, tank or tankless.',
+      sections: [
+        { heading: 'Our water heater services', items: [
+          ['Electric water heaters', 'We replace heating elements and thermostats, and install a new tank when the old one wears out.'],
+          ['Gas water heaters', 'We service burners, pilots and venting, and install new gas units to code.'],
+          ['Tankless water heaters', 'A tankless unit heats water only when you need it and takes little space. We install and maintain them.'],
+          ['Heat pump water heaters', 'A heat pump unit moves heat from the air into the water. It uses much less electricity than a standard electric tank.']
+        ] }
+      ] },
+    { id: 'drain-sewer', tab: 'Drain & sewer', title: 'Drain and sewer', cta: 'drain or sewer line', short: 'Drain cleaning, hydrojetting and trenchless repair.', photo: 'Sewer line or drain job',
+      lead: 'We clear clogged drains and repair or replace damaged sewer lines.',
+      sections: [
+        { heading: 'Our drain and sewer services', items: [
+          ['Drain cleaning', 'We clear slow and clogged drains in kitchens, bathrooms and laundry rooms.'],
+          ['Hydrojetting', 'A high-pressure stream of water scours grease, scale and roots from the inside of your pipes.'],
+          ['Sewer line repair and replacement', 'We repair cracked, sagging or root-damaged sewer lines, or replace them.'],
+          ['Trenchless sewer repair', 'We repair the line from the inside with minimal digging, so your lawn and driveway stay intact.']
+        ] }
+      ] },
+    { id: 'water-filtration', tab: 'Water filtration', title: 'Water filtration and softening', cta: 'water', short: 'Softeners, reverse osmosis and carbon filters.', photo: 'Softener or filtration setup',
+      lead: 'We install filtration and softening systems that make your water cleaner, safer and easier on your plumbing.',
+      sections: [
+        { heading: 'Why filter your water', check: true, items: [
+          ['Stop buying bottled water'], ['Know your water is clean'], ['Protect pipes and fixtures from scale'], ['Prevent stains on clothes, fixtures and hair'], ['Use less soap and detergent']
+        ] },
+        { heading: 'Which system fits your home', intro: 'Each system solves a specific problem. We recommend one based on your water and your needs.', items: [
+          ['Water softeners', 'Remove calcium and magnesium, the hard minerals that leave scale in pipes and fixtures.'],
+          ['Carbon filters', 'Layers of activated carbon trap impurities and keep your water fresh and safe to drink.'],
+          ['Reverse osmosis', 'Water passes through a two-stage pre-filter, a membrane and a carbon post-filter. It works on city water and private wells.'],
+          ['Iron and sulfur filters', 'Remove the excess iron and sulfur that make water smell.']
+        ] }
+      ] },
+    { id: 'heating-cooling', tab: 'Heating & cooling', title: 'Heating and cooling', cta: 'heating or cooling', short: 'Furnaces, heat pumps and air conditioning.', photo: 'Furnace or heat pump install',
+      lead: 'We install, maintain and repair the systems that heat, cool and ventilate your home. Our licensed, insured technicians handle routine service and emergencies.',
+      sections: [
+        { heading: 'What HVAC covers', intro: 'HVAC stands for heating, ventilation and air conditioning. Together, these systems control the temperature, humidity and air quality in your home.', cols: 1, items: [
+          ['Heating', 'Furnaces, boilers, heat pumps and electric heaters keep your home warm in cold weather.'],
+          ['Ventilation', 'Fans and ductwork bring in fresh outdoor air and remove stale indoor air, so pollutants do not build up.'],
+          ['Air conditioning', 'Air conditioners and heat pumps move heat out of your home in warm weather.']
+        ] },
+        { heading: 'Our HVAC services', items: [
+          ['Installation', 'We install new furnaces, heat pumps and air conditioners.'],
+          ['Maintenance', 'Regular service keeps your system efficient and catches problems early.'],
+          ['Repair', 'We find the cause of the failure and fix it.'],
+          ['Emergency service', 'When the heat or air conditioning fails, call us.']
+        ] }
+      ] },
+    { id: 'boilers', tab: 'Boilers', title: 'Boilers and radiant heat', cta: 'boiler', short: 'Hydronic boiler repair, service and replacement.', photo: 'Boiler or radiant heat job',
+      lead: 'We maintain, repair and replace hydronic boilers. Our licensed technicians keep your heating system safe and running smoothly.',
+      sections: [
+        { heading: 'How a hydronic system works', intro: 'A hydronic system heats your home with hot water instead of forced air. It can feed radiant floors, baseboard heaters or radiators.', numbered: true, cols: 1, items: [
+          ['The boiler heats water', 'It can run on natural gas, oil, electricity or solar.'],
+          ['Pipes carry the water', 'Copper or PEX lines run through floors, walls and ceilings.'],
+          ['Each room receives heat', 'Radiators, baseboards or tubing in the floor release the heat.'],
+          ['The heat spreads evenly', 'Warmth radiates into the room without the drafts and temperature swings of forced air.'],
+          ['A pump returns the water', 'The cooled water flows back to the boiler to be heated again.']
+        ] },
+        { heading: 'Why hydronic heat', intro: 'Hydronic heat is efficient, even and quiet. Zone valves and thermostats let you heat each part of the house on its own schedule. The system can also pair with solar thermal collectors.', items: [] },
+        { heading: 'Service your boiler every year', intro: 'A neglected boiler puts your family at risk. An annual service finds problems early and keeps the system running like new.', items: [] },
+        { heading: 'Signs your boiler needs service', intro: 'Call us if you notice any of these.', cols: 3, items: [
+          ['Uneven heat', 'Some rooms stay cold.'], ['Unusual noises', 'Banging, clanking or hissing.'], ['Rising energy bills', 'Heating costs jump for no clear reason.'],
+          ['Frequent cycling', 'The boiler turns on and off often.'], ['Low pressure', 'The pressure gauge reads low.'], ['Visible leaks', 'Water collects around the boiler or its pipes.'],
+          ['Pilot light problems', 'The flame flickers, changes color or goes out.'], ['Lockouts', 'The boiler shuts down and needs a manual reset.'], ['No heat or hot water', 'Call us right away.'],
+          ['Strange odors', 'Unusual smells near the boiler.'], ['Age', 'Older boilers lose efficiency. We will tell you whether to repair or replace.']
+        ] }
+      ] }
+  ];
+  var VALUES = [
+    ['An expert team', 'Licensed, insured technicians with years of experience in homes like yours.'],
+    ['Honest, flat-rate prices', 'You approve the price before work starts. No unexpected fees at the end.'],
+    ['We go the extra mile', 'We explain what we found and what it takes to fix it, in plain terms.'],
+    ['Safety comes first', 'Gas lines, boilers and water heaters are done to code, every time.']
+  ];
+  var CITIES = ['Auburn','Bellevue','Bothell','Burien','Cottage Lake','Des Moines','East Hill-Meridian','Edmonds','Everett','Issaquah','Kent','Lake Stevens','Lynnwood','Machias','Maltby','Mill Creek','Mountlake Terrace','Mukilteo','Newcastle','Redmond','Renton','Sammamish','SeaTac','Seattle','Shoreline','Skyway','Snohomish'];
+  var PROJECTS = [
+    { cat: 'Water heaters', title: 'Water heater replacement', ba: true },
+    { cat: 'Water heaters', title: 'Tankless water heater install', shot: 'Tankless unit mounted on wall' },
+    { cat: 'Heating & cooling', title: 'Heat pump install', shot: 'Outdoor unit on its pad' },
+    { cat: 'Heating & cooling', title: 'Furnace replacement', ba: true },
+    { cat: 'Plumbing', title: 'Shower valve and trim', shot: 'Finished shower' },
+    { cat: 'Plumbing', title: 'Kitchen sink and faucet', shot: 'Finished sink and faucet' },
+    { cat: 'Drain & sewer', title: 'Trenchless sewer line', shot: 'Crew and equipment in the yard' },
+    { cat: 'Water filtration', title: 'Whole-house water softener', shot: 'Softener setup in garage' },
+    { cat: 'Boilers', title: 'Boiler replacement', ba: true }
+  ];
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var arrow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  var chevron = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--accent-ink)"><path d="M9 6l6 6-6 6"/></svg>';
+  var camera = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>';
+  var check = '<svg class="chk" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
+
+  function tileHTML(s) {
+    return '<a class="tile" href="#' + s.id + '"><div class="ph"><b>PHOTO</b><small>' + esc(s.photo) + '</small></div>' +
+      '<div class="t-body"><h3>' + esc(s.tab) + '</h3><p>' + esc(s.short) + '</p><span class="link-arrow">See details ' + arrow + '</span></div></a>';
+  }
+  function ctaHTML(title) {
+    return '<div><h2>' + esc(title) + '</h2><p>Call <span class="phone-text">(206) 671-8888</span> or book online. Flat-rate prices, no surprise fees.</p></div>' +
+      '<div class="cta-row"><a class="btn btn-light" href="#book">Book a visit</a><a class="btn btn-ghost-light" href="tel:2066718888">Call now</a></div>';
+  }
+
+  // Static fills
+  $('#homeTiles').innerHTML = SERVICES.map(tileHTML).join('');
+  $('#indexTiles').innerHTML = SERVICES.map(tileHTML).join('');
+  $('#dropPanel').innerHTML = SERVICES.map(function (s) { return '<a href="#' + s.id + '"><b>' + esc(s.tab) + '</b><span>' + esc(s.short) + '</span></a>'; }).join('') +
+    '<a class="all" href="#services">All services ' + arrow + '</a>';
+  $('#drawerList').innerHTML = SERVICES.map(function (s) { return '<a href="#' + s.id + '"><span><b>' + esc(s.tab) + '</b><small>' + esc(s.short) + '</small></span>' + chevron + '</a>'; }).join('');
+  $('#footServices').innerHTML = SERVICES.map(function (s) { return '<li><a href="#' + s.id + '">' + esc(s.tab) + '</a></li>'; }).join('');
+  var whyHTML = VALUES.map(function (v) { return '<div><h3>' + esc(v[0]) + '</h3><p>' + esc(v[1]) + '</p></div>'; }).join('');
+  $('#whyHome').innerHTML = whyHTML; $('#whyAbout').innerHTML = whyHTML;
+  $('#cities').innerHTML = CITIES.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('');
+  $$('[data-cta]').forEach(function (el) { el.innerHTML = ctaHTML(el.getAttribute('data-cta')); });
+  $('#bCity').innerHTML = CITIES.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('');
+  $('#bCity').value = 'Newcastle';
+  $('#bService').innerHTML = SERVICES.map(function (s) { return '<option>' + esc(s.tab) + '</option>'; }).join('') + '<option>Not sure</option>';
+
+  // Work filter
+  var workFilter = 'All';
+  function renderWork() {
+    var cats = ['All', 'Plumbing', 'Water heaters', 'Drain & sewer', 'Water filtration', 'Heating & cooling', 'Boilers'];
+    $('#workChips').innerHTML = cats.map(function (c) { return '<button type="button" class="chip" aria-pressed="' + (c === workFilter) + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    $('#workGrid').innerHTML = PROJECTS.filter(function (p) { return workFilter === 'All' || p.cat === workFilter; }).map(function (p) {
+      var pics = p.ba
+        ? '<div class="pics" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="ph"><b>BEFORE</b></div><div class="ph"><b>AFTER</b><small>Same angle</small></div></div>'
+        : '<div class="pics"><div class="ph">' + camera + '<b>PHOTO: ' + esc(p.shot) + '</b></div></div>';
+      return '<article class="work-card">' + pics + '<div class="cat">' + esc(p.cat) + '</div><h3>' + esc(p.title) + '</h3><span class="muted">[City] · [Month Year]</span></article>';
+    }).join('');
+  }
+  $('#workChips').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cat]'); if (!b) return;
+    workFilter = b.getAttribute('data-cat'); renderWork();
+    var again = $('[data-cat="' + workFilter.replace(/"/g, '') + '"]'); if (again) again.focus();
+  });
+  renderWork();
+
+  // Service page
+  var lastService = null;
+  function renderService(svc) {
+    lastService = svc;
+    var tabs = SERVICES.map(function (s) { return '<a class="chip" href="#' + s.id + '"' + (s.id === svc.id ? ' aria-current="page"' : '') + '>' + esc(s.tab) + '</a>'; }).join('');
+    var secs = svc.sections.map(function (sec) {
+      var hasItems = sec.items.length > 0;
+      var body;
+      if (hasItems) {
+        var cols = sec.cols || 2;
+        body = '<ul class="items" style="grid-template-columns:repeat(' + cols + ',minmax(0,1fr))">' + sec.items.map(function (it, i) {
+          var lead = sec.numbered ? '<span class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</span>' : (sec.check ? check : '');
+          return '<li>' + lead + '<div><h3>' + esc(it[0]) + '</h3>' + (it[1] ? '<p>' + esc(it[1]) + '</p>' : '') + '</div></li>';
+        }).join('') + '</ul>';
+      } else {
+        body = '<p>' + esc(sec.intro) + '</p>';
+      }
+      return '<section class="svc-sec"><div class="s-head"><h2>' + esc(sec.heading) + '</h2>' + (hasItems && sec.intro ? '<p>' + esc(sec.intro) + '</p>' : '') + '</div><div class="s-body">' + body + '</div></section>';
+    }).join('');
+    $('#svcPage').innerHTML =
+      '<div style="padding-top:20px"><nav class="svc-tabs" aria-label="Services">' + tabs + '</nav></div>' +
+      '<section class="svc-hero"><div class="copy"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><a href="#services">Services</a><span>/</span><span>' + esc(svc.tab) + '</span></nav>' +
+      '<h1 tabindex="-1">' + esc(svc.title) + '</h1><p class="lead">' + esc(svc.lead) + '</p>' +
+      '<div class="cta-row"><a class="btn btn-primary" href="#book">Book a visit</a><a class="btn btn-outline" href="tel:2066718888">Call (206) 671-8888</a></div></div>' +
+      '<div class="ph">' + camera + '<b>PHOTO: ' + esc(svc.photo) + '</b></div></section>' + secs +
+      '<div class="other"><h2>Other services</h2><nav class="svc-tabs" aria-label="Other services">' +
+      SERVICES.filter(function (s) { return s.id !== svc.id; }).map(function (s) { return '<a class="chip" href="#' + s.id + '">' + esc(s.tab) + '</a>'; }).join('') + '</nav></div>';
+    $('#svcCta').innerHTML = ctaHTML('Talk to us about your ' + svc.cta + '.');
+  }
+  function centerTab() {
+    var cur = $('#svcPage .svc-tabs [aria-current]');
+    if (cur) { var bar = cur.parentNode; bar.scrollLeft = cur.offsetLeft - bar.offsetLeft - bar.clientWidth / 2 + cur.clientWidth / 2; }
+  }
+
+  // Menus
+  var drawer = $('#drawer'), menuBtn = $('#menuBtn'), dropBtn = $('#dropBtn'), dropPanel = $('#dropPanel');
+  var burger = '<path d="M4 7h16M4 12h16M4 17h16"/>', close = '<path d="M6 6l12 12M18 6L6 18"/>';
+  function setDrawer(open) {
+    drawer.hidden = !open; menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    $('#menuIcon').innerHTML = open ? close : burger;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function setDrop(open) { dropPanel.hidden = !open; dropBtn.setAttribute('aria-expanded', open); }
+  menuBtn.addEventListener('click', function () { setDrawer(drawer.hidden); });
+  dropBtn.addEventListener('click', function (e) { e.stopPropagation(); setDrop(dropPanel.hidden); });
+  document.addEventListener('click', function (e) { if (!dropPanel.hidden && !e.target.closest('#navServices')) setDrop(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { if (!dropPanel.hidden) { setDrop(false); dropBtn.focus(); } if (!drawer.hidden) { setDrawer(false); menuBtn.focus(); } } });
+
+  // Router
+  var SECTION_ANCHORS = { 'home-reviews': 1, 'home-area': 1, 'home-services': 1 };
+  function route(first) {
+    var id = (location.hash || '#home').slice(1) || 'home';
+    var anchor = null, view = id;
+    if (SECTION_ANCHORS[id]) { anchor = id; view = 'home'; }
+    var svc = SERVICES.filter(function (s) { return s.id === id; })[0];
+    if (svc) { renderService(svc); view = 'service'; }
+    if (!$('[data-view="' + view + '"]')) view = 'home';
+    $$('.view').forEach(function (v) { v.classList.toggle('is-active', v.getAttribute('data-view') === view); });
+    if (view === 'service') centerTab();
+    if (view === 'book') {
+      $('#bookForm').hidden = false; $('#bookDone').hidden = true;
+      if (lastService) $('#bService').value = lastService.tab;
+    }
+    // nav state
+    $$('.main-nav [data-nav]').forEach(function (a) { a.removeAttribute('aria-current'); });
+    var navKey = view === 'home' && anchor === 'home-reviews' ? 'reviews' : view === 'home' && anchor === 'home-area' ? 'area' : view;
+    var navLink = $('.main-nav [data-nav="' + navKey + '"]'); if (navLink && view !== 'home' || (navLink && anchor)) navLink.setAttribute('aria-current', 'page');
+    $('#navServices').classList.toggle('is-current', view === 'service' || view === 'services');
+    setDrop(false); setDrawer(false);
+    if (anchor) {
+      var t = document.getElementById(anchor);
+      if (t) t.scrollIntoView({ behavior: first ? 'auto' : 'smooth', block: 'start' });
+    } else {
+      window.scrollTo(0, 0);
+      if (!first) { var h = $('[data-view="' + view + '"] h1'); if (h) h.focus({ preventScroll: true }); }
+    }
+  }
+  window.addEventListener('hashchange', function () { route(false); });
+  route(true);
+
+  // Booking form
+  var form = $('#bookForm');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = true;
+    [['#f-name', '#bName'], ['#f-phone', '#bPhone']].forEach(function (p) {
+      var wrap = $(p[0]), input = $(p[1]);
+      var good = input.value.trim().length > (p[1] === '#bPhone' ? 6 : 0);
+      wrap.classList.toggle('bad', !good); $('.err', wrap).hidden = good;
+      input.setAttribute('aria-invalid', !good);
+      if (!good && ok) { input.focus(); ok = false; }
+    });
+    if (!ok) return;
+    var time = ($('input[name="time"]:checked') || {}).value || '';
+    var rows = [['Name', $('#bName').value], ['Phone', $('#bPhone').value], ['City', $('#bCity').value], ['Service', $('#bService').value], ['Best time', time]];
+    if ($('#bMsg').value.trim()) rows.push(['Details', $('#bMsg').value.trim()]);
+    $('#bookSummary').innerHTML = rows.map(function (r) { return '<div><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('');
+    form.hidden = true; $('#bookDone').hidden = false;
+    $('#bookDone h2').setAttribute('tabindex', '-1'); $('#bookDone h2').focus();
+  });
+  $('#bookAgain').addEventListener('click', function () { form.hidden = false; $('#bookDone').hidden = true; $('#bName').focus(); });
+})();
+</script>
+</body>
+</html>
