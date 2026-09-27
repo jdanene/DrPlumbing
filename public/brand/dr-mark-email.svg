@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" role="img" aria-labelledby="title description">
+  <title id="title">DR Plumbing mark</title>
+  <desc id="description">Black and copper DR monogram on a light tile for email signatures.</desc>
+
+  <rect x="1.5" y="1.5" width="317" height="277" rx="20" fill="#F7F5F1" stroke="#D8D4CE" stroke-width="3"/>
+  <defs>
+    <mask id="diagonal-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="280">
+      <rect width="320" height="280" fill="#fff"/>
+      <path d="M93 254 211 26h18L111 254Z" fill="#000"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#diagonal-cut)">
+    <path fill="#111111" fill-rule="evenodd" d="M34 32h102c70 0 112 41 112 108s-42 108-112 108H34V32Zm52 46v124h48c40 0 62-22 62-62s-22-62-62-62H86Z"/>
+    <path fill="#B4552A" fill-rule="evenodd" d="M126 32h71c53 0 82 27 82 70 0 31-16 54-46 65l57 81h-62l-49-73h-3v73h-50V32Zm50 45v58h19c22 0 33-10 33-29 0-20-11-29-33-29h-19Z"/>
+  </g>
+  <path d="m112 246 104-202" fill="none" stroke="#B4552A" stroke-width="10" stroke-linecap="round"/>
+</svg>
