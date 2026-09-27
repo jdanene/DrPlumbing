@@ -1,11 +1,10 @@
-import { CallToAction, ServiceTiles, Values } from "./SiteContent";
-import { CITIES } from "./content";
+import { CallToAction, ServiceFinder, Values } from "./SiteContent";
 
 /**
  * Description: Renders the supplied home reference as native React markup.
  * Inputs: None; all business copy remains a review draft.
- * Output: The reference page with real links and explicit photo placeholders.
- * Examples: App.test.tsx verifies this page's heading and shared links.
+ * Output: The reference page with real links, current van artwork, and explicit photo placeholders.
+ * Examples: App.test.tsx verifies the heading, van art, service groups, and shared links.
  */
 export default function HomePage() {
   return (
@@ -21,9 +20,9 @@ export default function HomePage() {
             </div>
             <div className="h-side">
               <p className="lead">
-                We are a locally owned team of licensed technicians in
-                Newcastle. We fix leaks, replace water heaters and keep your
-                heat running, at a flat rate you approve before we start.
+                We fix leaks, replace water heaters and keep home systems
+                running. [Confirm credentials, service area and pricing before
+                launch.]
               </p>
               <div className="cta-row">
                 <a className="btn btn-primary" href="#book">
@@ -49,7 +48,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="stage">
+          <div className="stage photo">
             <div className="rate-card">
               <div className="ic">
                 <svg
@@ -68,12 +67,19 @@ export default function HomePage() {
                 </svg>
               </div>
               <div>
-                <b>Flat-rate pricing</b>
+                <b>Pricing policy [Confirm]</b>
                 <span>
-                  You see the price first. No surprise fees at the end.
+                  Add the owner's approved pricing promise here.
                 </span>
               </div>
             </div>
+            <img
+              className="stage-img"
+              src="/van/dr-sprinter-side.jpg"
+              alt="Dr Plumbing, Heating and Cooling Mercedes-Benz Sprinter wrap mockup, driver side"
+              width="1619"
+              height="971"
+            />
             <svg
               viewBox="0 0 1000 400"
               role="img"
@@ -258,7 +264,7 @@ export default function HomePage() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <path d="M9 12l2 2 4-4" />
               </svg>
-              Licensed &amp; insured
+              License and insurance [Confirm]
             </div>
             <div>
               <svg
@@ -274,7 +280,7 @@ export default function HomePage() {
               >
                 <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />
               </svg>
-              Family owned in Newcastle
+              Business location [Confirm]
             </div>
             <div>
               <svg
@@ -291,7 +297,7 @@ export default function HomePage() {
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 7v5l3 2" />
               </svg>
-              Emergency HVAC service
+              Emergency service [Confirm]
             </div>
             <div>
               <svg
@@ -307,7 +313,7 @@ export default function HomePage() {
               >
                 <path d="M12 2l3 6.3 7 1-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7-1z" />
               </svg>
-              HomeAdvisor certified
+              Directory profiles [Confirm]
             </div>
           </div>
         </div>
@@ -328,7 +334,7 @@ export default function HomePage() {
               Pick a service to see what we do and how we price it.
             </p>
           </div>
-          <ServiceTiles />
+          <ServiceFinder />
         </div>
       </section>
 
@@ -360,7 +366,7 @@ export default function HomePage() {
           <div className="copy">
             <div className="eyebrow">Meet the owner</div>
             <h2 className="h2">
-              Hi, I'm <span className="fill">[First name]</span>.
+              Hi, I'm Mehran.
             </h2>
             <p className="lead">
               I started Dr Plumbing &amp; Heating to give local families the
@@ -373,7 +379,7 @@ export default function HomePage() {
               technician who treats your house with care.
             </p>
             <div className="signature">
-              <span className="sig">[First name]</span>
+              <span className="sig">Mehran</span>
               <small>Owner, Dr Plumbing &amp; Heating</small>
             </div>
             <a
@@ -390,24 +396,27 @@ export default function HomePage() {
       <section className="band block">
         <div className="wrap van-band">
           <div className="shots">
-            <div className="ph dark big">
-              <b>PHOTO: The van in a customer's driveway</b>
-              <small>3/4 front angle, logo and phone number readable</small>
-            </div>
-            <div className="ph dark">
-              <b>PHOTO: Rear doors open, shelves stocked</b>
-            </div>
-            <div className="ph dark">
-              <b>PHOTO: Technician at a front door</b>
-            </div>
+            <img
+              src="/van/dr-sprinter-opposite-side.jpg"
+              alt="Dr Plumbing, Heating and Cooling Sprinter wrap mockup, passenger side"
+              width="1619"
+              height="971"
+              loading="lazy"
+            />
+            <img
+              src="/van/dr-sprinter-rear.jpg"
+              alt="Dr Plumbing, Heating and Cooling Sprinter wrap mockup, rear doors"
+              width="1620"
+              height="971"
+              loading="lazy"
+            />
           </div>
           <div className="copy">
             <div className="eyebrow">On your street</div>
             <h2 className="h2">Look for the Dr Plumbing van.</h2>
             <p className="lead">
-              When our van pulls into your driveway, a licensed, insured
-              technician is at your door. We explain the problem and the
-              flat-rate price before any work begins.
+              [Confirm the approved promise for arrival, credentials, home
+              protection and pricing before launch.]
             </p>
             <a
               className="btn btn-light"
@@ -490,14 +499,11 @@ export default function HomePage() {
             >
               <path d="M0 44V26C0 11 8 2 22 0l2 6c-8 2-12 7-12 14h10v24zm32 0V26C32 11 40 2 54 0l2 6c-8 2-12 7-12 14h10v24z" />
             </svg>
-            <blockquote>
-              They were incredibly responsive and scheduled an appointment
-              quickly… I was also pleasantly surprised by the fair pricing.
-            </blockquote>
+            <blockquote>[Approved customer review]</blockquote>
             <figcaption>
               <span className="avatar">N</span>
               <span>
-                <b>Nancy</b>
+                <b>[First name]</b>
                 <br />
                 <span className="muted">Homeowner · [City]</span>
               </span>
@@ -522,16 +528,12 @@ export default function HomePage() {
             style={{ display: "flex", flexDirection: "column", gap: "18px" }}
           >
             <div className="eyebrow">Service area</div>
-            <h2 className="h2">Serving homes from Everett to Kent.</h2>
+            <h2 className="h2">Service area [Confirm].</h2>
             <p className="lead">
-              We are based in Newcastle and cover the greater Seattle area and
-              the Eastside.
+              Add the approved business location and exact cities served. Until
+              then, call us to confirm an address.
             </p>
-            <ul className="cities">
-              {CITIES.map((city) => (
-                <li key={city}>{city}</li>
-              ))}
-            </ul>
+            <p className="fill">[Approved city list]</p>
           </div>
           <div
             className="ph"
@@ -551,8 +553,43 @@ export default function HomePage() {
               <path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z" />
               <path d="M9 4v14M15 6v14" />
             </svg>
-            <b>MAP: Service area, Everett to Kent</b>
-            <small>Shaded map with Newcastle pinned</small>
+            <b>MAP: Approved service area</b>
+            <small>Replace after the owner confirms the territory.</small>
+          </div>
+        </div>
+      </section>
+
+      <section className="block" id="home-faq" style={{ paddingTop: "0" }}>
+        <div className="wrap faq">
+          <div className="f-head">
+            <div className="eyebrow">FAQ</div>
+            <h2 className="h2">Before you request a visit.</h2>
+            <p className="lead">
+              Call <b>(206) 671-8888</b> if the problem cannot wait.
+            </p>
+          </div>
+          <div className="f-list">
+            <details className="faq-item">
+              <summary>What should I include in my request?</summary>
+              <p>
+                Tell us what you see, when it started and the best time to call.
+                We will contact you to confirm the next step.
+              </p>
+            </details>
+            <details className="faq-item">
+              <summary>Does the online form book an appointment?</summary>
+              <p>
+                No. It sends a callback request. We will call you to confirm
+                availability and timing.
+              </p>
+            </details>
+            <details className="faq-item">
+              <summary>Can I call instead?</summary>
+              <p>
+                Yes. Call (206) 671-8888, or email
+                drplumbinggroup@gmail.com.
+              </p>
+            </details>
           </div>
         </div>
       </section>

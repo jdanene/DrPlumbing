@@ -4,6 +4,7 @@ import ServicesPage from "./ServicesPage";
 import AboutPage from "./AboutPage";
 import WorkPage from "./WorkPage";
 import BookingPage from "./BookingPage";
+import AreasPage from "./AreasPage";
 import { ServicePage } from "./SiteContent";
 import SiteShell from "./SiteShell";
 import { SERVICES } from "./content";
@@ -12,7 +13,7 @@ import { HOME_ANCHORS, resolveRoute } from "./routes";
 /**
  * Description: Converts the clickable HTML reference into native pages with browser-history navigation.
  * Inputs: The location hash; no server or customer-data service is required.
- * Output: One visible page, shared navigation, draft warning, and demo booking flow.
+ * Output: One visible page, shared navigation, draft warning, and live callback-request flow.
  * Examples: App.test.tsx navigates every page, an unknown route, and service-to-book selection.
  */
 export default function App() {
@@ -75,6 +76,8 @@ export default function App() {
           <WorkPage />
         ) : route === "book" ? (
           <BookingPage service={bookingService} />
+        ) : route === "areas" ? (
+          <AreasPage />
         ) : (
           <HomePage />
         )}

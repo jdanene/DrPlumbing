@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import BookingPage from "./BookingPage";
@@ -25,7 +25,7 @@ describe("booking validation", () => {
   });
 });
 
-describe("booking preview", () => {
+describe("booking request", () => {
   it("starts with the requested service and defaults unknown services to Not sure", () => {
     const { unmount } = render(<BookingPage service="Water heaters" />);
     expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe(
@@ -41,7 +41,7 @@ describe("booking preview", () => {
   it("links validation errors to inputs and focuses the first invalid field", async () => {
     const user = userEvent.setup();
     render(<BookingPage />);
-    await user.click(screen.getByRole("button", { name: "Preview request" }));
+    await user.click(screen.getByRole("button", { name: "Send request" }));
     expect(document.activeElement).toBe(screen.getByLabelText("Your name"));
     expect(
       screen.getByLabelText("Your name").getAttribute("aria-invalid"),
@@ -51,44 +51,61 @@ describe("booking preview", () => {
     ).toBe("phone-error");
     await user.type(screen.getByLabelText("Your name"), "Taylor");
     await user.type(screen.getByLabelText("Phone"), "letters");
-    await user.click(screen.getByRole("button", { name: "Preview request" }));
+    await user.click(screen.getByRole("button", { name: "Send request" }));
     expect(document.activeElement).toBe(screen.getByLabelText("Phone"));
     expect(
-      screen.queryByRole("heading", { name: "Request preview." }),
+      screen.queryByRole("heading", { name: "Request sent." }),
     ).toBeNull();
   });
 
-  it("previews escaped values without claiming submission and preserves them for editing", async () => {
-    const fetch = vi.fn();
+  it("sends escaped values and lets the visitor start another request", async () => {
+    const fetch = vi
+      .fn()
+      .mockResolvedValue(new Response('{"ok":true}', { status: 200 }));
     vi.stubGlobal("fetch", fetch);
     const user = userEvent.setup();
     render(<BookingPage service="Boilers" />);
-    await user.type(screen.getByLabelText("Your name"), "Taylor");
-    await user.type(screen.getByLabelText("Phone"), "(206) 555-0123");
-    await user.type(
-      screen.getByLabelText("What is going on?"),
-      "<script>alert(1)</script>",
-    );
+    fireEvent.change(screen.getByLabelText("Your name"), { target: { value: "Taylor" } });
+    fireEvent.change(screen.getByLabelText("Phone"), { target: { value: "(206) 555-0123" } });
+    fireEvent.change(screen.getByLabelText("What is going on?"), { target: { value: "<script>alert(1)</script>" } });
     await user.click(screen.getByLabelText("Afternoon"));
-    await user.click(screen.getByRole("button", { name: "Preview request" }));
-    expect(screen.getByText(/Nothing was sent or booked/)).toBeDefined();
-    expect(fetch).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: "Send request" }));
+    await screen.findByRole("heading", { name: "Request sent." });
+    expect(fetch).toHaveBeenCalledOnce();
+    const [, init] = fetch.mock.calls[0];
+    const body = JSON.parse(init.body);
+    expect(body.message).toBe("<script>alert(1)</script>");
+    expect(body.companyWebsite).toBe("");
     expect(screen.getByText("<script>alert(1)</script>")).toBeDefined();
     expect(document.querySelector("script")).toBeNull();
     expect(document.activeElement).toBe(
-      screen.getByRole("heading", { name: "Request preview." }),
+      screen.getByRole("heading", { name: "Request sent." }),
     );
     expect(screen.getByText("Boilers", { selector: "dd" })).toBeDefined();
     expect(screen.getByText("Afternoon", { selector: "dd" })).toBeDefined();
-    await user.click(screen.getByRole("button", { name: "Edit request" }));
-    expect((screen.getByLabelText("Your name") as HTMLInputElement).value).toBe(
-      "Taylor",
+    await user.click(screen.getByRole("button", { name: "Send another request" }));
+    expect(screen.getByLabelText("Your name")).toBeDefined();
+    expect(
+      screen.queryByRole("heading", { name: "Request sent." }),
+    ).toBeNull();
+  });
+
+  it("shows a retry message when delivery fails", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response("failure", { status: 502 })),
+    );
+    const user = userEvent.setup();
+    render(<BookingPage />);
+    await user.type(screen.getByLabelText("Your name"), "Taylor");
+    await user.type(screen.getByLabelText("Phone"), "(206) 555-0123");
+    await user.click(screen.getByRole("button", { name: "Send request" }));
+    await waitFor(() =>
+      expect(screen.getByRole("alert").textContent).toMatch(/could not send/),
     );
     expect(
-      (screen.getByLabelText("What is going on?") as HTMLTextAreaElement).value,
-    ).toBe("<script>alert(1)</script>");
-    expect(
-      screen.queryByRole("heading", { name: "Request preview." }),
-    ).toBeNull();
+      (screen.getByRole("button", { name: "Send request" }) as HTMLButtonElement)
+        .disabled,
+    ).toBe(false);
   });
 });

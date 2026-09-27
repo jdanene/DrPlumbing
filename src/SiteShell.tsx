@@ -1,13 +1,35 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { SERVICES } from "./content";
+import {
+  SERVICES,
+  SERVICE_GROUPS,
+  serviceMenu,
+  servicesForGroup,
+} from "./content";
 import { Arrow } from "./SiteContent";
 
 const pageLinks = [
   ["work", "Our Work"],
   ["about", "About"],
-  ["home-reviews", "Reviews"],
-  ["home-area", "Service Area"],
+  ["areas", "Service Area"],
 ];
+
+/**
+ * Description: Presents the approved DR mark with accessible, editable brand text.
+ * Inputs: onDark selects the footer treatment without changing the source artwork.
+ * Output: A linked logo lockup that reads Dr Plumbing & Heating.
+ * Examples: App.test.tsx checks both header and footer links retain the home destination.
+ */
+function BrandLogo({ onDark = false }: { onDark?: boolean }) {
+  return (
+    <span className={`brand-lockup${onDark ? " on-dark" : ""}`}>
+      <img src="/brand/dr-mark.svg" alt="" width="52" height="46" />
+      <span className="brand-words">
+        <b>DR</b>
+        <span>Plumbing &amp; Heating</span>
+      </span>
+    </span>
+  );
+}
 
 /**
  * Description: Provides the shared brand, responsive navigation, theme, and draft disclosure.
@@ -22,7 +44,7 @@ export default function SiteShell({
   route: string;
   children: ReactNode;
 }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerTop, setDrawerTop] = useState(68);
   const [theme, setTheme] = useState(() => {
@@ -34,12 +56,9 @@ export default function SiteShell({
     }
   });
   const headerRef = useRef<HTMLElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropButtonRef = useRef<HTMLButtonElement>(null);
+  const navigationRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
-  const serviceActive =
-    route === "services" || SERVICES.some((service) => service.id === route);
 
   useEffect(() => {
     if (theme === "system") delete document.documentElement.dataset.theme;
@@ -61,14 +80,17 @@ export default function SiteShell({
 
   useEffect(() => {
     const dismissOutside = (event: MouseEvent) => {
-      if (!dropdownRef.current?.contains(event.target as Node))
-        setDropdownOpen(false);
+      if (!navigationRef.current?.contains(event.target as Node))
+        setOpenGroup(null);
     };
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        if (dropdownOpen) {
-          setDropdownOpen(false);
-          dropButtonRef.current?.focus();
+        if (openGroup) {
+          const button = navigationRef.current?.querySelector<HTMLButtonElement>(
+            `[data-group="${openGroup}"]`,
+          );
+          setOpenGroup(null);
+          button?.focus();
         }
         if (drawerOpen) {
           setDrawerOpen(false);
@@ -93,7 +115,7 @@ export default function SiteShell({
     };
     const closeMenus = () => {
       setDrawerOpen(false);
-      setDropdownOpen(false);
+      setOpenGroup(null);
     };
     document.addEventListener("click", dismissOutside);
     document.addEventListener("keydown", handleKey);
@@ -105,7 +127,7 @@ export default function SiteShell({
       window.removeEventListener("hashchange", closeMenus);
       window.removeEventListener("resize", closeMenus);
     };
-  }, [dropdownOpen, drawerOpen]);
+  }, [openGroup, drawerOpen]);
 
   return (
     <>
@@ -121,17 +143,12 @@ export default function SiteShell({
       </a>
       <aside className="review-note">
         Design preview · Business claims, reviews, and service areas await owner
-        approval. Booking sends nothing.
+        approval. Email delivery requires the documented Cloudflare setup.
       </aside>
       <div className="topbar">
         <div className="wrap">
-          <span>
-            Locally owned in <b>Newcastle, WA</b> · Serving homes from Everett
-            to Kent
-          </span>
-          <span className="t-right">
-            Licensed &amp; insured · Flat-rate pricing
-          </span>
+          <span>Dr Plumbing &amp; Heating · Residential website preview</span>
+          <span className="t-right">Owner approval required before launch</span>
         </div>
       </div>
       <header
@@ -139,7 +156,7 @@ export default function SiteShell({
         ref={headerRef}
         onClick={(event) => {
           if ((event.target as Element).closest('a[href^="#"]')) {
-            setDropdownOpen(false);
+            setOpenGroup(null);
             setDrawerOpen(false);
           }
         }}
@@ -151,50 +168,73 @@ export default function SiteShell({
             aria-label="Dr Plumbing and Heating, home"
             tabIndex={drawerOpen ? -1 : undefined}
           >
-            <span className="mark">
-              D<span>R</span>
-            </span>
-            <span className="words">PLUMBING &amp; HEATING</span>
+            <BrandLogo />
           </a>
-          <nav className="main-nav" aria-label="Main">
-            <div
-              className={`nav-drop${serviceActive ? " is-current" : ""}`}
-              ref={dropdownRef}
-            >
-              <button
-                type="button"
-                ref={dropButtonRef}
-                aria-expanded={dropdownOpen}
-                aria-controls="dropPanel"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                Services{" "}
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+          <nav className="main-nav" aria-label="Main" ref={navigationRef}>
+            {SERVICE_GROUPS.map((group) => {
+              const active = servicesForGroup(group).some(
+                (service) => service.id === route,
+              );
+              const panelId = `${group.id}-menu`;
+              return (
+                <div
+                  className={`nav-drop${active ? " is-current" : ""}`}
+                  key={group.id}
                 >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div className="drop-panel" id="dropPanel" hidden={!dropdownOpen}>
-                {SERVICES.map((service) => (
-                  <a href={`#${service.id}`} key={service.id}>
-                    <b>{service.tab}</b>
-                    <span>{service.short}</span>
-                  </a>
-                ))}
-                <a className="all" href="#services">
-                  All services <Arrow />
-                </a>
-              </div>
-            </div>
+                  <button
+                    type="button"
+                    data-group={group.id}
+                    aria-expanded={openGroup === group.id}
+                    aria-controls={panelId}
+                    onClick={() =>
+                      setOpenGroup(openGroup === group.id ? null : group.id)
+                    }
+                  >
+                    {group.label}
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  <div
+                    className={`drop-panel${servicesForGroup(group).length > 2 ? " cols-4" : ""}`}
+                    id={panelId}
+                    hidden={openGroup !== group.id}
+                  >
+                    {servicesForGroup(group).map((service) => (
+                      <div className="mm-col" key={service.id}>
+                        <a className="mm-head" href={`#${service.id}`}>
+                          <b>{service.tab}</b>
+                          <span>{service.short}</span>
+                        </a>
+                        <ul>
+                          {serviceMenu(service).map((item) => (
+                            <li key={item}>
+                              <a href={`#${service.id}`}>{item}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                    <div className="mm-foot">
+                      <a className="link-arrow" href="#services">
+                        All services <Arrow />
+                      </a>
+                      <span>Not sure what you need? Call (206) 671-8888.</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
             {pageLinks.map(([id, label]) => (
               <a
                 href={`#${id}`}
@@ -281,14 +321,19 @@ export default function SiteShell({
       >
         <h2>What do you need help with?</h2>
         <div className="drawer-list">
-          {SERVICES.map((service) => (
-            <a href={`#${service.id}`} key={service.id}>
-              <span>
-                <b>{service.tab}</b>
-                <small>{service.short}</small>
-              </span>
-              <Arrow />
-            </a>
+          {SERVICE_GROUPS.map((group) => (
+            <div className="drawer-service-group" key={group.id}>
+              <h3 className="drawer-group">{group.label}</h3>
+              {servicesForGroup(group).map((service) => (
+                <a href={`#${service.id}`} key={service.id}>
+                  <span>
+                    <b>{service.tab}</b>
+                    <small>{service.short}</small>
+                  </span>
+                  <Arrow />
+                </a>
+              ))}
+            </div>
           ))}
         </div>
         <div className="drawer-pages">
@@ -297,7 +342,8 @@ export default function SiteShell({
           <a href="#services">All services</a>
           <a href="#book">Book a visit</a>
           <a href="#home-reviews">Reviews</a>
-          <a href="#home-area">Service area</a>
+          <a href="#areas">Service area</a>
+          <a href="#home-faq">FAQ</a>
         </div>
         <div className="drawer-phone">
           <span className="muted">Call us</span>
@@ -319,12 +365,9 @@ export default function SiteShell({
                   href="#home"
                   aria-label="Dr Plumbing and Heating, home"
                 >
-                  <span className="mark">
-                    D<span>R</span>
-                  </span>
-                  <span className="words">PLUMBING &amp; HEATING</span>
+                  <BrandLogo onDark />
                 </a>
-                <p>Family owned and run from Newcastle, Washington.</p>
+                <p>[Confirm business location and service area.]</p>
               </div>
               <div>
                 <h3>Services</h3>
@@ -347,6 +390,12 @@ export default function SiteShell({
                   <li>
                     <a href="#book">Book a visit</a>
                   </li>
+                  <li>
+                    <a href="#home-reviews">Reviews</a>
+                  </li>
+                  <li>
+                    <a href="#home-faq">FAQ</a>
+                  </li>
                 </ul>
               </div>
               <div>
@@ -361,7 +410,11 @@ export default function SiteShell({
                   >
                     <a href="tel:2066718888">(206) 671-8888</a>
                   </li>
-                  <li>[EMAIL]</li>
+                  <li>
+                    <a href="mailto:drplumbinggroup@gmail.com">
+                      drplumbinggroup@gmail.com
+                    </a>
+                  </li>
                   <li>[HOURS]</li>
                   <li>WA Contractor Lic. [LICENSE #]</li>
                 </ul>

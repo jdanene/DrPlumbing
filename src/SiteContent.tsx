@@ -1,5 +1,12 @@
 import { useEffect, useRef } from "react";
-import { SERVICES, VALUES, type Service } from "./content";
+import {
+  SERVICES,
+  SERVICE_GROUPS,
+  VALUES,
+  serviceMenu,
+  servicesForGroup,
+  type Service,
+} from "./content";
 
 /**
  * Description: Marks a missing project photograph with the reference's camera symbol.
@@ -62,8 +69,8 @@ export function CallToAction({ title }: { title: string }) {
       <div>
         <h2>{title}</h2>
         <p>
-          Call <span className="phone-text">(206) 671-8888</span> or book
-          online. Flat-rate prices, no surprise fees.
+          Call <span className="phone-text">(206) 671-8888</span> or send a
+          request online. We will confirm the next step.
         </p>
       </div>
       <div className="cta-row">
@@ -79,28 +86,46 @@ export function CallToAction({ title }: { title: string }) {
 }
 
 /**
- * Description: Lists services consistently on the homepage and services index.
- * Inputs: None; the catalog defines the labels, descriptions, and destinations.
- * Output: Six linked tiles with explicit photo placeholders.
- * Examples: App.test.tsx checks each catalog entry has a link and description.
+ * Description: Groups the latest mockup's services by the kind of work a visitor needs.
+ * Inputs: None; the catalog owns group order, labels, descriptions, and destinations.
+ * Output: Two labeled groups with service summaries and direct job links.
+ * Examples: App.test.tsx checks every service and both group labels in the services index.
  */
-export function ServiceTiles() {
+export function ServiceFinder() {
   return (
-    <div className="tiles">
-      {SERVICES.map((service) => (
-        <a className="tile" href={`#${service.id}`} key={service.id}>
-          <div className="ph">
-            <b>PHOTO</b>
-            <small>{service.photo}</small>
+    <div className="finder">
+      {SERVICE_GROUPS.map((group) => (
+        <section className="fgroup" key={group.id}>
+          <div className="fg-label">
+            <h3>{group.label}</h3>
+            <p>{group.blurb}</p>
           </div>
-          <div className="t-body">
-            <h3>{service.tab}</h3>
-            <p>{service.short}</p>
-            <span className="link-arrow">
-              See details <Arrow />
-            </span>
+          <div className="fg-cards">
+            {servicesForGroup(group).map((service) => (
+              <article
+                className={`scard${serviceMenu(service).length > 6 ? " wide" : ""}`}
+                key={service.id}
+              >
+                <a className="scard-head" href={`#${service.id}`}>
+                  <h3>{service.tab}</h3>
+                  <p>{service.short}</p>
+                </a>
+                <ul className="opts">
+                  {serviceMenu(service).map((item) => (
+                    <li key={item}>
+                      <a className="opt" href={`#${service.id}`}>
+                        {item}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a className="link-arrow" href={`#${service.id}`}>
+                  More about {service.tab.toLowerCase()} <Arrow />
+                </a>
+              </article>
+            ))}
           </div>
-        </a>
+        </section>
       ))}
     </div>
   );
@@ -148,15 +173,20 @@ export function ServicePage({ service }: { service: Service }) {
       <div className="wrap">
         <div style={{ paddingTop: 20 }}>
           <nav className="svc-tabs" aria-label="Services" ref={tabsRef}>
-            {SERVICES.map((item) => (
-              <a
-                key={item.id}
-                className="chip"
-                href={`#${item.id}`}
-                aria-current={item.id === service.id ? "page" : undefined}
-              >
-                {item.tab}
-              </a>
+            {SERVICE_GROUPS.map((group) => (
+              <span className="tab-group" key={group.id}>
+                <span className="tab-label">{group.label}</span>
+                {servicesForGroup(group).map((item) => (
+                  <a
+                    key={item.id}
+                    className="chip"
+                    href={`#${item.id}`}
+                    aria-current={item.id === service.id ? "page" : undefined}
+                  >
+                    {item.tab}
+                  </a>
+                ))}
+              </span>
             ))}
           </nav>
         </div>

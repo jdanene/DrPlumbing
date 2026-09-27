@@ -56,7 +56,7 @@ describe("reference pages", () => {
       "Plumbing, heating and cooling for your home.",
     );
     expect(
-      screen.getByRole("img", { name: /high-roof Sprinter/ }),
+      screen.getByRole("img", { name: /Sprinter wrap mockup, driver side/ }),
     ).toBeDefined();
     expect(
       screen.getByText(
@@ -77,7 +77,7 @@ describe("reference pages", () => {
           .getAttribute("href"),
       ).toBe(`#${service.id}`);
     }
-    expect(main.getByText("Honest, flat-rate prices")).toBeDefined();
+    expect(main.getByText("Pricing [Confirm]")).toBeDefined();
   });
 
   it("renders each service including prose-only boiler sections", () => {
@@ -125,11 +125,11 @@ describe("reference pages", () => {
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "A family business on your street.",
     );
-    expect(screen.getByText("Honest, flat-rate prices")).toBeDefined();
-    expect(screen.getAllByText("[First name]").length).toBeGreaterThan(0);
+    expect(screen.getByText("Pricing [Confirm]")).toBeDefined();
+    expect(screen.getByText("Mehran")).toBeDefined();
     navigate("#home-area");
     expect(document.activeElement?.textContent).toBe(
-      "Serving homes from Everett to Kent.",
+      "Service area [Confirm].",
     );
     navigate("#home-reviews");
     expect(document.activeElement?.textContent).toBe("Customer reviews");
@@ -179,7 +179,7 @@ describe("shared controls", () => {
     const user = userEvent.setup();
     render(<App />);
     const button = screen.getByRole("button", {
-      name: "Services",
+      name: "Plumbing",
     });
     await user.click(button);
     expect(button.getAttribute("aria-expanded")).toBe("true");

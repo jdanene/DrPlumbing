@@ -27,6 +27,13 @@ export interface Project {
   ba?: boolean;
   shot?: string;
 }
+
+export interface ServiceGroup {
+  id: "plumbing" | "mechanical";
+  label: string;
+  blurb: string;
+  serviceIds: string[];
+}
 export const SERVICES: Service[] = [
   {
     id: "plumbing",
@@ -204,7 +211,7 @@ export const SERVICES: Service[] = [
     cta: "heating or cooling",
     short: "Furnaces, heat pumps and air conditioning.",
     photo: "Furnace or heat pump install",
-    lead: "We install, maintain and repair the systems that heat, cool and ventilate your home. Our licensed, insured technicians handle routine service and emergencies.",
+    lead: "Heating, cooling and ventilation scope awaits owner and license review before launch.",
     sections: [
       {
         heading: "What HVAC covers",
@@ -253,7 +260,7 @@ export const SERVICES: Service[] = [
     cta: "boiler",
     short: "Hydronic boiler repair, service and replacement.",
     photo: "Boiler or radiant heat job",
-    lead: "We maintain, repair and replace hydronic boilers. Our licensed technicians keep your heating system safe and running smoothly.",
+    lead: "Boiler maintenance, repair and replacement scope awaits owner and license review before launch.",
     sections: [
       {
         heading: "How a hydronic system works",
@@ -323,14 +330,56 @@ export const SERVICES: Service[] = [
     ],
   },
 ];
+
+export const SERVICE_GROUPS: ServiceGroup[] = [
+  {
+    id: "plumbing",
+    label: "Plumbing",
+    blurb: "Pipes, fixtures, water heaters, drains, sewers and water treatment.",
+    serviceIds: [
+      "plumbing",
+      "water-heaters",
+      "drain-sewer",
+      "water-filtration",
+    ],
+  },
+  {
+    id: "mechanical",
+    label: "Heating & cooling",
+    blurb: "Heating, cooling, ventilation and boiler services. [Confirm scope before launch.]",
+    serviceIds: ["heating-cooling", "boilers"],
+  },
+];
+
+/**
+ * Description: Finds the services assigned to one navigation group.
+ * Inputs: group is a catalog group whose identifiers may outlive a removed service.
+ * Output: Existing services in the group's declared order; unknown identifiers are omitted.
+ * Examples: App.test.tsx checks the Plumbing and Heating & cooling groups in the services index.
+ */
+export function servicesForGroup(group: ServiceGroup) {
+  return group.serviceIds
+    .map((id) => SERVICES.find((service) => service.id === id))
+    .filter((service): service is Service => Boolean(service));
+}
+
+/**
+ * Description: Lists the concrete jobs shown beneath a service in navigation and service cards.
+ * Inputs: service is one catalog entry; empty prose-only sections contribute no labels.
+ * Output: Unique item headings from the service's first section, in source order.
+ * Examples: App.test.tsx checks that Water heaters exposes its four job links once.
+ */
+export function serviceMenu(service: Service) {
+  return [...new Set(service.sections[0]?.items.map(([title]) => title) ?? [])];
+}
 export const VALUES = [
   [
-    "An expert team",
-    "Licensed, insured technicians with years of experience in homes like yours.",
+    "Credentials [Confirm]",
+    "Add the approved license, insurance and team credentials here.",
   ],
   [
-    "Honest, flat-rate prices",
-    "You approve the price before work starts. No unexpected fees at the end.",
+    "Pricing [Confirm]",
+    "Add the owner's approved pricing policy here.",
   ],
   [
     "We go the extra mile",

@@ -1,4 +1,4 @@
-import { CallToAction, ServiceTiles } from "./SiteContent";
+import { CallToAction, ServiceFinder } from "./SiteContent";
 
 /**
  * Description: Renders the supplied services reference as native React markup.
@@ -25,7 +25,7 @@ export default function ServicesPage() {
       </section>
       <section className="block" style={{ paddingTop: "40px" }}>
         <div className="wrap">
-          <ServiceTiles />
+          <ServiceFinder />
         </div>
       </section>
       <div className="wrap">

@@ -16,6 +16,7 @@ export function resolveRoute(hash: string) {
     "about",
     "work",
     "book",
+    "areas",
     ...HOME_ANCHORS,
     ...SERVICES.map((service) => service.id),
   ].includes(route)

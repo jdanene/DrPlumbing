@@ -19,8 +19,8 @@ export default function AboutPage() {
             </nav>
             <h1 tabIndex={-1}>A family business on your street.</h1>
             <p className="lead">
-              Dr Plumbing &amp; Heating is family owned and run from Newcastle,
-              Washington. We work in homes from Everett to Kent.
+              [Confirm the company history, business location and service area
+              before launch.]
             </p>
             <div className="cta-row">
               <a className="btn btn-primary" href="#book">
@@ -76,12 +76,10 @@ export default function AboutPage() {
               </span>
             </p>
             <p>
-              When you call, you get a straight answer and a flat-rate price
-              before we start. If I would not do it in my own house, I will not
-              recommend it for yours.
+              [Confirm the approved service and pricing promise before launch.]
             </p>
             <div className="signature">
-              <span className="sig">[First name]</span>
+              <span className="sig">Mehran</span>
               <small>Owner, Dr Plumbing &amp; Heating</small>
             </div>
           </div>
