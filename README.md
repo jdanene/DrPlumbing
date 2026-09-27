@@ -50,26 +50,34 @@ code.
 ## Contact email
 
 The browser posts to `/api/contact`. The Pages Function validates the request,
-filters a honeypot, and calls Cloudflare Email Service. It keeps the recipient
-and credentials on the server. It never logs customer details.
+filters a honeypot, and calls a private Worker through the `CONTACT_EMAIL`
+service binding. The Worker sends through Cloudflare's native `send_email`
+binding. It keeps the recipient on the server and never logs customer details.
 
 Two Cloudflare-native designs were considered:
 
-1. Call Email Service's REST API from the Pages Function. This needs two Pages
-   secrets and no second deployment.
-2. Bind Pages to a separate Worker that owns email delivery. This isolates the
-   mail transport but adds another service, binding, and deployment.
+1. Call Email Service's REST API from the Pages Function. This needs a persistent
+   account API token in the Pages project.
+2. Bind Pages to a private Worker that owns email delivery. This adds one small
+   Worker and removes stored API credentials.
 
-The site uses option 1 because it has the smaller operational interface.
+The site uses option 2. Cloudflare Pages does not support `send_email` directly,
+but it supports a private service binding to a Worker that does. Sending to a
+verified Email Routing destination is free on every Cloudflare plan.
 
 Complete these Cloudflare dashboard steps before testing real delivery:
 
-1. Onboard `drplumbingheating.com` in **Compute > Email Service > Email Sending**.
-2. Verify `drplumbinggroup@gmail.com` as an Email Routing destination address.
-3. Create an API token with the account's **Email Sending: Edit** permission.
-4. In the Pages project's encrypted secrets, set `CF_ACCOUNT_ID` and
-   `CF_EMAIL_API_TOKEN` for Production and Preview as needed.
-5. Redeploy the site, then submit one test request.
+1. Enable Email Routing for `drplumbingheating.com` under
+   **Compute > Email Service > Email Routing**.
+2. Add `drplumbinggroup@gmail.com` under **Destination Addresses**. Open the
+   verification message in Gmail and approve it.
+3. Deploy `email-worker/wrangler.jsonc`. Its `CONTACT_INBOX` binding restricts
+   delivery to `drplumbinggroup@gmail.com` and restricts the sender to
+   `website@drplumbingheating.com`.
+4. Deploy the Pages project. `wrangler.jsonc` binds `CONTACT_EMAIL` to the
+   `drplumbing-contact-email` Worker.
+5. Verify the form with a real submission only after the business owner approves
+   sending a test message.
 
-The sender is `website@drplumbingheating.com`. The server-owned recipient is
-`drplumbinggroup@gmail.com`.
+The Worker has no public route. The sender is `website@drplumbingheating.com`.
+The server-owned recipient is `drplumbinggroup@gmail.com`.

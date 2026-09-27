@@ -1,12 +1,11 @@
 import { validateBooking } from "../../src/booking";
 
-const RECIPIENT = "drplumbinggroup@gmail.com";
-const SENDER = "website@drplumbingheating.com";
 const MAX_BODY_BYTES = 8_192;
 
 interface ContactEnv {
-  CF_ACCOUNT_ID?: string;
-  CF_EMAIL_API_TOKEN?: string;
+  CONTACT_EMAIL?: {
+    fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
+  };
 }
 
 interface ContactPayload {
@@ -42,7 +41,7 @@ export function onRequest(context: PagesContext): Promise<Response> | Response {
 
 /**
  * Description: Sends one validated callback request through Cloudflare Email Service.
- * Inputs: request must be same-origin JSON; env holds the account ID and API token.
+ * Inputs: request must be same-origin JSON; env holds the private email service binding.
  * Output: JSON success, a caller-fixable 4xx response, or a retryable 5xx response.
  * Examples: A valid request returns 200; a filled honeypot returns 200 without email.
  */
@@ -51,15 +50,14 @@ export function onRequestPost(context: PagesContext): Promise<Response> {
 }
 
 /**
- * Description: Implements the contact boundary while allowing tests to replace the email transport.
- * Inputs: request and env are untrusted; send must implement the fetch interface.
+ * Description: Implements the contact boundary and delegates delivery to a private Cloudflare Worker.
+ * Inputs: request is untrusted; env must contain the CONTACT_EMAIL service binding.
  * Output: A JSON Response. It never logs or returns customer details.
- * Examples: Tests pass a fake send function and assert the server-owned recipient.
+ * Examples: Tests pass a fake service binding and assert the private request payload.
  */
 export async function handleContactRequest(
   request: Request,
   env: ContactEnv,
-  send: typeof fetch = fetch,
 ): Promise<Response> {
   const url = new URL(request.url);
   if (request.headers.get("Origin") !== url.origin) {
@@ -84,26 +82,23 @@ export async function handleContactRequest(
   if (errors.name || errors.phone) {
     return json({ ok: false, error: "Check your name and phone number." }, 400);
   }
-  if (!env.CF_ACCOUNT_ID || !env.CF_EMAIL_API_TOKEN) {
+  if (!env.CONTACT_EMAIL) {
     return json({ ok: false, error: "Email delivery is not configured." }, 503);
   }
 
-  const response = await send(
-    `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CF_ACCOUNT_ID)}/email/sending/send`,
-    {
+  let response: Response;
+  try {
+    response = await env.CONTACT_EMAIL.fetch("https://contact-email.internal/send", {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${env.CF_EMAIL_API_TOKEN}`,
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        to: [{ email: RECIPIENT, name: "Dr Plumbing & Heating" }],
-        from: { email: SENDER, name: "Dr Plumbing website" },
         subject: `Callback request: ${singleLine(payload.service) || "Not sure"}`,
         text: contactMessage(payload),
       }),
-    },
-  );
+    });
+  } catch {
+    return json({ ok: false, error: "Email delivery failed. Try again." }, 502);
+  }
   if (!response.ok) {
     return json({ ok: false, error: "Email delivery failed. Try again." }, 502);
   }

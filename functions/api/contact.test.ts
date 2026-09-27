@@ -28,58 +28,47 @@ function request(overrides: Record<string, unknown> = {}): Request {
 }
 
 describe("contact endpoint", () => {
-  it("sends a plain-text message to the server-owned addresses", async () => {
-    const send = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
-    const response = await handleContactRequest(
-      request(),
-      { CF_ACCOUNT_ID: "account", CF_EMAIL_API_TOKEN: "secret" },
-      send,
-    );
+  it("sends plain text through the private service binding", async () => {
+    const fetch = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
+    const response = await handleContactRequest(request(), {
+      CONTACT_EMAIL: { fetch },
+    });
 
     expect(response.status).toBe(200);
-    expect(send).toHaveBeenCalledOnce();
-    const [url, init] = send.mock.calls[0];
-    expect(url).toContain("/accounts/account/email/sending/send");
-    expect(init.headers.Authorization).toBe("Bearer secret");
+    expect(fetch).toHaveBeenCalledOnce();
+    const [url, init] = fetch.mock.calls[0];
+    expect(url).toBe("https://contact-email.internal/send");
     const body = JSON.parse(init.body);
-    expect(body.to[0].email).toBe("drplumbinggroup@gmail.com");
-    expect(body.from.email).toBe("website@drplumbingheating.com");
     expect(body.text).toContain("Details: No heat <script>");
-    expect(body.html).toBeUndefined();
+    expect(body.subject).toBe("Callback request: Boilers");
   });
 
   it("rejects invalid customer data before calling the provider", async () => {
-    const send = vi.fn();
+    const fetch = vi.fn();
     const response = await handleContactRequest(
       request({ name: "", phone: "letters" }),
-      { CF_ACCOUNT_ID: "account", CF_EMAIL_API_TOKEN: "secret" },
-      send,
+      { CONTACT_EMAIL: { fetch } },
     );
     expect(response.status).toBe(400);
-    expect(send).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
   });
 
   it("absorbs honeypot submissions without sending customer data", async () => {
-    const send = vi.fn();
+    const fetch = vi.fn();
     const response = await handleContactRequest(
       request({ companyWebsite: "https://spam.example" }),
-      {},
-      send,
+      { CONTACT_EMAIL: { fetch } },
     );
     expect(response.status).toBe(200);
-    expect(send).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
   });
 
   it("reports missing configuration and upstream failure", async () => {
     expect((await handleContactRequest(request(), {})).status).toBe(503);
-    const send = vi.fn().mockResolvedValue(new Response("failure", { status: 500 }));
+    const fetch = vi.fn().mockResolvedValue(new Response("failure", { status: 500 }));
     expect(
       (
-        await handleContactRequest(
-          request(),
-          { CF_ACCOUNT_ID: "account", CF_EMAIL_API_TOKEN: "secret" },
-          send,
-        )
+        await handleContactRequest(request(), { CONTACT_EMAIL: { fetch } })
       ).status,
     ).toBe(502);
   });
