@@ -143,7 +143,7 @@ export default function SiteShell({
       </a>
       <aside className="review-note">
         Design preview · Business claims, reviews, and service areas await owner
-        approval. Email delivery requires the documented Cloudflare setup.
+        approval.
       </aside>
       <div className="topbar">
         <div className="wrap">
