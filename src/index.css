@@ -1745,6 +1745,10 @@ fieldset.field {
   .hero-contact .contact-hint {
     display: none;
   }
+  .view[data-view="service"] .cta-row,
+  .view[data-view="services"] .cta-row {
+    display: none;
+  }
   .hero-service-nav {
     display: block;
   }
