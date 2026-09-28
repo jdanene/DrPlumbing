@@ -1,10 +1,11 @@
+import { routeHref } from "./sitePaths";
 import { useState } from "react";
-import { PROJECTS, SERVICES } from "./content";
+import { PROJECTS } from "./content";
 import { CallToAction, Camera } from "./SiteContent";
 
 /**
  * Description: Lets reviewers filter the mockup's project-photo slots without inventing completed jobs.
- * Inputs: None; categories derive from the service catalog.
+ * Inputs: None; filters use the project categories from the supplied mockup.
  * Output: Nine placeholder cards or the selected category; filters retain keyboard focus.
  * Examples: App.test.tsx filters water heaters, boilers, and All, checking the visible card count.
  */
@@ -18,7 +19,7 @@ export default function WorkPage() {
       <section className="block" style={{ paddingTop: "clamp(32px,5vw,64px)" }}>
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="#home">Home</a>
+            <a href={routeHref("home")}>Home</a>
             <span>/</span>
             <span>Our work</span>
           </nav>
@@ -37,7 +38,7 @@ export default function WorkPage() {
             job.
           </p>
           <div className="chips" role="group" aria-label="Filter projects">
-            {["All", ...SERVICES.map((service) => service.tab)].map((value) => (
+            {["All", "Plumbing", "Water heaters", "Drain & sewer", "Water filtration", "Heating & cooling", "Boilers"].map((value) => (
               <button
                 className="chip"
                 type="button"

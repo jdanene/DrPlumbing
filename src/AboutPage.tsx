@@ -1,8 +1,17 @@
-import { CallToAction, Values } from "./SiteContent";
+import { routeHref } from "./sitePaths";
+import { CallToAction } from "./SiteContent";
+
+const ABOUT_VALUES = [
+  ["Expert team", "Our expert team goes above and beyond to ensure you have the best customer experience possible. We work with the same precision and care from start to finish, regardless of the size of the job. Whether you need a quick drain cleaning or a comprehensive re-piping, we have you covered. You can be confident that we will complete the repair or installation and have your home back in working order in no time."],
+  ["Homeowners like you have put their trust in us.", "Enjoy the peace of mind that comes from working with a reputable plumber. Our HomeAdvisor trust certification ensures that you can have faith in the technician who enters your home. We take pride in hiring only the most professional, dependable technicians who are dedicated to providing the highest level of quality in everything they do. When you select Dr Plumbing & Heating, you are selecting the quality that you deserve."],
+  ["Sincere, flat-rate pricing", "With our flat-rate pricing, you always know what to expect before we begin service. Enjoy peace of mind knowing that there will be no unexpected fees or charges at the end."],
+  ["Go the extra mile", "We understand you have many options for plumbing services, but we believe we are your best option. When you choose us, we express our gratitude by going above and beyond to ensure a flawless experience."],
+  ["Our top priority is your safety.", "We understand how important it is to have a safe and comfortable home. If your plumbing is in disrepair or improperly installed, it can expose your home to hazards and contamination. That is why we have come! Our professional technicians are well-versed in the most up-to-date methods and equipment. You can relax knowing that you are getting the safest and most effective plumbing installations and repairs."],
+] as const;
 
 /**
  * Description: Renders the supplied About reference as native React markup.
- * Inputs: None; all business copy remains a review draft.
+ * Inputs: None; the supplied mockup defines the business copy.
  * Output: The reference page with real links and explicit photo placeholders.
  * Examples: App.test.tsx verifies this page's heading and shared links.
  */
@@ -13,7 +22,7 @@ export default function AboutPage() {
         <div className="wrap about-hero">
           <div className="copy">
             <nav className="crumbs" aria-label="Breadcrumb">
-              <a href="#home">Home</a>
+              <a href={routeHref("home")}>Home</a>
               <span>/</span>
               <span>About us</span>
             </nav>
@@ -23,10 +32,10 @@ export default function AboutPage() {
               Washington. We work in homes from Everett to Federal Way.
             </p>
             <div className="cta-row">
-              <a className="btn btn-primary" href="#book">
+              <a className="btn btn-primary" href={routeHref("book")}>
                 Book a visit
               </a>
-              <a className="btn btn-outline" href="#services">
+              <a className="btn btn-outline" href={routeHref("services")}>
                 See services
               </a>
             </div>
@@ -87,7 +96,14 @@ export default function AboutPage() {
         <div className="wrap">
           <div className="why">
             <h2 className="h2">Why choose us?</h2>
-            <Values />
+            <div className="why-intro">
+              {ABOUT_VALUES.map(([title, copy]) => (
+                <div key={title}>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

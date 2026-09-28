@@ -1,11 +1,24 @@
+import { routeHref } from "./sitePaths";
 import { CITIES, PLUMBING_LICENSE, SERVICE_AREA_MAP_URL } from "./content";
 import { CallToAction, ServiceFinder, Values } from "./SiteContent";
 
+const COMMON_QUESTIONS = [
+  ["What areas do you serve?", "Homes from Everett to Federal Way, including Seattle, Bellevue, Renton, Redmond, Sammamish, Issaquah, Bothell, Lynnwood and Shoreline. We're based in Seattle. See Areas We Serve for the full list."],
+  ["Are you licensed and insured?", `Yes. We are licensed, bonded and insured in Washington (plumbing contractor license ${PLUMBING_LICENSE.number}) and HomeAdvisor certified.`],
+  ["How does your pricing work?", "We charge flat rates. You approve the price before we start, and you pay no surprise fees."],
+  ["Do you offer emergency service?", "Yes, for heating and cooling. If your heat or air conditioning fails, call (206) 671-8888."],
+  ["Should I choose a tank or a tankless water heater?", "A tank stores hot water until you need it. A tankless unit heats water on demand, so several people can use hot water at once without waiting. We size the unit to how your household uses hot water."],
+  ["Is a heat pump water heater worth it?", "It moves heat from the air into the water, so it uses far less electricity than a standard electric tank. It costs more up front, but lower bills and rebates help offset the cost."],
+  ["What is hydronic heating?", "A hydronic system heats your home with hot water. A boiler heats the water, pipes carry it to radiators, baseboards or radiant floors, and a pump returns it to be heated again. The heat is even and quiet, and each zone can have its own thermostat."],
+  ["How often should my boiler be serviced?", "Once a year. An annual service catches problems early and keeps your boiler safe and efficient. Call sooner if you notice uneven heat, strange noises, leaks, low pressure or rising energy bills."],
+  ["When do I need hydro jetting?", "When more than one drain is clogged, sewage backs up, your main line drains slowly or your drains smell. We inspect the line first and tell you whether hydro jetting is the right fix."],
+] as const;
+
 /**
- * Description: Renders the supplied home reference as native React markup.
- * Inputs: None; all business copy remains a review draft.
- * Output: The reference page with real links, current van artwork, and explicit photo placeholders.
- * Examples: App.test.tsx verifies the heading, van art, service groups, and shared links.
+ * Description: Presents the supplied home design with its service finder and customer education.
+ * Inputs: None; business details come from the site catalog and reviewed home copy.
+ * Output: A homepage with service links, contact actions, and the current van artwork.
+ * Examples: App.test.tsx checks the hero service link, all nine FAQs, van, and service groups.
  */
 export default function HomePage() {
   return (
@@ -27,13 +40,17 @@ export default function HomePage() {
               </p>
               <div className="hero-contact">
                 <div className="cta-row">
-                  <a className="btn btn-primary" href="#book">
-                    Book a visit
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                  <a className="btn btn-primary" href={routeHref("home-services")}>
+                    Find your service
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
                   </a>
-                  <a className="btn btn-outline" href="tel:2066718888">Call (206) 671-8888</a>
+                  <a className="btn btn-outline" href="tel:2066718888">
+                    Call (206) 671-8888
+                  </a>
                 </div>
-                <p className="contact-hint">You can text us, too.</p>
+                <a className="contact-hint" href="sms:+12066718888">
+                  You can <span>text us</span>, too.
+                </a>
               </div>
             </div>
           </div>
@@ -386,7 +403,7 @@ export default function HomePage() {
             </div>
             <a
               className="btn btn-outline"
-              href="#about"
+              href={routeHref("about")}
               style={{ alignSelf: "flex-start" }}
             >
               Read our story
@@ -422,7 +439,7 @@ export default function HomePage() {
             </p>
             <a
               className="btn btn-light"
-              href="#book"
+              href={routeHref("book")}
               style={{ alignSelf: "flex-start" }}
             >
               Book a visit
@@ -438,7 +455,7 @@ export default function HomePage() {
               <div className="eyebrow">Our work</div>
               <h2 className="h2">Recent jobs in local homes.</h2>
             </div>
-            <a className="btn btn-outline" href="#work">
+            <a className="btn btn-outline" href={routeHref("work")}>
               See all projects
             </a>
           </div>
@@ -481,6 +498,16 @@ export default function HomePage() {
         <div className="wrap">
           <div className="why">
             <h2 className="h2">Why homeowners call Dr Plumbing.</h2>
+            <div className="why-intro">
+              <div>
+                <h3>Hire a professional</h3>
+                <p>Doing it yourself is tempting, but a do-it-yourself drain repair can cause more damage. Our plumbers are ready to help, and we bring the same care to every job, large or small.</p>
+              </div>
+              <div>
+                <h3>Experienced technicians</h3>
+                <p>Experience matters. Cooking for a family of four or managing a staff of twenty gets easier with practice, and so does work on a home. A technician must know a wide range of products, materials and equipment, and have the skill to use them. We hire only experienced technicians.</p>
+              </div>
+            </div>
             <Values />
           </div>
         </div>
@@ -555,6 +582,7 @@ export default function HomePage() {
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
             />
+            <a className="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Seattle%2C%20WA" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
           </div>
         </div>
       </section>
@@ -563,33 +591,19 @@ export default function HomePage() {
         <div className="wrap faq">
           <div className="f-head">
             <div className="eyebrow">FAQ</div>
-            <h2 className="h2">Before you request a visit.</h2>
+            <h2 className="h2">Common questions.</h2>
             <p className="lead">
-              Call or text <b>(206) 671-8888</b> if the problem cannot wait.
+              Don't see your question?
+              <a className="faq-phone" href="tel:2066718888">Call <b>(206) 671-8888</b>.</a>
             </p>
           </div>
           <div className="f-list">
-            <details className="faq-item">
-              <summary>What should I include in my request?</summary>
-              <p>
-                Tell us what you see, when it started and the best time to call.
-                We will contact you to confirm the next step.
-              </p>
-            </details>
-            <details className="faq-item">
-              <summary>Does the online form book an appointment?</summary>
-              <p>
-                No. It sends a callback request. We will call you to confirm
-                availability and timing.
-              </p>
-            </details>
-            <details className="faq-item">
-              <summary>Can I call or text instead?</summary>
-              <p>
-                Yes. <a href="tel:2066718888">Call</a> or{" "}
-                <a href="sms:+12066718888">text</a> (206) 671-8888.
-              </p>
-            </details>
+            {COMMON_QUESTIONS.map(([question, answer]) => (
+              <details className="faq-item" key={question}>
+                <summary>{question}</summary>
+                <p>{answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

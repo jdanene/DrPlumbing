@@ -1,5 +1,7 @@
 export type BookingErrors = { name?: string; phone?: string };
 
+export const URGENCY_OPTIONS = ["Today", "In the next few days", "Flexible"] as const;
+
 /**
  * Description: Rejects missing names and phone numbers that cannot support a callback.
  * Inputs: name and phone are untrusted form text; formatting spaces and punctuation are allowed.

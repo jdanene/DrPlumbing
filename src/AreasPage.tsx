@@ -1,3 +1,4 @@
+import { routeHref } from "./sitePaths";
 import { CITIES, SERVICE_AREA_MAP_URL, SERVICE_GROUPS, servicesForGroup } from "./content";
 import { CallToAction } from "./SiteContent";
 
@@ -13,9 +14,9 @@ export default function AreasPage() {
       <section className="block areas-page">
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="#home">Home</a>
+            <a href={routeHref("home")}>Home</a>
             <span>/</span>
-            <span>Service area</span>
+            <span>Areas we serve</span>
           </nav>
           <h1 tabIndex={-1}>Areas we serve</h1>
           <p className="lead">
@@ -37,6 +38,7 @@ export default function AreasPage() {
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
               />
+              <a className="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Seattle%2C%20WA" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
             </div>
           </div>
           <div className="area-services">
@@ -47,7 +49,7 @@ export default function AreasPage() {
                   <h3 className="tab-label">{group.label}</h3>
                   <div className="area-service-links">
                     {servicesForGroup(group).map((service) => (
-                      <a className="chip" href={`#${service.id}`} key={service.id}>{service.tab}</a>
+                      <a className="chip" href={routeHref(service.id)} key={service.id}>{service.tab}</a>
                     ))}
                   </div>
                 </div>

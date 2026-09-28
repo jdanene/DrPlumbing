@@ -1,7 +1,7 @@
 # DrPlumbing
 
-React and TypeScript website built with Vite. The public build remains a draft
-until the owner approves the business details and launch copy.
+React and TypeScript website built with Vite. The build prerenders each page as
+static HTML for Cloudflare Pages. React supplies the menus, filters, and form.
 
 ## View locally
 
@@ -20,14 +20,17 @@ you save a file. Stop the server with `Ctrl-C`.
 ## Check and build
 
 ```sh
-npm run check
+npm run build
 npm run preview
 ```
 
-`check` runs Oxlint, component smoke tests, TypeScript checks, and a production
-build. Vite writes the static site to `dist/`; `preview` serves that build at the
-address it prints. Local Vite servers do not run Cloudflare Pages Functions, so
-test contact-email delivery on a Cloudflare preview deployment.
+`build` checks TypeScript and writes the complete static site to `dist/`.
+`preview` serves that build at the address it prints. Neither command runs tests.
+The optional `npm run check` also runs Oxlint and automated tests.
+
+Local Vite servers do not run Cloudflare Pages Functions or apply Cloudflare's
+`_headers` and `_redirects`. Check contact-email delivery and redirect/header
+rules on a Cloudflare preview deployment.
 
 ## Design mockup
 
@@ -39,7 +42,8 @@ The clickable mockups live in `design/mockups/`. See
 - Confirm any remaining bracketed facts with the owner.
 - Test contact-email delivery with the owner.
 - Add owner-supplied project photos. Keep sourced reviews and service areas.
-- Remove `noindex, nofollow` from `index.html` only after approval.
+- Check the production HTML and response headers permit indexing. Preview
+  deployments must remain `noindex`.
 
 `CLAUDE.md` holds the shared agent instructions. `AGENTS.md` links to it.
 See [project context](../PROJECT_CONTEXT.md) for software decisions and source links.
@@ -50,7 +54,7 @@ Cloudflare Pages is connected to this GitHub repository. It runs `npm run build`
 and serves `dist/`. Confirm that **main** is the production branch under
 **Workers & Pages > [project] > Settings > Builds > Branch control**.
 
-1. Run `npm run check` locally. Commit the change on a branch and push it:
+1. Run `npm run build` and review the site locally. Commit the change on a branch and push it:
 
    ```sh
    git push -u origin HEAD
@@ -70,6 +74,48 @@ deployments must include your branch. Git-connected deployment needs no API key.
 Never place API secrets in browser code. See
 [Cloudflare's Git integration guide](https://developers.cloudflare.com/pages/configuration/git-integration/)
 for branch and deployment controls.
+
+## Search indexing and page addresses
+
+`npm run build` creates a page for every main route, service category and
+service detail in the catalog. Each response contains the page's
+full content, title, description, canonical URL, social tags, and business
+schema before JavaScript runs. Service pages also include service and breadcrumb
+schema. Business facts come from the current site; no review count, street
+address, hours, or coordinates are invented.
+
+For example, `/water-heaters/gas-water-heaters/` is a real page. Navigation still
+accepts old links such as `/#water-heaters/gas-water-heaters`, then updates the
+address bar. Homepage anchors such as `/#home-faq` and service section anchors
+stay supported. Unknown paths receive Cloudflare's 404 response instead of a
+homepage with a success status.
+
+The build generates `/robots.txt` and `/sitemap.xml` for
+`https://drplumbingheating.com`. Submit the sitemap through the owner's Search
+Console after deployment; generating it does not submit it or guarantee ranking.
+
+Development HTML remains `noindex`. The production build permits indexing on
+the registered domain. Host-specific `_headers` rules block both `*.pages.dev`
+and branch-preview URLs from indexing without blocking the registered domain.
+For a preview on another public host, build with `SITE_NOINDEX=1 npm run build`.
+Rebuild without that variable before promoting to production.
+
+`_redirects` maps the legacy Wix paths to existing pages on this site. Moving
+traffic from `mbphg.com` still requires redirects on the old domain; this code
+does not control that account.
+
+The URL map lives in `src/sitePaths.ts`; metadata lives in `src/seo.ts`; the
+static publisher lives in `scripts/prerender.mjs`. We chose static rendering of
+the existing React components over metadata-only client rendering: crawlers get
+the complete page without waiting for JavaScript. No server or new framework is
+required. Deploy only `dist/`; `dist-ssr/` is a build tool, not a server to host.
+
+Service descriptions live in `src/content.ts` and `src/serviceDetails.ts`.
+The latter preserves the approved mockup's detail pages and cites the owner's
+original `mbphg.com` pages for added explanations. A detail whose title matches
+a catalog option becomes that option's destination. Every detail enters the
+static build and sitemap automatically; its summary supplies search metadata
+unless `src/seo.ts` has a specific override.
 
 ## Contact email
 
