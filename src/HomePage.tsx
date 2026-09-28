@@ -1,6 +1,6 @@
 import { routeHref } from "./sitePaths";
-import { CITIES, PLUMBING_LICENSE, SERVICE_AREA_MAP_URL } from "./content";
-import { CallToAction, ServiceFinder, Values } from "./SiteContent";
+import { CITIES, PLUMBING_LICENSE, SERVICE_AREA_MAP_URL, SERVICES } from "./content";
+import { Arrow, CallToAction, ServiceFinder, Values } from "./SiteContent";
 
 const COMMON_QUESTIONS = [
   ["What areas do you serve?", "Homes from Everett to Federal Way, including Seattle, Bellevue, Renton, Redmond, Sammamish, Issaquah, Bothell, Lynnwood and Shoreline. We're based in Seattle. See Areas We Serve for the full list."],
@@ -51,6 +51,19 @@ export default function HomePage() {
                 <a className="contact-hint" href="sms:+12066718888">
                   You can <span>text us</span>, too.
                 </a>
+                <nav className="hero-service-nav" aria-label="Choose a service">
+                  <h2>Find your service</h2>
+                  <ul>
+                    {SERVICES.map((service) => (
+                      <li key={service.id}>
+                        <a href={routeHref(service.id)}>
+                          <span>{service.tab}</span>
+                          <Arrow />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
