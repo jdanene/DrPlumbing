@@ -117,6 +117,24 @@ a catalog option becomes that option's destination. Every detail enters the
 static build and sitemap automatically; its summary supplies search metadata
 unless `src/seo.ts` has a specific override.
 
+## Brand assets by surface
+
+Keep the transparent website lockup for the page header and footer. Shared links
+and small icons use opaque light backgrounds so the black lettering stays visible
+in light and dark apps. All variants use the approved DR mark.
+
+| Surface | SVG source | Production export |
+| --- | --- | --- |
+| Link previews, including messages | `public/brand/dr-social-card-v1.svg` | `public/brand/dr-social-card-v1.png` (1200 × 630) |
+| Business logo in structured data | `public/brand/dr-brand-mark.svg` | `public/brand/dr-brand-mark.png` (512 × 512) |
+| Browser and search icons | `public/brand/dr-brand-mark.svg` | `public/brand/dr-favicon-48.png` (48 × 48), `public/brand/dr-favicon-96.png` (96 × 96), `public/favicon.ico` (16, 32, 48) |
+| iPhone home-screen icon | `public/brand/dr-brand-mark.svg` | `public/apple-touch-icon.png` (180 × 180) |
+
+Export PNGs with an opaque `#F7F5F1` background. Keep the square SVG and its PNG
+together in the shared assets folder. The social-card version appears in its URL;
+increment it when replacing the image. Messaging apps control their own crops,
+text display, and caches, so an old message may retain its old preview.
+
 ## Contact email
 
 The browser posts to `/api/contact`. The Pages Function validates the request,
