@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   SERVICES,
   SERVICE_GROUPS,
+  PLUMBING_LICENSE,
+  BUSINESS_NAME,
   serviceMenu,
   servicesForGroup,
 } from "./content";
@@ -14,19 +16,15 @@ const pageLinks = [
 ];
 
 /**
- * Description: Presents the approved DR mark with accessible, editable brand text.
+ * Description: Presents the approved DR logo as one complete lockup.
  * Inputs: onDark selects the footer treatment without changing the source artwork.
- * Output: A linked logo lockup that reads Dr Plumbing & Heating.
+ * Output: One DR mark with Plumbing, Heating & Cooling beside it.
  * Examples: App.test.tsx checks both header and footer links retain the home destination.
  */
 function BrandLogo({ onDark = false }: { onDark?: boolean }) {
   return (
     <span className={`brand-lockup${onDark ? " on-dark" : ""}`}>
-      <img src="/brand/dr-mark.svg" alt="" width="52" height="46" />
-      <span className="brand-words">
-        <b>DR</b>
-        <span>Plumbing &amp; Heating</span>
-      </span>
+      <img src="/brand/dr-logo.png" alt="" width="180" height="46" />
     </span>
   );
 }
@@ -50,9 +48,9 @@ export default function SiteShell({
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem("dr-plumbing-theme");
-      return saved === "dark" || saved === "light" ? saved : "system";
+      return saved === "dark" || saved === "light" || saved === "system" ? saved : "dark";
     } catch {
-      return "system";
+      return "dark";
     }
   });
   const headerRef = useRef<HTMLElement>(null);
@@ -155,7 +153,7 @@ export default function SiteShell({
           <a
             className="logo"
             href="#home"
-            aria-label="Dr Plumbing and Heating, home"
+            aria-label="Dr Plumbing, Heating and Cooling, home"
             tabIndex={drawerOpen ? -1 : undefined}
           >
             <BrandLogo />
@@ -219,7 +217,7 @@ export default function SiteShell({
                       <a className="link-arrow" href="#services">
                         All services <Arrow />
                       </a>
-                      <span>Not sure what you need? Call (206) 671-8888.</span>
+                      <span>Not sure what you need? Call or text (206) 671-8888.</span>
                     </div>
                   </div>
                 </div>
@@ -236,12 +234,6 @@ export default function SiteShell({
             ))}
           </nav>
           <div className="header-actions">
-            <a className="btn btn-outline" href="tel:2066718888">
-              (206) 671-8888
-            </a>
-            <a className="btn btn-primary" href="#book">
-              Book a visit
-            </a>
             <a
               className="call-icon"
               href="tel:2066718888"
@@ -336,10 +328,12 @@ export default function SiteShell({
           <a href="#home-faq">FAQ</a>
         </div>
         <div className="drawer-phone">
-          <span className="muted">Call us</span>
-          <a href="tel:2066718888">
-            <b>(206) 671-8888</b>
-          </a>
+          <span className="muted">Call or text</span>
+          <b>(206) 671-8888</b>
+          <div className="contact-options">
+            <a href="tel:2066718888">Call</a>
+            <a href="sms:+12066718888">Text</a>
+          </div>
         </div>
       </nav>
       <div inert={drawerOpen}>
@@ -353,11 +347,11 @@ export default function SiteShell({
                 <a
                   className="logo on-dark"
                   href="#home"
-                  aria-label="Dr Plumbing and Heating, home"
+                  aria-label="Dr Plumbing, Heating and Cooling, home"
                 >
                   <BrandLogo onDark />
                 </a>
-                <p>[Confirm business location and service area.]</p>
+                <p>Family owned and run from Seattle, Washington.</p>
               </div>
               <div>
                 <h3>Services</h3>
@@ -392,6 +386,7 @@ export default function SiteShell({
                 <h3>Contact</h3>
                 <ul>
                   <li
+                    className="footer-phone"
                     style={{
                       color: "var(--band-ink)",
                       fontWeight: 700,
@@ -405,13 +400,17 @@ export default function SiteShell({
                       drplumbinggroup@gmail.com
                     </a>
                   </li>
-                  <li>[HOURS]</li>
-                  <li>WA Contractor Lic. [LICENSE #]</li>
+                  <li>Seattle, WA</li>
+                  <li>
+                    <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
+                      WA plumbing contractor lic. {PLUMBING_LICENSE.number}
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
             <div className="foot-base">
-              <span>© 2026 Dr Plumbing &amp; Heating LLC</span>
+              <span>© 2026 {BUSINESS_NAME}</span>
               <label className="theme-control">
                 Appearance{" "}
                 <select
@@ -424,10 +423,7 @@ export default function SiteShell({
                   <option value="dark">Dark</option>
                 </select>
               </label>
-              <span>
-                Licensed · Bonded · Insured{" "}
-                <span className="draft-label">[Confirm]</span>
-              </span>
+              <span>WA residential plumbing contractor</span>
             </div>
           </div>
         </footer>
@@ -447,6 +443,9 @@ export default function SiteShell({
               <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" />
             </svg>
             Call
+          </a>
+          <a className="btn btn-outline" href="sms:+12066718888">
+            Text
           </a>
           <a className="btn btn-primary" href="#book">
             Book a visit

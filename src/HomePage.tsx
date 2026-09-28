@@ -1,3 +1,4 @@
+import { CITIES, PLUMBING_LICENSE, SERVICE_AREA_MAP_URL } from "./content";
 import { CallToAction, ServiceFinder, Values } from "./SiteContent";
 
 /**
@@ -13,36 +14,26 @@ export default function HomePage() {
         <div className="wrap">
           <div className="hero-grid">
             <div className="h-text">
-              <div className="eyebrow">Residential plumbing &amp; heating</div>
+              <div className="eyebrow">Licensed technicians in the Greater Seattle, WA area</div>
               <h1 tabIndex={-1}>
-                Plumbing, heating and cooling for your home.
+                Plumbing, heating and cooling for homes from Everett to Federal Way.
               </h1>
+              <div className="creds"><span className="yrs">26+ years in the trade</span><span>Licensed, bonded &amp; insured</span><span>Family owned in Seattle</span><span>5.0 ★ on Google</span></div>
             </div>
             <div className="h-side">
               <p className="lead">
-                We fix leaks, replace water heaters and keep home systems
-                running.
+                We fix leaks, replace water heaters and keep your heat running.
+                You approve a flat-rate price before we start.
               </p>
-              <div className="cta-row">
-                <a className="btn btn-primary" href="#book">
-                  Book a visit
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </a>
-                <a className="btn btn-outline" href="#services">
-                  See services
-                </a>
+              <div className="hero-contact">
+                <div className="cta-row">
+                  <a className="btn btn-primary" href="#book">
+                    Book a visit
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                  </a>
+                  <a className="btn btn-outline" href="tel:2066718888">Call (206) 671-8888</a>
+                </div>
+                <p className="contact-hint">You can text us, too.</p>
               </div>
             </div>
           </div>
@@ -66,15 +57,13 @@ export default function HomePage() {
                 </svg>
               </div>
               <div>
-                <b>Pricing policy [Confirm]</b>
-                <span>
-                  Add the owner's approved pricing promise here.
-                </span>
+                <b>Flat-rate pricing</b>
+                <span>The price you approve is the price you pay.</span>
               </div>
             </div>
             <img
               className="stage-img"
-              src="/van/dr-sprinter-side.jpg"
+              src="/van/dr-sprinter-side-v9.jpg"
               alt="Dr Plumbing, Heating and Cooling Mercedes-Benz Sprinter wrap mockup, driver side"
               width="1619"
               height="971"
@@ -233,7 +222,7 @@ export default function HomePage() {
                 fill="#17252B"
                 opacity="0.7"
               >
-                Lic. [WA LICENSE #]
+                Lic. {PLUMBING_LICENSE.number}
               </text>
               <circle cx="190" cy="346" r="46" fill="#1E2426" />
               <circle cx="190" cy="346" r="25" fill="#A7AFB2" />
@@ -260,7 +249,7 @@ export default function HomePage() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <path d="M9 12l2 2 4-4" />
               </svg>
-              License and insurance [Confirm]
+              Flat-rate pricing
             </div>
             <div>
               <svg
@@ -276,7 +265,7 @@ export default function HomePage() {
               >
                 <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />
               </svg>
-              Business location [Confirm]
+              Family owned in Seattle
             </div>
             <div>
               <svg
@@ -293,7 +282,7 @@ export default function HomePage() {
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 7v5l3 2" />
               </svg>
-              Emergency service [Confirm]
+              Emergency HVAC service
             </div>
             <div>
               <svg
@@ -309,7 +298,7 @@ export default function HomePage() {
               >
                 <path d="M12 2l3 6.3 7 1-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7-1z" />
               </svg>
-              Directory profiles [Confirm]
+              HomeAdvisor certified
             </div>
           </div>
         </div>
@@ -327,10 +316,28 @@ export default function HomePage() {
               <h2 className="h2">What do you need help with?</h2>
             </div>
             <p className="lead" style={{ maxWidth: "380px" }}>
-              Pick a service to see what we do and how we price it.
+              Pick a service to see what we do.
             </p>
           </div>
           <ServiceFinder />
+        </div>
+      </section>
+
+      <section className="brands" aria-label="Brands we service">
+        <div className="wrap">
+          <p className="brands-title">Brands we service</p>
+          <ul className="brand-row">
+            {[
+              "Rheem",
+              "A. O. Smith",
+              "Bradford White",
+              "Navien",
+              "Rinnai",
+              "Carrier",
+              "Trane",
+              "Mitsubishi Electric",
+            ].map((brand) => <li key={brand}>{brand}</li>)}
+          </ul>
         </div>
       </section>
 
@@ -365,10 +372,9 @@ export default function HomePage() {
               Hi, I'm Mehran.
             </h2>
             <p className="lead">
-              I started Dr Plumbing &amp; Heating to give local families the
-              service I would want in my own home. My family and I live in{" "}
-              <span className="fill">[City]</span>, so the homes we work on
-              belong to our neighbors.
+              I started Dr Plumbing &amp; Heating to give families the service I
+              want in my own home. My family lives in Seattle. The homes we work
+              on belong to our neighbors.
             </p>
             <p className="lead">
               When you call, you get a straight answer, a fair price and a
@@ -393,14 +399,14 @@ export default function HomePage() {
         <div className="wrap van-band">
           <div className="shots">
             <img
-              src="/van/dr-sprinter-opposite-side.jpg"
+              src="/van/dr-sprinter-opposite-side-v9.jpg"
               alt="Dr Plumbing, Heating and Cooling Sprinter wrap mockup, passenger side"
               width="1619"
               height="971"
               loading="lazy"
             />
             <img
-              src="/van/dr-sprinter-rear.jpg"
+              src="/van/dr-sprinter-rear-v9.jpg"
               alt="Dr Plumbing, Heating and Cooling Sprinter wrap mockup, rear doors"
               width="1620"
               height="971"
@@ -411,8 +417,8 @@ export default function HomePage() {
             <div className="eyebrow">On your street</div>
             <h2 className="h2">Look for the Dr Plumbing van.</h2>
             <p className="lead">
-              [Confirm the approved promise for arrival, credentials, home
-              protection and pricing before launch.]
+              Our van in your driveway means a licensed, insured technician at
+              your door. We explain the problem and the price before we start.
             </p>
             <a
               className="btn btn-light"
@@ -495,24 +501,33 @@ export default function HomePage() {
             >
               <path d="M0 44V26C0 11 8 2 22 0l2 6c-8 2-12 7-12 14h10v24zm32 0V26C32 11 40 2 54 0l2 6c-8 2-12 7-12 14h10v24z" />
             </svg>
-            <blockquote>[Approved customer review]</blockquote>
+            <blockquote>
+              Honestly, I’ve never seen such dedication and service. They fixed
+              every problem we had.
+            </blockquote>
             <figcaption>
-              <span className="avatar">N</span>
+              <span className="avatar" aria-hidden="true">G</span>
               <span>
-                <b>[First name]</b>
+                <b>Google review</b>
                 <br />
-                <span className="muted">Homeowner · [City]</span>
+                <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
               </span>
             </figcaption>
           </figure>
           <div className="slots">
-            <div className="slot">
-              <b>[Review #2 from Google or HomeAdvisor]</b>
-              <span className="muted">Short quote, first name, city</span>
+            <div className="rev-card">
+              <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
+              <blockquote>
+                Mohammed is awesome, fast and professional. Very on top of his craft.
+              </blockquote>
+              <span className="muted">Google review</span>
             </div>
-            <div className="slot">
-              <b>[Review #3 from Google or HomeAdvisor]</b>
-              <span className="muted">Short quote, first name, city</span>
+            <div className="rev-rating">
+              <b>5.0 ★</b>
+              <span className="muted">Rating on Google</span>
+              <a className="link-arrow" href="https://share.google/1MNxAAukRtLZXNZlW" target="_blank" rel="noopener noreferrer">
+                Read all reviews on Google
+              </a>
             </div>
           </div>
         </div>
@@ -524,33 +539,22 @@ export default function HomePage() {
             style={{ display: "flex", flexDirection: "column", gap: "18px" }}
           >
             <div className="eyebrow">Service area</div>
-            <h2 className="h2">Service area [Confirm].</h2>
+            <h2 className="h2">We serve homes from Everett to Federal Way.</h2>
             <p className="lead">
-              Add the approved business location and exact cities served. Until
-              then, call us to confirm an address.
+              We're based in Seattle and serve the greater Seattle area and the
+              Eastside.
             </p>
-            <p className="fill">[Approved city list]</p>
+            <ul className="cities">
+              {CITIES.map((city) => <li key={city}>{city}</li>)}
+            </ul>
           </div>
-          <div
-            className="ph"
-            style={{ aspectRatio: "1/1", maxHeight: "520px" }}
-          >
-            <svg
-              width="36"
-              height="36"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z" />
-              <path d="M9 4v14M15 6v14" />
-            </svg>
-            <b>MAP: Approved service area</b>
-            <small>Replace after the owner confirms the territory.</small>
+          <div className="map-card">
+            <iframe
+              title="Map of Seattle, Washington"
+              src={SERVICE_AREA_MAP_URL}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
           </div>
         </div>
       </section>
@@ -561,7 +565,7 @@ export default function HomePage() {
             <div className="eyebrow">FAQ</div>
             <h2 className="h2">Before you request a visit.</h2>
             <p className="lead">
-              Call <b>(206) 671-8888</b> if the problem cannot wait.
+              Call or text <b>(206) 671-8888</b> if the problem cannot wait.
             </p>
           </div>
           <div className="f-list">
@@ -580,10 +584,10 @@ export default function HomePage() {
               </p>
             </details>
             <details className="faq-item">
-              <summary>Can I call instead?</summary>
+              <summary>Can I call or text instead?</summary>
               <p>
-                Yes. Call (206) 671-8888, or email
-                drplumbinggroup@gmail.com.
+                Yes. <a href="tel:2066718888">Call</a> or{" "}
+                <a href="sms:+12066718888">text</a> (206) 671-8888.
               </p>
             </details>
           </div>

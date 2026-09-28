@@ -97,11 +97,18 @@ export default function BookingPage({ service }: { service?: string }) {
         <div className="intro">
           <nav className="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a><span>/</span><span>Book a visit</span></nav>
           <h1 tabIndex={-1}>Book a visit.</h1>
-          <p className="lead">Tell us what is going on. We will call you to confirm a time. This form requests a callback; it does not book an appointment.</p>
-          <div className="drawer-phone" style={{ marginTop: 4 }}><span className="muted">Prefer to talk? Call us.</span><a href="tel:2066718888"><b>(206) 671-8888</b></a></div>
+          <p className="lead">Tell us what is going on. We will call or text you to confirm a time and give you a flat-rate price before work starts.</p>
+          <div className="drawer-phone" style={{ marginTop: 4 }}>
+            <span className="muted">Call or text</span>
+            <b>(206) 671-8888</b>
+            <div className="contact-options">
+              <a href="tel:2066718888">Call</a>
+              <a href="sms:+12066718888">Text</a>
+            </div>
+          </div>
         </div>
         <div className="panel">
-          <form id="bookForm" noValidate onSubmit={sendRequest} hidden={sendState === "sent"} aria-describedby="booking-help booking-status">
+          <form id="bookForm" noValidate onSubmit={sendRequest} hidden={sendState === "sent"} aria-describedby="booking-status">
             <div className="two">
               <div className={`field${errors.name ? " bad" : ""}`}>
                 <label htmlFor="bName">Your name</label>
@@ -115,15 +122,14 @@ export default function BookingPage({ service }: { service?: string }) {
               </div>
             </div>
             <div className="two">
-              <div className="field"><label htmlFor="bCity">City</label><select id="bCity" name="city" defaultValue="Newcastle">{CITIES.map((city) => <option key={city}>{city}</option>)}<option>Other / not sure</option></select></div>
+              <div className="field"><label htmlFor="bCity">City</label><select id="bCity" name="city" defaultValue="Seattle">{CITIES.map((city) => <option key={city}>{city}</option>)}<option>Other / not sure</option></select></div>
               <div className="field"><label htmlFor="bService">Service</label><select id="bService" name="service" defaultValue={selectedService}>{SERVICES.map((item) => <option key={item.id}>{item.tab}</option>)}<option>Not sure</option></select></div>
             </div>
             <div className="field"><label htmlFor="bMsg">What is going on?</label><textarea id="bMsg" name="message" maxLength={2000} placeholder="Example: water heater is leaking from the bottom" /></div>
             <fieldset className="field"><legend>Best time to reach you</legend><div className="times">{["Morning", "Afternoon", "Evening"].map((time) => <label key={time}><input type="radio" name="time" value={time} defaultChecked={time === "Morning"} /> {time}</label>)}</div></fieldset>
             <div className="contact-trap" aria-hidden="true"><label htmlFor="companyWebsite">Leave this field blank</label><input id="companyWebsite" name="companyWebsite" type="text" tabIndex={-1} autoComplete="off" /></div>
             <button className="btn btn-primary" type="submit" disabled={sendState === "sending"} style={{ width: "100%" }}>{sendState === "sending" ? "Sending request…" : "Send request"}</button>
-            <p className="demo-note" id="booking-help">Your request goes to drplumbinggroup@gmail.com. We use it only to return your call.</p>
-            <p className={`form-status${sendState === "error" ? " is-error" : ""}`} id="booking-status" role={sendState === "error" ? "alert" : "status"}>{sendState === "error" ? "We could not send your request. Try again, or call (206) 671-8888." : sendState === "sending" ? "Sending your request…" : ""}</p>
+            <p className={`form-status${sendState === "error" ? " is-error" : ""}`} id="booking-status" role={sendState === "error" ? "alert" : "status"}>{sendState === "error" ? "We could not send your request. Try again, or call or text (206) 671-8888." : sendState === "sending" ? "Sending your request…" : ""}</p>
           </form>
           {sendState === "sent" && summary && <Success summary={summary} headingRef={successRef} onReset={() => { setSendState("idle"); setSummary(null); formStartedAt.current = Date.now(); nameRef.current?.focus(); }} />}
         </div>
@@ -142,7 +148,7 @@ function Success({ summary, headingRef, onReset }: { summary: [string, string][]
   return <div className="done">
     <div className="ok" aria-hidden="true">✓</div>
     <h2 ref={headingRef} tabIndex={-1} style={{ fontSize: 34, fontWeight: 800 }}>Request sent.</h2>
-    <p className="muted">Dr Plumbing &amp; Heating received your callback request. We will contact you to confirm the next step.</p>
+    <p className="muted">We received your request. We will call or text you to confirm a time.</p>
     <dl className="summary">{summary.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     <div className="cta-row" style={{ width: "100%" }}><button className="btn btn-outline" type="button" onClick={onReset}>Send another request</button><a className="btn btn-primary" href="#home">Back to home</a></div>
   </div>;

@@ -33,8 +33,8 @@ export default function WorkPage() {
             Real jobs in real homes.
           </h1>
           <p className="lead" style={{ maxWidth: 640, marginBottom: 28 }}>
-            Project-photo placeholders. Replace these with approved Dr Plumbing
-            &amp; Heating jobs before launch.
+            Every photo here is a Dr Plumbing &amp; Heating project, taken on the
+            job.
           </p>
           <div className="chips" role="group" aria-label="Filter projects">
             {["All", ...SERVICES.map((service) => service.tab)].map((value) => (

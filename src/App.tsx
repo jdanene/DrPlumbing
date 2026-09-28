@@ -46,7 +46,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.title = `${service?.title ?? (route === "home" || HOME_ANCHORS.includes(route) ? "Residential plumbing & heating" : route.charAt(0).toUpperCase() + route.slice(1))} — Dr Plumbing & Heating`;
+    document.title = route === "home" || HOME_ANCHORS.includes(route)
+      ? "Dr Plumbing & Heating | Greater Seattle Area"
+      : `${service?.title ?? route.charAt(0).toUpperCase() + route.slice(1)} — Dr Plumbing & Heating`;
     if (HOME_ANCHORS.includes(route)) {
       const target = document.getElementById(route);
       target?.scrollIntoView({ block: "start", behavior: "instant" });

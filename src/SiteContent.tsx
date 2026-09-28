@@ -69,8 +69,8 @@ export function CallToAction({ title }: { title: string }) {
       <div>
         <h2>{title}</h2>
         <p>
-          Call <span className="phone-text">(206) 671-8888</span> or send a
-          request online. We will confirm the next step.
+          Call or text <span className="phone-text">(206) 671-8888</span>, or
+          send a request online. We will confirm the next step.
         </p>
       </div>
       <div className="cta-row">
@@ -79,6 +79,9 @@ export function CallToAction({ title }: { title: string }) {
         </a>
         <a className="btn btn-ghost-light" href="tel:2066718888">
           Call now
+        </a>
+        <a className="btn btn-ghost-light" href="sms:+12066718888">
+          Text us
         </a>
       </div>
     </div>

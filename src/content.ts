@@ -34,6 +34,23 @@ export interface ServiceGroup {
   blurb: string;
   serviceIds: string[];
 }
+
+/**
+ * Description: Identifies the active residential plumbing contractor record published by Washington L&I.
+ * Inputs: None; L&I is the source for the number, specialty, and registered business name.
+ * Output: The public record used wherever the site states a plumbing license.
+ * Examples: The footer links DRPLUPH740ND to the matching L&I record.
+ */
+export const PLUMBING_LICENSE = {
+  number: "DRPLUPH740ND",
+  registeredName: "Dr Plumbing & Heating Grp LLC",
+  url: "https://secure.lni.wa.gov/verify/Detail.aspx?UBI=604661707&LIC=DRPLUPH740ND&SAW=",
+} as const;
+
+export const BUSINESS_NAME = "Dr Plumbing & Heating Group LLC";
+
+export const SERVICE_AREA_MAP_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d172153.33373691145!2d-122.33979794999999!3d47.608715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5490102c93e83355%3A0x102565466944d59a!2sSeattle%2C%20WA!5e0!3m2!1sen!2sus!4v1790569958307!5m2!1sen!2sus";
+
 export const SERVICES: Service[] = [
   {
     id: "plumbing",
@@ -211,7 +228,7 @@ export const SERVICES: Service[] = [
     cta: "heating or cooling",
     short: "Furnaces, heat pumps and air conditioning.",
     photo: "Furnace or heat pump install",
-    lead: "Heating, cooling and ventilation scope awaits owner and license review before launch.",
+    lead: "We install, maintain and repair the systems that heat, cool and ventilate your home. Our licensed, insured technicians handle routine service and emergencies.",
     sections: [
       {
         heading: "What HVAC covers",
@@ -260,7 +277,7 @@ export const SERVICES: Service[] = [
     cta: "boiler",
     short: "Hydronic boiler repair, service and replacement.",
     photo: "Boiler or radiant heat job",
-    lead: "Boiler maintenance, repair and replacement scope awaits owner and license review before launch.",
+    lead: "We maintain, repair and replace hydronic boilers. Our licensed technicians keep your heating system safe and running smoothly.",
     sections: [
       {
         heading: "How a hydronic system works",
@@ -346,7 +363,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
   {
     id: "mechanical",
     label: "Heating & cooling",
-    blurb: "Heating, cooling, ventilation and boiler services. [Confirm scope before launch.]",
+    blurb: "Heating, cooling, ventilation and boiler services.",
     serviceIds: ["heating-cooling", "boilers"],
   },
 ];
@@ -373,22 +390,10 @@ export function serviceMenu(service: Service) {
   return [...new Set(service.sections[0]?.items.map(([title]) => title) ?? [])];
 }
 export const VALUES = [
-  [
-    "Credentials [Confirm]",
-    "Add the approved license, insurance and team credentials here.",
-  ],
-  [
-    "Pricing [Confirm]",
-    "Add the owner's approved pricing policy here.",
-  ],
-  [
-    "We go the extra mile",
-    "We explain what we found and what it takes to fix it, in plain terms.",
-  ],
-  [
-    "Safety comes first",
-    "Gas lines, boilers and water heaters are done to code, every time.",
-  ],
+  ["Flat-rate prices", "You approve the price before we start. No surprise fees."],
+  ["Plain answers", "We explain what we found and how to fix it."],
+  ["Safety first", "We install gas lines, boilers and water heaters to code, every time."],
+  ["Care for your home", "We treat your house the way we treat our own."],
 ];
 export const CITIES = [
   "Auburn",
@@ -400,6 +405,7 @@ export const CITIES = [
   "East Hill-Meridian",
   "Edmonds",
   "Everett",
+  "Federal Way",
   "Issaquah",
   "Kent",
   "Lake Stevens",
@@ -409,7 +415,6 @@ export const CITIES = [
   "Mill Creek",
   "Mountlake Terrace",
   "Mukilteo",
-  "Newcastle",
   "Redmond",
   "Renton",
   "Sammamish",
