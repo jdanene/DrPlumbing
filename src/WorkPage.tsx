@@ -6,7 +6,7 @@ import { CallToAction, Camera } from "./SiteContent";
 /**
  * Description: Lets reviewers filter the mockup's project-photo slots without inventing completed jobs.
  * Inputs: None; filters use the project categories from the supplied mockup.
- * Output: Nine placeholder cards or the selected category; filters retain keyboard focus.
+ * Output: Project-photo placeholders or the selected category; filters retain keyboard focus.
  * Examples: App.test.tsx filters water heaters, boilers, and All, checking the visible card count.
  */
 export default function WorkPage() {
