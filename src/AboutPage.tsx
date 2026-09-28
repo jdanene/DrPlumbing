@@ -19,8 +19,8 @@ export default function AboutPage() {
             </nav>
             <h1 tabIndex={-1}>A family business on your street.</h1>
             <p className="lead">
-              [Confirm the company history, business location and service area
-              before launch.]
+              Dr Plumbing &amp; Heating is family owned and run from Seattle,
+              Washington. We work in homes from Everett to Federal Way.
             </p>
             <div className="cta-row">
               <a className="btn btn-primary" href="#book">
@@ -63,20 +63,17 @@ export default function AboutPage() {
             <div className="eyebrow">A note from the owner</div>
             <h2 className="h2">Why I started Dr Plumbing &amp; Heating.</h2>
             <p>
-              I have worked in plumbing and heating for{" "}
-              <span className="fill">[number]</span> years. In{" "}
+              I have worked in plumbing and heating for 26+ years. In{" "}
               <span className="fill">[year]</span>, I started my own company to
               do honest work at a fair price.
             </p>
             <p>
-              My family and I live in <span className="fill">[City]</span>.{" "}
-              <span className="fill">
-                [One or two sentences about your family: who they are and what
-                you do together.]
-              </span>
+              My family and I live in Seattle.
             </p>
             <p>
-              [Confirm the approved service and pricing promise before launch.]
+              When you call, you get a straight answer and a flat-rate price
+              before we start. If I would not do it in my own house, I will
+              not recommend it for yours.
             </p>
             <div className="signature">
               <span className="sig">Mehran</span>
@@ -89,7 +86,7 @@ export default function AboutPage() {
       <section className="block" style={{ paddingTop: "0" }}>
         <div className="wrap">
           <div className="why">
-            <h2 className="h2">What we stand for.</h2>
+            <h2 className="h2">Why choose us?</h2>
             <Values />
           </div>
         </div>

@@ -10,7 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { SERVICES } from "./content";
+import { SERVICE_AREA_MAP_URL, SERVICES } from "./content";
 import { resolveRoute } from "./routes";
 
 beforeEach(() => {
@@ -53,16 +53,24 @@ describe("reference pages", () => {
   it("keeps the hero, van, values, and service tiles without preview labels", () => {
     render(<App />);
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Plumbing, heating and cooling for your home.",
+      "Plumbing, heating and cooling for homes from Everett to Federal Way.",
     );
     expect(
       screen.getByRole("img", { name: /Sprinter wrap mockup, driver side/ }),
     ).toBeDefined();
     expect(screen.queryByText(/Design preview/)).toBeNull();
     expect(screen.queryByText(/Van wrap concept/)).toBeNull();
-    expect(document.title).not.toMatch(/Design preview/);
-    expect(screen.getByText(/© 2026 Dr Plumbing & Heating LLC/)).toBeDefined();
-    expect(screen.queryByText(/Heating Group LLC/)).toBeNull();
+    expect(document.title).toBe("Dr Plumbing & Heating | Greater Seattle Area");
+    for (const logo of screen.getAllByRole("link", { name: "Dr Plumbing, Heating and Cooling, home" })) {
+      expect(logo.querySelectorAll('img[src="/brand/dr-logo.png"]')).toHaveLength(1);
+      expect(logo.textContent?.trim()).toBe("");
+    }
+    expect(screen.getByText(/© 2026 Dr Plumbing & Heating Group LLC/)).toBeDefined();
+    expect(screen.getByText(/WA plumbing contractor lic. DRPLUPH740ND/)).toBeDefined();
+    expect(screen.getByText("Brands we service")).toBeDefined();
+    for (const brand of ["Rheem", "A. O. Smith", "Bradford White", "Navien", "Rinnai", "Carrier", "Trane", "Mitsubishi Electric"]) {
+      expect(within(screen.getByRole("region", { name: "Brands we service" })).getByText(brand)).toBeDefined();
+    }
     const main = within(screen.getByRole("main"));
     for (const service of SERVICES) {
       expect(
@@ -75,7 +83,7 @@ describe("reference pages", () => {
           .getAttribute("href"),
       ).toBe(`#${service.id}`);
     }
-    expect(main.getByText("Pricing [Confirm]")).toBeDefined();
+    expect(main.getByText("Flat-rate prices")).toBeDefined();
   });
 
   it("renders each service including prose-only boiler sections", () => {
@@ -123,17 +131,19 @@ describe("reference pages", () => {
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "A family business on your street.",
     );
-    expect(screen.getByText("Pricing [Confirm]")).toBeDefined();
+    expect(screen.getByText("Flat-rate prices")).toBeDefined();
     expect(screen.getByText("Mehran")).toBeDefined();
     navigate("#home-area");
-    expect(document.activeElement?.textContent).toBe(
-      "Service area [Confirm].",
-    );
+    const area = document.getElementById("home-area");
+    expect(document.activeElement).toBe(area?.querySelector("h2"));
+    expect(within(area!).getByRole("heading", { name: "We serve homes from Everett to Federal Way." })).toBeDefined();
+    expect(within(area!).getByTitle("Map of Seattle, Washington").getAttribute("src")).toBe(SERVICE_AREA_MAP_URL);
+    expect(area?.textContent).toContain("Federal Way");
     navigate("#home-reviews");
     expect(document.activeElement?.textContent).toBe("Customer reviews");
     navigate("#not-real");
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Plumbing, heating and cooling for your home.",
+      "Plumbing, heating and cooling for homes from Everett to Federal Way.",
     );
   });
 
@@ -210,7 +220,9 @@ describe("shared controls", () => {
 
   it("saves light and dark selection and supports the system setting", () => {
     render(<App />);
-    const select = screen.getByLabelText("Appearance");
+    const select = screen.getByLabelText("Appearance") as HTMLSelectElement;
+    expect(select.value).toBe("dark");
+    expect(document.documentElement.dataset.theme).toBe("dark");
     fireEvent.change(select, { target: { value: "dark" } });
     expect(document.documentElement.dataset.theme).toBe("dark");
     expect(localStorage.getItem("dr-plumbing-theme")).toBe("dark");

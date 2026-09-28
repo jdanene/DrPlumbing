@@ -1,0 +1,8 @@
+Google service-area map
+
+- For now, both website pages embed Google's Seattle city map. This map is not tied to a personal Google account. It does not highlight the full business service area.
+- When the business Google account is available, create a Google My Maps map owned by dr.plumbinggroup@gmail.com.
+- Import design/service-area/dr-service-area.kml. It contains one continuous Everett-to-Federal-Way service-area shape.
+- Check the map against the approved city list with Mehran. The current shape is a visual corridor, not a legal service boundary. Some listed places lie beyond Everett or Federal Way.
+- Share the business-owned map for public viewing. Confirm the embed shows no personal name or profile.
+- Replace the Seattle iframe on both the homepage and Service Area page with that business-owned map, then test desktop and mobile before deployment.
