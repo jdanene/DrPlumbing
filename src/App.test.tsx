@@ -50,7 +50,7 @@ describe("routes", () => {
 });
 
 describe("reference pages", () => {
-  it("keeps the original hero, van, values, service tiles, and clear draft notice", () => {
+  it("keeps the hero, van, values, and service tiles without preview labels", () => {
     render(<App />);
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "Plumbing, heating and cooling for your home.",
@@ -58,11 +58,9 @@ describe("reference pages", () => {
     expect(
       screen.getByRole("img", { name: /Sprinter wrap mockup, driver side/ }),
     ).toBeDefined();
-    expect(
-      screen.getByText(
-        /Business claims, reviews, and service areas await owner approval/,
-      ),
-    ).toBeDefined();
+    expect(screen.queryByText(/Design preview/)).toBeNull();
+    expect(screen.queryByText(/Van wrap concept/)).toBeNull();
+    expect(document.title).not.toMatch(/Design preview/);
     expect(screen.getByText(/© 2026 Dr Plumbing & Heating LLC/)).toBeDefined();
     expect(screen.queryByText(/Heating Group LLC/)).toBeNull();
     const main = within(screen.getByRole("main"));

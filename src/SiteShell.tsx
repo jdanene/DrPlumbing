@@ -32,7 +32,7 @@ function BrandLogo({ onDark = false }: { onDark?: boolean }) {
 }
 
 /**
- * Description: Provides the shared brand, responsive navigation, theme, and draft disclosure.
+ * Description: Provides the shared brand, responsive navigation, and theme.
  * Inputs: route is the active hash destination; children is the current page.
  * Output: Header, accessible menus, page content, footer, and mobile contact links.
  * Examples: App.test.tsx opens and dismisses menus, follows links, and changes the saved theme.
@@ -141,16 +141,6 @@ export default function SiteShell({
       >
         Skip to content
       </a>
-      <aside className="review-note">
-        Design preview · Business claims, reviews, and service areas await owner
-        approval.
-      </aside>
-      <div className="topbar">
-        <div className="wrap">
-          <span>Dr Plumbing &amp; Heating · Residential website preview</span>
-          <span className="t-right">Owner approval required before launch</span>
-        </div>
-      </div>
       <header
         className="site-header"
         ref={headerRef}

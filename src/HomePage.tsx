@@ -21,8 +21,7 @@ export default function HomePage() {
             <div className="h-side">
               <p className="lead">
                 We fix leaks, replace water heaters and keep home systems
-                running. [Confirm credentials, service area and pricing before
-                launch.]
+                running.
               </p>
               <div className="cta-row">
                 <a className="btn btn-primary" href="#book">
@@ -243,9 +242,6 @@ export default function HomePage() {
               <circle cx="800" cy="346" r="25" fill="#A7AFB2" />
               <circle cx="800" cy="346" r="8" fill="#1E2426" />
             </svg>
-            <span className="caption">
-              Van wrap concept · Mercedes-Benz Sprinter
-            </span>
           </div>
 
           <div className="trust">
