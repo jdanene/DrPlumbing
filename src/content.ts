@@ -565,6 +565,11 @@ export const PROJECTS: Project[] = [
     shot: "Crew and equipment in the yard",
   },
   {
+    cat: "Drain & sewer",
+    title: "Trenchless sewer line",
+    shot: "Sewer line or drain job",
+  },
+  {
     cat: "Water filtration",
     title: "Whole-house water softener",
     shot: "Softener setup in garage",
