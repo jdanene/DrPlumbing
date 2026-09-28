@@ -1,3 +1,4 @@
+import { routeHref } from "./sitePaths";
 import { useEffect, useRef } from "react";
 import {
   SERVICES,
@@ -7,6 +8,13 @@ import {
   servicesForGroup,
   type Service,
 } from "./content";
+import {
+  SERVICE_DETAILS,
+  serviceDetailFor,
+  serviceDetailSlug,
+  serviceOptionHref,
+  type ServiceDetail,
+} from "./serviceDetails";
 
 /**
  * Description: Marks a missing project photograph with the reference's camera symbol.
@@ -58,10 +66,10 @@ export function Arrow() {
 }
 
 /**
- * Description: Provides the shared contact invitation from the reference design.
+ * Description: Provides the approved contact invitation from the live site.
  * Inputs: title names the problem or service being discussed.
- * Output: Booking-preview and phone links; it never submits a request.
- * Examples: App.test.tsx checks the services invitation links to #book.
+ * Output: Booking, calling, and texting links with the next-step message.
+ * Examples: SiteShell.test.tsx verifies the message and all three contact choices.
  */
 export function CallToAction({ title }: { title: string }) {
   return (
@@ -74,7 +82,7 @@ export function CallToAction({ title }: { title: string }) {
         </p>
       </div>
       <div className="cta-row">
-        <a className="btn btn-light" href="#book">
+        <a className="btn btn-light" href={routeHref("book")}>
           Book a visit
         </a>
         <a className="btn btn-ghost-light" href="tel:2066718888">
@@ -109,20 +117,20 @@ export function ServiceFinder() {
                 className={`scard${serviceMenu(service).length > 6 ? " wide" : ""}`}
                 key={service.id}
               >
-                <a className="scard-head" href={`#${service.id}`}>
+                <a className="scard-head" href={routeHref(service.id)}>
                   <h3>{service.tab}</h3>
                   <p>{service.short}</p>
                 </a>
                 <ul className="opts">
                   {serviceMenu(service).map((item) => (
                     <li key={item}>
-                      <a className="opt" href={`#${service.id}`}>
+                      <a className="opt" href={serviceOptionHref(service.id, item)}>
                         {item}
                       </a>
                     </li>
                   ))}
                 </ul>
-                <a className="link-arrow" href={`#${service.id}`}>
+                <a className="link-arrow" href={routeHref(service.id)}>
                   More about {service.tab.toLowerCase()} <Arrow />
                 </a>
               </article>
@@ -155,11 +163,20 @@ export function Values() {
 
 /**
  * Description: Renders every service through one layout so service changes stay in the catalog.
- * Inputs: service is a catalog entry, including an optional empty item list for prose sections.
- * Output: Service navigation, heading, details, related services, and booking links.
- * Examples: App.test.tsx checks all six headings and the boiler's prose-only section.
+ * Inputs: service is the parent catalog entry; detail optionally selects its source subservice page.
+ * Output: The source layout, complete educational sections, contextual navigation, and booking links.
+ * Examples: ServiceDetails.test.tsx checks all detail pages, prose-only sections, sibling links, and booking context.
  */
-export function ServicePage({ service }: { service: Service }) {
+export function ServicePage({
+  service,
+  detail,
+}: {
+  service: Service;
+  detail?: ServiceDetail;
+}) {
+  const page = detail ?? service;
+  const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
+  const relatedHeading = detail ? `More in ${service.tab}` : "Other services";
   const tabsRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const tabs = tabsRef.current;
@@ -183,7 +200,7 @@ export function ServicePage({ service }: { service: Service }) {
                   <a
                     key={item.id}
                     className="chip"
-                    href={`#${item.id}`}
+                    href={routeHref(item.id)}
                     aria-current={item.id === service.id ? "page" : undefined}
                   >
                     {item.tab}
@@ -196,16 +213,24 @@ export function ServicePage({ service }: { service: Service }) {
         <section className="svc-hero">
           <div className="copy">
             <nav className="crumbs" aria-label="Breadcrumb">
-              <a href="#home">Home</a>
+              <a href={routeHref("home")}>Home</a>
               <span>/</span>
-              <a href="#services">Services</a>
+              <a href={routeHref("services")}>{group?.label ?? "Services"}</a>
               <span>/</span>
-              <span>{service.tab}</span>
+              {detail ? (
+                <>
+                  <a href={routeHref(service.id)}>{service.tab}</a>
+                  <span>/</span>
+                  <span>{detail.item}</span>
+                </>
+              ) : (
+                <span>{service.tab}</span>
+              )}
             </nav>
-            <h1 tabIndex={-1}>{service.title}</h1>
-            <p className="lead">{service.lead}</p>
+            <h1 tabIndex={-1}>{detail?.item ?? service.title}</h1>
+            {(page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
             <div className="cta-row">
-              <a className="btn btn-primary" href="#book">
+              <a className="btn btn-primary" href={routeHref("book")}>
                 Book a visit
               </a>
               <a className="btn btn-outline" href="tel:2066718888">
@@ -215,62 +240,114 @@ export function ServicePage({ service }: { service: Service }) {
           </div>
           <div className="ph">
             <Camera />
-            <b>PHOTO: {service.photo}</b>
+            <b>PHOTO: {page.photo}</b>
           </div>
         </section>
-        {service.sections.map((section) => (
-          <section className="svc-sec" key={section.heading}>
-            <div className="s-head">
-              <h2>{section.heading}</h2>
-              {section.items.length > 0 && section.intro && (
-                <p>{section.intro}</p>
+        {page.sections.map((section, sectionIndex) => {
+          const items = section.items ?? [];
+          const headIntro = (items.length > 0 || section.paras) && section.intro;
+          return (
+            <section
+              className="svc-sec"
+              id={section.heading ? serviceDetailSlug(section.heading) : undefined}
+              key={section.heading ?? sectionIndex}
+            >
+              {(section.heading || headIntro) && (
+                <div className="s-head">
+                  {section.heading && <h2>{section.heading}</h2>}
+                  {headIntro && <p>{headIntro}</p>}
+                </div>
               )}
-            </div>
-            <div className="s-body">
-              {section.items.length === 0 ? (
-                <p>{section.intro}</p>
-              ) : (
-                <ul
-                  className="items"
-                  style={{
-                    gridTemplateColumns: `repeat(${section.cols ?? 2},minmax(0,1fr))`,
-                  }}
-                >
-                  {section.items.map(([title, copy], index) => (
-                    <li key={title}>
-                      {section.numbered ? (
-                        <span className="num">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      ) : section.check ? (
-                        <span className="chk" aria-hidden="true">
-                          ✓
-                        </span>
-                      ) : null}
-                      <div>
-                        <h3>{title}</h3>
-                        {copy && <p>{copy}</p>}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </section>
-        ))}
+              <div className="s-body">
+                {sectionIndex === 0 && page.summary && page.lead && <p>{page.lead}</p>}
+                {section.paras?.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                {items.length > 0 ? (
+                  <ul
+                    className="items"
+                    style={{
+                      gridTemplateColumns: `repeat(${section.cols ?? 2},minmax(0,1fr))`,
+                    }}
+                  >
+                    {items.map(([title, copy], index) => (
+                      <li id={serviceDetailSlug(title)} key={title}>
+                        {section.numbered ? (
+                          <span className="num">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                        ) : section.check ? (
+                          <svg
+                            className="chk"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M5 12l5 5L20 7" />
+                          </svg>
+                        ) : null}
+                        <div>
+                          <h3>{title}</h3>
+                          {copy && <p>{copy}</p>}
+                          {!detail && (serviceDetailFor(service.id, title) || service.optionTargets?.[title]) && (
+                            <a
+                              className="link-arrow"
+                              href={serviceOptionHref(service.id, title)}
+                              aria-label={`Read more about ${title}`}
+                            >
+                              Read more<span className="sr-only"> about {title}</span> <Arrow />
+                            </a>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : !section.paras && section.intro ? (
+                  <p>{section.intro}</p>
+                ) : null}
+                {section.after?.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </section>
+          );
+        })}
         <div className="other">
-          <h2>Other services</h2>
-          <nav className="svc-tabs" aria-label="Other services">
-            {SERVICES.filter((item) => item.id !== service.id).map((item) => (
-              <a className="chip" href={`#${item.id}`} key={item.id}>
-                {item.tab}
-              </a>
-            ))}
+          <h2>{relatedHeading}</h2>
+          <nav className="svc-tabs" aria-label={relatedHeading}>
+            {detail ? (
+              <>
+                {(SERVICE_DETAILS[service.id] ?? [])
+                  .filter((item) => item !== detail)
+                  .map((item) => (
+                    <a
+                      className="chip"
+                      href={serviceOptionHref(service.id, item.item)}
+                      key={item.item}
+                    >
+                      {item.item}
+                    </a>
+                  ))}
+                <a className="chip" href={routeHref(service.id)}>See all</a>
+              </>
+            ) : (
+              SERVICES.filter((item) => item.id !== service.id).map((item) => (
+                <a className="chip" href={routeHref(item.id)} key={item.id}>
+                  {item.tab}
+                </a>
+              ))
+            )}
           </nav>
         </div>
       </div>
       <div className="wrap" style={{ marginTop: 48 }}>
-        <CallToAction title={`Talk to us about your ${service.cta}.`} />
+        <CallToAction title={`Talk to us about your ${page.cta}.`} />
       </div>
     </div>
   );

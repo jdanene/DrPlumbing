@@ -1,4 +1,4 @@
-import { validateBooking } from "../../src/booking";
+import { URGENCY_OPTIONS, validateBooking } from "../../src/booking";
 
 const MAX_BODY_BYTES = 8_192;
 
@@ -13,6 +13,7 @@ interface ContactPayload {
   phone: string;
   city: string;
   service: string;
+  urgency: string;
   time: string;
   message: string;
   companyWebsite: string;
@@ -92,7 +93,7 @@ export async function handleContactRequest(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        subject: `Callback request: ${singleLine(payload.service) || "Not sure"}`,
+        subject: `${payload.urgency === "Today" ? "TODAY: " : ""}Callback request: ${singleLine(payload.service) || "Not sure"}`,
         text: contactMessage(payload),
       }),
     });
@@ -132,6 +133,7 @@ async function parsePayload(request: Request): Promise<ContactPayload | null> {
   const phone = text("phone", 32);
   const city = text("city", 80);
   const service = text("service", 80);
+  const urgency = text("urgency", 40);
   const time = text("time", 40);
   const message = text("message", 2_000);
   const companyWebsite = text("companyWebsite", 200);
@@ -140,6 +142,8 @@ async function parsePayload(request: Request): Promise<ContactPayload | null> {
     phone === null ||
     city === null ||
     service === null ||
+    urgency === null ||
+    (urgency !== "" && !URGENCY_OPTIONS.some((option) => option === urgency)) ||
     time === null ||
     message === null ||
     companyWebsite === null ||
@@ -153,6 +157,7 @@ async function parsePayload(request: Request): Promise<ContactPayload | null> {
     phone,
     city,
     service,
+    urgency,
     time,
     message,
     companyWebsite,
@@ -174,6 +179,7 @@ function contactMessage(payload: ContactPayload): string {
     `Phone: ${singleLine(payload.phone)}`,
     `City: ${singleLine(payload.city) || "Not provided"}`,
     `Service: ${singleLine(payload.service) || "Not sure"}`,
+    `How soon: ${payload.urgency || "Not specified"}`,
     `Best time: ${singleLine(payload.time) || "Not provided"}`,
     "",
     `Details: ${payload.message || "Not provided"}`,

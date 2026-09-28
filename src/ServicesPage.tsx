@@ -1,3 +1,4 @@
+import { routeHref } from "./sitePaths";
 import { CallToAction, ServiceFinder } from "./SiteContent";
 
 /**
@@ -12,11 +13,11 @@ export default function ServicesPage() {
       <section className="svc-index">
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
-            <a href="#home">Home</a>
+            <a href={routeHref("home")}>Home</a>
             <span>/</span>
             <span>Services</span>
           </nav>
-          <h1 tabIndex={-1}>Our services</h1>
+          <h1 tabIndex={-1}>Plumbing, heating &amp; cooling services</h1>
           <p className="lead" style={{ maxWidth: "640px" }}>
             Choose a service to see what we do. Not sure what you need? Call us
             and describe the problem.

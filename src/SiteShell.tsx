@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { routeHref } from "./sitePaths";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  SERVICES,
   SERVICE_GROUPS,
   PLUMBING_LICENSE,
   BUSINESS_NAME,
@@ -8,6 +8,7 @@ import {
   servicesForGroup,
 } from "./content";
 import { Arrow } from "./SiteContent";
+import { serviceOptionHref } from "./serviceDetails";
 
 const pageLinks = [
   ["work", "Our Work"],
@@ -31,7 +32,7 @@ function BrandLogo({ onDark = false }: { onDark?: boolean }) {
 
 /**
  * Description: Provides the shared brand, responsive navigation, and theme.
- * Inputs: route is the active hash destination; children is the current page.
+ * Inputs: route is the active page or homepage section; children is the current page.
  * Output: Header, accessible menus, page content, footer, and mobile contact links.
  * Examples: App.test.tsx opens and dismisses menus, follows links, and changes the saved theme.
  */
@@ -57,6 +58,11 @@ export default function SiteShell({
   const navigationRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setDrawerOpen(false);
+    setOpenGroup(null);
+  }, [route]);
 
   useEffect(() => {
     if (theme === "system") delete document.documentElement.dataset.theme;
@@ -143,7 +149,7 @@ export default function SiteShell({
         className="site-header"
         ref={headerRef}
         onClick={(event) => {
-          if ((event.target as Element).closest('a[href^="#"]')) {
+          if ((event.target as Element).closest('a[href^="/"]')) {
             setOpenGroup(null);
             setDrawerOpen(false);
           }
@@ -152,7 +158,7 @@ export default function SiteShell({
         <div className="wrap">
           <a
             className="logo"
-            href="#home"
+            href={routeHref("home")}
             aria-label="Dr Plumbing, Heating and Cooling, home"
             tabIndex={drawerOpen ? -1 : undefined}
           >
@@ -161,7 +167,7 @@ export default function SiteShell({
           <nav className="main-nav" aria-label="Main" ref={navigationRef}>
             {SERVICE_GROUPS.map((group) => {
               const active = servicesForGroup(group).some(
-                (service) => service.id === route,
+                (service) => service.id === route.split("/")[0],
               );
               const panelId = `${group.id}-menu`;
               return (
@@ -200,21 +206,21 @@ export default function SiteShell({
                   >
                     {servicesForGroup(group).map((service) => (
                       <div className="mm-col" key={service.id}>
-                        <a className="mm-head" href={`#${service.id}`}>
+                        <a className="mm-head" href={routeHref(service.id)}>
                           <b>{service.tab}</b>
                           <span>{service.short}</span>
                         </a>
                         <ul>
                           {serviceMenu(service).map((item) => (
                             <li key={item}>
-                              <a href={`#${service.id}`}>{item}</a>
+                              <a href={serviceOptionHref(service.id, item)}>{item}</a>
                             </li>
                           ))}
                         </ul>
                       </div>
                     ))}
                     <div className="mm-foot">
-                      <a className="link-arrow" href="#services">
+                      <a className="link-arrow" href={routeHref("services")}>
                         All services <Arrow />
                       </a>
                       <span>Not sure what you need? Call or text (206) 671-8888.</span>
@@ -225,7 +231,7 @@ export default function SiteShell({
             })}
             {pageLinks.map(([id, label]) => (
               <a
-                href={`#${id}`}
+                href={routeHref(id)}
                 key={id}
                 aria-current={route === id ? "page" : undefined}
               >
@@ -307,7 +313,7 @@ export default function SiteShell({
             <div className="drawer-service-group" key={group.id}>
               <h3 className="drawer-group">{group.label}</h3>
               {servicesForGroup(group).map((service) => (
-                <a href={`#${service.id}`} key={service.id}>
+                <a href={routeHref(service.id)} key={service.id}>
                   <span>
                     <b>{service.tab}</b>
                     <small>{service.short}</small>
@@ -319,13 +325,13 @@ export default function SiteShell({
           ))}
         </div>
         <div className="drawer-pages">
-          <a href="#about">About us</a>
-          <a href="#work">Our work</a>
-          <a href="#services">All services</a>
-          <a href="#book">Book a visit</a>
-          <a href="#home-reviews">Reviews</a>
-          <a href="#areas">Service area</a>
-          <a href="#home-faq">FAQ</a>
+          <a href={routeHref("about")}>About us</a>
+          <a href={routeHref("work")}>Our work</a>
+          <a href={routeHref("services")}>All services</a>
+          <a href={routeHref("book")}>Book a visit</a>
+          <a href={routeHref("home-reviews")}>Reviews</a>
+          <a href={routeHref("areas")}>Service area</a>
+          <a href={routeHref("home-faq")}>FAQ</a>
         </div>
         <div className="drawer-phone">
           <span className="muted">Call or text</span>
@@ -346,7 +352,7 @@ export default function SiteShell({
               >
                 <a
                   className="logo on-dark"
-                  href="#home"
+                  href={routeHref("home")}
                   aria-label="Dr Plumbing, Heating and Cooling, home"
                 >
                   <BrandLogo onDark />
@@ -356,29 +362,38 @@ export default function SiteShell({
               <div>
                 <h3>Services</h3>
                 <ul>
-                  {SERVICES.map((service) => (
-                    <li key={service.id}>
-                      <a href={`#${service.id}`}>{service.tab}</a>
-                    </li>
+                  {SERVICE_GROUPS.map((group) => (
+                    <Fragment key={group.id}>
+                      <li className="foot-sub">{group.label}</li>
+                      {servicesForGroup(group).map((service) => (
+                        <li key={service.id}>
+                          <a href={routeHref(service.id)}>{service.tab}</a>
+                        </li>
+                      ))}
+                    </Fragment>
                   ))}
                 </ul>
               </div>
               <div>
                 <h3>Company</h3>
                 <ul>
-                  {pageLinks.map(([id, label]) => (
-                    <li key={id}>
-                      <a href={`#${id}`}>{label}</a>
-                    </li>
-                  ))}
                   <li>
-                    <a href="#book">Book a visit</a>
+                    <a href={routeHref("about")}>About us</a>
                   </li>
                   <li>
-                    <a href="#home-reviews">Reviews</a>
+                    <a href={routeHref("work")}>Our work</a>
                   </li>
                   <li>
-                    <a href="#home-faq">FAQ</a>
+                    <a href={routeHref("home-reviews")}>Reviews</a>
+                  </li>
+                  <li>
+                    <a href={routeHref("areas")}>Areas we serve</a>
+                  </li>
+                  <li>
+                    <a href={routeHref("home-faq")}>FAQ</a>
+                  </li>
+                  <li>
+                    <a href={routeHref("book")}>Book a visit</a>
                   </li>
                 </ul>
               </div>
@@ -395,12 +410,12 @@ export default function SiteShell({
                   >
                     <a href="tel:2066718888">(206) 671-8888</a>
                   </li>
+                  <li>Seattle, WA</li>
                   <li>
                     <a href="mailto:drplumbinggroup@gmail.com">
                       drplumbinggroup@gmail.com
                     </a>
                   </li>
-                  <li>Seattle, WA</li>
                   <li>
                     <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
                       WA plumbing contractor lic. {PLUMBING_LICENSE.number}
@@ -423,7 +438,7 @@ export default function SiteShell({
                   <option value="dark">Dark</option>
                 </select>
               </label>
-              <span>WA residential plumbing contractor</span>
+              <span>Licensed · Bonded · Insured</span>
             </div>
           </div>
         </footer>
@@ -447,7 +462,7 @@ export default function SiteShell({
           <a className="btn btn-outline" href="sms:+12066718888">
             Text
           </a>
-          <a className="btn btn-primary" href="#book">
+          <a className="btn btn-primary" href={routeHref("book")}>
             Book a visit
           </a>
         </nav>
