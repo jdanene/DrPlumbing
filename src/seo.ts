@@ -57,7 +57,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
   const [title, description] = PAGE_METADATA[page] ?? (detail
     ? [`${detail.item} in Seattle, WA | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
     : ["Page not found | Dr Plumbing & Heating", "Find plumbing, heating and cooling services in the Greater Seattle area."]);
-  const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years of service." : title;
+  const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years in the trade" : title;
   const graph: Record<string, unknown>[] = [
     {
       "@type": ["Plumber", "HVACBusiness"],
