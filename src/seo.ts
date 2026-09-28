@@ -49,7 +49,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
   const page = HOME_ANCHORS.includes(route) ? "home" : route;
   const canonical = `${SITE_ORIGIN}${routeHref(page)}`;
   const logo = `${SITE_ORIGIN}/brand/dr-brand-mark.png`;
-  const socialImage = `${SITE_ORIGIN}/brand/dr-social-card-v1.png`;
+  const socialImage = `${SITE_ORIGIN}/brand/dr-social-card-v2.png`;
   const businessId = `${SITE_ORIGIN}/#business`;
   const [serviceId, detailKey] = page.split("/");
   const service = SERVICES.find((item) => item.id === serviceId);
@@ -122,12 +122,12 @@ export function headTags(route: string, indexable = true): HeadTag[] {
     { tag: "meta", attributes: { property: "og:image:type", content: "image/png" } },
     { tag: "meta", attributes: { property: "og:image:width", content: "1200" } },
     { tag: "meta", attributes: { property: "og:image:height", content: "630" } },
-    { tag: "meta", attributes: { property: "og:image:alt", content: "Dr Plumbing, Heating & Cooling DR logo on a light background" } },
+    { tag: "meta", attributes: { property: "og:image:alt", content: "Dr Plumbing, Heating & Cooling logo on a light background" } },
     { tag: "meta", attributes: { name: "twitter:card", content: "summary_large_image" } },
     { tag: "meta", attributes: { name: "twitter:title", content: socialTitle } },
     { tag: "meta", attributes: { name: "twitter:description", content: description } },
     { tag: "meta", attributes: { name: "twitter:image", content: socialImage } },
-    { tag: "meta", attributes: { name: "twitter:image:alt", content: "Dr Plumbing, Heating & Cooling DR logo on a light background" } },
+    { tag: "meta", attributes: { name: "twitter:image:alt", content: "Dr Plumbing, Heating & Cooling logo on a light background" } },
     { tag: "script", attributes: { type: "application/ld+json" }, text: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c") },
   );
   return tags;
