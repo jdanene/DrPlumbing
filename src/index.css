@@ -1745,8 +1745,8 @@ fieldset.field {
   .hero-contact .contact-hint {
     display: none;
   }
-  .view[data-view="service"] .cta-row,
-  .view[data-view="services"] .cta-row {
+  .svc-hero .cta-row,
+  .cta .cta-row {
     display: none;
   }
   .hero-service-nav {
@@ -1795,13 +1795,7 @@ fieldset.field {
     align-items: stretch;
   }
   .stage .rate-card {
-    position: relative;
-    left: auto;
-    top: auto;
-    max-width: none;
-    margin: 0 0 16px;
-    box-shadow: none;
-    border: 1px solid var(--line);
+    display: none;
   }
   .stage-wrap {
     display: flex;
