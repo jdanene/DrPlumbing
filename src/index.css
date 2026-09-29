@@ -1745,8 +1745,9 @@ fieldset.field {
   .hero-contact .contact-hint {
     display: none;
   }
-  .svc-hero .cta-row,
-  .cta .cta-row {
+  .view[data-view="service"] .cta-row,
+  .view[data-view="services"] .cta-row,
+  .view[data-view="home"] .cta .cta-row {
     display: none;
   }
   .hero-service-nav {
