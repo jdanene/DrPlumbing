@@ -8,7 +8,7 @@ const COMMON_QUESTIONS = [
   ["What areas do you serve?", "Homes across the Greater Seattle area, from Everett to Federal Way, including Seattle, Bellevue, Renton, Redmond, Sammamish, Issaquah, Bothell, Lynnwood and Shoreline. We're based in Newcastle, WA. See Areas We Serve for the full list."],
   ["Are you licensed and insured?", `Yes. We are licensed, bonded and insured in Washington (plumbing contractor license ${PLUMBING_LICENSE.number}) and HomeAdvisor certified.`],
   ["How does your pricing work?", "We charge flat rates. You approve the price before we start, and you pay no surprise fees."],
-  ["Do you offer emergency service?", "Yes, for heating and cooling. If your heat or air conditioning fails, call (206) 671-8888."],
+  ["Do you offer emergency service?", "Yes, for plumbing and hydronic heating. Call (206) 671-8888."],
   ["Should I choose a tank or a tankless water heater?", "A tank stores hot water until you need it. A tankless unit heats water on demand, so several people can use hot water at once without waiting. We size the unit to how your household uses hot water."],
   ["Is a heat pump water heater worth it?", "It moves heat from the air into the water, so it uses far less electricity than a standard electric tank. It costs more up front, but lower bills and rebates help offset the cost."],
   ["What is hydronic heating?", "A hydronic system heats your home with hot water. A boiler heats the water, pipes carry it to radiators, baseboards or radiant floors, and a pump returns it to be heated again. The heat is even and quiet, and each zone can have its own thermostat."],
