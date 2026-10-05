@@ -1,0 +1,18 @@
+{
+  "submitted_on": "2026-10-04",
+  "photos": [
+    {
+      "src": "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/freestanding-bathroom.png",
+      "category": "general-plumbing/showers-and-tubs",
+      "source": "Screenshot 2026-10-04 at 9.21.36 PM.png",
+      "source_context": "Jide submitted this finished bathroom image for additive website placement during the owner's photo review.",
+      "sha256": "aefac8b6028e1c132231c2203b54c5c08752534ec51f05fc8bccd65a9df05ae7",
+      "width": 638,
+      "height": 458,
+      "subject": "Freestanding white tub, glass shower enclosure and wall-hung toilet",
+      "evidence": "The supplied image shows the finished residential fixtures and tiled room.",
+      "placement": "User chose this as the Plumbing hero and the homepage's bathroom project. It also serves as the Showers and tubs hero and appears in Our Work. The previous bathroom photo remains in Our Work; the shower close-up remains in the detail-page gallery. Keep the complete room visible after excluding the empty left edge. A camera original would improve sharpness on larger or high-density displays.",
+      "treatment": "Byte-identical copy. The website hides the nine-pixel white left edge with CSS; it displays the remaining 629 × 458 content without trimming fixtures. No color grade, retouching or before-and-after relationship."
+    }
+  ]
+}

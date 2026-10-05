@@ -1,6 +1,7 @@
 /**
  * Selected job photographs for the local website review.
  * Classification lives in design/photo-classification/catalog.json.
+ * Later owner submissions retain their provenance in owner-additions.json.
  * Ranked alternatives live in best-selection.json; website choices also include user-selected work photos.
  * Use confirmed subjects only; an empty category has no substitute photograph.
  */
@@ -11,6 +12,8 @@ export interface ProjectPhotoData {
   height: number;
   position?: string;
   frameRatio?: string;
+  /** Empty left-edge pixels in the source; the renderer hides them without editing the file. */
+  trimLeft?: number;
 }
 
 const ROOT = "/service-photos/selected/by-service";
@@ -22,6 +25,14 @@ export const PHOTOS = {
   shower: {
     src: `${ROOT}/general-plumbing/showers-and-tubs/best/188_IMG_9196.jpg`,
     alt: "Finished bathtub and shower fittings", width: 1200, height: 1600,
+  },
+  freestandingBathroom: {
+    src: "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/freestanding-bathroom.png",
+    alt: "Freestanding white bathtub, glass shower enclosure and wall-hung toilet in a tiled bathroom", width: 638, height: 458, frameRatio: "629 / 458", trimLeft: 9,
+  },
+  bathtubRoughIn: {
+    src: `${ROOT}/general-plumbing/showers-and-tubs/best/121_IMG_4275.jpg`,
+    alt: "Bathtub beneath exposed shower valves and pipework in an unfinished wall", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   basin: {
     src: `${ROOT}/general-plumbing/faucets-fixtures-and-sinks/best/014_IMG_0653.jpg`,
@@ -122,7 +133,7 @@ export const PHOTOS = {
 } satisfies Record<string, ProjectPhotoData>;
 
 export const SERVICE_PHOTOS: Record<string, ProjectPhotoData> = {
-  plumbing: PHOTOS.bathroom,
+  plumbing: PHOTOS.freestandingBathroom,
   "water-heaters": PHOTOS.twinNavien,
   "drain-sewer": PHOTOS.sewer,
   "water-filtration": PHOTOS.filters,
@@ -135,7 +146,7 @@ export const DETAIL_PHOTOS: Partial<Record<string, ProjectPhotoData>> = {
   "plumbing/trenchless-water-line-repair": PHOTOS.drillingRig,
   "plumbing/faucets-fixtures-and-sinks": PHOTOS.basin,
   "plumbing/gas-line-repair-and-installation": PHOTOS.gasMeter,
-  "plumbing/showers-and-tubs": PHOTOS.shower,
+  "plumbing/showers-and-tubs": PHOTOS.freestandingBathroom,
   "plumbing/toilet-repair-and-installation": PHOTOS.toilet,
   "plumbing/water-filtration-systems": PHOTOS.softener,
   "water-heaters/electric-water-heaters": PHOTOS.tank,
@@ -157,15 +168,28 @@ interface WorkProject {
   photo: ProjectPhotoData;
 }
 
+const BATHROOM_PROJECTS: WorkProject[] = [
+  { service: "plumbing/showers-and-tubs", category: "Plumbing", title: "Freestanding tub and walk-in shower", description: "A finished bathroom with a freestanding tub, glass shower enclosure and wall-hung toilet.", photo: PHOTOS.freestandingBathroom },
+  { service: "plumbing/showers-and-tubs", category: "Plumbing", title: "Bathtub plumbing before the walls close", description: "A bathtub with shower valves and pipework visible in the open wall framing.", photo: PHOTOS.bathtubRoughIn },
+];
+
 /** Lead with people working, then show finished installations across residential services. */
 export const HOME_PROJECTS: WorkProject[] = [
   { service: "boilers", category: "Boilers", title: "Heating pipework in progress", description: "Soldering a copper joint on hydronic heating pipework.", photo: PHOTOS.solderingHeatingPipe },
   { service: "boilers", category: "Boilers", title: "Working on a hydronic heating system", description: "Working on pipework beneath a wall-mounted HTP heating appliance.", photo: PHOTOS.boilerWork },
   { service: "water-heaters", category: "Water heaters", title: "Tankless water heating", description: "Two Navien tankless heaters with copper pipework on a blue mounting panel.", photo: PHOTOS.twinNavien },
-  { service: "plumbing", category: "Plumbing", title: "Bathroom plumbing", description: "A finished bathroom with a tub, shower, basin and toilet.", photo: PHOTOS.bathroom },
+  BATHROOM_PROJECTS[0]!,
   { service: "water-filtration", category: "Water filtration", title: "Whole-house water filtration", description: "Filter cartridges and UV treatment connected to the home's water supply.", photo: PHOTOS.filters },
   { service: "drain-sewer", category: "Drain & sewer", title: "Sewer pipe repair", description: "A new pipe section and coupling in an exposed sewer line.", photo: PHOTOS.sewer },
 ];
+
+/** Additional examples keep the existing service photographs and explanations in place. */
+export const SERVICE_GALLERIES: Partial<Record<string, { title: string; projects: WorkProject[] }>> = {
+  "plumbing/showers-and-tubs": { title: "Bathroom project photos", projects: [
+    { service: "plumbing/showers-and-tubs", category: "Plumbing", title: "Bath and shower fittings", description: "An overhead shower, handheld shower and tub fittings in a tiled bath-and-shower installation.", photo: PHOTOS.shower },
+    BATHROOM_PROJECTS[1]!,
+  ] },
+};
 
 export const WORK_PROJECTS: WorkProject[] = [
   ...HOME_PROJECTS,
@@ -179,4 +203,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   { service: "water-filtration", category: "Water filtration", title: "Water softening and treatment", description: "A softener, filter cartridges and UV treatment in one installation.", photo: PHOTOS.softener },
   { service: "plumbing", category: "Plumbing", title: "Water-supply line", description: "A new water-supply pipe laid in an outdoor trench.", photo: PHOTOS.waterLine },
   { service: "plumbing", category: "Plumbing", title: "Supply and drain rough-in", description: "Water and drain lines installed before the walls are closed.", photo: PHOTOS.roughIn },
+  { service: "plumbing", category: "Plumbing", title: "Bathroom plumbing", description: "A finished bathroom with a tub, shower, basin and toilet.", photo: PHOTOS.bathroom },
+  BATHROOM_PROJECTS[1]!,
+  { service: "plumbing/piping-and-repiping", category: "Plumbing", title: "Fixture-by-fixture water supply", description: "A hot and cold water manifold with individual shutoffs for household fixtures.", photo: PHOTOS.manifold },
 ];

@@ -1285,6 +1285,9 @@ section {
   aspect-ratio: 4/5;
   max-height: 540px;
 }
+.svc-hero--plumbing .project-photo {
+  grid-column: 7 / span 6;
+}
 .svc-tabs {
   display: flex;
   gap: 8px;
@@ -1365,6 +1368,25 @@ section {
   max-width: 360px;
   margin-top: 18px;
   border-radius: 20px;
+}
+.service-project-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.service-project-gallery figure {
+  margin: 0;
+  min-width: 0;
+}
+.service-project-gallery a {
+  display: block;
+  border-radius: 20px;
+}
+.service-project-gallery figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.6;
 }
 .items {
   display: grid;
@@ -1720,7 +1742,8 @@ fieldset.field {
     grid-column: 1 / -1;
   }
   .letter .project-photo {
-    position: static;
+    position: relative;
+    top: auto;
     aspect-ratio: 4/3;
   }
   .tiles {
@@ -1908,6 +1931,7 @@ fieldset.field {
     display: none;
   }
   .strip,
+  .service-project-gallery,
   .gallery {
     grid-template-columns: 1fr;
   }

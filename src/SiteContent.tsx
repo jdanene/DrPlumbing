@@ -15,7 +15,7 @@ import {
   serviceOptionHref,
   type ServiceDetail,
 } from "./serviceDetails";
-import { DETAIL_PHOTOS, SERVICE_PHOTOS } from "./projectPhotos";
+import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
 
 /**
@@ -155,6 +155,7 @@ export function ServicePage({
   const photo = detail
     ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`]
     : SERVICE_PHOTOS[service.id];
+  const gallery = SERVICE_GALLERIES[detail ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
   const relatedHeading = detail ? `More in ${service.tab}` : "Other services";
   const tabsRef = useRef<HTMLElement>(null);
@@ -190,7 +191,7 @@ export function ServicePage({
             ))}
           </nav>
         </div>
-        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}`}>
+        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}${!detail && service.id === "plumbing" ? " svc-hero--plumbing" : ""}`}>
           <div className="copy">
             <nav className="crumbs" aria-label="Breadcrumb">
               <a href={routeHref("home")}>Home</a>
@@ -311,6 +312,23 @@ export function ServicePage({
             </section>
           );
         })}
+        {gallery && (
+          <section className="svc-sec" aria-label={gallery.title}>
+            <div className="s-head"><h2>{gallery.title}</h2></div>
+            <div className="s-body">
+              <div className="service-project-gallery">
+                {gallery.projects.map((project) => (
+                  <figure key={project.photo.src}>
+                    <a href={project.photo.src} target="_blank" rel="noreferrer" aria-label={`View full photo: ${project.title}`}>
+                      <ProjectPhoto photo={project.photo} fullFrame />
+                    </a>
+                    <figcaption>{project.description}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
         <div className="other">
           <h2>{relatedHeading}</h2>
           <nav className="svc-tabs" aria-label={relatedHeading}>
