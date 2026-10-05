@@ -5,6 +5,7 @@ import { headTags } from "./seo";
 
 export { PUBLIC_ROUTES, SITE_ORIGIN } from "./seo";
 export { routeHref } from "./sitePaths";
+export { PHOTOS } from "./projectPhotos";
 
 /**
  * Description: Renders the existing React page and its metadata for a static Cloudflare response.

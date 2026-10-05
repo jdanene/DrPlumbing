@@ -1,18 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 360 360" role="img" aria-labelledby="title description">
-  <title id="title">DR Plumbing mark</title>
-  <desc id="description">The approved black and copper DR monogram on an opaque light background.</desc>
-  <rect width="360" height="360" fill="#F7F5F1"/>
-  <defs>
-    <mask id="diagonal-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="280">
-      <rect width="320" height="280" fill="#fff"/>
-      <path d="M93 254 211 26h18L111 254Z" fill="#000"/>
-    </mask>
-  </defs>
-  <g transform="translate(20 40)">
-    <g mask="url(#diagonal-cut)">
-      <path fill="#111111" fill-rule="evenodd" d="M34 32h102c70 0 112 41 112 108s-42 108-112 108H34V32Zm52 46v124h48c40 0 62-22 62-62s-22-62-62-62H86Z"/>
-      <path fill="#B4552A" fill-rule="evenodd" d="M126 32h71c53 0 82 27 82 70 0 31-16 54-46 65l57 81h-62l-49-73h-3v73h-50V32Zm50 45v58h19c22 0 33-10 33-29 0-20-11-29-33-29h-19Z"/>
-    </g>
-    <path d="m112 246 104-202" fill="none" stroke="#B4552A" stroke-width="10" stroke-linecap="round"/>
+  <title id="title">DR Plumbing, Heating and Cooling mark</title>
+  <desc id="description">Black and copper DR monogram on an opaque light tile, with protected clear space.</desc>
+  <rect width="360" height="360" rx="44" fill="#F7F5F1"/>
+
+  <g transform="translate(42 58) scale(.86)">
+    <path fill="#111111" fill-rule="evenodd" d="M34 32h102c70 0 112 41 112 108s-42 108-112 108H34V32Zm52 46v124h48c40 0 62-22 62-62s-22-62-62-62H86Z"/>
+    <path fill="#B4552A" fill-rule="evenodd" d="M126 32h71c53 0 82 27 82 70 0 31-16 54-46 65l57 81h-62l-49-73h-3v73h-50V32Zm50 45v58h19c22 0 33-10 33-29 0-20-11-29-33-29h-19Z"/>
   </g>
 </svg>

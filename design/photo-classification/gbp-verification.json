@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-04",
+  "verification_command": "python3 design/photo-classification/build_gbp.py --check",
+  "runtime": "/Users/jideanene/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "file_hashes": {
+    "design/photo-classification/gbp-selection.json": "f07f4aed50574c380cd9fb928f135a6df7ab8cc3db87a2bf71733eaa5e2f2766",
+    "design/photo-classification/catalog.json": "8e901823c08fd7f43232f4bfe711cc23eeb6a8766e2b63acfad8ffbdc7370f3d",
+    "design/photo-classification/gbp-index.html": "cf141d596020575fdd28e3ad6b4fcd09f21da339d3341b9d0c4f77c541ed0f89",
+    "public/service-photos/selected/google-business-profile/README.md": "4c998872fea9bd6af4572d2a51cfd5fa656c6525c470ddb25384dda8b8c65244",
+    "public/service-photos/selected/google-business-profile/superseded/12_hydronic-zone-circulation.jpg": "0ce583ce28badca1c88acbb74138ebc48096d6a4c73cdca755e67ce4582ff307",
+    "public/service-photos/selected/google-business-profile/superseded/13_home-sectional-radiator.jpg": "c059d53ef992b7ffc89837a8d19aeebb2fd34cbdc780b57aac58919bfd10f3c0",
+    "public/service-photos/selected/google-business-profile/superseded/13_home-towel-radiator-and-sink.jpg": "7fae59aecd910c351e654e06e5e97d9c4f774a9b48c512eaffb06cb8f5c2bdc9",
+    "public/service-photos/selected/google-business-profile/superseded/15_technician-with-water-treatment.jpg": "7c64595b7c58e7d62123bfba0e8ed3c84875832f6541b6c323d3ef26c77890f9"
+  },
+  "verification": {
+    "count": 15,
+    "superseded_count": 4,
+    "unchanged_source_bytes": true,
+    "photos": [
+      {
+        "order": 1,
+        "id": 107,
+        "sha256": "69331c2b4c98f46dd6a965dce468692a2a98b01b4375c0fd09d924dbfba9f8cc",
+        "bytes": 416941,
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "order": 2,
+        "id": 132,
+        "sha256": "bc507e57ed83d77762b0d8336fca338a70a7f55509615b048351b76c37e2cb23",
+        "bytes": 422483,
+        "width": 1379,
+        "height": 1600
+      },
+      {
+        "order": 3,
+        "id": 95,
+        "sha256": "b9f8df16ed8996c562ca7a9cc862af166b2c08456c5e61864929fd76107c028a",
+        "bytes": 341398,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 4,
+        "id": 56,
+        "sha256": "e2d997ee36b6b7e40312e51aae0f59d0ef19f8881fd4890094bdfb7e4bfba3c9",
+        "bytes": 728477,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 5,
+        "id": 44,
+        "sha256": "6138f2cb2303e2e264a39005e4d6dc15e086675399bc4839f90281fbebe8ba69",
+        "bytes": 810602,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 6,
+        "id": 61,
+        "sha256": "a4432fccfce82592f250bd7b9a75740b7d5b186df419d4dbb5fbcf2b42db9df5",
+        "bytes": 278991,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 7,
+        "id": 55,
+        "sha256": "8a6148bf9125ae65bee9f53b2c3438324408d4f28efcf9e1658c199da4a58ed0",
+        "bytes": 809358,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 8,
+        "id": 176,
+        "sha256": "0d0d81aca291423beeb182acace5486b9ff11beb803ed9d35a9c9c9053ea7af6",
+        "bytes": 283147,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 9,
+        "id": 186,
+        "sha256": "e3365a4b7db40a4c3477a6432205906e5d2eed085d5205528d9c43027323c702",
+        "bytes": 290927,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 10,
+        "id": 188,
+        "sha256": "98509031eff408ed2213f0f40eb624e8a96e232ee86dcb88c7a9ff5783186aeb",
+        "bytes": 450291,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 11,
+        "id": 127,
+        "sha256": "b968ba04264b4c09b839beaaf871df3db2c266ad2381aa3cafcbac3f92ac5fc6",
+        "bytes": 450982,
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "order": 12,
+        "id": 80,
+        "sha256": "7d4ba0fb7fc55de7d6604d297f2e744bc16278e6d62e2615b4cdc25d35a6d707",
+        "bytes": 398734,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 13,
+        "id": 99,
+        "sha256": "27cd27354c391fad8b44fcbeb8f7d9d138f3410a7b6e4c68f67de07347e82578",
+        "bytes": 407254,
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "order": 14,
+        "id": 28,
+        "sha256": "2288d589597300ef684e2cbd3d7eeb9dd77452122169c972c4e834d14db25795",
+        "bytes": 389904,
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "order": 15,
+        "id": 23,
+        "sha256": "950ac8c326d08ac0db3a953d82b18f92b969236f40a389845ca658154a194e88",
+        "bytes": 378923,
+        "width": 1200,
+        "height": 1600
+      }
+    ]
+  }
+}

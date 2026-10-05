@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-04",
+  "skill_source": "https://github.com/SkillMedev/skills/blob/main/skills/visual-asset-curation/SKILL.md",
+  "visual_system": {
+    "palette": "Neutral whites, slate equipment, natural copper and wood. Keep real blue equipment and outdoor greens; do not tint them to the brand.",
+    "light": "Prefer readable, evenly lit subjects. Keep genuine work lighting where the task remains clear.",
+    "tone": "Real projects, understandable equipment and approachable people. Friendly work portraits are useful here, despite the skill's stock-photo rule against eye contact.",
+    "composition": "Rank the clearest service view first. Add a useful detail or work view, rather than three nearly identical frames. Favor finished residential fixtures where available.",
+    "texture": "Keep the existing clean JPEG copies. Add no grain, filters or simulated detail.",
+    "treatment": "No crop or color grade applied. Crop notes and focal points guide a later website placement; they are not permission to remove equipment or alter the work.",
+    "selection_scope": "Up to three distinct, useful options per reviewed category. These are ranked alternatives, not three mandatory slots on the website. Uncertain classifications stay excluded."
+  },
+  "categories": {
+    "general-plumbing/leak-detection": {"picks": []},
+    "general-plumbing/burst-pipe-repair": {"picks": []},
+    "general-plumbing/piping-and-repiping": {
+      "picks": [61, 127, 44],
+      "cut_reason": "The shortlist balances a tidy manifold, a readable wall rough-in and an outdoor pipe route. Other frames repeat these views, obscure connections with framing, or devote more space to soil and loose materials."
+    },
+    "general-plumbing/trenchless-water-line-repair": {"picks": []},
+    "general-plumbing/gas-line-repair-and-installation": {
+      "picks": [88, 18, 89],
+      "cut_reason": "ID 87's steep overhead angle hides more of the assembly. ID 89 is a detail alternative to 88, not a separate project."
+    },
+    "general-plumbing/toilet-repair-and-installation": {
+      "picks": [189, 40, 184],
+      "cut_reason": "These show the finished fixture, its connection hardware and room context. Other room views repeat the composition; ID 183 has worn cistern surfaces and little visual context, while ID 128 gives more space to soil than to the toilet connection."
+    },
+    "general-plumbing/faucets-fixtures-and-sinks": {
+      "picks": [186, 14, 66],
+      "cut_reason": "The first two lead with finished home fixtures. ID 66 adds a clean utility/commercial sink alternative. Other images duplicate the bathroom view or include more empty wall, storage bins or cropped fixtures."
+    },
+    "general-plumbing/showers-and-tubs": {
+      "picks": [188, 184, 121],
+      "cut_reason": "Keep the fitting detail, the finished-room overview and the clearer construction-stage tub. Other construction frames contain more wrapping and debris; other finished views repeat this bathroom. These are not a verified before-and-after pair."
+    },
+    "general-plumbing/garbage-disposals": {"picks": []},
+    "general-plumbing/sump-pumps": {"picks": []},
+    "general-plumbing/water-filtration-systems": {
+      "picks": [28, 13, 33],
+      "cut_reason": "Use a complete treatment layout, a tighter filter/UV view and a person with the equipment. Other frames repeat these installations, crop the worker or tank bottoms, or mix treatment vessels with unrelated heating equipment."
+    },
+    "general-plumbing/system-overview": {"picks": [92, 91, 90]},
+    "water-heaters/electric-water-heaters": {"picks": [95]},
+    "water-heaters/gas-water-heaters": {"picks": [132]},
+    "water-heaters/tankless-water-heaters": {"picks": [132, 97]},
+    "water-heaters/heat-pump-water-heaters": {"picks": []},
+    "water-heaters/system-overview": {
+      "picks": [71, 176, 109],
+      "cut_reason": "These keep a storage tank and its connections readable, with equipment-only and human views. Crawlspace alternatives have more overhead ducting, floor membrane and scattered tools. Keep these as general hot-water plant context, not evidence of a specific heater subtype."
+    },
+    "drain-and-sewer/drain-cleaning": {"picks": []},
+    "drain-and-sewer/hydrojetting": {"picks": []},
+    "drain-and-sewer/sewer-line-repair-and-replacement": {
+      "picks": [56, 42, 55],
+      "cut_reason": "The set gives a clear replacement connection, a cleanout connection and people with removed pipe. IDs 30 and 31 have lower pipe/soil contrast; ID 41 adds clutter to the same connection as 42; ID 57 obscures pipe sections under a deck."
+    },
+    "drain-and-sewer/trenchless-sewer-repair": {"picks": []},
+    "drain-and-sewer/system-overview": {
+      "picks": [47, 127, 128],
+      "cut_reason": "The shortlisted views explain wall routing, mixed supply/waste routing and a floor flange connection. Other rough-in frames repeat these subjects or have more tilted framing, overexposure, bare soil or obstructed branches."
+    },
+    "water-filtration/water-softeners": {"picks": [28, 33, 29]},
+    "water-filtration/carbon-filters": {"picks": []},
+    "water-filtration/reverse-osmosis": {"picks": []},
+    "water-filtration/iron-and-sulfur-filters": {"picks": []},
+    "water-filtration/uv-treatment": {
+      "picks": [13, 28, 58],
+      "cut_reason": "The UV chamber stays visible in a dedicated filter assembly, a full treatment layout and a closer connection view. Other frames repeat the equipment or introduce cropped people, stronger glare and more unused wall."
+    },
+    "water-filtration/system-overview": {
+      "picks": [28, 13, 33],
+      "cut_reason": "These show readable treatment layouts in neutral surroundings. Other views repeat the installations, crop important vessels or place filtration beside a crowded heating plant."
+    },
+    "heating-and-cooling/heating": {
+      "picks": [149],
+      "cut_reason": "ID 133 shows the same unit-heater composition at 1280 × 960. Keep ID 149's 1600 × 1200 version rather than filling the shortlist with a redundant image."
+    },
+    "heating-and-cooling/ventilation": {"picks": [64]},
+    "heating-and-cooling/air-conditioning": {"picks": []},
+    "heating-and-cooling/installation": {"picks": []},
+    "heating-and-cooling/maintenance": {"picks": []},
+    "heating-and-cooling/repair": {"picks": []},
+    "heating-and-cooling/emergency-service": {"picks": []},
+    "heating-and-cooling/system-overview": {"picks": []},
+    "boilers/hydronic-heating": {
+      "picks": [63, 9, 86],
+      "cut_reason": "These show the plant, circulation pumps and a recognizable radiator. ID 14 contains a towel radiator, but the sink dominates the frame; keep it as a plumbing alternative. ID 86 has a loose display and cable on the floor, but the radiator and pipe connections remain the clear subject. Other frames repeat the plant or add clutter and harsh light."
+    },
+    "boilers/radiant-floor-heating": {"picks": []},
+    "boilers/annual-boiler-service": {"picks": []},
+    "boilers/boiler-repair": {"picks": []},
+    "boilers/boiler-replacement": {"picks": []},
+    "boilers/system-overview": {
+      "picks": [159, 3],
+      "cut_reason": "ID 136 repeats 159's boiler/burner composition at lower resolution. ID 4 repeats 3's work scene. Keep two distinct options rather than three redundant views."
+    },
+    "about/on-the-job": {
+      "picks": [107, 33, 105],
+      "cut_reason": "These give a clear smiling work portrait, a person with a complete treatment system and a focused tool-use view. Other frames hide faces, add foreground clutter, use harsher light or repeat these views. IDs 107 and 105 are portrait/action alternatives from the same setting; avoid placing them beside each other."
+    }
+  },
+  "photo_notes": {
+    "3": {"reason": "A real worker and boiler remain recognizable; use as a supporting work scene, not the lead equipment image.", "aspect": "3:4", "focal_point": [64, 39], "crop": "Keep the worker, torch and boiler. Trim doorway edges only; do not erase the work-light glare.", "grade": "Warm light with strong highlights; no filter applied."},
+    "9": {"reason": "The complete pump bank makes zoned hydronic circulation easy to read at small sizes.", "aspect": "3:4", "focal_point": [51, 49], "crop": "Keep all three circulators and their connecting headers.", "grade": "Neutral wall, dark insulation and blue pipes fit the mechanical set."},
+    "86": {"reason": "The radiator dominates the frame and shows recognizable heating equipment with its valves and pipe connections.", "aspect": "4:3", "focal_point": [47, 55], "crop": "Keep both lower pipe connections. Use the full frame for the service explanation; the loose floor display is part of the original photo.", "grade": "Warm neutral wall and carpet with a white radiator; no color grade applied."},
+    "13": {"reason": "The UV chamber and filter housings are large, clear and framed with their copper connections.", "aspect": "4:3", "focal_point": [51, 58], "crop": "Keep the UV chamber at left and all filter housings; avoid a centered crop that loses the chamber.", "grade": "Natural copper, wood and blue housings; keep the treatment colors."},
+    "14": {"reason": "A tidy finished bathroom connects the service to an inviting home rather than only a utility room.", "aspect": "3:4", "focal_point": [50, 65], "crop": "Reduce empty upper wall if needed. Keep both the sink and piped towel radiator.", "grade": "Warm-neutral room; preserve the white fixtures and dark countertop."},
+    "18": {"reason": "A sharp close view makes the seismic shutoff and gas-pipe arrangement readable.", "aspect": "3:4", "focal_point": [50, 41], "crop": "Keep the shutoff label and both pipe legs; retain enough meter context.", "grade": "Cooler outdoor light; a later mild white-balance correction may help."},
+    "28": {"reason": "The whole treatment layout is readable, with orderly copper routing and little competing clutter.", "aspect": "4:3", "focal_point": [47, 48], "crop": "Retain the black softener, UV chamber and filter bank. A wide frame suits this system.", "grade": "Neutral wall and natural wood with blue equipment; no grade needed for selection."},
+    "29": {"reason": "A closer view explains the softener head and adjacent treatment connections.", "aspect": "4:3", "focal_point": [44, 56], "crop": "Use as a connection detail; tank bottoms are already cropped. Do not imply a complete-system view.", "grade": "Same palette as 28; keep this as its detail alternative."},
+    "33": {"reason": "A clear person and complete treatment system add scale, context and an approachable human presence.", "aspect": "4:3", "focal_point": [48, 49], "crop": "Keep the person at left, treatment equipment and storage tank at right. Do not reduce it to an anonymous equipment crop.", "grade": "Warm-neutral interior; retain natural skin and equipment colors."},
+    "40": {"reason": "The toilet connection hardware is sharp and easy to distinguish from a finished fixture.", "aspect": "3:4", "focal_point": [54, 62], "crop": "Trim excess upper wall while preserving the adapter, floor flange and supply valve.", "grade": "Quiet neutral tile supports a technical detail image."},
+    "42": {"reason": "The replacement pipe and cleanout stand out clearly from the excavated soil.", "aspect": "3:4", "focal_point": [54, 59], "crop": "Keep the full connection and enough trench context. The crossing utility remains part of the real scene.", "grade": "Neutral soil and distinct pipe colors; avoid a saturated green treatment."},
+    "44": {"reason": "The visible pressure-pipe route gives useful outdoor context and a strong leading line.", "aspect": "3:4", "focal_point": [50, 59], "crop": "Keep the foreground blue pipe and the receding route. This is open-trench work, not trenchless evidence.", "grade": "Natural outdoor greens and soil; no artificial copper tint."},
+    "47": {"reason": "The drainage branches remain clear against the exposed framing, with useful room context.", "aspect": "4:3", "focal_point": [54, 56], "crop": "Keep horizontal and vertical branches; trim empty outer edges rather than the connection points.", "grade": "Neutral wood and slate pipe; retain construction context."},
+    "55": {"reason": "People, removed clay pipe and replacement sections explain the work beyond an isolated fitting.", "aspect": "3:4", "focal_point": [48, 53], "crop": "Keep both workers and the removed pipe. Use as a supporting project view; the foreground face is turned away.", "grade": "Outdoor greens and soil complement the other sewer views."},
+    "56": {"reason": "The replacement connection and long pipe route are sharp, simple and easy to identify.", "aspect": "3:4", "focal_point": [51, 48], "crop": "Keep both ends of the replacement branch; trim surrounding soil only.", "grade": "Neutral daylight with clear pipe/soil contrast."},
+    "58": {"reason": "The UV chamber, gauges, filter bank and bypass form a readable detail composition.", "aspect": "3:4", "focal_point": [52, 54], "crop": "Keep the UV chamber on the left and the bypass at right. Avoid a narrow crop that loses either.", "grade": "Warm wood and copper with blue equipment match the filtration set."},
+    "61": {"reason": "The tidy distribution manifold makes piping organization visible without foreground debris.", "aspect": "3:4", "focal_point": [49, 58], "crop": "Keep the full manifold and upper copper connections; use a portrait frame instead of cutting off outlets.", "grade": "Warm wood and copper with a dark manifold fit the brand palette."},
+    "63": {"reason": "The clean, complete hydronic plant shows equipment and routing with strong clarity and even light.", "aspect": "1:1", "focal_point": [52, 51], "crop": "Keep the appliance bank, pumps and hydraulic separator. Favor square/full-frame placement over a shallow banner.", "grade": "Neutral gray and white, with blue mechanical pipework; retain the genuine palette."},
+    "64": {"reason": "The ceiling duct is visible in its room context. This is the sole reviewed ventilation candidate.", "aspect": "4:3", "focal_point": [59, 23], "crop": "Keep the ceiling duct and its room relationship. Use a supporting image; it is not an air-conditioner photo.", "grade": "Neutral interior light; the foreground covered object limits lead-image use."},
+    "66": {"reason": "The full utility sink and pre-rinse sprayer are clear against a quiet background.", "aspect": "3:4", "focal_point": [49, 55], "crop": "Keep the sprayer and all sink compartments. This is the utility/commercial alternative, not the residential lead.", "grade": "Neutral whites and stainless steel match the cleaner fixture images."},
+    "71": {"reason": "The storage tank and heating appliance show the relationship within a hot-water plant.", "aspect": "3:4", "focal_point": [48, 55], "crop": "Preserve the tank at left and appliance at right. The tank edge is already cropped; use as plant context.", "grade": "Warm-neutral metal and copper; keep the rough basement setting honest."},
+    "88": {"reason": "The full gas meter assembly reads clearly against simple siding.", "aspect": "3:4", "focal_point": [52, 56], "crop": "Trim some top siding and ground if needed; retain the whole meter and both pipe runs.", "grade": "Neutral outdoor light; keep the red shutoff distinguishable."},
+    "89": {"reason": "A tighter meter/shutoff view provides readable connection detail after the overall assembly.", "aspect": "3:4", "focal_point": [54, 48], "crop": "Keep the shutoff and meter connections. This repeats 88's setting as a detail alternative.", "grade": "Similar outdoor light to 88; no grade applied."},
+    "90": {"reason": "The pump and grooved copper joints provide a clear close mechanical detail.", "aspect": "3:4", "focal_point": [42, 55], "crop": "Keep the motor and pipe couplings; do not present the tight crop as a complete pump system.", "grade": "Natural copper and blue equipment fit the neutral mechanical set."},
+    "91": {"reason": "An oblique view shows the pump controls, gauges and adjacent pressure vessel.", "aspect": "3:4", "focal_point": [47, 59], "crop": "Reduce empty upper wall if needed; retain controls and vessel. Alternate to the straighter view in 92.", "grade": "Same blue/neutral mechanical palette as 92."},
+    "92": {"reason": "The straighter overall view shows the pump skid and pressure vessel with less competing clutter.", "aspect": "3:4", "focal_point": [49, 58], "crop": "Keep the skid and vessel together; trim some upper blank wall for a closer equipment frame.", "grade": "Neutral wall, blue equipment and natural copper; no artificial recoloring."},
+    "95": {"reason": "The full electric storage heater is recognizable, sharp and framed with its expansion tank.", "aspect": "3:4", "focal_point": [47, 57], "crop": "Keep the heater, expansion tank and lower fittings. Use a portrait slot rather than clipping the tank in a wide crop.", "grade": "Warm utility light; optional mild white balance later, not a heavy filter."},
+    "97": {"reason": "A second tankless installation shows the heater alongside domestic distribution and its connections.", "aspect": "3:4", "focal_point": [55, 54], "crop": "Keep the heater and manifold; reduce unrelated drywall edges where the slot permits.", "grade": "Neutral equipment with work-light shadows. Supporting alternative to the cleaner view in 132."},
+    "105": {"reason": "The face, press tool and joint show focused work clearly, with natural copper colors.", "aspect": "4:3", "focal_point": [43, 50], "crop": "Keep the face, hand, tool and pipe joint together. This is the action alternative to portrait 107.", "grade": "Warm copper and work lighting; avoid over-saturating the red tool."},
+    "107": {"reason": "The smiling face, tool and recognizable pipework make the strongest approachable work portrait.", "aspect": "4:3", "focal_point": [37, 48], "crop": "Protect the face and tool. A tighter crop may trim the outer wall but must retain the pipe connection.", "grade": "Warm light and natural skin; no stock-style grain or dramatic grade."},
+    "109": {"reason": "The person, storage tank and heating plant give useful scale and an explanatory environmental view.", "aspect": "3:4", "focal_point": [64, 53], "crop": "Retain the storage cylinder and person. Use a supporting portrait; upper ducting limits a wide crop.", "grade": "Warm low light; lift exposure only in a later approved treatment, without hiding clutter."},
+    "121": {"reason": "The tub and visible rough-in are clearer and less cluttered than the other construction-stage tub photos.", "aspect": "3:4", "focal_point": [48, 68], "crop": "Keep the tub and mixing connections in the same frame. This is not paired with the finished bathroom as before/after.", "grade": "Natural wood and white fixture; no treatment applied."},
+    "127": {"reason": "The supply and waste lines are readable across a wider, straighter wall view.", "aspect": "4:3", "focal_point": [50, 62], "crop": "Trim some blank upper wall and lower soil while keeping red/blue supplies and black waste branches.", "grade": "Warm wood, slate waste pipe and neutral light."},
+    "128": {"reason": "The flange and connected drainage branches give a specific, readable floor-connection detail.", "aspect": "3:4", "focal_point": [43, 64], "crop": "Keep the flange and both drainage branches; trim surrounding soil only if connections stay intact.", "grade": "Construction-stage neutral tones; keep the pipe colors distinct."},
+    "132": {"reason": "The tankless gas heater and connections are large, sharp and easier to scan than the alternate installation.", "aspect": "3:4", "focal_point": [52, 50], "crop": "Keep the cabinet, vent and lower connections. Retain the hanging equipment label rather than editing it away.", "grade": "Warm wood and neutral equipment; no color change applied."},
+    "149": {"reason": "The higher-resolution version of the unit-heater view gives the clearest available heating option.", "aspect": "4:3", "focal_point": [47, 47], "crop": "Keep the heater and connecting pipes. Use a supporting technical image; the cage and flash limit a lead residential placement.", "grade": "Hard flash and red/white equipment; no heavy grade can replace better coverage."},
+    "159": {"reason": "The higher-resolution boiler/burner composition keeps the equipment clear despite its high camera angle.", "aspect": "3:4", "focal_point": [51, 57], "crop": "Keep the boiler casing and burner together. This industrial view is an alternative, not the residential lead.", "grade": "Bright yellow/blue equipment; preserve real colors and avoid placing beside subdued residential imagery."},
+    "176": {"reason": "The person working at a visible storage-tank connection explains the activity without an ambiguous appliance close-up.", "aspect": "3:4", "focal_point": [57, 51], "crop": "Keep the tank, hands and copper connection. Trim doorway margins only; the worker obscures some lower fittings.", "grade": "Warm interior cast; mild neutralization may help at final placement."},
+    "184": {"reason": "A finished-room view ties the toilet, tub and sink together with a clear, coherent material palette.", "aspect": "3:4", "focal_point": [52, 60], "crop": "Trim doorway edges only. Keep the service fixture visible when adapting this shared room view.", "grade": "Warm stone, white fixtures and soft light; matches 186, 188 and 189."},
+    "186": {"reason": "The finished sink and faucet are clear, well lit and framed with neutral stone and white materials.", "aspect": "3:4", "focal_point": [41, 48], "crop": "Trim unused upper mirror area if needed; keep the faucet, basin and pedestal.", "grade": "Same warm-neutral bathroom palette as 184 and 188."},
+    "188": {"reason": "The shower fittings and tub are clear, with a calm finished stone background.", "aspect": "3:4", "focal_point": [39, 51], "crop": "Keep the showerhead, controls and tub together; avoid a shallow wide crop that cuts off the fittings.", "grade": "Warm stone and white fixture; retain natural reflections."},
+    "189": {"reason": "The toilet and bidet attachment are prominent, with a clean finished-room background.", "aspect": "4:3", "focal_point": [65, 60], "crop": "Favor the toilet and attachment; trim the left tub area if needed, without further clipping the tank.", "grade": "Warm-neutral bathroom materials match the fixture set."}
+  }
+}

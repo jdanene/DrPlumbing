@@ -15,6 +15,12 @@ dist-ssr
 .env*
 .wrangler/
 
+# Keep camera originals local; version the reviewed copies separately.
+/public/service-photos/*
+!/public/service-photos/selected/
+__pycache__/
+*.pyc
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

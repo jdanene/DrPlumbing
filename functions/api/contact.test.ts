@@ -18,6 +18,7 @@ function request(overrides: Record<string, unknown> = {}): Request {
       phone: "(206) 555-0123",
       city: "Newcastle",
       service: "Boilers",
+      urgency: "Today",
       time: "Afternoon",
       message: "No heat <script>",
       companyWebsite: "",
@@ -40,13 +41,24 @@ describe("contact endpoint", () => {
     expect(url).toBe("https://contact-email.internal/send");
     const body = JSON.parse(init.body);
     expect(body.text).toContain("Details: No heat <script>");
-    expect(body.subject).toBe("Callback request: Boilers");
+    expect(body.text).toContain("How soon: Today");
+    expect(body.subject).toBe("TODAY: Callback request: Boilers");
   });
 
   it("rejects invalid customer data before calling the provider", async () => {
     const fetch = vi.fn();
     const response = await handleContactRequest(
       request({ name: "", phone: "letters" }),
+      { CONTACT_EMAIL: { fetch } },
+    );
+    expect(response.status).toBe(400);
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("rejects invented urgency values", async () => {
+    const fetch = vi.fn();
+    const response = await handleContactRequest(
+      request({ urgency: "TODAY\nBcc: someone@example.com" }),
       { CONTACT_EMAIL: { fetch } },
     );
     expect(response.status).toBe(400);

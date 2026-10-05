@@ -44,6 +44,7 @@ describe("routes", () => {
     ["#unknown", "home"],
     ["#boilers", "boilers"],
     ["#home-reviews", "home-reviews"],
+    ["#home-faq", "home-faq"],
   ])("resolves %s to %s", (hash, route) => {
     expect(resolveRoute(hash)).toBe(route);
   });
@@ -68,6 +69,14 @@ describe("reference pages", () => {
     expect(screen.getByText(/© 2026 Dr Plumbing & Heating Group LLC/)).toBeDefined();
     expect(screen.getByText(/WA plumbing contractor lic. DRPLUPH740ND/)).toBeDefined();
     expect(screen.getByText("Brands we service")).toBeDefined();
+    const hero = document.querySelector(".hero")!;
+    expect(within(hero as HTMLElement).getByRole("link", { name: "Find your service" }).getAttribute("href")).toBe("#home-services");
+    expect(within(hero as HTMLElement).queryByRole("link", { name: "Book a visit" })).toBeNull();
+    const call = within(hero as HTMLElement).getByRole("link", { name: "Call (206) 671-8888" });
+    expect(call.getAttribute("href")).toBe("tel:2066718888");
+    expect(call.classList.contains("btn-outline")).toBe(true);
+    expect(within(hero as HTMLElement).getByRole("link", { name: "You can text us, too." }).getAttribute("href")).toBe("sms:+12066718888");
+    expect(screen.queryByRole("navigation", { name: "Quick service links" })).toBeNull();
     for (const brand of ["Rheem", "A. O. Smith", "Bradford White", "Navien", "Rinnai", "Carrier", "Trane", "Mitsubishi Electric"]) {
       expect(within(screen.getByRole("region", { name: "Brands we service" })).getByText(brand)).toBeDefined();
     }
@@ -84,6 +93,35 @@ describe("reference pages", () => {
       ).toBe(`#${service.id}`);
     }
     expect(main.getByText("Flat-rate prices")).toBeDefined();
+    expect(main.getByRole("heading", { name: "Hire a professional" })).toBeDefined();
+    expect(main.getByRole("heading", { name: "Experienced technicians" })).toBeDefined();
+    expect(main.getByRole("link", { name: "Open in Google Maps" }).getAttribute("href")).toBe("https://www.google.com/maps/search/?api=1&query=Seattle%2C%20WA");
+  });
+
+  it("preserves all nine common questions and the footer FAQ destination", async () => {
+    render(<App />);
+    const faq = document.getElementById("home-faq")!;
+    expect(within(faq).getByRole("heading", { name: "Common questions." })).toBeDefined();
+    expect(within(faq).getByRole("link", { name: "Call (206) 671-8888." }).getAttribute("href")).toBe("tel:2066718888");
+    const questions = [...faq.querySelectorAll("summary")];
+    expect(questions.map((item) => item.textContent)).toEqual([
+      "What areas do you serve?",
+      "Are you licensed and insured?",
+      "How does your pricing work?",
+      "Do you offer emergency service?",
+      "Should I choose a tank or a tankless water heater?",
+      "Is a heat pump water heater worth it?",
+      "What is hydronic heating?",
+      "How often should my boiler be serviced?",
+      "When do I need hydro jetting?",
+    ]);
+    await userEvent.click(questions[6]);
+    expect(questions[6].parentElement?.hasAttribute("open")).toBe(true);
+    expect(within(faq).getByText(/A hydronic system heats your home with hot water/)).toBeDefined();
+    expect(within(faq).queryByText("Does the online form book an appointment?")).toBeNull();
+    navigate("#about");
+    navigate("#home-faq");
+    expect(document.activeElement?.textContent).toBe("Common questions.");
   });
 
   it("renders each service including prose-only boiler sections", () => {
@@ -104,7 +142,7 @@ describe("reference pages", () => {
       ).toBe("page");
     }
     expect(
-      screen.getByText(/Hydronic heat is efficient, even and quiet/),
+      screen.getByText(/Hydronic heating systems are known for their efficiency, even heating, and quiet operation/),
     ).toBeDefined();
     expect(
       within(
@@ -117,7 +155,7 @@ describe("reference pages", () => {
     render(<App />);
     navigate("#services");
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Our services",
+      "Plumbing, heating & cooling services",
     );
     expect(
       screen.getByRole("heading", { name: "Not sure which service you need?" }),
@@ -131,7 +169,9 @@ describe("reference pages", () => {
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "A family business on your street.",
     );
-    expect(screen.getByText("Flat-rate prices")).toBeDefined();
+    for (const heading of ["Expert team", "Homeowners like you have put their trust in us.", "Sincere, flat-rate pricing", "Go the extra mile", "Our top priority is your safety."]) {
+      expect(screen.getByRole("heading", { name: heading })).toBeDefined();
+    }
     expect(screen.getByText("Mehran")).toBeDefined();
     navigate("#home-area");
     const area = document.getElementById("home-area");
@@ -165,6 +205,8 @@ describe("reference pages", () => {
     render(<App />);
     navigate("#work");
     expect(screen.getAllByRole("article")).toHaveLength(9);
+    await user.click(screen.getByRole("button", { name: "Plumbing", pressed: false }));
+    expect(screen.getAllByRole("article")).toHaveLength(3);
     await user.click(screen.getByRole("button", { name: "Water heaters" }));
     expect(screen.getAllByRole("article")).toHaveLength(2);
     expect(document.activeElement).toBe(

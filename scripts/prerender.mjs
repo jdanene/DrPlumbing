@@ -1,11 +1,11 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { PUBLIC_ROUTES, SITE_ORIGIN, renderPage, routeHref } from "../dist-ssr/prerender.js";
+import { PHOTOS, PUBLIC_ROUTES, SITE_ORIGIN, renderPage, routeHref } from "../dist-ssr/prerender.js";
 
 /**
  * Description: Publishes React pages and crawl files into Vite's existing static output.
  * Inputs: The client build and SSR renderer must already exist; SITE_NOINDEX=1 makes a private preview build.
- * Output: One HTML file per public route, a true 404, robots.txt, sitemap.xml, and Cloudflare headers.
+ * Output: Page HTML, crawl files, shared assets and selected job photos. Missing selected files stop the build; camera originals and review packages remain local.
  * Examples: /water-heaters/gas-water-heaters/ is served from dist/water-heaters/gas-water-heaters/index.html.
  */
 const output = "dist";
@@ -13,6 +13,17 @@ const template = await readFile(join(output, "index.html"), "utf8");
 const indexable = process.env.SITE_NOINDEX !== "1";
 if (!template.includes("<!--seo:start-->") || !template.includes('<div id="root"></div>')) {
   throw new Error("The Vite HTML template is missing its SEO or root marker.");
+}
+
+await cp("public", output, {
+  recursive: true,
+  filter: (source) => source !== join("public", "service-photos"),
+});
+const photoPaths = new Set(Object.values(PHOTOS).map((photo) => photo.src.slice(1)));
+for (const photoPath of photoPaths) {
+  const destination = join(output, photoPath);
+  await mkdir(dirname(destination), { recursive: true });
+  await cp(join("public", photoPath), destination);
 }
 
 for (const route of [...PUBLIC_ROUTES, "not-found"]) {
@@ -63,4 +74,4 @@ const oldPaths = [
   ["/copy-2-of-water-filteration", "boilers"],
 ];
 await writeFile(join(output, "_redirects"), oldPaths.map(([oldPath, route]) => `${oldPath} ${routeHref(route)} 301`).join("\n") + "\n");
-console.log(`Prerendered ${PUBLIC_ROUTES.length} pages, 404.html, sitemap.xml, and robots.txt (${indexable ? "production indexable" : "preview noindex"}).`);
+console.log(`Prerendered ${PUBLIC_ROUTES.length} pages, 404.html, sitemap.xml, and robots.txt with ${photoPaths.size} selected photos (${indexable ? "production indexable" : "preview noindex"}).`);

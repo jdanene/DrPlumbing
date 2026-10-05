@@ -28,6 +28,12 @@ npm run preview
 `preview` serves that build at the address it prints. Neither command runs tests.
 The optional `npm run check` also runs Oxlint and automated tests.
 
+The static publisher copies shared public assets and the job photographs listed
+in `src/projectPhotos.ts`. Camera originals, unused candidates and the GBP review
+package stay out of `dist/`. Local Vite still serves the full review library.
+Originals remain on disk and are excluded from Git; reviewed copies and their
+classification records are versioned.
+
 Local Vite servers do not run Cloudflare Pages Functions or apply Cloudflare's
 `_headers` and `_redirects`. Check contact-email delivery and redirect/header
 rules on a Cloudflare preview deployment.

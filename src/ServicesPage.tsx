@@ -3,8 +3,8 @@ import { CallToAction, ServiceFinder } from "./SiteContent";
 
 /**
  * Description: Renders the supplied services reference as native React markup.
- * Inputs: None; all business copy remains a review draft.
- * Output: The reference page with real links and explicit photo placeholders.
+ * Inputs: None; the service catalog supplies the approved business copy.
+ * Output: Service groups with working detail and contact links.
  * Examples: App.test.tsx verifies this page's heading and shared links.
  */
 export default function ServicesPage() {

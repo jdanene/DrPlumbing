@@ -1,18 +1,19 @@
 import { routeHref } from "./sitePaths";
 import { useState } from "react";
-import { PROJECTS } from "./content";
-import { CallToAction, Camera } from "./SiteContent";
+import { WORK_PROJECTS } from "./projectPhotos";
+import { Arrow, CallToAction } from "./SiteContent";
+import ProjectPhoto from "./ProjectPhoto";
 
 /**
- * Description: Lets reviewers filter the mockup's project-photo slots without inventing completed jobs.
- * Inputs: None; filters use the project categories from the supplied mockup.
- * Output: Project-photo placeholders or the selected category; filters retain keyboard focus.
- * Examples: App.test.tsx filters water heaters, boilers, and All, checking the visible card count.
+ * Description: Shows photographed work, grouped by the services customers need.
+ * Inputs: None; the selected project catalog supplies photographs and captions.
+ * Output: Project cards in the selected category; filters retain keyboard focus.
+ * Examples: All shows thirteen projects; Water heaters shows two; Boilers shows four.
  */
 export default function WorkPage() {
   const [category, setCategory] = useState("All");
-  const projects = PROJECTS.filter(
-    (project) => category === "All" || project.cat === category,
+  const projects = WORK_PROJECTS.filter(
+    (project) => category === "All" || project.category === category,
   );
   return (
     <div className="view is-active" data-view="work">
@@ -31,7 +32,7 @@ export default function WorkPage() {
               margin: "16px 0 14px",
             }}
           >
-            Real jobs in real homes.
+            Real jobs. Real photos.
           </h1>
           <p className="lead" style={{ maxWidth: 640, marginBottom: 28 }}>
             Every photo here is a Dr Plumbing &amp; Heating project, taken on the
@@ -51,39 +52,18 @@ export default function WorkPage() {
             ))}
           </div>
           <p className="sr-only" role="status">
-            {projects.length} project placeholders
+            {projects.length} projects
           </p>
           <div className="work-grid">
             {projects.map((project) => (
               <article className="work-card" key={project.title}>
-                <div
-                  className="pics"
-                  style={
-                    project.ba
-                      ? { gridTemplateColumns: "repeat(2,minmax(0,1fr))" }
-                      : undefined
-                  }
-                >
-                  {project.ba ? (
-                    <>
-                      <div className="ph">
-                        <b>BEFORE</b>
-                      </div>
-                      <div className="ph">
-                        <b>AFTER</b>
-                        <small>Same angle</small>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="ph">
-                      <Camera />
-                      <b>PHOTO: {project.shot}</b>
-                    </div>
-                  )}
-                </div>
-                <div className="cat">{project.cat}</div>
+                <a className="pics" href={project.photo.src} target="_blank" rel="noreferrer" aria-label={`View full photo: ${project.title}`}>
+                  <ProjectPhoto photo={project.photo} />
+                </a>
+                <div className="cat">{project.category}</div>
                 <h3>{project.title}</h3>
-                <span className="muted">[City] · [Month Year]</span>
+                <p className="muted">{project.description}</p>
+                <a className="work-service-link" href={routeHref(project.service)}>Explore {project.category.toLowerCase()} <Arrow /></a>
               </article>
             ))}
           </div>

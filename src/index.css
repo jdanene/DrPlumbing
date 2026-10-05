@@ -628,6 +628,27 @@ section {
   );
   color: #d9d2c5;
 }
+.project-photo {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--band);
+  aspect-ratio: 4/3;
+}
+.project-photo--portrait {
+  aspect-ratio: 4/5;
+}
+.project-photo img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* Hero */
 .hero {
@@ -852,7 +873,7 @@ section {
   padding: 0 56px 48px 0;
 }
 .owner .photos .main {
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1;
 }
 .owner .photos .inset {
   position: absolute;
@@ -923,38 +944,38 @@ section {
 /* Gallery */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: minmax(200px, auto);
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 24px;
+  align-items: start;
 }
-.gallery .feature {
-  grid-column: span 2;
-  grid-row: span 2;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
-  min-height: 420px;
+.gallery-job {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  color: var(--ink);
+  text-decoration: none;
 }
-.gallery .feature .ph {
-  border-radius: 0;
+.gallery-job > .project-photo {
+  aspect-ratio: 4/3;
 }
 .gallery .label {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  background: var(--surface);
-  border-radius: 12px;
-  padding: 10px 14px;
   line-height: 1.35;
+}
+.gallery-job:hover .label b,
+.gallery-job:focus-visible .label b {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .gallery .label b {
   display: block;
-  font-size: 15.5px;
+  font-size: 18px;
 }
 .gallery .label span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
   font-size: 13.5px;
   color: var(--muted);
 }
@@ -1247,13 +1268,22 @@ section {
   flex-direction: column;
   gap: 20px;
 }
+.svc-hero--text-only .copy {
+  grid-column: 1 / -1;
+  max-width: 75ch;
+}
 .svc-hero h1 {
   font-size: clamp(40px, 5.6vw, 68px);
   font-weight: 800;
 }
-.svc-hero .ph {
+.svc-hero .ph,
+.svc-hero .project-photo {
   grid-column: 8 / span 5;
   aspect-ratio: 5/4;
+}
+.svc-hero .project-photo--portrait {
+  aspect-ratio: 4/5;
+  max-height: 540px;
 }
 .svc-tabs {
   display: flex;
@@ -1325,6 +1355,16 @@ section {
 .items .link-arrow {
   margin-top: 10px;
   font-size: 15px;
+}
+.service-item-copy {
+  width: 100%;
+  min-width: 0;
+}
+.service-item-photo {
+  display: block;
+  max-width: 360px;
+  margin-top: 18px;
+  border-radius: 20px;
 }
 .items {
   display: grid;
@@ -1409,7 +1449,7 @@ section {
   font-size: clamp(42px, 6vw, 76px);
   font-weight: 800;
 }
-.about-hero .ph {
+.about-hero .project-photo {
   grid-column: 7 / span 6;
   aspect-ratio: 5/4;
 }
@@ -1419,7 +1459,7 @@ section {
   gap: 40px 32px;
   align-items: start;
 }
-.letter .ph {
+.letter .project-photo {
   grid-column: span 4;
   aspect-ratio: 4/5;
   position: sticky;
@@ -1441,7 +1481,7 @@ section {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
-.strip .ph {
+.strip .project-photo {
   aspect-ratio: 4/3;
 }
 .fill {
@@ -1454,26 +1494,24 @@ section {
 
 /* Work */
 .work-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px 24px;
+  columns: 3;
+  column-gap: 24px;
   margin-top: 32px;
 }
 .work-card {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  break-inside: avoid;
+  margin-bottom: 40px;
 }
 .work-card .pics {
-  aspect-ratio: 4/3;
   border-radius: 18px;
   overflow: hidden;
-  display: grid;
-  gap: 4px;
+  display: block;
 }
-.work-card .pics .ph {
+.work-card .pics .project-photo {
   border-radius: 0;
-  height: 100%;
 }
 .work-card .cat {
   font-size: 12.5px;
@@ -1485,6 +1523,18 @@ section {
 .work-card h3 {
   font-size: 22px;
   font-weight: 700;
+}
+.work-card p {
+  line-height: 1.6;
+}
+.work-service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-underline-offset: 4px;
 }
 .chips {
   display: flex;
@@ -1658,23 +1708,26 @@ fieldset.field {
   .reviews .slots,
   .svc-hero .copy,
   .svc-hero .ph,
+  .svc-hero .project-photo,
   .svc-sec .s-head,
   .svc-sec .s-body,
   .about-hero .copy,
-  .about-hero .ph,
-  .letter .ph,
+  .about-hero .project-photo,
+  .letter .project-photo,
   .letter .copy,
   .book .intro,
   .book .panel {
     grid-column: 1 / -1;
   }
-  .letter .ph {
+  .letter .project-photo {
     position: static;
     aspect-ratio: 4/3;
   }
-  .tiles,
-  .work-grid {
+  .tiles {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .work-grid {
+    columns: 2;
   }
   .trust,
   .why-grid {
@@ -1689,8 +1742,13 @@ fieldset.field {
   .foot-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .svc-hero .ph {
+  .svc-hero .ph,
+  .svc-hero .project-photo {
     aspect-ratio: 16/10;
+  }
+  .svc-hero .project-photo--portrait {
+    aspect-ratio: 4/5;
+    max-height: 460px;
   }
   .owner .photos {
     padding: 0 40px 40px 0;
@@ -1849,15 +1907,12 @@ fieldset.field {
   .tile .link-arrow {
     display: none;
   }
-  .work-grid,
   .strip,
   .gallery {
     grid-template-columns: 1fr;
   }
-  .gallery .feature {
-    grid-column: auto;
-    grid-row: auto;
-    min-height: 260px;
+  .work-grid {
+    columns: 1;
   }
   .trust {
     grid-template-columns: 1fr 1fr;

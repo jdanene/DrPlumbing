@@ -1,5 +1,7 @@
 import { routeHref } from "./sitePaths";
 import { CallToAction } from "./SiteContent";
+import ProjectPhoto from "./ProjectPhoto";
+import { PHOTOS } from "./projectPhotos";
 
 const ABOUT_VALUES = [
   ["Expert team", "Our expert team goes above and beyond to ensure you have the best customer experience possible. We work with the same precision and care from start to finish, regardless of the size of the job. Whether you need a quick drain cleaning or a comprehensive re-piping, we have you covered. You can be confident that we will complete the repair or installation and have your home back in working order in no time."],
@@ -12,7 +14,7 @@ const ABOUT_VALUES = [
 /**
  * Description: Renders the supplied About reference as native React markup.
  * Inputs: None; the supplied mockup defines the business copy.
- * Output: The reference page with real links and explicit photo placeholders.
+ * Output: The business story, working photographs and service links.
  * Examples: App.test.tsx verifies this page's heading and shared links.
  */
 export default function AboutPage() {
@@ -40,41 +42,19 @@ export default function AboutPage() {
               </a>
             </div>
           </div>
-          <div className="ph">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <circle cx="12" cy="13" r="4" />
-            </svg>
-            <b>PHOTO: The owner and his family, smiling</b>
-            <small>
-              The biggest photo on the page. Relaxed, outdoors, natural light.
-            </small>
-          </div>
+          <ProjectPhoto photo={PHOTOS.technician} priority />
         </div>
       </section>
 
       <section className="block">
         <div className="wrap letter">
-          <div className="ph">
-            <b>PHOTO: Owner beside the van, in uniform</b>
-          </div>
+          <ProjectPhoto photo={PHOTOS.technicianFiltration} />
           <div className="copy">
             <div className="eyebrow">A note from the owner</div>
             <h2 className="h2">Why I started Dr Plumbing &amp; Heating.</h2>
             <p>
-              I have worked in plumbing and heating for 26+ years. In{" "}
-              <span className="fill">[year]</span>, I started my own company to
-              do honest work at a fair price.
+              I have worked in plumbing and heating for 26+ years. I started my
+              own company to do honest work at a fair price.
             </p>
             <p>
               My family and I live in Seattle.
@@ -112,20 +92,14 @@ export default function AboutPage() {
         <div className="wrap">
           <div className="block-head">
             <div>
-              <div className="eyebrow">Behind the van</div>
-              <h2 className="h2">The people who come to your home.</h2>
+              <div className="eyebrow">On the job</div>
+              <h2 className="h2">Our team at work.</h2>
             </div>
           </div>
           <div className="strip">
-            <div className="ph">
-              <b>PHOTO: A family moment</b>
-            </div>
-            <div className="ph">
-              <b>PHOTO: Owner with a customer</b>
-            </div>
-            <div className="ph">
-              <b>PHOTO: The van at a job</b>
-            </div>
+            <ProjectPhoto photo={PHOTOS.pipeAlignment} fullFrame />
+            <ProjectPhoto photo={PHOTOS.boilerWork} fullFrame />
+            <ProjectPhoto photo={PHOTOS.welding} fullFrame />
           </div>
         </div>
       </section>

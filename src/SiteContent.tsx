@@ -15,31 +15,8 @@ import {
   serviceOptionHref,
   type ServiceDetail,
 } from "./serviceDetails";
-
-/**
- * Description: Marks a missing project photograph with the reference's camera symbol.
- * Inputs: None; adjacent text describes the required photo.
- * Output: A decorative camera, excluded from the accessible name.
- * Examples: App.test.tsx verifies service placeholders and Work filters retain their labels.
- */
-export function Camera() {
-  return (
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-      <circle cx="12" cy="13" r="4" />
-    </svg>
-  );
-}
+import { DETAIL_PHOTOS, SERVICE_PHOTOS } from "./projectPhotos";
+import ProjectPhoto from "./ProjectPhoto";
 
 /**
  * Description: Draws the repeated directional cue without giving it an accessible name.
@@ -175,6 +152,9 @@ export function ServicePage({
   detail?: ServiceDetail;
 }) {
   const page = detail ?? service;
+  const photo = detail
+    ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`]
+    : SERVICE_PHOTOS[service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
   const relatedHeading = detail ? `More in ${service.tab}` : "Other services";
   const tabsRef = useRef<HTMLElement>(null);
@@ -210,7 +190,7 @@ export function ServicePage({
             ))}
           </nav>
         </div>
-        <section className="svc-hero">
+        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}`}>
           <div className="copy">
             <nav className="crumbs" aria-label="Breadcrumb">
               <a href={routeHref("home")}>Home</a>
@@ -238,10 +218,7 @@ export function ServicePage({
               </a>
             </div>
           </div>
-          <div className="ph">
-            <Camera />
-            <b>PHOTO: {page.photo}</b>
-          </div>
+          {photo && <ProjectPhoto photo={photo} priority fullFrame />}
         </section>
         {page.sections.map((section, sectionIndex) => {
           const items = section.items ?? [];
@@ -270,43 +247,59 @@ export function ServicePage({
                       gridTemplateColumns: `repeat(${section.cols ?? 2},minmax(0,1fr))`,
                     }}
                   >
-                    {items.map(([title, copy], index) => (
-                      <li id={serviceDetailSlug(title)} key={title}>
-                        {section.numbered ? (
-                          <span className="num">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                        ) : section.check ? (
-                          <svg
-                            className="chk"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.4"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="M5 12l5 5L20 7" />
-                          </svg>
-                        ) : null}
-                        <div>
-                          <h3>{title}</h3>
-                          {copy && <p>{copy}</p>}
-                          {!detail && (serviceDetailFor(service.id, title) || service.optionTargets?.[title]) && (
-                            <a
-                              className="link-arrow"
-                              href={serviceOptionHref(service.id, title)}
-                              aria-label={`Read more about ${title}`}
+                    {items.map(([title, copy], index) => {
+                      const itemPhoto = !detail
+                        && !serviceDetailFor(service.id, title)
+                        && !service.optionTargets?.[title]
+                        ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(title)}`]
+                        : undefined;
+                      return (
+                        <li id={serviceDetailSlug(title)} key={title}>
+                          {section.numbered ? (
+                            <span className="num">
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                          ) : section.check ? (
+                            <svg
+                              className="chk"
+                              width="22"
+                              height="22"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.4"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
                             >
-                              Read more<span className="sr-only"> about {title}</span> <Arrow />
-                            </a>
-                          )}
-                        </div>
-                      </li>
-                    ))}
+                              <path d="M5 12l5 5L20 7" />
+                            </svg>
+                          ) : null}
+                          <div className="service-item-copy">
+                            <h3>{title}</h3>
+                            {copy && <p>{copy}</p>}
+                            {!detail && (serviceDetailFor(service.id, title) || service.optionTargets?.[title]) && (
+                              <a
+                                className="link-arrow"
+                                href={serviceOptionHref(service.id, title)}
+                                aria-label={`Read more about ${title}`}
+                              >
+                                Read more<span className="sr-only"> about {title}</span> <Arrow />
+                              </a>
+                            )}
+                            {itemPhoto && itemPhoto.src !== photo?.src && (
+                              <a
+                                className="service-item-photo"
+                                href={itemPhoto.src}
+                                aria-label={`View full photo: ${itemPhoto.alt}`}
+                              >
+                                <ProjectPhoto photo={itemPhoto} fullFrame />
+                              </a>
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 ) : !section.paras && section.intro ? (
                   <p>{section.intro}</p>

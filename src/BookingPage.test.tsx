@@ -68,6 +68,7 @@ describe("booking request", () => {
     fireEvent.change(screen.getByLabelText("Your name"), { target: { value: "Taylor" } });
     fireEvent.change(screen.getByLabelText("Phone"), { target: { value: "(206) 555-0123" } });
     fireEvent.change(screen.getByLabelText("What is going on?"), { target: { value: "<script>alert(1)</script>" } });
+    await user.click(screen.getByLabelText("Today"));
     await user.click(screen.getByLabelText("Afternoon"));
     await user.click(screen.getByRole("button", { name: "Send request" }));
     await screen.findByRole("heading", { name: "Request sent." });
@@ -75,6 +76,7 @@ describe("booking request", () => {
     const [, init] = fetch.mock.calls[0];
     const body = JSON.parse(init.body);
     expect(body.message).toBe("<script>alert(1)</script>");
+    expect(body.urgency).toBe("Today");
     expect(body.companyWebsite).toBe("");
     expect(screen.getByText("<script>alert(1)</script>")).toBeDefined();
     expect(document.querySelector("script")).toBeNull();
@@ -82,6 +84,7 @@ describe("booking request", () => {
       screen.getByRole("heading", { name: "Request sent." }),
     );
     expect(screen.getByText("Boilers", { selector: "dd" })).toBeDefined();
+    expect(screen.getByText("Today", { selector: "dd" })).toBeDefined();
     expect(screen.getByText("Afternoon", { selector: "dd" })).toBeDefined();
     await user.click(screen.getByRole("button", { name: "Send another request" }));
     expect(screen.getByLabelText("Your name")).toBeDefined();

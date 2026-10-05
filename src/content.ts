@@ -1,5 +1,5 @@
 /**
- * Description: Keeps the approved services, values, cities, and project-photo placeholders together.
+ * Description: Keeps the approved services, values and cities together.
  * Inputs: None; business content follows the owner's approved mockup and subsequent corrections.
  * Output: Typed content shared by pages, navigation, and booking.
  * Examples: App.test.tsx checks all six service routes and project categories.
@@ -28,13 +28,6 @@ export interface Service {
   optionTargets?: Record<string, string>;
   sections: ServiceSection[];
 }
-export interface Project {
-  cat: string;
-  title: string;
-  ba?: boolean;
-  shot?: string;
-}
-
 export interface ServiceGroup {
   id: "plumbing" | "mechanical";
   label: string;
@@ -539,40 +532,4 @@ export const CITIES = [
   "Shoreline",
   "Skyway",
   "Snohomish",
-];
-export const PROJECTS: Project[] = [
-  { cat: "Water heaters", title: "Water heater replacement", ba: true },
-  {
-    cat: "Water heaters",
-    title: "Tankless water heater install",
-    shot: "Tankless unit mounted on wall",
-  },
-  {
-    cat: "Heating & cooling",
-    title: "Heat pump install",
-    shot: "Outdoor unit on its pad",
-  },
-  { cat: "Heating & cooling", title: "Furnace replacement", ba: true },
-  { cat: "Plumbing", title: "Shower valve and trim", shot: "Finished shower" },
-  {
-    cat: "Plumbing",
-    title: "Kitchen sink and faucet",
-    shot: "Finished sink and faucet",
-  },
-  {
-    cat: "Plumbing",
-    title: "Trenchless water line repair",
-    shot: "Crew and equipment in the yard",
-  },
-  {
-    cat: "Drain & sewer",
-    title: "Trenchless sewer line",
-    shot: "Sewer line or drain job",
-  },
-  {
-    cat: "Water filtration",
-    title: "Whole-house water softener",
-    shot: "Softener setup in garage",
-  },
-  { cat: "Boilers", title: "Boiler replacement", ba: true },
 ];

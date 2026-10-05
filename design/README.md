@@ -15,3 +15,10 @@ so both stay current.
 
 Bracketed text, such as `[First name]` or `[LICENSE #]`, marks facts the owner
 has not supplied. Striped boxes mark photos still needed.
+
+## Design reference
+
+- [Don Norman, *Emotional Design*](references/Emotional-Design-Don-Norman.pdf): use
+  its visceral, behavioral, and reflective levels to review the site's first
+  impression, ease of finding a service, and sense of trust. This is a design
+  reference, not website copy or a production asset.

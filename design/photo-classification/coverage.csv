@@ -1,0 +1,44 @@
+folder,service,candidate_photos,reference_or_uncertain_photos
+general-plumbing/leak-detection,Leak detection,0,0
+general-plumbing/burst-pipe-repair,Burst pipe repair,0,0
+general-plumbing/piping-and-repiping,Piping and repiping,27,1
+general-plumbing/trenchless-water-line-repair,Trenchless water line repair,0,0
+general-plumbing/gas-line-repair-and-installation,Gas line repair and installation,4,0
+general-plumbing/toilet-repair-and-installation,Toilet repair and installation,8,0
+general-plumbing/faucets-fixtures-and-sinks,"Faucets, fixtures and sinks",11,2
+general-plumbing/showers-and-tubs,Showers and tubs,14,2
+general-plumbing/garbage-disposals,Garbage disposals,0,0
+general-plumbing/sump-pumps,Sump pumps,0,0
+general-plumbing/water-filtration-systems,Water filtration systems,13,4
+general-plumbing/system-overview,General plumbing: system overview,3,8
+water-heaters/electric-water-heaters,Electric water heaters,1,0
+water-heaters/gas-water-heaters,Gas water heaters,1,0
+water-heaters/tankless-water-heaters,Tankless water heaters,2,0
+water-heaters/heat-pump-water-heaters,Heat pump water heaters,0,0
+water-heaters/system-overview,Water heaters: system overview,10,3
+drain-and-sewer/drain-cleaning,Drain cleaning,0,0
+drain-and-sewer/hydrojetting,Hydrojetting,0,0
+drain-and-sewer/sewer-line-repair-and-replacement,Sewer line repair and replacement,7,0
+drain-and-sewer/trenchless-sewer-repair,Trenchless sewer repair,0,0
+drain-and-sewer/system-overview,Drain & sewer: system overview,16,1
+water-filtration/water-softeners,Water softeners,3,4
+water-filtration/carbon-filters,Carbon filters,0,0
+water-filtration/reverse-osmosis,Reverse osmosis,0,0
+water-filtration/iron-and-sulfur-filters,Iron and sulfur filters,0,0
+water-filtration/uv-treatment,UV treatment,10,2
+water-filtration/system-overview,Water filtration: system overview,13,4
+heating-and-cooling/heating,Heating,2,0
+heating-and-cooling/ventilation,Ventilation,1,0
+heating-and-cooling/air-conditioning,Air conditioning,0,0
+heating-and-cooling/installation,Installation,0,0
+heating-and-cooling/maintenance,Maintenance,0,0
+heating-and-cooling/repair,Repair,0,0
+heating-and-cooling/emergency-service,Emergency service,0,0
+heating-and-cooling/system-overview,Heating & cooling: system overview,0,0
+boilers/hydronic-heating,Hydronic heating,56,3
+boilers/radiant-floor-heating,Radiant floor heating,0,0
+boilers/annual-boiler-service,Annual boiler service,0,0
+boilers/boiler-repair,Boiler repair,0,0
+boilers/boiler-replacement,Boiler replacement,0,0
+boilers/system-overview,Boilers: system overview,4,0
+about/on-the-job,On the job,49,3

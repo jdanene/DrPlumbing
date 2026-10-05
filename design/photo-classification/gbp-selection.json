@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-04",
+  "catalog": "catalog.json",
+  "best_selection": "best-selection.json",
+  "scope": "A local, proposed Google Business Profile photo set. No uploads, profile edits, pixel edits or website changes.",
+  "photo_review": {
+    "method": "Compare the two owner-selected replacement photos with the current Google Business Profile set. Check dominant subject, literal service labels and crop limits; preserve the reviewed source bytes.",
+    "correction": "Replace the smiling cover photo, ID 107, with the focused press-tool photo, ID 105. Replace the wider welding view, ID 23, with the closer grinding view, ID 20. Preserve both replaced JPEGs under superseded.",
+    "selection_rule": "Prefer candid work over posed eye contact. The customer's first visible subject must support the service label, and each replacement must add a distinct work process.",
+    "crop_rule": "These are unchanged full frames. Portrait equipment images need their vertical context; shallow landscape crops can remove vents, tanks, hands or fittings. Check Google's actual previews before publishing."
+  },
+  "priority_source": {
+    "chat_title": "Compare plumbing lead platforms",
+    "chat_id": "01a0e508-fb94-7f52-9a7c-076d1f017717",
+    "user_turn_id": "01a108e7-aa36-7122-b632-8cd210a35971",
+    "user_priorities": "Water heaters, dig jobs and leaks, drain stuff",
+    "interpretation": "Weight heater, underground pipe and plumbing work first. Keep hydronic heating and filtration visible as specialties. This is an editorial allocation, not a measured ranking of search demand, margins or conversions."
+  },
+  "visual_system": {
+    "palette": "Natural copper, neutral walls, white fixtures and real equipment colors. Outdoor greens and soil remain unchanged.",
+    "light": "Readable equipment and faces; prefer sharp, evenly lit frames. Genuine utility-room light is acceptable when the subject remains clear.",
+    "tone": "Candid, documentary work and recognizable home fixtures. People focus on the task instead of posing or smiling at the camera.",
+    "sequence": "Start with focused tool use and the owner's priority work. Mix equipment, people and finished fixtures. Avoid near-identical views of the same equipment.",
+    "treatment": "Copy reviewed JPEG bytes without cropping, retouching, filters, color grading or AI changes. Show full frames in the review gallery.",
+    "limits": "Proposed numbers organize this package, not Google's public photo order. Google may choose another first or cover image. Photo count and filenames do not establish a ranking or website-traffic guarantee."
+  },
+  "sources": [
+    {"title": "Manage your services on your Business Profile", "url": "https://support.google.com/business/answer/9455399", "use": "Google permits suggested and custom services, grouping and descriptions; a matching service may be highlighted."},
+    {"title": "Tips for business-specific photos", "url": "https://support.google.com/business/answer/6123536", "use": "Show representative work, specialty services and people. Images must represent reality."},
+    {"title": "Manage your Business Profile photos and videos", "url": "https://support.google.com/business/answer/6103862", "use": "JPG/PNG, 10 KB to 5 MB, recommended 720 by 720 or larger, minimum 250 by 250. A selected cover need not appear first."},
+    {"title": "Tips to improve your local ranking", "url": "https://support.google.com/business/answer/7091", "use": "Local results depend mainly on relevance, distance and prominence. Complete business information matters; this source provides no uplift estimate for 15 photos."}
+  ],
+  "photos": [
+    {
+      "order": 1,
+      "id": 105,
+      "category": "about/on-the-job",
+      "file": "01_technician-with-press-tool.jpg",
+      "role": "Proposed cover and human introduction",
+      "label": "Technician using a press tool on copper heating pipework",
+      "reason": "Focused tool use and recognizable copper pipework introduce real work without a posed portrait.",
+      "frame_note": "Keep the face, hands, press tool and copper joint visible in Google's preview. Do not label the person by name without an identity record.",
+      "website_route": "/about/"
+    },
+    {
+      "order": 2,
+      "id": 132,
+      "category": "water-heaters/tankless-water-heaters",
+      "file": "02_gas-tankless-water-heater.jpg",
+      "role": "Priority service: water heaters",
+      "label": "Natural-gas tankless water heater and connections",
+      "reason": "A recognizable, sharp tankless heater shows a specific service customers can seek on the website.",
+      "frame_note": "Keep the vent and lower connections. Retain the equipment label; do not erase it.",
+      "website_route": "/water-heaters/"
+    },
+    {
+      "order": 3,
+      "id": 95,
+      "category": "water-heaters/electric-water-heaters",
+      "file": "03_electric-storage-water-heater.jpg",
+      "role": "Priority service: water heaters",
+      "label": "Electric storage water heater with expansion tank",
+      "reason": "The familiar tank complements the tankless photo and covers a different heater type without repeating one installation.",
+      "frame_note": "Use the full portrait frame. A shallow landscape crop loses the expansion tank or lower heater.",
+      "website_route": "/water-heaters/"
+    },
+    {
+      "order": 4,
+      "id": 56,
+      "category": "drain-and-sewer/sewer-line-repair-and-replacement",
+      "file": "04_sewer-replacement-connection.jpg",
+      "role": "Priority service: sewer and underground pipe work",
+      "label": "Replacement sewer branch connected in an open trench",
+      "reason": "The distinct pipe and replacement connection make underground sewer work understandable at a glance.",
+      "frame_note": "Keep the branch and existing pipe connection. This is open-trench work, not evidence of trenchless repair.",
+      "website_route": "/drain-and-sewer/"
+    },
+    {
+      "order": 5,
+      "id": 44,
+      "category": "general-plumbing/piping-and-repiping",
+      "file": "05_underground-water-pipe-route.jpg",
+      "role": "Priority service: underground water pipes",
+      "label": "Pressure-pipe route in an open yard trench",
+      "reason": "The long pipe route explains the scale of yard excavation and complements the sewer connection detail.",
+      "frame_note": "Keep the foreground blue pipe and the receding route. Do not call this trenchless work.",
+      "website_route": "/plumbing/"
+    },
+    {
+      "order": 6,
+      "id": 61,
+      "category": "general-plumbing/piping-and-repiping",
+      "file": "06_domestic-water-manifold.jpg",
+      "role": "Priority service: plumbing and repiping",
+      "label": "Labeled hot and cold domestic-water distribution manifold",
+      "reason": "Orderly routing and readable shutoffs show plumbing detail without relying on an unverified repair story.",
+      "frame_note": "Keep upper copper feeds and the full manifold. This is domestic-water distribution, not a heating manifold.",
+      "website_route": "/plumbing/"
+    },
+    {
+      "order": 7,
+      "id": 55,
+      "category": "drain-and-sewer/sewer-line-repair-and-replacement",
+      "file": "07_sewer-crew-and-removed-pipe.jpg",
+      "role": "People at work: sewer service",
+      "label": "Crew beside removed clay sewer pipe and replacement sections",
+      "reason": "People and removed pipe show the work behind the cleaner connection photo and add residential yard context.",
+      "frame_note": "Keep the workers and removed clay pipe. Do not assign worker names or invent a before-and-after pairing.",
+      "website_route": "/drain-and-sewer/"
+    },
+    {
+      "order": 8,
+      "id": 176,
+      "category": "water-heaters/system-overview",
+      "file": "08_hot-water-tank-connection-work.jpg",
+      "role": "People at work: hot-water equipment",
+      "label": "Worker connecting copper pipe beside a hot-water tank",
+      "reason": "A visible tank and active connection work add a human service view to the two heater photographs.",
+      "frame_note": "Keep the hands, tank and copper connection. The worker partly obscures the connections; use this as work in progress, not a finished-installation hero. The heat source is not established; do not label this gas, electric or heat-pump.",
+      "website_route": "/water-heaters/"
+    },
+    {
+      "order": 9,
+      "id": 186,
+      "category": "general-plumbing/faucets-fixtures-and-sinks",
+      "file": "09_finished-sink-and-faucet.jpg",
+      "role": "Finished home fixture",
+      "label": "Pedestal sink and three-piece faucet",
+      "reason": "A clean, familiar fixture connects technical work to the result a homeowner recognizes.",
+      "frame_note": "Keep the faucet and basin. Do not claim the image documents a leak repair.",
+      "website_route": "/plumbing/"
+    },
+    {
+      "order": 10,
+      "id": 188,
+      "category": "general-plumbing/showers-and-tubs",
+      "file": "10_finished-tub-and-shower.jpg",
+      "role": "Finished home fixture",
+      "label": "Bathtub with overhead and handheld shower fittings",
+      "reason": "The clear shower fittings show a different plumbing service from the sink, with the same calm residential finish.",
+      "frame_note": "The shower fittings sit on the left and the tub below. Preserve both in the full portrait frame; a centered square crop can leave too much bare tile and lose the showerhead. This is not paired with a construction photo as verified before-and-after.",
+      "website_route": "/plumbing/"
+    },
+    {
+      "order": 11,
+      "id": 127,
+      "category": "general-plumbing/piping-and-repiping",
+      "file": "11_water-and-waste-wall-rough-in.jpg",
+      "role": "Plumbing detail: supply and drainage",
+      "label": "Water-supply and waste lines in an open wall",
+      "reason": "The wider wall view shows supply and drainage routing that a finished bathroom hides.",
+      "frame_note": "Keep red and blue supply runs and black waste branches. This is rough-in work, not drain cleaning or leak detection.",
+      "website_route": "/plumbing/"
+    },
+    {
+      "order": 12,
+      "id": 80,
+      "category": "boilers/hydronic-heating",
+      "file": "12_technician-working-on-heating-pipework.jpg",
+      "role": "People at work: hydronic heating",
+      "label": "Technician working on pipework beneath a wall-mounted heating appliance",
+      "reason": "The visible tool use and heating equipment show hands-on work within the hydronic specialty. This replaces an equipment-only circulation photograph.",
+      "frame_note": "Use the full portrait frame to keep the technician, tool, appliance and connected pipework visible. Shelves at left are part of the real setting. The photograph does not establish a specific repair, annual service or appliance subtype.",
+      "website_route": "/boilers/"
+    },
+    {
+      "order": 13,
+      "id": 99,
+      "category": "boilers/hydronic-heating",
+      "file": "13_checking-copper-heating-pipe-alignment.jpg",
+      "role": "People at work: checking pipe alignment",
+      "label": "Technician checking copper heating-pipe alignment with a level",
+      "reason": "The level, hands and copper pipe make the task clear. This adds a distinct work process while the sink and shower photos retain finished-home context.",
+      "frame_note": "Keep the level, both hands and copper pipe together in the full portrait frame. Preserve the work light and wall condition. This shows an alignment check, not proof of a completed repair or replacement.",
+      "website_route": "/boilers/"
+    },
+    {
+      "order": 14,
+      "id": 28,
+      "category": "water-filtration/system-overview",
+      "file": "14_softener-uv-and-filtration-layout.jpg",
+      "role": "Filtration specialty: equipment overview",
+      "label": "Water softener, UV chamber and cartridge filtration bank",
+      "reason": "A readable treatment layout shows the breadth of his water work and invites customers to understand the options on the site.",
+      "frame_note": "Keep the softener, separate brine tank, UV chamber and filter bank. Do not infer cartridge media from housing color.",
+      "website_route": "/water-filtration/"
+    },
+    {
+      "order": 15,
+      "id": 20,
+      "category": "about/on-the-job",
+      "file": "15_grinding-beside-pump-assembly.jpg",
+      "role": "People at work: metal fitting",
+      "label": "Worker grinding steel beside a pump assembly",
+      "reason": "The close view of the worker, sparks and pump assembly shows active field work with a stronger focal point than the wider frame.",
+      "frame_note": "Keep the worker, hands, grinder, sparks and pump assembly in the full portrait frame. The pump's served system is unverified; do not label it fire protection, domestic water, sump-pump or hydronic equipment. This shows grinding or cutting, not welding.",
+      "website_route": "/about/"
+    }
+  ],
+  "superseded_photos": [
+    {
+      "id": 14,
+      "category": "boilers/hydronic-heating",
+      "file": "13_home-towel-radiator-and-sink.jpg",
+      "archived_file": "superseded/13_home-towel-radiator-and-sink.jpg",
+      "reason": "The sink and countertop dominate. The towel radiator remains a valid secondary object, but this frame is a poor heating-service lead. Retain its bytes for provenance; exclude it from the 15 upload candidates."
+    },
+    {
+      "id": 9,
+      "category": "boilers/hydronic-heating",
+      "file": "12_hydronic-zone-circulation.jpg",
+      "archived_file": "superseded/12_hydronic-zone-circulation.jpg",
+      "reason": "ID 80 retains hydronic heating coverage and adds a technician working on the pipework. Preserve this equipment overview outside the current 15-photo upload set."
+    },
+    {
+      "id": 86,
+      "category": "boilers/hydronic-heating",
+      "file": "13_home-sectional-radiator.jpg",
+      "archived_file": "superseded/13_home-sectional-radiator.jpg",
+      "reason": "ID 99 adds a clear pipe-alignment check. The sink and shower photos retain finished-home context; preserve this radiator view outside the current 15-photo upload set."
+    },
+    {
+      "id": 33,
+      "category": "about/on-the-job",
+      "file": "15_technician-with-water-treatment.jpg",
+      "archived_file": "superseded/15_technician-with-water-treatment.jpg",
+      "reason": "ID 23 adds welding action, while ID 28 retains a complete filtration overview. Preserve this second treatment setup outside the current 15-photo upload set."
+    },
+    {
+      "id": 107,
+      "category": "about/on-the-job",
+      "file": "01_technician-with-press-tool.jpg",
+      "archived_file": "superseded/01_technician-with-press-tool.jpg",
+      "reason": "ID 105 shows the same technician focused on the task instead of smiling at the camera. Preserve this earlier cover outside the upload set."
+    },
+    {
+      "id": 23,
+      "category": "about/on-the-job",
+      "file": "15_welding-beside-pump-assembly.jpg",
+      "archived_file": "superseded/15_welding-beside-pump-assembly.jpg",
+      "reason": "ID 20 provides a tighter, clearer view of active grinding and sparks. Preserve this wider work view outside the upload set."
+    }
+  ],
+  "cut_list": [
+    {"ids": [106], "reason": "Near-identical setting to the selected focused press-tool photo in ID 105. One clear introduction is enough."},
+    {"ids": [97], "reason": "A second tankless heater adds less variety than a storage tank and connection-work photograph."},
+    {"ids": [41, 42, 57], "reason": "More trench views add less than the selected connection, long pressure-pipe route and crew view."},
+    {"ids": [184, 185, 187, 189, 190], "reason": "Avoid filling the set with extra views of the same bathroom. Sink and shower already cover distinct subjects."},
+    {"ids": [63], "reason": "The clean overall plant is visibly softer at full size. The selected heating work photos add clearer human activity."},
+    {"ids": [14], "reason": "The sink and counter dominate a frame selected for its secondary towel radiator. The current heating picks show work on the heating pipework directly."},
+    {"ids": [9, 86, 33], "reason": "Replaced by the owner's work photos, IDs 80, 99 and 23. Preserve the earlier JPEGs under superseded; retain heater, excavation, sewer and filtration coverage in the current set."},
+    {"ids": [107, 23], "reason": "Replaced at the owner's direction by focused action photos, IDs 105 and 20. Preserve the earlier JPEGs under superseded."},
+    {"ids": [149, 159], "reason": "Additional industrial equipment views add less than the selected work processes and introduce harsher colors and flash."},
+    {"ids": [13, 29, 58], "reason": "The full treatment layout in ID 28 covers filtration; additional equipment details add less variety than the selected work photos."}
+  ],
+  "coverage_gaps": [
+    "No reviewed high-confidence photo shows leak detection, a burst-pipe repair or a leak-repair activity. Do not relabel a clean fixture or piping layout as that work.",
+    "No reviewed high-confidence photo shows drain-cleaning or hydrojetting action. Sewer replacement photographs cover a different service.",
+    "No reviewed photo establishes a trenchless method, a heat-pump water heater or radiant-floor pipework.",
+    "No real branded van photograph is available in this reviewed library. Simulated wrap mockups stay out of GBP.",
+    "No job city, work date, personal identity or before-and-after pairing is inferred from these images."
+  ]
+}

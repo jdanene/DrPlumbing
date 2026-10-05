@@ -1,6 +1,8 @@
 import { routeHref } from "./sitePaths";
 import { CITIES, PLUMBING_LICENSE, SERVICE_AREA_MAP_URL, SERVICES } from "./content";
 import { Arrow, CallToAction, ServiceFinder, Values } from "./SiteContent";
+import { HOME_PROJECTS, PHOTOS } from "./projectPhotos";
+import ProjectPhoto from "./ProjectPhoto";
 
 const COMMON_QUESTIONS = [
   ["What areas do you serve?", "Homes from Everett to Federal Way, including Seattle, Bellevue, Renton, Redmond, Sammamish, Issaquah, Bothell, Lynnwood and Shoreline. We're based in Seattle. See Areas We Serve for the full list."],
@@ -374,27 +376,8 @@ export default function HomePage() {
       <section className="block" style={{ paddingTop: "0" }}>
         <div className="wrap owner">
           <div className="photos">
-            <div className="ph main">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <circle cx="12" cy="13" r="4" />
-              </svg>
-              <b>PHOTO: The owner and his family, smiling</b>
-              <small>Outdoors, natural light, at home or beside the van</small>
-            </div>
-            <div className="ph inset">
-              <b>PHOTO: Owner on a job</b>
-            </div>
+            <ProjectPhoto photo={PHOTOS.pipeAlignment} className="main" fullFrame />
+            <ProjectPhoto photo={PHOTOS.technician} className="inset" />
           </div>
           <div className="copy">
             <div className="eyebrow">Meet the owner</div>
@@ -473,36 +456,15 @@ export default function HomePage() {
             </a>
           </div>
           <div className="gallery">
-            <div className="feature">
-              <div className="ph">
-                <b>BEFORE</b>
-                <small>Old water heater</small>
-              </div>
-              <div className="ph">
-                <b>AFTER</b>
-                <small>Same angle</small>
-              </div>
-              <div className="label">
-                <b>Water heater replacement</b>
-                <span>[City] · [Month Year]</span>
-              </div>
-            </div>
-            <div className="ph">
-              <b>PHOTO: Tankless unit on wall</b>
-              <small>[Job] · [City]</small>
-            </div>
-            <div className="ph">
-              <b>PHOTO: Finished shower valve</b>
-              <small>[Job] · [City]</small>
-            </div>
-            <div className="ph">
-              <b>PHOTO: Heat pump outdoor unit</b>
-              <small>[Job] · [City]</small>
-            </div>
-            <div className="ph">
-              <b>PHOTO: Kitchen sink and faucet</b>
-              <small>[Job] · [City]</small>
-            </div>
+            {HOME_PROJECTS.map((project, index) => (
+              <a className="gallery-job" href={routeHref(project.service)} key={project.title}>
+                <ProjectPhoto photo={project.photo} fullFrame={index < 3} />
+                <div className="label">
+                  <b>{project.title}</b>
+                  <span>Explore {project.category.toLowerCase()} <Arrow /></span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
