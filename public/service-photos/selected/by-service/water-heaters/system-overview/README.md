@@ -2,9 +2,10 @@
 
 Relevant equipment is visible, but the image does not establish a more specific subtype or service activity.
 
-10 candidate photos. Classification is not a final website selection.
+11 candidate photos. Classification is not a final website selection.
 
 - `071_IMG_3159.jpg` — IBC heating appliance beside a hot-water storage tank. The appliance connects to heating circulation pipework and an adjacent IBC storage tank with a separate circulation connection.
+- `081_IMG_3366.jpg` — Twin Navien wall appliances with copper headers. Two Navien units show 120-degree displays, red and blue isolation valves, parallel water connections and venting. Their model labels remain unreadable.
 - `109_IMG_3775.jpg` — Technician beside a boiler and hot-water storage tank. The person stands beside a vented boiler, hydronic circulation components and a separate insulated storage tank.
 - `112_IMG_4235.jpg` — Crawlspace hydronic equipment and wall water appliance. Copper heating loops, a circulator and expansion vessel connect to an open appliance; a separate wall water appliance is visible beside it.
 - `113_IMG_4236.jpg` — Crawlspace heating loop and adjacent water appliance. The expansion vessel, circulating pump and heating loop are visible, along with a separate wall-mounted water appliance.

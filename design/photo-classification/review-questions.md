@@ -44,12 +44,6 @@ Is this plant for domestic hot water or hydronic space heating?
 
 ![Insulated plant-room piping and appliance connections](previews/077_IMG_3269.jpg)
 
-## 081 — IMG_3366.JPG
-
-Confirm the Navien models before using the tankless-water-heater category.
-
-![Twin Navien wall appliances with copper headers](previews/081_IMG_3366.jpg)
-
 ## 093 — IMG_3640.HEIC
 
 Confirm the Rheem model before assigning the tankless-water-heater subtype.
@@ -61,12 +55,6 @@ Confirm the Rheem model before assigning the tankless-water-heater subtype.
 Confirm the model to distinguish a tankless domestic water heater from another wall appliance.
 
 ![Vented Rheem wall appliance and copper connections](previews/094_IMG_3641.jpg)
-
-## 096 — IMG_3652 3.HEIC
-
-Is this bore for a water line, sewer line or another utility?
-
-![Drilling equipment beside a driveway excavation](previews/096_IMG_3652 3.jpg)
 
 ## 137 — IMG_7276.JPG
 
