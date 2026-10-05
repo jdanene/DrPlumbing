@@ -314,7 +314,7 @@ export default function HomePage() {
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 7v5l3 2" />
               </svg>
-              Emergency HVAC service
+              Emergency plumbing &amp; hydronic heating
             </div>
             <div>
               <svg

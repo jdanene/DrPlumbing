@@ -3971,11 +3971,11 @@
         "water-heaters/system-overview"
       ],
       "evidence": "Two Navien units show 120-degree displays, red and blue isolation valves, parallel water connections and venting. Their model labels remain unreadable.",
-      "confidence": "medium",
+      "confidence": "high",
       "quality": "strong",
       "quality_note": "Sharp, orderly equipment view with a clean blue backing panel.",
-      "status": "needs-review",
-      "question": "Confirm the Navien models before using the tankless-water-heater category.",
+      "status": "classified",
+      "question": "",
       "primary_review": {
         "id": 81,
         "subject": "Twin Navien wall appliances with copper headers",
@@ -3992,15 +3992,30 @@
       },
       "second_review": {
         "id": 81,
-        "verdict": "agree",
+        "verdict": "revise",
         "assignments": [
           "water-heaters/system-overview"
         ],
-        "status": "needs-review",
-        "confidence": "medium",
-        "reason": "I inspected the source JPG. Twin Navien cabinets, service valves and 120-degree displays are clear, but the model labels are unreadable. Keep the subtype unresolved.",
-        "reviewer": "classify_photos_c"
-      }
+        "status": "classified",
+        "confidence": "high",
+        "reason": "Full-size inspection confirms the twin Navien units, parallel water connections, service valves and orderly copper headers. Approve a water-heating system overview with a literal caption. An unreadable model label does not prevent showing this installation; avoid model, capacity and price claims.",
+        "reviewer": "root_gbp_heater_review"
+      },
+      "adjudication": {
+        "reviewer": "root_gbp_heater_review",
+        "reason": "The earlier review held this image for subtype identification. The GBP caption only names the visible Navien pair and copper pipework. Preserve the model uncertainty in the evidence and earlier reviews."
+      },
+      "review_history": [
+        {
+          "id": 81,
+          "verdict": "agree",
+          "assignments": ["water-heaters/system-overview"],
+          "status": "needs-review",
+          "confidence": "medium",
+          "reason": "I inspected the source JPG. Twin Navien cabinets, service valves and 120-degree displays are clear, but the model labels are unreadable. Keep the subtype unresolved.",
+          "reviewer": "classify_photos_c"
+        }
+      ]
     },
     {
       "id": 82,
@@ -4633,11 +4648,11 @@
         "general-plumbing/system-overview"
       ],
       "evidence": "A tracked drilling rig, rod entering an excavation, hoses and removed pavement are visible; the buried utility is not identified.",
-      "confidence": "medium",
+      "confidence": "high",
       "quality": "usable",
       "quality_note": "Clear outdoor work scene; the rig is relatively small within the frame.",
-      "status": "needs-review",
-      "question": "Is this bore for a water line, sewer line or another utility?",
+      "status": "classified",
+      "question": "",
       "primary_review": {
         "id": 96,
         "subject": "Drilling equipment beside a driveway excavation",
@@ -4654,15 +4669,30 @@
       },
       "second_review": {
         "id": 96,
-        "verdict": "agree",
+        "verdict": "revise",
         "assignments": [
           "general-plumbing/system-overview"
         ],
-        "status": "needs-review",
-        "confidence": "medium",
-        "reason": "The drilling rig and rod entering the excavation show boring work, but the buried utility is not visible. Keep the water-versus-sewer question open.",
-        "reviewer": "classify_photos_c"
-      }
+        "status": "classified",
+        "confidence": "high",
+        "reason": "The tracked drilling rig and rod entering the ground clearly support a drilling-equipment caption. The owner's October 4 review requests missing trenchless equipment. Include this work scene under general plumbing; do not infer which buried utility it serves.",
+        "reviewer": "root_gbp_append_review"
+      },
+      "adjudication": {
+        "reviewer": "root_gbp_append_review",
+        "reason": "The earlier review conflated uncertainty about the buried utility with uncertainty about the visible subject. Approve the literal drilling-equipment subject only; retain the original utility uncertainty and both earlier reviews."
+      },
+      "review_history": [
+        {
+          "id": 96,
+          "verdict": "agree",
+          "assignments": ["general-plumbing/system-overview"],
+          "status": "needs-review",
+          "confidence": "medium",
+          "reason": "The drilling rig and rod entering the excavation show boring work, but the buried utility is not visible. Keep the water-versus-sewer question open.",
+          "reviewer": "classify_photos_c"
+        }
+      ]
     },
     {
       "id": 97,

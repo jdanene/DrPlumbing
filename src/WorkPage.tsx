@@ -8,7 +8,7 @@ import ProjectPhoto from "./ProjectPhoto";
  * Description: Shows photographed work, grouped by the services customers need.
  * Inputs: None; the selected project catalog supplies photographs and captions.
  * Output: Project cards in the selected category; filters retain keyboard focus.
- * Examples: All shows thirteen projects; Water heaters shows two; Boilers shows four.
+ * Examples: All shows sixteen projects; Water heaters shows three; Boilers shows four.
  */
 export default function WorkPage() {
   const [category, setCategory] = useState("All");
