@@ -20,9 +20,9 @@ export default function AreasPage() {
           </nav>
           <h1 tabIndex={-1}>Areas we serve</h1>
           <p className="lead">
-            Dr Plumbing &amp; Heating is based in Seattle, WA. We serve homes
-            across the greater Seattle area and the Eastside, from Everett to
-            Federal Way.
+            Dr Plumbing &amp; Heating serves homes across the Greater Seattle
+            area and the Eastside, from Everett to Federal Way. We're based in
+            Newcastle, WA.
           </p>
           <div className="area" style={{ marginTop: 40, alignItems: "start" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>

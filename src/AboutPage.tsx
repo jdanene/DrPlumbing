@@ -30,8 +30,9 @@ export default function AboutPage() {
             </nav>
             <h1 tabIndex={-1}>A family business on your street.</h1>
             <p className="lead">
-              Dr Plumbing &amp; Heating is family owned and run from Seattle,
-              Washington. We work in homes from Everett to Federal Way.
+              Dr Plumbing &amp; Heating is family owned and run from Newcastle,
+              Washington. We serve the Greater Seattle area, from Everett to
+              Federal Way.
             </p>
             <div className="cta-row">
               <a className="btn btn-primary" href={routeHref("book")}>
@@ -57,7 +58,8 @@ export default function AboutPage() {
               own company to do honest work at a fair price.
             </p>
             <p>
-              My family and I live in Seattle.
+              My family and I live in Newcastle, WA. We serve the Greater Seattle
+              area, from Everett to Federal Way.
             </p>
             <p>
               When you call, you get a straight answer and a flat-rate price

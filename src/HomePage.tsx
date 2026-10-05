@@ -5,7 +5,7 @@ import { HOME_PROJECTS, PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
 
 const COMMON_QUESTIONS = [
-  ["What areas do you serve?", "Homes from Everett to Federal Way, including Seattle, Bellevue, Renton, Redmond, Sammamish, Issaquah, Bothell, Lynnwood and Shoreline. We're based in Seattle. See Areas We Serve for the full list."],
+  ["What areas do you serve?", "Homes across the Greater Seattle area, from Everett to Federal Way, including Seattle, Bellevue, Renton, Redmond, Sammamish, Issaquah, Bothell, Lynnwood and Shoreline. We're based in Newcastle, WA. See Areas We Serve for the full list."],
   ["Are you licensed and insured?", `Yes. We are licensed, bonded and insured in Washington (plumbing contractor license ${PLUMBING_LICENSE.number}) and HomeAdvisor certified.`],
   ["How does your pricing work?", "We charge flat rates. You approve the price before we start, and you pay no surprise fees."],
   ["Do you offer emergency service?", "Yes, for heating and cooling. If your heat or air conditioning fails, call (206) 671-8888."],
@@ -33,7 +33,7 @@ export default function HomePage() {
               <h1 tabIndex={-1}>
                 Plumbing, heating and cooling for homes from Everett to Federal Way.
               </h1>
-              <div className="creds"><span className="yrs">26+ years in the trade</span><span>Licensed, bonded &amp; insured</span><span>Family owned in Seattle</span><span>5.0 ★ on Google</span></div>
+              <div className="creds"><span className="yrs">26+ years in the trade</span><span>Licensed, bonded &amp; insured</span><span>Family owned in Newcastle</span><span>5.0 ★ on Google</span></div>
             </div>
             <div className="h-side">
               <p className="lead">
@@ -297,7 +297,7 @@ export default function HomePage() {
               >
                 <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />
               </svg>
-              Family owned in Seattle
+              Family owned in Newcastle
             </div>
             <div>
               <svg
@@ -386,8 +386,8 @@ export default function HomePage() {
             </h2>
             <p className="lead">
               I started Dr Plumbing &amp; Heating to give families the service I
-              want in my own home. My family lives in Seattle. The homes we work
-              on belong to our neighbors.
+              want in my own home. My family and I live in Newcastle, WA. We serve
+              the Greater Seattle area, from Everett to Federal Way.
             </p>
             <p className="lead">
               When you call, you get a straight answer, a fair price and a
@@ -543,8 +543,8 @@ export default function HomePage() {
             <div className="eyebrow">Service area</div>
             <h2 className="h2">We serve homes from Everett to Federal Way.</h2>
             <p className="lead">
-              We're based in Seattle and serve the greater Seattle area and the
-              Eastside.
+              We serve the Greater Seattle area and the Eastside from our home
+              base in Newcastle, WA.
             </p>
             <ul className="cities">
               {CITIES.map((city) => <li key={city}>{city}</li>)}

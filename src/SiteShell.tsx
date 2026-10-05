@@ -357,7 +357,7 @@ export default function SiteShell({
                 >
                   <BrandLogo onDark />
                 </a>
-                <p>Family owned and run from Seattle, Washington.</p>
+                <p>Family owned and run from Newcastle, Washington. Serving the Greater Seattle area.</p>
               </div>
               <div>
                 <h3>Services</h3>
@@ -410,7 +410,7 @@ export default function SiteShell({
                   >
                     <a href="tel:2066718888">(206) 671-8888</a>
                   </li>
-                  <li>Seattle, WA</li>
+                  <li>Newcastle, WA</li>
                   <li>
                     <a href="mailto:drplumbinggroup@gmail.com">
                       drplumbinggroup@gmail.com
