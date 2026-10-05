@@ -8,21 +8,21 @@ export const SITE_ORIGIN = "https://drplumbingheating.com";
 const PAGE_METADATA: Record<string, [string, string]> = {
   home: ["Dr Plumbing & Heating | Greater Seattle Area", "Family-owned plumbing, heating and cooling in the Greater Seattle area, with 26+ years in the trade. Water heaters, drains, boilers and HVAC. Call (206) 671-8888."],
   services: ["Plumbing, Heating & Cooling Services | Dr Plumbing & Heating", "Every service we offer, from leak detection and water heaters to boilers and HVAC. Licensed, bonded and insured technicians in the Greater Seattle area."],
-  about: ["About Dr Plumbing & Heating | Seattle, WA Plumber", "Dr Plumbing & Heating is a family-owned plumbing, heating and cooling company in Seattle, WA. HomeAdvisor certified, with flat-rate pricing."],
+  about: ["About Dr Plumbing & Heating | Greater Seattle Area", "Family-owned plumbing, heating and cooling serving Greater Seattle, from Everett to Federal Way. Based in Newcastle, WA, with 26+ years in the trade."],
   work: ["Our Work | Plumbing & HVAC Projects | Dr Plumbing & Heating", "Explore our water heater, boiler, heat pump, sewer and plumbing work for homes from Everett to Federal Way."],
   book: ["Book a Plumber or HVAC Technician | Dr Plumbing & Heating", "Request a visit from a licensed plumber or HVAC technician in the Greater Seattle area. We confirm your time and give you a flat-rate price before we start."],
-  areas: ["Areas We Serve: Everett to Federal Way | Dr Plumbing & Heating", "Plumbing, heating and cooling for Seattle, Bellevue, Renton, Redmond, Kent, Everett and nearby cities in King and Snohomish counties."],
-  plumbing: ["Plumbing Repair & Installation in Seattle, WA | Dr Plumbing & Heating", "Leak detection, burst pipes, repiping, trenchless water lines, gas lines, toilets, faucets and sump pumps. Licensed plumbers serving Everett to Federal Way."],
-  "water-heaters": ["Water Heater Repair & Installation in Seattle, WA | Dr Plumbing & Heating", "Electric, gas, tankless and heat pump water heaters. We repair, replace and install water heaters in homes from Everett to Federal Way. (206) 671-8888."],
-  "drain-sewer": ["Drain Cleaning & Sewer Repair in Seattle, WA | Dr Plumbing & Heating", "Drain cleaning, hydro jetting and sewer line repair and replacement for homes in Seattle, Bellevue, Renton and nearby cities."],
-  "water-filtration": ["Water Filtration & Softeners in Seattle, WA | Dr Plumbing & Heating", "Water softeners, carbon filters, reverse osmosis and iron and sulfur filters, installed by licensed plumbers in Seattle, WA and the Eastside."],
-  "heating-cooling": ["Heating & Cooling (HVAC) in Seattle, WA | Dr Plumbing & Heating", "Furnace, heat pump and air conditioning installation, maintenance and repair, plus emergency HVAC service in Seattle, WA and nearby cities."],
-  boilers: ["Boiler Service & Hydronic Heating in Seattle, WA | Dr Plumbing & Heating", "Hydronic boiler maintenance, repair and replacement, including radiant floor and baseboard heat. Annual boiler service from licensed technicians."],
+  areas: ["Greater Seattle Service Area: Everett to Federal Way | Dr Plumbing & Heating", "Plumbing, heating and cooling across Greater Seattle, including Seattle, Bellevue, Renton, Redmond, Kent and Everett. Based in Newcastle, WA."],
+  plumbing: ["Plumbing Repair & Installation in Greater Seattle | Dr Plumbing & Heating", "Leak detection, burst pipes, repiping, trenchless water lines, gas lines, toilets, faucets and sump pumps. Licensed plumbers serving Everett to Federal Way."],
+  "water-heaters": ["Water Heater Repair & Installation in Greater Seattle | Dr Plumbing & Heating", "Electric, gas, tankless and heat pump water heaters. We repair, replace and install water heaters in homes from Everett to Federal Way. (206) 671-8888."],
+  "drain-sewer": ["Drain Cleaning & Sewer Repair in Greater Seattle | Dr Plumbing & Heating", "Drain cleaning, hydro jetting and sewer line repair and replacement across Greater Seattle, including Seattle, Bellevue and Renton."],
+  "water-filtration": ["Water Filtration & Softeners in Greater Seattle | Dr Plumbing & Heating", "Water softeners, carbon filters, reverse osmosis and iron and sulfur filters, installed by licensed plumbers serving Greater Seattle and the Eastside."],
+  "heating-cooling": ["Heating & Cooling (HVAC) in Greater Seattle | Dr Plumbing & Heating", "Furnace, heat pump and air conditioning installation, maintenance and repair, plus emergency HVAC service in the Greater Seattle area."],
+  boilers: ["Boiler Service & Hydronic Heating in Greater Seattle | Dr Plumbing & Heating", "Hydronic boiler maintenance, repair and replacement, including radiant floor and baseboard heat. Annual boiler service from licensed technicians."],
   "plumbing/garbage-disposals": ["Garbage Disposal Repair & Installation | Dr Plumbing & Heating", "Garbage disposal installation, repair and cleaning for homes and commercial kitchens in Seattle, WA and the Greater Seattle area."],
-  "water-heaters/electric-water-heaters": ["Electric Water Heaters in Seattle, WA | Dr Plumbing & Heating", "Tank and tankless electric water heaters sized to your home. Repair, replacement and installation from licensed plumbers in Seattle, WA."],
+  "water-heaters/electric-water-heaters": ["Electric Water Heaters in Greater Seattle | Dr Plumbing & Heating", "Tank and tankless electric water heaters sized to your home. Repair, replacement and installation from licensed plumbers serving Greater Seattle."],
   "water-heaters/gas-water-heaters": ["Gas Water Heater Repair & Replacement | Dr Plumbing & Heating", "Gas and propane water heater repair, maintenance and replacement. Running out of hot water, or water too hot? Our plumbers can help."],
-  "water-heaters/tankless-water-heaters": ["Tankless Water Heaters in Seattle, WA | Dr Plumbing & Heating", "On-demand tankless water heaters sized to your family's hot water use, plus tankless repair and maintenance. Serving Everett to Federal Way."],
-  "water-heaters/heat-pump-water-heaters": ["Heat Pump Water Heaters in Seattle, WA | Dr Plumbing & Heating", "Energy-efficient heat pump water heaters that can lower your energy bills. Installation, service and help choosing a model in Seattle, WA."],
+  "water-heaters/tankless-water-heaters": ["Tankless Water Heaters in Greater Seattle | Dr Plumbing & Heating", "On-demand tankless water heaters sized to your family's hot water use, plus tankless repair and maintenance. Serving Everett to Federal Way."],
+  "water-heaters/heat-pump-water-heaters": ["Heat Pump Water Heaters in Greater Seattle | Dr Plumbing & Heating", "Energy-efficient heat pump water heaters that can lower your energy bills. Installation, service and help choosing a model in the Greater Seattle area."],
   "drain-sewer/hydrojetting": ["Hydro Jetting for Drains & Sewer Lines | Dr Plumbing & Heating", "Hydro jetting at up to 4,000 psi clears stubborn clogs and years of sludge from drains and sewer lines. Serving Seattle, WA and nearby cities."],
 };
 
@@ -55,7 +55,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
   const service = SERVICES.find((item) => item.id === serviceId);
   const detail = detailKey ? serviceDetailFor(serviceId, detailKey) : undefined;
   const [title, description] = PAGE_METADATA[page] ?? (detail
-    ? [`${detail.item} in Seattle, WA | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
+    ? [`${detail.item} in Greater Seattle | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
     : ["Page not found | Dr Plumbing & Heating", "Find plumbing, heating and cooling services in the Greater Seattle area."]);
   const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years in the trade" : title;
   const graph: Record<string, unknown>[] = [
