@@ -317,7 +317,7 @@ export const SERVICES: Service[] = [
           ],
           [
             "Emergency service",
-            "When the heat or air conditioning fails, call us."
+            "For emergency plumbing or hydronic heating, call (206) 671-8888."
           ]
         ]
       }

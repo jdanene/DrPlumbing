@@ -58,8 +58,7 @@ export default function AboutPage() {
               own company to do honest work at a fair price.
             </p>
             <p>
-              My family and I live in Newcastle, WA. We serve the Greater Seattle
-              area, from Everett to Federal Way.
+              My family and I live in Newcastle, WA.
             </p>
             <p>
               When you call, you get a straight answer and a flat-rate price
