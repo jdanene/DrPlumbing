@@ -28,7 +28,7 @@ describe("contact email Worker", () => {
 
     expect(response.status).toBe(200);
     expect(send).toHaveBeenCalledWith({
-      to: "drplumbinggroup@gmail.com",
+      to: "dominicanene@gmail.com",
       from: "website@drplumbingheating.com",
       subject: "Callback request: Boilers",
       text: "Name: Taylor\nPhone: 206-555-0123",

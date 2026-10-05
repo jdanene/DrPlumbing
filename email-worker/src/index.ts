@@ -1,4 +1,4 @@
-const RECIPIENT = "drplumbinggroup@gmail.com";
+const RECIPIENT = "dominicanene@gmail.com";
 const SENDER = "website@drplumbingheating.com";
 const MAX_BODY_BYTES = 4_096;
 

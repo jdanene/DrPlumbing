@@ -164,39 +164,19 @@ delivery:
 
 1. Enable Email Routing for `drplumbingheating.com` under
    **Compute > Email Service > Email Routing**.
-2. Add `drplumbinggroup@gmail.com` under **Destination Addresses**. Open the
+2. Add `dominicanene@gmail.com` under **Destination Addresses** for Jide's
+   temporary delivery test. Open the
    verification message in Gmail and approve it.
 3. Deploy `email-worker/wrangler.jsonc`. Its `CONTACT_INBOX` binding restricts
-   delivery to `drplumbinggroup@gmail.com` and restricts the sender to
+   delivery to `dominicanene@gmail.com` and restricts the sender to
    `website@drplumbingheating.com`.
 4. Deploy the Pages project. `wrangler.jsonc` binds `CONTACT_EMAIL` to the
    `drplumbing-contact-email` Worker.
-5. Verify the form with a real submission only after the business owner approves
-   sending a test message.
+5. Test `/book/` on a Cloudflare preview and confirm receipt in Jide's inbox.
+   Use production only if a preview cannot deploy, as Jide approved.
 
 The Worker has no public route. The sender is `website@drplumbingheating.com`.
-The server-owned recipient is `drplumbinggroup@gmail.com`.
-
-### Temporary dev inbox
-
-The `codex/dev-contact-email` branch routes Cloudflare preview forms to
-`dominicanene@gmail.com`. Production keeps the owner's inbox. Keep this test
-branch out of `main`.
-
-1. Verify Jide's address in Cloudflare Email Routing.
-2. Deploy the private dev Worker:
-
-   ```sh
-   npx wrangler deploy --config email-worker/wrangler.preview.jsonc
-   ```
-
-3. Push the branch and test `/book/` on its Cloudflare preview URL. Local Vite
-   cannot send these emails. Confirm receipt in Jide's inbox; a successful form
-   response alone does not prove inbox delivery.
-4. After Jide confirms the test, remove the `env.preview` override from
-   `wrangler.jsonc` and redeploy the preview. It then uses the existing owner's
-   Worker. Update the temporary routing test with that restoration.
-
-The dev Worker adapts the existing validated handler and replaces the recipient
-before sending. Its email binding permits only Jide's address. Production's
-Worker code and email binding remain unchanged.
+The temporary test recipient is `dominicanene@gmail.com`. After Jide confirms
+receipt, restore `drplumbinggroup@gmail.com` in the existing Worker's recipient,
+email binding and recipient test, then redeploy that Worker. No extra service is
+created. The website's Git deployment does not deploy `email-worker/`.
