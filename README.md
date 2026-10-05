@@ -176,3 +176,27 @@ delivery:
 
 The Worker has no public route. The sender is `website@drplumbingheating.com`.
 The server-owned recipient is `drplumbinggroup@gmail.com`.
+
+### Temporary dev inbox
+
+The `codex/dev-contact-email` branch routes Cloudflare preview forms to
+`dominicanene@gmail.com`. Production keeps the owner's inbox. Keep this test
+branch out of `main`.
+
+1. Verify Jide's address in Cloudflare Email Routing.
+2. Deploy the private dev Worker:
+
+   ```sh
+   npx wrangler deploy --config email-worker/wrangler.preview.jsonc
+   ```
+
+3. Push the branch and test `/book/` on its Cloudflare preview URL. Local Vite
+   cannot send these emails. Confirm receipt in Jide's inbox; a successful form
+   response alone does not prove inbox delivery.
+4. After Jide confirms the test, remove the `env.preview` override from
+   `wrangler.jsonc` and redeploy the preview. It then uses the existing owner's
+   Worker. Update the temporary routing test with that restoration.
+
+The dev Worker adapts the existing validated handler and replaces the recipient
+before sending. Its email binding permits only Jide's address. Production's
+Worker code and email binding remain unchanged.

@@ -7,5 +7,15 @@
       "binding": "CONTACT_EMAIL",
       "service": "drplumbing-contact-email"
     }
-  ]
+  ],
+  "env": {
+    "preview": {
+      "services": [
+        {
+          "binding": "CONTACT_EMAIL",
+          "service": "drplumbing-contact-email-preview"
+        }
+      ]
+    }
+  }
 }
