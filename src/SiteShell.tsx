@@ -1,12 +1,7 @@
 import { routeHref } from "./sitePaths";
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
-import {
-  SERVICE_GROUPS,
-  PLUMBING_LICENSE,
-  BUSINESS_NAME,
-  serviceMenu,
-  servicesForGroup,
-} from "./content";
+import { SERVICE_GROUPS, serviceMenu, servicesForGroup } from "./content";
+import { BUSINESS, confirmed, displayText, formatHours } from "./businessFacts";
 import { Arrow } from "./SiteContent";
 import { serviceOptionHref } from "./serviceDetails";
 
@@ -37,7 +32,8 @@ function BrandLogo({ onDark = false }: { onDark?: boolean }) {
  * Description: Provides the shared brand, responsive navigation, and theme.
  * Inputs: route is the active page or homepage section; children is the current page.
  * Output: Header, accessible menus, page content, footer, and mobile contact links.
- * Examples: App.test.tsx opens and dismisses menus, follows links, and changes the saved theme.
+ * Examples: App.test.tsx opens and dismisses menus, follows links, and changes the saved theme;
+ * SiteShell.test.tsx checks every business fact the header and footer show.
  */
 export default function SiteShell({
   route,
@@ -46,6 +42,18 @@ export default function SiteShell({
   route: string;
   children: ReactNode;
 }) {
+  // Every business fact comes from the record, read at render so a pending fact's display
+  // follows the build mode.
+  const publicName = confirmed(BUSINESS.publicName);
+  const phone = confirmed(BUSINESS.phone);
+  const email = confirmed(BUSINESS.email);
+  const homeBase = confirmed(BUSINESS.homeBase);
+  const license = confirmed(BUSINESS.license);
+  const hoursText = displayText(BUSINESS.hours, formatHours);
+  const socialProfiles = confirmed(BUSINESS.socialProfiles) ?? [];
+  const callHref = `tel:${phone.e164}`;
+  const textHref = `sms:${phone.e164}`;
+  const homeLabel = `${publicName}, home`;
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerTop, setDrawerTop] = useState(68);
@@ -162,7 +170,7 @@ export default function SiteShell({
           <a
             className="logo"
             href={routeHref("home")}
-            aria-label="Dr Plumbing, Heating and Cooling, home"
+            aria-label={homeLabel}
             tabIndex={drawerOpen ? -1 : undefined}
           >
             <BrandLogo />
@@ -226,7 +234,7 @@ export default function SiteShell({
                       <a className="link-arrow" href={routeHref("services")}>
                         All services <Arrow />
                       </a>
-                      <span>Not sure what you need? Call or text (206) 671-8888.</span>
+                      <span>Not sure what you need? Call or text {phone.display}.</span>
                     </div>
                   </div>
                 </div>
@@ -244,11 +252,11 @@ export default function SiteShell({
           </nav>
           <div className="header-actions">
             <div className="header-contact">
-              <span className="header-phone">(206) 671-8888</span>
+              <span className="header-phone">{phone.display}</span>
               <div className="header-contact-links">
-                <a href="tel:2066718888" aria-label="Call (206) 671-8888" tabIndex={drawerOpen ? -1 : undefined}>Call</a>
+                <a href={callHref} aria-label={`Call ${phone.display}`} tabIndex={drawerOpen ? -1 : undefined}>Call</a>
                 <span aria-hidden="true">or</span>
-                <a href="sms:+12066718888" aria-label="Text (206) 671-8888" tabIndex={drawerOpen ? -1 : undefined}>Text</a>
+                <a href={textHref} aria-label={`Text ${phone.display}`} tabIndex={drawerOpen ? -1 : undefined}>Text</a>
               </div>
             </div>
             <a
@@ -347,10 +355,10 @@ export default function SiteShell({
         </div>
         <div className="drawer-phone">
           <span className="muted">Call or text</span>
-          <b>(206) 671-8888</b>
+          <b>{phone.display}</b>
           <div className="contact-options">
-            <a href="tel:2066718888">Call</a>
-            <a href="sms:+12066718888">Text</a>
+            <a href={callHref}>Call</a>
+            <a href={textHref}>Text</a>
           </div>
         </div>
       </nav>
@@ -365,11 +373,14 @@ export default function SiteShell({
                 <a
                   className="logo on-dark"
                   href={routeHref("home")}
-                  aria-label="Dr Plumbing, Heating and Cooling, home"
+                  aria-label={homeLabel}
                 >
                   <BrandLogo onDark />
                 </a>
-                <p>Family owned and run from Newcastle, Washington. Serving the Greater Seattle area.</p>
+                <p>
+                  {publicName} is family owned and run from {homeBase.city}, Washington. Serving the
+                  Greater Seattle area.
+                </p>
               </div>
               <div>
                 <h3>Services</h3>
@@ -420,24 +431,30 @@ export default function SiteShell({
                       fontSize: 18,
                     }}
                   >
-                    <a href="tel:2066718888">(206) 671-8888</a>
+                    <a href={callHref}>{phone.display}</a>
                   </li>
-                  <li>Newcastle, WA</li>
+                  <li>{homeBase.city}, WA</li>
                   <li>
-                    <a href="mailto:drplumbinggroup@gmail.com">
-                      drplumbinggroup@gmail.com
+                    <a href={`mailto:${email}`}>{email}</a>
+                  </li>
+                  {hoursText && <li>{hoursText}</li>}
+                  <li>
+                    <a href={license.url} target="_blank" rel="noopener noreferrer">
+                      WA plumbing contractor lic. {license.number}
                     </a>
                   </li>
-                  <li>
-                    <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
-                      WA plumbing contractor lic. {PLUMBING_LICENSE.number}
-                    </a>
-                  </li>
+                  {socialProfiles.map((profile) => (
+                    <li key={profile.url}>
+                      <a href={profile.url} rel="me noopener noreferrer" target="_blank">
+                        {profile.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
             <div className="foot-base">
-              <span>© 2026 {BUSINESS_NAME}</span>
+              <span>© 2026 {confirmed(BUSINESS.legalName)}</span>
               <label className="theme-control">
                 Appearance{" "}
                 <select
@@ -455,7 +472,7 @@ export default function SiteShell({
           </div>
         </footer>
         <nav className="action-bar" aria-label="Quick actions">
-          <a className="btn btn-outline" href="tel:2066718888">
+          <a className="btn btn-outline" href={callHref}>
             <svg
               width="18"
               height="18"
@@ -471,7 +488,7 @@ export default function SiteShell({
             </svg>
             Call
           </a>
-          <a className="btn btn-outline" href="sms:+12066718888">
+          <a className="btn btn-outline" href={textHref}>
             Text
           </a>
           <a className="btn btn-primary" href={routeHref("book")}>
