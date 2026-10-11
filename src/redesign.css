@@ -105,7 +105,7 @@ a, button, summary { -webkit-tap-highlight-color: transparent; }
 .service-index { background: var(--band); color: var(--band-ink); padding: 28px 36px 32px; border-radius: 0 0 6px 6px; }
 .service-index-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; margin-bottom: 22px; }
 .service-index-heading h2 { font-size: 24px; }
-.service-index-links a { font-size: 22px; }
+.service-index-links a { font-size: 20px; }
 .service-index-heading h2 { letter-spacing: -.025em; }
 .service-index-heading > a { display: inline-flex; gap: 12px; align-items: center; font-size: 14px; min-height: 32px; }
 .service-index-links { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
@@ -226,7 +226,7 @@ details[open] .disclosure-mark::after { transform: rotate(0deg); }
   .service-index { padding: 0 24px 24px; border-radius: 0; order: 2; }
   .service-index-heading { margin-bottom: 16px; }
   .service-index-heading h2 { font-size: 22px; }
-  .service-index-links a { font-size: 20px; }
+  .service-index-links a { font-size: 18px; }
   .service-index-links { grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
   .service-index-links a { padding-block: 18px; min-height: 58px; }
   .home-promise { grid-template-columns: 1fr 1fr; gap: 24px; padding-block: 40px; }
