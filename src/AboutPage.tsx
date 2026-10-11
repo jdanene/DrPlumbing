@@ -43,7 +43,7 @@ export default function AboutPage() {
               </a>
             </div>
           </div>
-          <ProjectPhoto photo={PHOTOS.technician} priority />
+          <ProjectPhoto photo={PHOTOS.ownerOnSite} priority fullFrame />
         </div>
       </section>
 

@@ -57,3 +57,4 @@ describe("reviewed photo placements", () => {
     }
   });
 });
+/// <reference types="node" />

@@ -110,9 +110,21 @@ export const PHOTOS = {
     src: `${ROOT}/about/on-the-job/best/105_IMG_3750.jpg`,
     alt: "Mehran using a RIDGID press tool on copper heating pipework", width: 1600, height: 1200, position: "22% 45%",
   },
+  ownerWithPressTool: {
+    src: `${ROOT}/about/on-the-job/best/107_IMG_3753.jpg`,
+    alt: "Mehran smiling with a press tool beside copper hydronic heating pipework", width: 1600, height: 1200, position: "22% 45%",
+  },
+  copperPressDetail: {
+    src: `${ROOT}/about/on-the-job/103_IMG_3745.jpg`,
+    alt: "Gloved hands using a press tool on a copper hydronic heating connection", width: 1200, height: 1600, position: "50% 85%",
+  },
   technicianFiltration: {
     src: `${ROOT}/about/on-the-job/best/033_IMG_1113.jpg`,
     alt: "Technician standing beside a water-treatment installation", width: 1600, height: 1200, position: "20% 50%",
+  },
+  ownerOnSite: {
+    src: `${ROOT}/about/on-the-job/116_IMG_4240.jpg`,
+    alt: "Mehran kneeling beside an open heating appliance and copper pipework on site", width: 1600, height: 1200,
   },
   welding: {
     src: `${ROOT}/about/on-the-job/023_IMG_0789.jpg`,
