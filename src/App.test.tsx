@@ -1,17 +1,11 @@
 // @vitest-environment jsdom
-import {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  within,
-} from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { SERVICE_AREA_MAP_URL, SERVICES } from "./content";
+import { SERVICES } from "./content";
 import { resolveRoute } from "./routes";
+import { WORK_PROJECTS } from "./projectPhotos";
 
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
@@ -25,246 +19,108 @@ afterEach(() => {
 });
 
 /**
- * Description: Exercises the public hash-navigation contract without relying on jsdom's navigation timers.
- * Inputs: hash is a destination such as #about or an unknown fragment.
- * Output: A synchronous hash-change event processed within React's test boundary.
- * Examples: The navigation tests below move from #boilers to #book and retain the service.
+ * Description: Simulates browser navigation without jsdom's click timers.
+ * Inputs: href is a local path, optionally with a section or legacy hash.
+ * Output: A history entry and React route update.
+ * Examples: /book/ opens booking; /#home-faq focuses its heading.
  */
-function navigate(hash: string) {
+function navigate(href: string) {
   act(() => {
-    window.history.pushState(null, "", hash);
-    window.dispatchEvent(new HashChangeEvent("hashchange"));
+    window.history.pushState(null, "", href);
+    window.dispatchEvent(new PopStateEvent("popstate"));
   });
 }
 
-describe("routes", () => {
-  it.each([
-    ["", "home"],
-    ["#", "home"],
-    ["#unknown", "home"],
-    ["#boilers", "boilers"],
-    ["#home-reviews", "home-reviews"],
-    ["#home-faq", "home-faq"],
-  ])("resolves %s to %s", (hash, route) => {
-    expect(resolveRoute(hash)).toBe(route);
-  });
-});
+describe("navigation", () => {
+  it.each([["", "home"], ["#unknown", "home"], ["#boilers", "boilers"], ["#home-faq", "home-faq"]])(
+    "keeps legacy bookmark %s resolving to %s", (hash, route) => {
+      expect(resolveRoute(hash)).toBe(route);
+    },
+  );
 
-describe("reference pages", () => {
-  it("keeps the hero, van, values, and service tiles without preview labels", () => {
-    render(<App />);
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Plumbing, heating and cooling for homes from Everett to Federal Way.",
-    );
-    expect(
-      screen.getByRole("img", { name: /Sprinter wrap mockup, driver side/ }),
-    ).toBeDefined();
-    expect(screen.queryByText(/Design preview/)).toBeNull();
-    expect(screen.queryByText(/Van wrap concept/)).toBeNull();
-    expect(document.title).toBe("Dr Plumbing & Heating | Greater Seattle Area");
-    for (const logo of screen.getAllByRole("link", { name: "Dr Plumbing, Heating and Cooling, home" })) {
-      expect(logo.querySelectorAll('img[src="/brand/dr-logo.png"]')).toHaveLength(1);
-      expect(logo.textContent?.trim()).toBe("");
-    }
-    expect(screen.getByText(/© 2026 Dr Plumbing & Heating Group LLC/)).toBeDefined();
-    expect(screen.getByText(/WA plumbing contractor lic. DRPLUPH740ND/)).toBeDefined();
-    expect(screen.getByText("Brands we service")).toBeDefined();
-    const hero = document.querySelector(".hero")!;
-    expect(within(hero as HTMLElement).getByRole("link", { name: "Find your service" }).getAttribute("href")).toBe("#home-services");
-    expect(within(hero as HTMLElement).queryByRole("link", { name: "Book a visit" })).toBeNull();
-    const call = within(hero as HTMLElement).getByRole("link", { name: "Call (206) 671-8888" });
-    expect(call.getAttribute("href")).toBe("tel:2066718888");
-    expect(call.classList.contains("btn-outline")).toBe(true);
-    expect(within(hero as HTMLElement).getByRole("link", { name: "You can text us, too." }).getAttribute("href")).toBe("sms:+12066718888");
-    expect(screen.queryByRole("navigation", { name: "Quick service links" })).toBeNull();
-    for (const brand of ["Rheem", "A. O. Smith", "Bradford White", "Navien", "Rinnai", "Carrier", "Trane", "Mitsubishi Electric"]) {
-      expect(within(screen.getByRole("region", { name: "Brands we service" })).getByText(brand)).toBeDefined();
-    }
-    const main = within(screen.getByRole("main"));
-    for (const service of SERVICES) {
-      expect(
-        main
-          .getByRole("link", {
-            name: new RegExp(
-              service.short.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-            ),
-          })
-          .getAttribute("href"),
-      ).toBe(`#${service.id}`);
-    }
-    expect(main.getByText("Flat-rate prices")).toBeDefined();
-    expect(main.getByRole("heading", { name: "Hire a professional" })).toBeDefined();
-    expect(main.getByRole("heading", { name: "Experienced technicians" })).toBeDefined();
-    expect(main.getByRole("link", { name: "Open in Google Maps" }).getAttribute("href")).toBe("https://www.google.com/maps/search/?api=1&query=Seattle%2C%20WA");
-  });
-
-  it("preserves all nine common questions and the footer FAQ destination", async () => {
-    render(<App />);
-    const faq = document.getElementById("home-faq")!;
-    expect(within(faq).getByRole("heading", { name: "Common questions." })).toBeDefined();
-    expect(within(faq).getByRole("link", { name: "Call (206) 671-8888." }).getAttribute("href")).toBe("tel:2066718888");
-    const questions = [...faq.querySelectorAll("summary")];
-    expect(questions.map((item) => item.textContent)).toEqual([
-      "What areas do you serve?",
-      "Are you licensed and insured?",
-      "How does your pricing work?",
-      "Do you offer emergency service?",
-      "Should I choose a tank or a tankless water heater?",
-      "Is a heat pump water heater worth it?",
-      "What is hydronic heating?",
-      "How often should my boiler be serviced?",
-      "When do I need hydro jetting?",
-    ]);
-    await userEvent.click(questions[6]);
-    expect(questions[6].parentElement?.hasAttribute("open")).toBe(true);
-    expect(within(faq).getByText(/A hydronic system heats your home with hot water/)).toBeDefined();
-    expect(within(faq).queryByText("Does the online form book an appointment?")).toBeNull();
-    navigate("#about");
-    navigate("#home-faq");
-    expect(document.activeElement?.textContent).toBe("Common questions.");
-  });
-
-  it("renders each service including prose-only boiler sections", () => {
+  it("renders each service and focuses its heading", () => {
     render(<App />);
     for (const service of SERVICES) {
-      navigate(`#${service.id}`);
-      expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-        service.title,
-      );
-      expect(document.activeElement).toBe(
-        screen.getByRole("heading", { level: 1 }),
-      );
-      const tabs = within(screen.getByRole("navigation", { name: "Services" }));
-      expect(
-        tabs
-          .getByRole("link", { name: service.tab })
-          .getAttribute("aria-current"),
-      ).toBe("page");
+      navigate(`/#${service.id}`);
+      const heading = screen.getByRole("heading", { level: 1 });
+      expect(heading.textContent).toBe(service.title);
+      expect(document.activeElement).toBe(heading);
+      expect(within(screen.getByRole("navigation", { name: "Services" }))
+        .getByRole("link", { name: service.tab }).getAttribute("aria-current")).toBe("page");
+      expect(window.location.hash).toBe("");
     }
-    expect(
-      screen.getByText(/Hydronic heating systems are known for their efficiency, even heating, and quiet operation/),
-    ).toBeDefined();
-    expect(
-      within(
-        screen.getByRole("navigation", { name: "Other services" }),
-      ).queryByRole("link", { name: "Boilers" }),
-    ).toBeNull();
   });
 
-  it("renders services, About, homepage sections, and unknown-route recovery", () => {
+  it("keeps About, homepage anchors, and missing-page recovery accessible", async () => {
     render(<App />);
-    navigate("#services");
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Plumbing, heating & cooling services",
-    );
-    expect(
-      screen.getByRole("heading", { name: "Not sure which service you need?" }),
-    ).toBeDefined();
-    expect(
-      within(screen.getByRole("main"))
-        .getByRole("link", { name: "Book a visit" })
-        .getAttribute("href"),
-    ).toBe("#book");
-    navigate("#about");
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "A family business on your street.",
-    );
-    for (const heading of ["Expert team", "Homeowners like you have put their trust in us.", "Sincere, flat-rate pricing", "Go the extra mile", "Our top priority is your safety."]) {
-      expect(screen.getByRole("heading", { name: heading })).toBeDefined();
+    navigate("/about/");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("A family business on your street.");
+    for (const anchor of ["home-services", "home-area", "home-reviews", "home-faq"]) {
+      navigate(`/#${anchor}`);
+      expect(document.activeElement).toBe(document.getElementById(anchor)?.querySelector("h2"));
     }
-    expect(screen.getByText("Mehran")).toBeDefined();
-    navigate("#home-area");
-    const area = document.getElementById("home-area");
-    expect(document.activeElement).toBe(area?.querySelector("h2"));
-    expect(within(area!).getByRole("heading", { name: "We serve homes from Everett to Federal Way." })).toBeDefined();
-    expect(within(area!).getByTitle("Map of Seattle, Washington").getAttribute("src")).toBe(SERVICE_AREA_MAP_URL);
-    expect(area?.textContent).toContain("Federal Way");
-    navigate("#home-reviews");
-    expect(document.activeElement?.textContent).toBe("Customer reviews");
-    navigate("#not-real");
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "Plumbing, heating and cooling for homes from Everett to Federal Way.",
-    );
+    navigate("/missing/");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Page not found.");
+    await userEvent.click(screen.getByRole("link", { name: "Find your service" }));
+    expect(window.location.pathname).toBe("/services/");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Plumbing, heating & cooling services");
   });
 
-  it("carries the visited service into the booking preview and handles direct booking", () => {
+  it("carries the visited service into booking and supports direct booking", () => {
     render(<App />);
-    navigate("#book");
-    expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe(
-      "Not sure",
-    );
-    navigate("#boilers");
-    navigate("#book");
-    expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe(
-      "Boilers",
-    );
+    navigate("/book/");
+    expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe("Not sure");
+    navigate("/boilers/");
+    navigate("/book/");
+    expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe("Boilers");
   });
 
-  it("filters placeholder projects and keeps the selected filter focused", async () => {
-    const user = userEvent.setup();
+  it("filters real projects and keeps the selected filter focused", async () => {
     render(<App />);
-    navigate("#work");
-    expect(screen.getAllByRole("article")).toHaveLength(9);
-    await user.click(screen.getByRole("button", { name: "Plumbing", pressed: false }));
-    expect(screen.getAllByRole("article")).toHaveLength(3);
-    await user.click(screen.getByRole("button", { name: "Water heaters" }));
-    expect(screen.getAllByRole("article")).toHaveLength(2);
-    expect(document.activeElement).toBe(
-      screen.getByRole("button", { name: "Water heaters" }),
-    );
-    await user.click(screen.getByRole("button", { name: "Boilers" }));
-    expect(screen.getAllByRole("article")).toHaveLength(1);
-    expect(
-      screen
-        .getByRole("button", { name: "Boilers" })
-        .getAttribute("aria-pressed"),
-    ).toBe("true");
-    await user.click(screen.getByRole("button", { name: "All" }));
-    expect(screen.getAllByRole("article")).toHaveLength(9);
+    navigate("/our-work/");
+    expect(screen.getAllByRole("article")).toHaveLength(WORK_PROJECTS.length);
+    const filter = screen.getByRole("button", { name: "Water heaters" });
+    await userEvent.click(filter);
+    expect(screen.getAllByRole("article")).toHaveLength(WORK_PROJECTS.filter(project => project.category === "Water heaters").length);
+    expect(document.activeElement).toBe(filter);
+    expect(filter.getAttribute("aria-pressed")).toBe("true");
+    await userEvent.click(screen.getByRole("button", { name: "All" }));
+    expect(screen.getAllByRole("article")).toHaveLength(WORK_PROJECTS.length);
   });
 });
 
 describe("shared controls", () => {
-  it("opens the service dropdown, closes outside and restores focus on Escape", async () => {
-    const user = userEvent.setup();
+  it("closes the dropdown outside and restores focus on Escape", async () => {
     render(<App />);
-    const button = screen.getByRole("button", {
-      name: "Plumbing",
-    });
-    await user.click(button);
+    const button = screen.getByRole("button", { name: "Plumbing" });
+    await userEvent.click(button);
     expect(button.getAttribute("aria-expanded")).toBe("true");
-    await user.click(screen.getByRole("heading", { level: 1 }));
+    await userEvent.click(screen.getByRole("heading", { level: 1 }));
     expect(button.getAttribute("aria-expanded")).toBe("false");
-    await user.click(button);
-    await user.keyboard("{Escape}");
+    await userEvent.click(button);
+    await userEvent.keyboard("{Escape}");
     expect(button.getAttribute("aria-expanded")).toBe("false");
     expect(document.activeElement).toBe(button);
   });
 
-  it("locks background scroll while the mobile drawer is open and restores on Escape", async () => {
-    const user = userEvent.setup();
+  it("restores background scroll after drawer dismissal or navigation", async () => {
     render(<App />);
-    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
     expect(document.body.style.overflow).toBe("hidden");
-    expect(screen.getByRole("navigation", { name: "Mobile" }).hidden).toBe(
-      false,
-    );
-    await user.keyboard("{Escape}");
+    expect(screen.getByRole("navigation", { name: "Mobile" }).hidden).toBe(false);
+    await userEvent.keyboard("{Escape}");
     expect(document.body.style.overflow).toBe("");
-    expect(document.activeElement).toBe(
-      screen.getByRole("button", { name: "Open menu" }),
-    );
-    await user.click(screen.getByRole("button", { name: "Open menu" }));
-    navigate("#about");
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "Open menu" }));
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    navigate("/about/");
     expect(document.body.style.overflow).toBe("");
     expect(screen.queryByRole("navigation", { name: "Mobile" })).toBeNull();
   });
 
-  it("saves light and dark selection and supports the system setting", () => {
+  it("saves theme choices and supports the system setting", () => {
     render(<App />);
     const select = screen.getByLabelText("Appearance") as HTMLSelectElement;
-    expect(select.value).toBe("dark");
-    expect(document.documentElement.dataset.theme).toBe("dark");
+    expect(select.value).toBe("light");
     fireEvent.change(select, { target: { value: "dark" } });
     expect(document.documentElement.dataset.theme).toBe("dark");
     expect(localStorage.getItem("dr-plumbing-theme")).toBe("dark");

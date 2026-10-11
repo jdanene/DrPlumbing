@@ -49,9 +49,9 @@ export default function SiteShell({
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem("dr-plumbing-theme");
-      return saved === "dark" || saved === "light" || saved === "system" ? saved : "dark";
+      return saved === "dark" || saved === "light" || saved === "system" ? saved : "light";
     } catch {
-      return "dark";
+      return "light";
     }
   });
   const headerRef = useRef<HTMLElement>(null);
@@ -240,12 +240,20 @@ export default function SiteShell({
             ))}
           </nav>
           <div className="header-actions">
+            <div className="header-contact">
+              <span className="header-phone">(206) 671-8888</span>
+              <div className="header-contact-links">
+                <a href="tel:2066718888" aria-label="Call (206) 671-8888" tabIndex={drawerOpen ? -1 : undefined}>Call</a>
+                <span aria-hidden="true">or</span>
+                <a href="sms:+12066718888" aria-label="Text (206) 671-8888" tabIndex={drawerOpen ? -1 : undefined}>Text</a>
+              </div>
+            </div>
             <a
-              className="call-icon"
-              href="tel:2066718888"
-              aria-label="Call (206) 671-8888"
+              className="btn btn-primary header-book"
+              href={routeHref("book")}
               tabIndex={drawerOpen ? -1 : undefined}
             >
+              Book a visit
               <svg
                 width="20"
                 height="20"
@@ -257,7 +265,7 @@ export default function SiteShell({
                 strokeLinejoin="round"
                 aria-hidden="true"
               >
-                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" />
+                <path d="M5 12h14m-6-6 6 6-6 6" />
               </svg>
             </a>
             <button
@@ -274,6 +282,7 @@ export default function SiteShell({
                 setDrawerOpen(!drawerOpen);
               }}
             >
+              <span>{drawerOpen ? "Close" : "Menu"}</span>
               <svg
                 width="22"
                 height="22"
