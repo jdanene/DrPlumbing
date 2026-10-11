@@ -23,14 +23,27 @@ export const HOME_ANCHORS = ["home-reviews", "home-area", "home-services", "home
 
 /**
  * Description: Gives an existing route its crawlable link without exposing path aliases to callers.
- * Inputs: route is a page ID, service/detail ID, or homepage section ID.
+ * Inputs: route is a page ID, a page ID followed by one or more child segments, or a homepage section ID.
  * Output: An absolute local path; an unknown page returns the homepage.
- * Examples: "drain-sewer/hydrojetting" becomes "/drain-and-sewer/hydrojetting/"; "home" becomes "/".
+ * Examples: "drain-sewer/hydrojetting" becomes "/drain-and-sewer/hydrojetting/"; "home" becomes "/";
+ * "areas/bellevue/water-heaters" becomes "/areas-we-serve/bellevue/water-heaters/".
  */
 export function routeHref(route: string) {
   if (HOME_ANCHORS.includes(route)) return `/#${route}`;
-  const [page, detail] = route.split("/");
+  const [page, ...children] = route.split("/");
   const path = PAGE_PATHS[page];
   if (!path) return "/";
-  return detail ? `${path}${detail}/` : path;
+  return children.length ? `${path}${children.join("/")}/` : path;
+}
+
+/**
+ * Description: Turns a label into the one path segment this site uses for it, so a service detail,
+ * a city and any future child page share one address rule.
+ * Inputs: label is a visible heading, a city name, or an existing slug.
+ * Output: Lowercase words joined by hyphens, with "&" written as "and" and no leading or trailing hyphen.
+ * Examples: "Gas water heaters" is "gas-water-heaters"; "Faucets, fixtures & sinks" is
+ * "faucets-fixtures-and-sinks"; "East Hill-Meridian" is "east-hill-meridian"; "" is "".
+ */
+export function pathSlug(label: string) {
+  return label.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }

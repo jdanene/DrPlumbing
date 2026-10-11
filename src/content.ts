@@ -1,6 +1,8 @@
+import { BUSINESS, confirmed } from "./businessFacts";
+
 /**
- * Description: Keeps the approved services, values and cities together.
- * Inputs: None; business content follows the owner's approved mockup and subsequent corrections.
+ * Description: Keeps the approved services and values together; business facts live in businessFacts.ts.
+ * Inputs: None; service content follows the owner's approved mockup and subsequent corrections.
  * Output: Typed content shared by pages, navigation, and booking.
  * Examples: App.test.tsx checks all six service routes and project categories.
  */
@@ -35,19 +37,11 @@ export interface ServiceGroup {
   serviceIds: string[];
 }
 
-/**
- * Description: Identifies the active residential plumbing contractor record published by Washington L&I.
- * Inputs: None; L&I is the source for the number, specialty, and registered business name.
- * Output: The public record used wherever the site states a plumbing license.
- * Examples: The footer links DRPLUPH740ND to the matching L&I record.
- */
-export const PLUMBING_LICENSE = {
-  number: "DRPLUPH740ND",
-  registeredName: "Dr Plumbing & Heating Grp LLC",
-  url: "https://secure.lni.wa.gov/verify/Detail.aspx?UBI=604661707&LIC=DRPLUPH740ND&SAW=",
-} as const;
-
-export const BUSINESS_NAME = "Dr Plumbing & Heating Group LLC";
+// The business record moved to businessFacts.ts. These three names stay as views of it until every
+// page reads the record directly; new code imports BUSINESS, not these.
+export const PLUMBING_LICENSE = confirmed(BUSINESS.license);
+export const BUSINESS_NAME = confirmed(BUSINESS.legalName);
+export const CITIES = confirmed(BUSINESS.serviceCities);
 
 export const SERVICE_AREA_MAP_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d172153.33373691145!2d-122.33979794999999!3d47.608715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5490102c93e83355%3A0x102565466944d59a!2sSeattle%2C%20WA!5e0!3m2!1sen!2sus!4v1790569958307!5m2!1sen!2sus";
 
@@ -503,33 +497,4 @@ export const VALUES = [
   ["Plain answers", "We explain what we found and how to fix it."],
   ["Safety first", "We install gas lines, boilers and water heaters to code, every time."],
   ["Care for your home", "We treat your house the way we treat our own."],
-];
-export const CITIES = [
-  "Auburn",
-  "Bellevue",
-  "Bothell",
-  "Burien",
-  "Cottage Lake",
-  "Des Moines",
-  "East Hill-Meridian",
-  "Edmonds",
-  "Everett",
-  "Federal Way",
-  "Issaquah",
-  "Kent",
-  "Lake Stevens",
-  "Lynnwood",
-  "Machias",
-  "Maltby",
-  "Mill Creek",
-  "Mountlake Terrace",
-  "Mukilteo",
-  "Redmond",
-  "Renton",
-  "Sammamish",
-  "SeaTac",
-  "Seattle",
-  "Shoreline",
-  "Skyway",
-  "Snohomish",
 ];

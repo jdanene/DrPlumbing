@@ -39,6 +39,37 @@ interface HeadTag {
   text?: string;
 }
 
+const BUSINESS_ID = `${SITE_ORIGIN}/#business`;
+
+/**
+ * Description: Describes the business and its website for search engines, the same on every page.
+ * Inputs: None; the facts come from the business record.
+ * Output: Two schema.org nodes: the Plumber/HVACBusiness identified by BUSINESS_ID and the WebSite it publishes.
+ * Examples: Seo.test.ts checks the business node's name, telephone and areaServed, and that both nodes
+ * appear unchanged on the homepage and a service page.
+ */
+function businessGraph(): Record<string, unknown>[] {
+  return [
+    {
+      "@type": ["Plumber", "HVACBusiness"],
+      "@id": BUSINESS_ID,
+      name: BUSINESS_NAME,
+      url: `${SITE_ORIGIN}/`,
+      telephone: "+12066718888",
+      email: "drplumbinggroup@gmail.com",
+      logo: `${SITE_ORIGIN}/brand/dr-brand-mark.png`,
+      areaServed: CITIES.map((name) => ({ "@type": "City", name })),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_ORIGIN}/#website`,
+      name: "Dr Plumbing & Heating",
+      url: `${SITE_ORIGIN}/`,
+      publisher: { "@id": BUSINESS_ID },
+    },
+  ];
+}
+
 /**
  * Description: Supplies identical search and social metadata to the static build and client navigation.
  * Inputs: route is a resolved page; indexable is false for development and missing pages.
@@ -48,9 +79,8 @@ interface HeadTag {
 export function headTags(route: string, indexable = true): HeadTag[] {
   const page = HOME_ANCHORS.includes(route) ? "home" : route;
   const canonical = `${SITE_ORIGIN}${routeHref(page)}`;
-  const logo = `${SITE_ORIGIN}/brand/dr-brand-mark.png`;
   const socialImage = `${SITE_ORIGIN}/brand/dr-social-card-v2.png`;
-  const businessId = `${SITE_ORIGIN}/#business`;
+  const businessId = BUSINESS_ID;
   const [serviceId, detailKey] = page.split("/");
   const service = SERVICES.find((item) => item.id === serviceId);
   const detail = detailKey ? serviceDetailFor(serviceId, detailKey) : undefined;
@@ -59,23 +89,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
     : ["Page not found | Dr Plumbing & Heating", "Find plumbing, heating and cooling services in the Greater Seattle area."]);
   const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years in the trade" : title;
   const graph: Record<string, unknown>[] = [
-    {
-      "@type": ["Plumber", "HVACBusiness"],
-      "@id": businessId,
-      name: BUSINESS_NAME,
-      url: `${SITE_ORIGIN}/`,
-      telephone: "+12066718888",
-      email: "drplumbinggroup@gmail.com",
-      logo,
-      areaServed: CITIES.map((name) => ({ "@type": "City", name })),
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_ORIGIN}/#website`,
-      name: "Dr Plumbing & Heating",
-      url: `${SITE_ORIGIN}/`,
-      publisher: { "@id": businessId },
-    },
+    ...businessGraph(),
     {
       "@type": "WebPage",
       "@id": `${canonical}#webpage`,
