@@ -3,10 +3,13 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import BookingPage from "./BookingPage";
+import { track } from "mappack-web-analytics";
+vi.mock("mappack-web-analytics", () => ({ track: vi.fn() }));
 import { validateBooking } from "./booking";
 
 afterEach(() => {
   cleanup();
+  vi.clearAllMocks();
   vi.unstubAllGlobals();
 });
 
@@ -26,6 +29,20 @@ describe("booking validation", () => {
 });
 
 describe("booking request", () => {
+  it("counts first input once per mount and reports a network failure", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("offline")));
+    render(<BookingPage />);
+    const name = screen.getByLabelText("Your name");
+    fireEvent.input(name, { target: { value: "Taylor" } });
+    fireEvent.input(name, { target: { value: "Taylor Lee" } });
+    fireEvent.input(screen.getByLabelText("Phone"), { target: { value: "(206) 555-0123" } });
+    expect(vi.mocked(track).mock.calls.filter(([event]) => event === "book_start")).toHaveLength(1);
+    fireEvent.submit(name.closest("form")!);
+    await screen.findByRole("alert");
+    expect(track).toHaveBeenCalledWith("book_failed", { reason: "network" });
+    expect(vi.mocked(track).mock.calls.some(([event]) => event === "generate_lead")).toBe(false);
+  });
+
   it("starts with the requested service and defaults unknown services to Not sure", () => {
     const { unmount } = render(<BookingPage service="Water heaters" />);
     expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe(
@@ -42,6 +59,8 @@ describe("booking request", () => {
     const user = userEvent.setup();
     render(<BookingPage />);
     await user.click(screen.getByRole("button", { name: "Send request" }));
+    expect(track).toHaveBeenCalledWith("book_failed", { reason: "validation" });
+    expect(vi.mocked(track).mock.calls.some(([name]) => name === "generate_lead")).toBe(false);
     expect(document.activeElement).toBe(screen.getByLabelText("Your name"));
     expect(
       screen.getByLabelText("Your name").getAttribute("aria-invalid"),
@@ -73,6 +92,7 @@ describe("booking request", () => {
     await user.click(screen.getByRole("button", { name: "Send request" }));
     await screen.findByRole("heading", { name: "Request sent." });
     expect(fetch).toHaveBeenCalledOnce();
+    expect(vi.mocked(track).mock.calls.filter(([name]) => name === "generate_lead")).toEqual([["generate_lead", { service: "Boilers", city: "Seattle", urgency: "Today", page_path: "/book/" }]]);
     const [, init] = fetch.mock.calls[0];
     const body = JSON.parse(init.body);
     expect(body.message).toBe("<script>alert(1)</script>");
@@ -106,6 +126,7 @@ describe("booking request", () => {
     await waitFor(() =>
       expect(screen.getByRole("alert").textContent).toMatch(/could not send/),
     );
+    expect(track).toHaveBeenCalledWith("book_failed", { reason: "server" });
     expect(
       (screen.getByRole("button", { name: "Send request" }) as HTMLButtonElement)
         .disabled,

@@ -1,4 +1,5 @@
 import { routeHref } from "./sitePaths";
+import { track } from "mappack-web-analytics";
 import {
   useEffect,
   useRef,
@@ -25,6 +26,7 @@ export default function BookingPage({ service }: { service?: string }) {
   const phoneRef = useRef<HTMLInputElement>(null);
   const successRef = useRef<HTMLHeadingElement>(null);
   const formStartedAt = useRef(0);
+  const analyticsStarted = useRef(false);
   const selectedService = SERVICES.some((item) => item.tab === service)
     ? service
     : "Not sure";
@@ -51,6 +53,7 @@ export default function BookingPage({ service }: { service?: string }) {
     const nextErrors = validateBooking(name, phone);
     setErrors(nextErrors);
     if (nextErrors.name || nextErrors.phone) {
+      track("book_failed", { reason: "validation" });
       (nextErrors.name ? nameRef : phoneRef).current?.focus();
       return;
     }
@@ -87,10 +90,18 @@ export default function BookingPage({ service }: { service?: string }) {
           startedAt: formStartedAt.current,
         }),
       });
-      if (!response.ok) throw new Error("Contact request failed");
+      if (!response.ok) {
+        track("book_failed", { reason: "server" });
+        setSendState("error");
+        return;
+      }
+      // The endpoint also succeeds for honeypots; JDA-244 accepts this requests-sent limit.
+      // Only categorical selections reach analytics; personal form fields stay in the contact request.
+      track("generate_lead", { service: requestedService, city, urgency, page_path: "/book/" });
       setSummary(rows);
       setSendState("sent");
     } catch {
+      track("book_failed", { reason: "network" });
       setSendState("error");
     }
   }
@@ -112,7 +123,12 @@ export default function BookingPage({ service }: { service?: string }) {
           </div>
         </div>
         <div className="panel">
-          <form id="bookForm" noValidate onSubmit={sendRequest} hidden={sendState === "sent"} aria-describedby="booking-status">
+          <form id="bookForm" noValidate onSubmit={sendRequest} onInput={() => {
+            if (!analyticsStarted.current) {
+              analyticsStarted.current = true;
+              track("book_start");
+            }
+          }} hidden={sendState === "sent"} aria-describedby="booking-status">
             <div className="two">
               <div className={`field${errors.name ? " bad" : ""}`}>
                 <label htmlFor="bName">Your name</label>
