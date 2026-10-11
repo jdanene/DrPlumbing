@@ -1,3 +1,5 @@
+import { BUSINESS, confirmed } from "./businessFacts";
+import { CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, type CityPageMatch } from "./cities";
 import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
@@ -31,7 +33,28 @@ export const PUBLIC_ROUTES = [
   ...Object.entries(SERVICE_DETAILS).flatMap(([serviceId, details]) =>
     details.map((detail) => `${serviceId}/${serviceDetailSlug(detail.item)}`),
   ),
+  ...CITY_PAGES.map((city) => `areas/${city.slug}`),
+  ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.serviceId}`),
 ];
+
+/**
+ * Description: Writes a city page's title and meta description from the facts, so a search result
+ * names the city, the firm and the price basis without a guessed claim.
+ * Inputs: page is a resolved city page.
+ * Output: The title, "Plumbing, Heating & Cooling in {City}, WA | Dr Plumbing & Heating" or
+ * "{Service tab} in {City}, WA | Dr Plumbing & Heating", and a description that ends with how many
+ * cities the firm serves.
+ * Examples: CityPages.test.tsx checks the Bellevue and Bellevue water-heaters titles and that the
+ * description names the price basis.
+ */
+function cityMetadata(page: CityPageMatch): [string, string] {
+  const subject = page.service?.tab ?? "Plumbing, Heating & Cooling";
+  const cities = confirmed(BUSINESS.serviceCities);
+  return [
+    `${subject} in ${page.city.name}, WA | ${confirmed(BUSINESS.publicName)}`,
+    `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
+  ];
+}
 
 interface HeadTag {
   tag: "title" | "meta" | "link" | "script";
@@ -84,7 +107,8 @@ export function headTags(route: string, indexable = true): HeadTag[] {
   const [serviceId, detailKey] = page.split("/");
   const service = SERVICES.find((item) => item.id === serviceId);
   const detail = detailKey ? serviceDetailFor(serviceId, detailKey) : undefined;
-  const [title, description] = PAGE_METADATA[page] ?? (detail
+  const cityPage = page.startsWith("areas/") ? cityPageAt(page.split("/").slice(1)) : undefined;
+  const [title, description] = PAGE_METADATA[page] ?? (cityPage ? cityMetadata(cityPage) : detail
     ? [`${detail.item} in Greater Seattle | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
     : ["Page not found | Dr Plumbing & Heating", "Find plumbing, heating and cooling services in the Greater Seattle area."]);
   const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years in the trade" : title;
@@ -113,6 +137,28 @@ export function headTags(route: string, indexable = true): HeadTag[] {
     const crumbs = [{ name: "Home", item: `${SITE_ORIGIN}/` }];
     if (detail) crumbs.push({ name: service.tab, item: `${SITE_ORIGIN}${routeHref(serviceId)}` });
     crumbs.push({ name: detail?.item ?? service.tab, item: canonical });
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),
+    });
+  }
+  if (cityPage) {
+    // A city page's Service is scoped to that one city, unlike the site-wide service pages above.
+    graph.push({
+      "@type": "Service",
+      "@id": `${canonical}#service`,
+      name: cityHeading(cityPage),
+      description,
+      url: canonical,
+      provider: { "@id": businessId },
+      areaServed: [{ "@type": "City", name: cityPage.city.name }],
+    });
+    const crumbs = [
+      { name: "Home", item: `${SITE_ORIGIN}/` },
+      { name: "Areas we serve", item: `${SITE_ORIGIN}${routeHref("areas")}` },
+      { name: cityPage.city.name, item: `${SITE_ORIGIN}${routeHref(`areas/${cityPage.city.slug}`)}` },
+    ];
+    if (cityPage.service) crumbs.push({ name: cityPage.service.tab, item: canonical });
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),

@@ -79,6 +79,8 @@ a, button, summary { -webkit-tap-highlight-color: transparent; }
 .svc-sec { padding-block: 56px; }
 .svc-sec .items { gap: 36px; }
 .svc-sec .items h3 { font-size: 23px; margin-bottom: 12px; }
+.cities a { color: inherit; text-decoration: none; }
+.cities a:hover, .cities a:focus-visible { text-decoration: underline; }
 .scard, .why, .cta, .map-card, .form-box, .book-form, .summary { border-radius: 6px; }
 .scard { box-shadow: none; border: 1px solid var(--line); }
 .scard .opt { border-radius: 3px; }

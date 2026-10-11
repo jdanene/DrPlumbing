@@ -1,0 +1,81 @@
+import { SERVICES, serviceMenu } from "./content";
+import { cityAnswer, cityHeading, cityLandmarksText, cityPageAt, type CityPageMatch } from "./cities";
+import { serviceOptionHref } from "./serviceDetails";
+import { routeHref } from "./sitePaths";
+import { Arrow, CallToAction } from "./SiteContent";
+
+/**
+ * Description: Chooses where a city page's service link goes, so a visitor who starts in a city stays
+ * in it when the site has a page for that city and service.
+ * Inputs: page is the city page being shown; serviceId names a catalog service.
+ * Output: The city-and-service page when CITY_SERVICE_PAGES lists one, else the service's own page.
+ * Examples: Bellevue's water-heaters link is "/areas-we-serve/bellevue/water-heaters/"; Bellevue's
+ * boilers link and Newcastle's water-heaters link are the service pages.
+ */
+export function serviceHrefFor(page: CityPageMatch, serviceId: string) {
+  const match = cityPageAt([page.city.slug, serviceId]);
+  return routeHref(match?.service ? match.route : serviceId);
+}
+
+/**
+ * Description: Shows one served city, answer first, with the way into each service. A city page links
+ * every service; a city-and-service page links the service's own options and its full page. The page
+ * renders only sentences built from confirmed facts and never a service's educational sections.
+ * Inputs: page is a resolved city page from cityPageAt().
+ * Output: Breadcrumb, heading, the answer, the landmarks sentence when known, service links and the
+ * call to action.
+ * Examples: CityPages.test.tsx renders Bellevue with six service links and the Bellevue water-heaters
+ * page with four option links and a link to /water-heaters/.
+ */
+export default function CityPage({ page }: { page: CityPageMatch }) {
+  const { city, service } = page;
+  const landmarks = cityLandmarksText(page);
+  return (
+    <div className="view is-active" data-view="areas">
+      <section className="block areas-page">
+        <div className="wrap">
+          <nav className="crumbs" aria-label="Breadcrumb">
+            <a href={routeHref("home")}>Home</a>
+            <span>/</span>
+            <a href={routeHref("areas")}>Areas we serve</a>
+            <span>/</span>
+            {service ? (
+              <>
+                <a href={routeHref(`areas/${city.slug}`)}>{city.name}</a>
+                <span>/</span>
+                <span>{service.tab}</span>
+              </>
+            ) : (
+              <span>{city.name}</span>
+            )}
+          </nav>
+          <h1 tabIndex={-1}>{cityHeading(page)}</h1>
+          <p className="lead">{cityAnswer(page)}</p>
+          {landmarks && <p className="lead">{landmarks}</p>}
+          <div className="other">
+            <h2>{service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}</h2>
+            <nav className="svc-tabs" aria-label={service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}>
+              {service
+                ? serviceMenu(service).map((label) => (
+                    <a className="chip" href={serviceOptionHref(service.id, label)} key={label}>{label}</a>
+                  ))
+                : SERVICES.map((item) => (
+                    <a className="chip" href={serviceHrefFor(page, item.id)} key={item.id}>{item.tab}</a>
+                  ))}
+            </nav>
+            {service && (
+              <p>
+                <a className="link-arrow" href={routeHref(service.id)}>
+                  More about {service.tab.toLowerCase()} <Arrow />
+                </a>
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+      <div className="wrap">
+        <CallToAction title={service ? `Talk to us about your ${service.cta} in ${city.name}.` : `Need a plumber in ${city.name}? Call us.`} />
+      </div>
+    </div>
+  );
+}
