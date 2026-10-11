@@ -10,6 +10,9 @@ import {
 import { Arrow } from "./SiteContent";
 import { serviceOptionHref } from "./serviceDetails";
 
+// The old key includes automatically saved dark defaults, not just visitor choices.
+const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
+
 const pageLinks = [
   ["work", "Our Work"],
   ["about", "About"],
@@ -48,7 +51,7 @@ export default function SiteShell({
   const [drawerTop, setDrawerTop] = useState(68);
   const [theme, setTheme] = useState(() => {
     try {
-      const saved = localStorage.getItem("dr-plumbing-theme");
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
       return saved === "dark" || saved === "light" || saved === "system" ? saved : "light";
     } catch {
       return "light";
@@ -68,7 +71,7 @@ export default function SiteShell({
     if (theme === "system") delete document.documentElement.dataset.theme;
     else document.documentElement.dataset.theme = theme;
     try {
-      localStorage.setItem("dr-plumbing-theme", theme);
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch {
       /* Private browsing may disable storage; the current theme still works. */
     }

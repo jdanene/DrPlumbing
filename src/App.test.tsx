@@ -90,6 +90,13 @@ describe("navigation", () => {
 });
 
 describe("shared controls", () => {
+  it("starts light despite the old site's automatically saved dark default", () => {
+    localStorage.setItem("dr-plumbing-theme", "dark");
+    render(<App />);
+    expect((screen.getByLabelText("Appearance") as HTMLSelectElement).value).toBe("light");
+    expect(document.documentElement.dataset.theme).toBe("light");
+  });
+
   it("closes the dropdown outside and restores focus on Escape", async () => {
     render(<App />);
     const button = screen.getByRole("button", { name: "Plumbing" });
@@ -123,10 +130,13 @@ describe("shared controls", () => {
     expect(select.value).toBe("light");
     fireEvent.change(select, { target: { value: "dark" } });
     expect(document.documentElement.dataset.theme).toBe("dark");
-    expect(localStorage.getItem("dr-plumbing-theme")).toBe("dark");
-    fireEvent.change(select, { target: { value: "light" } });
+    cleanup();
+    render(<App />);
+    expect((screen.getByLabelText("Appearance") as HTMLSelectElement).value).toBe("dark");
+    const restoredSelect = screen.getByLabelText("Appearance");
+    fireEvent.change(restoredSelect, { target: { value: "light" } });
     expect(document.documentElement.dataset.theme).toBe("light");
-    fireEvent.change(select, { target: { value: "system" } });
+    fireEvent.change(restoredSelect, { target: { value: "system" } });
     expect(document.documentElement.dataset.theme).toBeUndefined();
   });
 });
