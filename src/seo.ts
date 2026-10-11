@@ -1,4 +1,5 @@
-import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
+import { BUSINESS, confirmed } from "./businessFacts";
+import { CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
 
@@ -43,27 +44,48 @@ const BUSINESS_ID = `${SITE_ORIGIN}/#business`;
 
 /**
  * Description: Describes the business and its website for search engines, the same on every page.
- * Inputs: None; the facts come from the business record.
- * Output: Two schema.org nodes: the Plumber/HVACBusiness identified by BUSINESS_ID and the WebSite it publishes.
- * Examples: Seo.test.ts checks the business node's name, telephone and areaServed, and that both nodes
- * appear unchanged on the homepage and a service page.
+ * Every value comes from the business record, so a fact the owner has not confirmed never reaches
+ * a crawler: a pending fact's key is left out of the node rather than filled with a placeholder.
+ * Inputs: None; the facts come from BUSINESS.
+ * Output: Two schema.org nodes: the Plumber/HVACBusiness identified by BUSINESS_ID, with
+ * openingHoursSpecification, sameAs and priceRange present only once confirmed, and the WebSite it
+ * publishes under the public name.
+ * Examples: Seo.test.ts: with the facts as shipped the business node names "Dr Plumbing & Heating",
+ * legalName "Dr Plumbing & Heating Grp LLC", telephone "+12066718888" and 28 cities, and carries no
+ * openingHoursSpecification, sameAs or priceRange key. SeoConfirmed.test.ts: hours confirmed as
+ * 08:00 to 20:00 all week yield one OpeningHoursSpecification with seven dayOfWeek values; one
+ * confirmed profile yields sameAs with that URL; a confirmed "$$" yields priceRange "$$".
  */
 function businessGraph(): Record<string, unknown>[] {
+  const hours = confirmed(BUSINESS.hours);
+  const socialProfiles = confirmed(BUSINESS.socialProfiles);
+  const priceRange = confirmed(BUSINESS.priceRange);
   return [
     {
       "@type": ["Plumber", "HVACBusiness"],
       "@id": BUSINESS_ID,
-      name: BUSINESS_NAME,
+      name: confirmed(BUSINESS.publicName),
+      legalName: confirmed(BUSINESS.legalName),
       url: `${SITE_ORIGIN}/`,
-      telephone: "+12066718888",
-      email: "drplumbinggroup@gmail.com",
+      telephone: confirmed(BUSINESS.phone).e164,
+      email: confirmed(BUSINESS.email),
       logo: `${SITE_ORIGIN}/brand/dr-brand-mark.png`,
-      areaServed: CITIES.map((name) => ({ "@type": "City", name })),
+      areaServed: confirmed(BUSINESS.serviceCities).map((name) => ({ "@type": "City", name })),
+      ...(hours && {
+        openingHoursSpecification: hours.map((entry) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [...entry.days],
+          opens: entry.opens,
+          closes: entry.closes,
+        })),
+      }),
+      ...(socialProfiles && socialProfiles.length > 0 && { sameAs: socialProfiles.map((profile) => profile.url) }),
+      ...(priceRange && { priceRange }),
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_ORIGIN}/#website`,
-      name: "Dr Plumbing & Heating",
+      name: confirmed(BUSINESS.publicName),
       url: `${SITE_ORIGIN}/`,
       publisher: { "@id": BUSINESS_ID },
     },
@@ -127,7 +149,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
   tags.push(
     { tag: "link", attributes: { rel: "canonical", href: canonical } },
     { tag: "meta", attributes: { property: "og:type", content: "website" } },
-    { tag: "meta", attributes: { property: "og:site_name", content: "Dr Plumbing & Heating" } },
+    { tag: "meta", attributes: { property: "og:site_name", content: confirmed(BUSINESS.publicName) } },
     { tag: "meta", attributes: { property: "og:locale", content: "en_US" } },
     { tag: "meta", attributes: { property: "og:title", content: socialTitle } },
     { tag: "meta", attributes: { property: "og:description", content: description } },
