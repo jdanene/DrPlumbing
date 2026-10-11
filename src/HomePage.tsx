@@ -1,13 +1,19 @@
 import { routeHref } from "./sitePaths";
-import { CITIES, PLUMBING_LICENSE, SERVICES } from "./content";
+import { SERVICES } from "./content";
 import { Arrow } from "./SiteContent";
 import { PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
+import { BUSINESS, confirmed } from "./businessFacts";
+
+const publicName = confirmed(BUSINESS.publicName);
+const phone = confirmed(BUSINESS.phone);
+const license = confirmed(BUSINESS.license);
+const cities = confirmed(BUSINESS.serviceCities);
 
 const QUESTIONS = [
   ["How does your pricing work?", "We charge flat rates. You approve the price before we start, and you pay no surprise fees."],
-  ["Do you offer emergency service?", "Yes, for plumbing and hydronic heating. Call (206) 671-8888."],
-  ["Are you licensed and insured?", `Yes. We are licensed, bonded and insured in Washington. Our plumbing contractor license is ${PLUMBING_LICENSE.number}.`],
+  ["Do you offer emergency service?", `Yes, for plumbing and hydronic heating. Call ${phone.display}.`],
+  ["Are you licensed and insured?", `Yes. We are licensed, bonded and insured in Washington. Our plumbing contractor license is ${license.number}.`],
   ["What areas do you serve?", "Homes across the Greater Seattle area, from Everett to Federal Way, including the Eastside. See our service area page for the full list."],
   ["Should I choose a tank or tankless water heater?", "A tank stores hot water. A tankless unit heats water on demand and takes less space. We size the unit to how your household uses hot water."],
   ["What is hydronic heating?", "A hydronic system heats your home with hot water. A boiler heats the water, pipes carry it to radiators, baseboards or radiant floors, and a pump returns it to be heated again."],
@@ -77,8 +83,8 @@ export default function HomePage() {
       </section>
 
       <section className="home-owner wrap" aria-labelledby="owner-title">
-        <div className="owner-statement"><h2 id="owner-title">A family business.<br />A personal standard.</h2><blockquote>“If I would not do it in my own house, I will not recommend it for yours.”</blockquote><p><strong>Mehran</strong> · Owner, Dr Plumbing &amp; Heating</p><a className="text-link" href={routeHref("about")}>Meet the team <Arrow /></a></div>
-        <figure className="owner-van"><img src="/van/dr-sprinter-side-v9.jpg" alt="Dr Plumbing, Heating and Cooling branded Sprinter van design" width="1619" height="971" loading="lazy" /><figcaption>Family owned. Here for Greater Seattle homes.</figcaption></figure>
+        <div className="owner-statement"><h2 id="owner-title">A family business.<br />A personal standard.</h2><blockquote>“If I would not do it in my own house, I will not recommend it for yours.”</blockquote><p><strong>Mehran</strong> · Owner, {publicName}</p><a className="text-link" href={routeHref("about")}>Meet the team <Arrow /></a></div>
+        <figure className="owner-van"><img src="/van/dr-sprinter-side-v9.jpg" alt={`${publicName} branded Sprinter van design`} width="1619" height="971" loading="lazy" /><figcaption>Family owned. Here for Greater Seattle homes.</figcaption></figure>
       </section>
 
       <section className="home-review" id="home-reviews" aria-labelledby="review-title"><div className="wrap review-layout"><div><h2 id="review-title">What our<br />customers say.</h2><a className="text-link" href="https://share.google/1MNxAAukRtLZXNZlW" target="_blank" rel="noreferrer">Read Google reviews <Arrow /></a></div><figure><blockquote>“Honestly, I’ve never seen such dedication and service. They fixed every problem we had.”</blockquote><figcaption>Google review · 5 out of 5 stars</figcaption></figure></div></section>
@@ -88,16 +94,16 @@ export default function HomePage() {
         <div className="home-question-list">{QUESTIONS.map(([question, answer]) => <details key={question}><summary>{question}<span className="disclosure-mark" aria-hidden="true" /></summary><div className="answer"><p>{answer}</p></div></details>)}</div>
       </section>
 
-      <section className="home-area" id="home-area"><div className="wrap area-layout"><div><h2>Greater Seattle.<br />Your neighborhood.</h2><p>From Everett to Federal Way, including the Eastside.</p><a className="text-link" href={routeHref("areas")}>See our service area <Arrow /></a></div><ul>{CITIES.map(city => <li key={city}>{city}</li>)}</ul></div></section>
+      <section className="home-area" id="home-area"><div className="wrap area-layout"><div><h2>Greater Seattle.<br />Your neighborhood.</h2><p>From Everett to Federal Way, including the Eastside.</p><a className="text-link" href={routeHref("areas")}>See our service area <Arrow /></a></div><ul>{cities.map(city => <li key={city}>{city}</li>)}</ul></div></section>
 
       <section className="home-close wrap">
         <div>
           <h2>Let’s take care of it.</h2>
           <p>Tell us what your home needs. We’ll confirm the next step.</p>
           <p className="home-close-contact">
-            <a href="tel:2066718888" aria-label="Call (206) 671-8888">Call</a>{" or "}
-            <a href="sms:+12066718888" aria-label="Text (206) 671-8888">text</a>{" "}
-            <span>(206) 671-8888</span>
+            <a href={`tel:${phone.e164}`} aria-label={`Call ${phone.display}`}>Call</a>{" or "}
+            <a href={`sms:${phone.e164}`} aria-label={`Text ${phone.display}`}>text</a>{" "}
+            <span>{phone.display}</span>
           </p>
         </div>
         <a className="btn btn-primary" href={routeHref("book")}>Book a visit <Arrow /></a>

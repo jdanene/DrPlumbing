@@ -6,7 +6,8 @@ import {
   type FormEvent,
   type RefObject,
 } from "react";
-import { CITIES, SERVICES } from "./content";
+import { SERVICES } from "./content";
+import { BUSINESS, confirmed } from "./businessFacts";
 import { URGENCY_OPTIONS, validateBooking, type BookingErrors } from "./booking";
 
 type SendState = "idle" | "sending" | "sent" | "error";
@@ -25,6 +26,8 @@ export default function BookingPage({ service }: { service?: string }) {
   const phoneRef = useRef<HTMLInputElement>(null);
   const successRef = useRef<HTMLHeadingElement>(null);
   const formStartedAt = useRef(0);
+  const phone = confirmed(BUSINESS.phone);
+  const cities = confirmed(BUSINESS.serviceCities);
   const selectedService = SERVICES.some((item) => item.tab === service)
     ? service
     : "Not sure";
@@ -104,10 +107,10 @@ export default function BookingPage({ service }: { service?: string }) {
           <p className="lead">Tell us what is going on. We will call or text you to confirm a time and give you a flat-rate price before work starts.</p>
           <div className="drawer-phone" style={{ marginTop: 4 }}>
             <span className="muted">Call or text</span>
-            <b>(206) 671-8888</b>
+            <b>{phone.display}</b>
             <div className="contact-options">
-              <a href="tel:2066718888">Call</a>
-              <a href="sms:+12066718888">Text</a>
+              <a href={`tel:${phone.e164}`}>Call</a>
+              <a href={`sms:${phone.e164}`}>Text</a>
             </div>
           </div>
         </div>
@@ -126,15 +129,15 @@ export default function BookingPage({ service }: { service?: string }) {
               </div>
             </div>
             <div className="two">
-              <div className="field"><label htmlFor="bCity">City</label><select id="bCity" name="city" defaultValue="Seattle">{CITIES.map((city) => <option key={city}>{city}</option>)}<option>Other / not sure</option></select></div>
+              <div className="field"><label htmlFor="bCity">City</label><select id="bCity" name="city" defaultValue="Seattle">{cities.map((city) => <option key={city}>{city}</option>)}<option>Other / not sure</option></select></div>
               <div className="field"><label htmlFor="bService">Service</label><select id="bService" name="service" defaultValue={selectedService}>{SERVICES.map((item) => <option key={item.id}>{item.tab}</option>)}<option>Not sure</option></select></div>
             </div>
-            <fieldset className="field"><legend>How soon do you need help?</legend><div className="times">{URGENCY_OPTIONS.map((urgency) => <label key={urgency}><input type="radio" name="urgency" value={urgency} /> {urgency}</label>)}</div><p className="demo-note">Need help today? <a href="tel:2066718888">Call</a> or <a href="sms:+12066718888">text</a> (206) 671-8888 for the fastest response.</p></fieldset>
+            <fieldset className="field"><legend>How soon do you need help?</legend><div className="times">{URGENCY_OPTIONS.map((urgency) => <label key={urgency}><input type="radio" name="urgency" value={urgency} /> {urgency}</label>)}</div><p className="demo-note">Need help today? <a href={`tel:${phone.e164}`}>Call</a> or <a href={`sms:${phone.e164}`}>text</a> {phone.display} for the fastest response.</p></fieldset>
             <div className="field"><label htmlFor="bMsg">What is going on?</label><textarea id="bMsg" name="message" maxLength={2000} placeholder="Example: water heater is leaking from the bottom" /></div>
             <fieldset className="field"><legend>Best time to reach you</legend><div className="times">{["Morning", "Afternoon", "Evening"].map((time) => <label key={time}><input type="radio" name="time" value={time} defaultChecked={time === "Morning"} /> {time}</label>)}</div></fieldset>
             <div className="contact-trap" aria-hidden="true"><label htmlFor="companyWebsite">Leave this field blank</label><input id="companyWebsite" name="companyWebsite" type="text" tabIndex={-1} autoComplete="off" /></div>
             <button className="btn btn-primary" type="submit" disabled={sendState === "sending"} style={{ width: "100%" }}>{sendState === "sending" ? "Sending request…" : "Send request"}</button>
-            <p className={`form-status${sendState === "error" ? " is-error" : ""}`} id="booking-status" role={sendState === "error" ? "alert" : "status"}>{sendState === "error" ? "We could not send your request. Try again, or call or text (206) 671-8888." : sendState === "sending" ? "Sending your request…" : ""}</p>
+            <p className={`form-status${sendState === "error" ? " is-error" : ""}`} id="booking-status" role={sendState === "error" ? "alert" : "status"}>{sendState === "error" ? `We could not send your request. Try again, or call or text ${phone.display}.` : sendState === "sending" ? "Sending your request…" : ""}</p>
           </form>
           {sendState === "sent" && summary && <Success summary={summary} headingRef={successRef} onReset={() => { setSendState("idle"); setSummary(null); formStartedAt.current = Date.now(); nameRef.current?.focus(); }} />}
         </div>

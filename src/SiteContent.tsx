@@ -17,6 +17,7 @@ import {
 } from "./serviceDetails";
 import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
+import { BUSINESS, confirmed } from "./businessFacts";
 
 /**
  * Description: Draws the repeated directional cue without giving it an accessible name.
@@ -49,12 +50,13 @@ export function Arrow() {
  * Examples: SiteShell.test.tsx verifies the message and all three contact choices.
  */
 export function CallToAction({ title }: { title: string }) {
+  const phone = confirmed(BUSINESS.phone);
   return (
     <div className="cta">
       <div>
         <h2>{title}</h2>
         <p>
-          Call or text <span className="phone-text">(206) 671-8888</span>, or
+          Call or text <span className="phone-text">{phone.display}</span>, or
           send a request online. We will confirm the next step.
         </p>
       </div>
@@ -62,10 +64,10 @@ export function CallToAction({ title }: { title: string }) {
         <a className="btn btn-light" href={routeHref("book")}>
           Book a visit
         </a>
-        <a className="btn btn-ghost-light" href="tel:2066718888">
+        <a className="btn btn-ghost-light" href={`tel:${phone.e164}`}>
           Call now
         </a>
-        <a className="btn btn-ghost-light" href="sms:+12066718888">
+        <a className="btn btn-ghost-light" href={`sms:${phone.e164}`}>
           Text us
         </a>
       </div>
@@ -158,6 +160,7 @@ export function ServicePage({
   const gallery = SERVICE_GALLERIES[detail ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
   const relatedHeading = detail ? `More in ${service.tab}` : "Other services";
+  const phone = confirmed(BUSINESS.phone);
   const tabsRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const tabs = tabsRef.current;
@@ -214,8 +217,8 @@ export function ServicePage({
               <a className="btn btn-primary" href={routeHref("book")}>
                 Book a visit
               </a>
-              <a className="btn btn-outline" href="tel:2066718888">
-                Call (206) 671-8888
+              <a className="btn btn-outline" href={`tel:${phone.e164}`}>
+                Call {phone.display}
               </a>
             </div>
           </div>

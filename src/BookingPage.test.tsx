@@ -38,6 +38,15 @@ describe("booking request", () => {
     );
   });
 
+  it("lists every served city including Newcastle, defaults to Seattle, and ends with Other", () => {
+    render(<BookingPage />);
+    const city = screen.getByLabelText("City") as HTMLSelectElement;
+    const options = Array.from(city.options).map((option) => option.value);
+    expect(city.value).toBe("Seattle");
+    expect(options).toContain("Newcastle");
+    expect(options.at(-1)).toBe("Other / not sure");
+  });
+
   it("links validation errors to inputs and focuses the first invalid field", async () => {
     const user = userEvent.setup();
     render(<BookingPage />);

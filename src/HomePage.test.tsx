@@ -13,7 +13,7 @@ describe("the redesigned homepage", () => {
     render(<HomePage />);
     const closing = within(screen.getByRole("heading", { name: "Let’s take care of it." }).closest("section")!);
     expect(closing.getByText("(206) 671-8888")).toBeDefined();
-    expect(closing.getByRole("link", { name: "Call (206) 671-8888" }).getAttribute("href")).toBe("tel:2066718888");
+    expect(closing.getByRole("link", { name: "Call (206) 671-8888" }).getAttribute("href")).toBe("tel:+12066718888");
     expect(closing.getByRole("link", { name: "Text (206) 671-8888" }).getAttribute("href")).toBe("sms:+12066718888");
   });
 

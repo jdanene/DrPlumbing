@@ -2,10 +2,14 @@ import { routeHref } from "./sitePaths";
 import { CallToAction } from "./SiteContent";
 import ProjectPhoto from "./ProjectPhoto";
 import { PHOTOS } from "./projectPhotos";
+import { BUSINESS, confirmed } from "./businessFacts";
+
+const publicName = confirmed(BUSINESS.publicName);
+const homeBase = confirmed(BUSINESS.homeBase);
 
 const ABOUT_VALUES = [
   ["Expert team", "Our expert team goes above and beyond to ensure you have the best customer experience possible. We work with the same precision and care from start to finish, regardless of the size of the job. Whether you need a quick drain cleaning or a comprehensive re-piping, we have you covered. You can be confident that we will complete the repair or installation and have your home back in working order in no time."],
-  ["Homeowners like you have put their trust in us.", "Enjoy the peace of mind that comes from working with a reputable plumber. Our HomeAdvisor trust certification ensures that you can have faith in the technician who enters your home. We take pride in hiring only the most professional, dependable technicians who are dedicated to providing the highest level of quality in everything they do. When you select Dr Plumbing & Heating, you are selecting the quality that you deserve."],
+  ["Homeowners like you have put their trust in us.", `Enjoy the peace of mind that comes from working with a reputable plumber. Our HomeAdvisor trust certification ensures that you can have faith in the technician who enters your home. We take pride in hiring only the most professional, dependable technicians who are dedicated to providing the highest level of quality in everything they do. When you select ${publicName}, you are selecting the quality that you deserve.`],
   ["Sincere, flat-rate pricing", "With our flat-rate pricing, you always know what to expect before we begin service. Enjoy peace of mind knowing that there will be no unexpected fees or charges at the end."],
   ["Go the extra mile", "We understand you have many options for plumbing services, but we believe we are your best option. When you choose us, we express our gratitude by going above and beyond to ensure a flawless experience."],
   ["Our top priority is your safety.", "We understand how important it is to have a safe and comfortable home. If your plumbing is in disrepair or improperly installed, it can expose your home to hazards and contamination. That is why we have come! Our professional technicians are well-versed in the most up-to-date methods and equipment. You can relax knowing that you are getting the safest and most effective plumbing installations and repairs."],
@@ -30,7 +34,7 @@ export default function AboutPage() {
             </nav>
             <h1 tabIndex={-1}>A family business on your street.</h1>
             <p className="lead">
-              Dr Plumbing &amp; Heating is family owned and run from Newcastle,
+              {publicName} is family owned and run from {homeBase.city},
               Washington. We serve the Greater Seattle area, from Everett to
               Federal Way.
             </p>
@@ -52,13 +56,13 @@ export default function AboutPage() {
           <ProjectPhoto photo={PHOTOS.technicianFiltration} />
           <div className="copy">
             <div className="eyebrow">A note from the owner</div>
-            <h2 className="h2">Why I started Dr Plumbing &amp; Heating.</h2>
+            <h2 className="h2">Why I started {publicName}.</h2>
             <p>
               I have worked in plumbing and heating for 26+ years. I started my
               own company to do honest work at a fair price.
             </p>
             <p>
-              My family and I live in Newcastle, WA.
+              My family and I live in {homeBase.city}, {homeBase.region}.
             </p>
             <p>
               When you call, you get a straight answer and a flat-rate price
@@ -67,7 +71,7 @@ export default function AboutPage() {
             </p>
             <div className="signature">
               <span className="sig">Mehran</span>
-              <small>Owner, Dr Plumbing &amp; Heating</small>
+              <small>Owner, {publicName}</small>
             </div>
           </div>
         </div>
