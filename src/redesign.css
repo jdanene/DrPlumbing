@@ -1,6 +1,6 @@
-@font-face { font-family: Figtree; src: url('/fonts/figtree-regular.ttf') format('truetype'); font-style: normal; font-weight: 400 500; font-display: swap; }
-@font-face { font-family: Figtree; src: url('/fonts/figtree-semibold.ttf') format('truetype'); font-style: normal; font-weight: 600; font-display: swap; }
-@font-face { font-family: Figtree; src: url('/fonts/figtree-bold.ttf') format('truetype'); font-style: normal; font-weight: 700 900; font-display: swap; }
+@font-face { font-family: 'Lexend Deca'; src: url('/fonts/lexend-deca-regular.ttf') format('truetype'); font-style: normal; font-weight: 400 500; font-display: swap; }
+@font-face { font-family: 'Lexend Deca'; src: url('/fonts/lexend-deca-semibold.ttf') format('truetype'); font-style: normal; font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Lexend Deca'; src: url('/fonts/lexend-deca-bold.ttf') format('truetype'); font-style: normal; font-weight: 700 900; font-display: swap; }
 
 /* Shared rules keep navigation, service pages, and booking in the same visual system. */
 :root, :root[data-theme="light"] {
@@ -10,8 +10,8 @@
   --accent: #ad4725; --accent-hover: #8c3418; --accent-ink: #943c1f;
   --on-accent: #ffffff; --band: #242d27; --band-ink: #f6f7f2;
   --band-muted: #c5cfc4; --band-accent: #e9ab8f;
-  --display: Figtree, sans-serif; --body: Figtree, sans-serif;
-  --script: Figtree, sans-serif; --wrap: 1328px; --header: 88px;
+  --display: 'Lexend Deca', sans-serif; --body: 'Lexend Deca', sans-serif;
+  --script: 'Lexend Deca', sans-serif; --wrap: 1328px; --header: 88px;
   --gutter: clamp(20px, 4vw, 64px);
   --ease: cubic-bezier(.16, 1, .3, 1); --duration: 240ms;
   --shadow: 0 12px 32px #18201816;
@@ -104,7 +104,8 @@ a, button, summary { -webkit-tap-highlight-color: transparent; }
 .opening-caption { position: absolute; left: 32px; bottom: 24px; max-width: 45%; font-size: 12px; background: #172017d9; padding: 8px 12px; border-radius: 2px; color: #fff; }
 .service-index { background: var(--band); color: var(--band-ink); padding: 28px 36px 32px; border-radius: 0 0 6px 6px; }
 .service-index-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; margin-bottom: 22px; }
-.service-index-heading h2, .service-index-links a { font-size: 24px; }
+.service-index-heading h2 { font-size: 24px; }
+.service-index-links a { font-size: 22px; }
 .service-index-heading h2 { letter-spacing: -.025em; }
 .service-index-heading > a { display: inline-flex; gap: 12px; align-items: center; font-size: 14px; min-height: 32px; }
 .service-index-links { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
@@ -224,7 +225,8 @@ details[open] .disclosure-mark::after { transform: rotate(0deg); }
   .opening-caption { position: static; max-width: none; order: 4; font-size: 11px; border-radius: 0; padding: 10px 24px; }
   .service-index { padding: 0 24px 24px; border-radius: 0; order: 2; }
   .service-index-heading { margin-bottom: 16px; }
-  .service-index-heading h2, .service-index-links a { font-size: 22px; }
+  .service-index-heading h2 { font-size: 22px; }
+  .service-index-links a { font-size: 20px; }
   .service-index-links { grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
   .service-index-links a { padding-block: 18px; min-height: 58px; }
   .home-promise { grid-template-columns: 1fr 1fr; gap: 24px; padding-block: 40px; }
