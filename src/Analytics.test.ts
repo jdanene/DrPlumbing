@@ -4,10 +4,10 @@ import { init } from "mappack-web-analytics";
 import { GA_MEASUREMENT_ID, PRODUCTION_HOSTS, startAnalytics } from "./analytics";
 vi.mock("mappack-web-analytics", () => ({ init: vi.fn() }));
 afterEach(() => vi.clearAllMocks());
-it("passes only production hosts and keeps pending owner setup disabled", () => {
+it("passes the recorded Measurement ID and only the production hosts", () => {
   startAnalytics();
-  expect(init).toHaveBeenCalledWith({ measurementId: GA_MEASUREMENT_ID, hosts: ["drplumbingheating.com", "www.drplumbingheating.com"] });
-  expect(GA_MEASUREMENT_ID).toBe("");
+  expect(init).toHaveBeenCalledWith({ measurementId: "G-XD2J39S66V", hosts: ["drplumbingheating.com", "www.drplumbingheating.com"] });
+  expect(GA_MEASUREMENT_ID).toMatch(/^G-[A-Z0-9]+$/);
 });
 it("injects no tag and sends no event on a preview with a configured test ID", async () => {
   const real = await vi.importActual<typeof import("mappack-web-analytics")>("mappack-web-analytics");

@@ -177,7 +177,7 @@ delivery:
 The Worker has no public route. The sender is `website@drplumbingheating.com`.
 The server-owned recipient is `drplumbinggroup@gmail.com`.
 
-## Analytics (prepared, owner setup pending)
+## Analytics
 
 The private `mappack-web-analytics` package is installed from the committed
 `vendor/mappack-web-analytics-0.1.0.tgz` because Cloudflare clones this repository
@@ -187,11 +187,12 @@ failure reason, and successful request attempts with only service, city,
 urgency and the booking path. Names, phone fields and messages are never
 passed to analytics. Phone-like link labels are dropped too.
 
-**Collection is disabled:** `src/analytics.ts` has an empty public Measurement ID.
-JDA-242 (T1) must record the real ID, owner property/access, dimensions, key event,
-tagged links and consent decision before that constant is filled. No property
-or live installation is claimed. Only `drplumbingheating.com` and its `www` host
-are allowed; previews and localhost send nothing even once configured.
+Events go to the GA4 property "Dr Plumbing & Heating website" through the
+public Measurement ID in `src/analytics.ts` (recorded on JDA-242). Only
+`drplumbingheating.com` and its `www` host send; previews and localhost send
+nothing. The property's custom dimensions, key event and tagged profile links
+are the owner's remaining steps on JDA-242; events arrive without them, but
+their parameters do not show in standard reports until the dimensions exist.
 
 The server also returns success for spam-trap submissions, so those attempts
 can count as **requests sent**. This is JDA-244's accepted limitation until a
@@ -200,8 +201,8 @@ delivered inbox messages or jobs.
 
 The loader URL remains in the JavaScript bundle because the tag is injected at
 runtime. Generated HTML contains no Google tag. Tests verify preview isolation;
-live browser and GA4 Realtime verification remain the owner's T4 task after
-the owner merges and Cloudflare deploys.
+live browser and GA4 Realtime verification is the owner's task (JDA-245) once
+`main` deploys.
 
 After a separate publishing security review passes and the owner publishes:
 `npm install mappack-web-analytics@0.1.0`, then remove the vendor tarball in a PR.
