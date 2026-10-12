@@ -15,6 +15,7 @@
     "check": "npm run lint && npm test && npm run build"
   },
   "dependencies": {
+    "mappack-web-analytics": "file:vendor/mappack-web-analytics-0.1.0.tgz",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
