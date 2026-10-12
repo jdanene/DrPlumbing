@@ -54,32 +54,51 @@ The clickable mockups live in `design/mockups/`. See
 `CLAUDE.md` holds the shared agent instructions. `AGENTS.md` links to it.
 See [project context](../PROJECT_CONTEXT.md) for software decisions and source links.
 
-## Publish: preview to production
+## Publish to production (Cloudflare Pages)
 
-Cloudflare Pages is connected to this GitHub repository. It runs `npm run build`
-and serves `dist/`. Confirm that **main** is the production branch under
-**Workers & Pages > [project] > Settings > Builds > Branch control**.
+The site is the Cloudflare Pages project **drplumbing**. Cloudflare is connected
+to this GitHub repository: it runs `npm run build` on every pushed branch and
+serves `dist/`. The production branch is `main`, served at
+`https://drplumbingheating.com/`. **A merge to `main` is a publish.** The owner
+merges; agents never push `main`.
 
-1. Run `npm run build` and review the site locally. Commit the change on a branch and push it:
+Every other branch gets a preview at `https://<branch>.drplumbing.pages.dev`
+(slashes in the branch name become hyphens), and the Cloudflare bot comments the
+address on the pull request. Previews are `noindex` and send no analytics.
+
+1. Build and review locally, commit on a branch, and push it:
 
    ```sh
+   npm run check
    git push -u origin HEAD
    ```
 
-2. In **Workers & Pages > [project] > Deployments**, open that branch's preview
-   URL. Check the desktop and mobile pages, links, and form. A real form test
-   sends an email to the business inbox; coordinate it with the owner.
-3. Open a GitHub pull request from the preview branch into `main`. Merge it
-   after approval. Cloudflare builds `main` and updates
-   `https://drplumbingheating.com/` automatically.
-4. Check the production deployment status and live site in Cloudflare. If the
-   build fails, read its deployment log before making another change.
+2. Open the preview address from the pull request. Check the desktop and mobile
+   pages, links, and form. A real form test sends an email to the business
+   inbox; coordinate it with the owner.
+3. Open a pull request into `main`. The owner merges it after review. Cloudflare
+   builds `main` and updates the live site within a few minutes.
+4. Watch the production deployment under **Workers & Pages > drplumbing >
+   Deployments**. If the build fails, read its log before changing anything.
 
-If the preview URL does not appear, check **Branch control**: automatic preview
-deployments must include your branch. Git-connected deployment needs no API key.
-Never place API secrets in browser code. See
-[Cloudflare's Git integration guide](https://developers.cloudflare.com/pages/configuration/git-integration/)
-for branch and deployment controls.
+### Roll back
+
+Two ways; prefer the first, because it keeps Git and the site in step.
+
+- **Revert in Git.** On a branch, `git revert -m 1 <merge commit>`, push, open a
+  pull request, merge. Cloudflare publishes the revert like any other merge.
+- **Rollback in Cloudflare.** Under **Deployments**, open the last good
+  production deployment and choose **Rollback to this deployment**. The site
+  changes at once, but `main` still holds the bad commit; follow with the Git
+  revert or the next merge republishes it.
+
+Neither touches the contact-email Worker, which deploys separately with
+`wrangler` (see Contact email).
+
+If a preview address does not appear, check **Settings > Builds > Branch
+control**: preview deployments must include your branch. Git-connected
+deployment needs no API key. Never place API secrets in browser code. See
+[Cloudflare's Git integration guide](https://developers.cloudflare.com/pages/configuration/git-integration/).
 
 ## Search indexing and page addresses
 
@@ -179,30 +198,77 @@ The server-owned recipient is `drplumbinggroup@gmail.com`.
 
 ## Analytics
 
-The private `mappack-web-analytics` package is installed from the committed
-`vendor/mappack-web-analytics-0.1.0.tgz` because Cloudflare clones this repository
-alone and cannot read the private MapPack source. It counts page views and
-call, text, email, map and review taps; the booking form sends first-input,
-failure reason, and successful request attempts with only service, city,
-urgency and the booking path. Names, phone fields and messages are never
-passed to analytics. Phone-like link labels are dropped too.
+The site sends page views and contact taps to Google Analytics 4 (GA4) through
+MapPack's private `mappack-web-analytics` package. The package is installed from
+the committed `vendor/mappack-web-analytics-0.1.0.tgz`, because Cloudflare clones
+this repository alone and cannot read the private MapPack source.
 
-Events go to the GA4 property "Dr Plumbing & Heating website" through the
+What is counted: page views; taps on call, text, email, map and review links;
+and three booking-form events, sent by the form itself: first input
+(`book_start`), a failure with its reason (`book_failed`), and a request the
+server accepted (`generate_lead`) with the service, city and urgency chosen.
+Names, phone fields and messages are never passed. Phone-like link labels are
+dropped too.
+
+Events go to the GA4 property **Dr Plumbing & Heating website** through the
 public Measurement ID in `src/analytics.ts` (recorded on JDA-242). Only
 `drplumbingheating.com` and its `www` host send; previews and localhost send
-nothing. The property's custom dimensions, key event and tagged profile links
-are the owner's remaining steps on JDA-242; events arrive without them, but
-their parameters do not show in standard reports until the dimensions exist.
+nothing, so a test must be made on the live site.
 
-The server also returns success for spam-trap submissions, so those attempts
-can count as **requests sent**. This is JDA-244's accepted limitation until a
+### View the numbers
+
+1. Open [Realtime](https://analytics.google.com/analytics/web/#/p558397245/reports/realtime)
+   in the Google account that owns the property. A page view or a tap on the
+   live site appears within a minute, with its event name and `link_text`.
+2. Standard reports, under **Reports > Engagement > Events**, fill in 24 to 48
+   hours later.
+3. Service, city and urgency show in reports only once the custom dimensions
+   exist on the property (the owner's step on JDA-242). The events still
+   arrive and are stored in the meantime.
+
+A quick live check: open `https://drplumbingheating.com/`, tap **Call**, and
+watch Realtime for `call_click`. Nothing in MapPack reads this data yet;
+JDA-217 is the ticket that will pull reports into MapPack.
+
+### Add an event
+
+Two kinds of event exist.
+
+- **Link taps need no code.** Any `tel:`, `sms:` or `mailto:` link, any link to
+  Google Maps, and any link with `data-track="reviews"` is counted by the
+  package wherever it sits on the page.
+- **Site events are a `track()` call.** Import `track` from
+  `mappack-web-analytics` and call it where the site knows the fact, as
+  `src/BookingPage.tsx` does:
+
+  ```ts
+  track("book_start");
+  track("generate_lead", { service, city, urgency, page_path: "/book/" });
+  track("book_failed", { reason: "network" });
+  ```
+
+  The event names and parameters are fixed by the package's types. Pass the
+  select option's text as written; never free text. Test with `vi.mock` of the
+  package, as `src/BookingPage.test.tsx` does, and keep test lines at or under
+  the code lines they cover.
+
+A new event name or parameter is three changes: the package in the MapPack
+repository (`packages/web-analytics`), a new tarball in `vendor/` installed
+with `npm install ./vendor/<file>.tgz`, and a GA4 custom dimension for any new
+parameter so it shows in reports.
+
+### Known limits
+
+The server returns success for spam-trap submissions too, so those attempts
+count as **requests sent**. This is JDA-244's accepted limitation until a
 follow-on server acceptance contract. It is never a count of qualified leads,
 delivered inbox messages or jobs.
 
 The loader URL remains in the JavaScript bundle because the tag is injected at
 runtime. Generated HTML contains no Google tag. Tests verify preview isolation;
-live browser and GA4 Realtime verification is the owner's task (JDA-245) once
-`main` deploys.
+the live Realtime check is the owner's task (JDA-245) once `main` deploys.
+
+### Later: the published package
 
 After a separate publishing security review passes and the owner publishes:
 `npm install mappack-web-analytics@0.1.0`, then remove the vendor tarball in a PR.
