@@ -60,26 +60,51 @@ The site is the Cloudflare Pages project **drplumbing**. Cloudflare is connected
 to this GitHub repository: it runs `npm run build` on every pushed branch and
 serves `dist/`. The production branch is `main`, served at
 `https://drplumbingheating.com/`. **A merge to `main` is a publish.** The owner
-merges; agents never push `main`.
+merges; agents never push `main`. There is no deploy command and no button.
 
-Every other branch gets a preview at `https://<branch>.drplumbing.pages.dev`
-(slashes in the branch name become hyphens), and the Cloudflare bot comments the
-address on the pull request. Previews are `noindex` and send no analytics.
+### The sequence
 
-1. Build and review locally, commit on a branch, and push it:
+1. **Branch and check.** Work on a branch. Run `npm run check` (lint, tests,
+   build) before pushing.
+2. **Push.** `git push -u origin HEAD`. Cloudflare builds the branch and
+   serves a preview, usually within three minutes.
+3. **Look at the preview.** Check the desktop and mobile pages, links, and the
+   form. A real form test sends an email to the business inbox; coordinate it
+   with the owner. Previews are `noindex` and send no analytics.
+4. **Open a pull request** into `main`. The Cloudflare bot comments the preview
+   address on it and updates the comment on every push.
+5. **The owner merges.** Cloudflare builds `main` and swaps the live site to
+   it, usually within three minutes. Watch it under **Workers & Pages >
+   drplumbing > Deployments**; a failed build is marked there, and its log says
+   why.
+6. **Verify live.** Open `https://drplumbingheating.com/`, check the change,
+   tap **Call**, and watch GA4 Realtime for `call_click` (see Analytics).
 
-   ```sh
-   npm run check
-   git push -u origin HEAD
-   ```
+### Where to see a preview
 
-2. Open the preview address from the pull request. Check the desktop and mobile
-   pages, links, and form. A real form test sends an email to the business
-   inbox; coordinate it with the owner.
-3. Open a pull request into `main`. The owner merges it after review. Cloudflare
-   builds `main` and updates the live site within a few minutes.
-4. Watch the production deployment under **Workers & Pages > drplumbing >
-   Deployments**. If the build fails, read its log before changing anything.
+- **On the pull request:** the Cloudflare bot's comment, with "Deploy
+  successful!" and two addresses.
+- **Branch preview:** `https://<branch>.drplumbing.pages.dev` (slashes in the
+  branch name become hyphens). Always the latest commit on the branch.
+- **Per commit:** `https://<hash>.drplumbing.pages.dev`. Each build keeps its
+  own address, so an old one stays viewable.
+- **In Cloudflare:** **Workers & Pages > drplumbing > Deployments** lists every
+  build, preview and production, with its commit, time, status and log.
+
+Any pushed branch gets a preview; a pull request is not required. The free plan
+allows 500 builds a month, one per push.
+
+### What records a deploy
+
+- **Git:** `git log --first-parent main` lists one merge commit per release,
+  with its pull request number.
+- **Cloudflare:** the Deployments list is the record of what the live site
+  actually ran, including rollbacks, which Git does not see.
+
+Nothing notifies anyone. Releases have no version numbers or tags; the history
+is the Git log of `main` and the Deployments list. Tagging `main` after each
+merge, as the MapPack admin site does, is a small addition if a second person
+ever needs to read the history.
 
 ### Roll back
 
