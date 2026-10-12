@@ -1,0 +1,27 @@
+/* Preview-only branding: the supplied artwork and existing website stay intact. */
+.preview-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); }
+.preview-brand.on-dark { color: var(--band-ink); }
+.preview-brand-mark { display: flex; width: 76px; height: 56px; flex-shrink: 0; align-items: center; justify-content: center; overflow: hidden; }
+.preview-brand-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.preview-brand-1 .preview-brand-mark { background: #100d10; }
+.preview-brand-2 .preview-brand-mark, .preview-brand-3 .preview-brand-mark { background: #fff; }
+.preview-brand-4 .preview-brand-mark { background: #080326; }
+.preview-brand-words { display: flex; flex-direction: column; gap: 3px; white-space: nowrap; }
+.preview-brand-words strong { font-size: 20px; font-weight: 600; line-height: 1.15; letter-spacing: .02em; }
+.preview-brand-words > span { font-size: 10px; font-weight: 400; line-height: 1.3; letter-spacing: .03em; }
+.logo-comparison { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 24px; padding: 10px 20px; background: var(--tint); color: var(--ink); border-bottom: 1px solid var(--line); font-size: 13px; }
+.logo-comparison > span { line-height: 1.4; }
+.logo-comparison small { display: block; font-size: 11px; color: var(--muted); }
+.logo-comparison > div { display: flex; gap: 6px; }
+.logo-comparison > div a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line-strong); border-radius: 4px; text-decoration: none; font-weight: 600; background: var(--surface); transition: background var(--duration) var(--ease), color var(--duration) var(--ease); }
+.logo-comparison > div a:hover { background: var(--bg); }
+.logo-comparison > div a[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.logo-overview-link { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+@media (max-width: 760px) {
+  .preview-brand { gap: 8px; }
+  .preview-brand-mark { width: 56px; height: 44px; }
+  .preview-brand-words strong { font-size: 15px; }
+  .preview-brand-words > span { font-size: 8px; }
+  .logo-comparison { gap: 8px 12px; justify-content: space-between; }
+  .logo-comparison > span { width: 100%; }
+}

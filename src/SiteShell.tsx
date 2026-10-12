@@ -9,6 +9,8 @@ import {
 } from "./content";
 import { Arrow } from "./SiteContent";
 import { serviceOptionHref } from "./serviceDetails";
+import { LogoComparisonBar, PreviewBrand } from "./LogoPreview";
+import { logoOptionFromSearch } from "./logoPreviewOptions";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -26,6 +28,8 @@ const pageLinks = [
  * Examples: App.test.tsx checks both header and footer links retain the home destination.
  */
 function BrandLogo({ onDark = false }: { onDark?: boolean }) {
+  const option = typeof window === "undefined" ? null : logoOptionFromSearch(window.location.search);
+  if (option) return <PreviewBrand option={option} onDark={onDark} />;
   return (
     <span className={`brand-lockup${onDark ? " on-dark" : ""}`}>
       <img src="/brand/dr-logo.svg?v=20261004-3" alt="" width="180" height="46" />
@@ -61,6 +65,7 @@ export default function SiteShell({
   const navigationRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
+  const logoOption = typeof window === "undefined" ? null : logoOptionFromSearch(window.location.search);
 
   useEffect(() => {
     setDrawerOpen(false);
@@ -138,6 +143,7 @@ export default function SiteShell({
 
   return (
     <>
+      {logoOption && <LogoComparisonBar option={logoOption} />}
       <a
         className="skip-link"
         href="#main"

@@ -12,6 +12,7 @@ import { HOME_ANCHORS, isLegacyRouteHash, routeFromLocation } from "./routes";
 import { serviceDetailFor } from "./serviceDetails";
 import { routeHref } from "./sitePaths";
 import { updateHead } from "./seo";
+import { preserveLogoOption } from "./logoPreviewOptions";
 
 /**
  * Description: Converts the clickable HTML reference into native pages with browser-history navigation.
@@ -59,6 +60,7 @@ export default function App({ initialRoute }: { initialRoute?: string } = {}) {
       const url = new URL(link.href, window.location.href);
       if (url.origin !== window.location.origin || url.href === window.location.href || routeFromLocation(url.pathname, url.hash) === "not-found") return;
       event.preventDefault();
+      preserveLogoOption(url, window.location.search);
       window.history.pushState(null, "", `${url.pathname}${url.search}${url.hash}`);
       updateRoute();
     };
