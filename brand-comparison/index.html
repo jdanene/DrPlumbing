@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" data-preview-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Compare the logos · Dr Plumbing &amp; Heating</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preload" href="/fonts/lexend-deca-regular.ttf" as="font" type="font/ttf" crossorigin />
+  </head>
+  <body>
+    <div id="logo-gallery"></div>
+    <noscript>Enable JavaScript to compare the logos and open the website previews.</noscript>
+    <script type="module">
+      import { createElement } from "react";
+      import { createRoot } from "react-dom/client";
+      import { LogoGallery } from "/src/LogoGallery.tsx";
+
+      createRoot(document.getElementById("logo-gallery")).render(createElement(LogoGallery));
+    </script>
+  </body>
+</html>

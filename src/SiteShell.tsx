@@ -10,7 +10,7 @@ import {
 import { Arrow } from "./SiteContent";
 import { serviceOptionHref } from "./serviceDetails";
 import { LogoComparisonBar, PreviewBrand } from "./LogoPreview";
-import { logoOptionFromSearch } from "./logoPreviewOptions";
+import { logoOptionFromSearch, previewHref, previewThemeFromSearch, type PreviewTheme } from "./logoPreviewOptions";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -29,7 +29,7 @@ const pageLinks = [
  */
 function BrandLogo({ onDark = false }: { onDark?: boolean }) {
   const option = typeof window === "undefined" ? null : logoOptionFromSearch(window.location.search);
-  if (option) return <PreviewBrand option={option} onDark={onDark} />;
+  if (option && option.group !== "current") return <PreviewBrand option={option} onDark={onDark} />;
   return (
     <span className={`brand-lockup${onDark ? " on-dark" : ""}`}>
       <img src="/brand/dr-logo.svg?v=20261004-3" alt="" width="180" height="46" />
@@ -66,6 +66,7 @@ export default function SiteShell({
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
   const logoOption = typeof window === "undefined" ? null : logoOptionFromSearch(window.location.search);
+  const previewTheme = logoOption ? previewThemeFromSearch(window.location.search) : null;
 
   useEffect(() => {
     setDrawerOpen(false);
@@ -73,6 +74,10 @@ export default function SiteShell({
   }, [route]);
 
   useEffect(() => {
+    if (previewTheme) {
+      document.documentElement.dataset.theme = previewTheme;
+      return;
+    }
     if (theme === "system") delete document.documentElement.dataset.theme;
     else document.documentElement.dataset.theme = theme;
     try {
@@ -80,7 +85,7 @@ export default function SiteShell({
     } catch {
       /* Private browsing may disable storage; the current theme still works. */
     }
-  }, [theme]);
+  }, [theme, previewTheme]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -448,10 +453,13 @@ export default function SiteShell({
                 Appearance{" "}
                 <select
                   aria-label="Appearance"
-                  value={theme}
-                  onChange={(event) => setTheme(event.target.value)}
+                  value={previewTheme ?? theme}
+                  onChange={(event) => {
+                    if (logoOption) window.location.assign(previewHref(window.location.href, { previewTheme: event.target.value as PreviewTheme }));
+                    else setTheme(event.target.value);
+                  }}
                 >
-                  <option value="system">System</option>
+                  {!logoOption && <option value="system">System</option>}
                   <option value="light">Light</option>
                   <option value="dark">Dark</option>
                 </select>

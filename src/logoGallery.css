@@ -1,0 +1,102 @@
+@font-face {
+  font-family: "Lexend Deca";
+  src: url("/fonts/lexend-deca-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lexend Deca";
+  src: url("/fonts/lexend-deca-semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --gallery-bg: #fafbf9;
+  --gallery-ink: #222921;
+  --gallery-muted: #596158;
+  --gallery-line: #daddd5;
+  --gallery-control: #ffffff;
+  --gallery-accent: #943c1f;
+  --gallery-artwork: #f8f5ec;
+  --gallery-gutter: clamp(20px, 4vw, 64px);
+  font-family: "Lexend Deca", sans-serif;
+}
+
+:root[data-preview-theme="dark"] {
+  color-scheme: dark;
+  --gallery-bg: #1c241f;
+  --gallery-ink: #f3f5ee;
+  --gallery-muted: #bac5b9;
+  --gallery-line: #455045;
+  --gallery-control: #242d27;
+  --gallery-accent: #f3b296;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 24px; }
+body { margin: 0; background: var(--gallery-bg); color: var(--gallery-ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-underline-offset: .2em; }
+a:hover { color: var(--gallery-accent); }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-weight: 600; line-height: 1.15; letter-spacing: -.03em; }
+a:focus-visible { outline: 3px solid var(--gallery-accent); outline-offset: 5px; }
+
+.gallery-skip { position: fixed; z-index: 10; left: 16px; top: 16px; padding: 12px 20px; background: var(--gallery-control); transform: translateY(-200%); }
+.gallery-skip:focus { transform: none; }
+.gallery-header { display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; padding: 24px var(--gallery-gutter); border-bottom: 1px solid var(--gallery-line); font-size: 13px; }
+.gallery-header a { font-weight: 600; text-decoration: none; }
+.gallery-header > span { color: var(--gallery-muted); }
+.gallery-main { max-width: 1328px; margin: auto; padding: 64px var(--gallery-gutter) 32px; }
+.gallery-intro { max-width: 830px; }
+.gallery-intro h1 { margin-bottom: 24px; font-size: clamp(36px, 5vw, 64px); }
+.gallery-lead { max-width: 60ch; font-size: clamp(17px, 2vw, 20px); line-height: 1.6; }
+.gallery-note { margin-top: 16px; font-size: 14px; color: var(--gallery-muted); }
+.gallery-toolbar { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px 40px; margin: 40px 0 64px; padding: 24px 0; border-block: 1px solid var(--gallery-line); }
+.gallery-toolbar > div { max-width: 470px; }
+.gallery-toolbar p { margin-top: 12px; font-size: 13px; color: var(--gallery-muted); }
+.gallery-choice { min-width: 0; margin: 0; padding: 0; border: 0; }
+.gallery-choice legend { margin-bottom: 8px; padding: 0; font-size: 13px; font-weight: 600; }
+.gallery-segments { display: inline-flex; max-width: 100%; padding: 3px; gap: 3px; background: var(--gallery-control); border: 1px solid var(--gallery-line); border-radius: 5px; }
+.gallery-segments label { position: relative; cursor: pointer; }
+.gallery-segments input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.gallery-segments span { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border-radius: 3px; font-size: 13px; text-align: center; }
+.gallery-segments input:checked + span { color: var(--gallery-bg); background: var(--gallery-ink); }
+.gallery-segments input:focus-visible + span { outline: 3px solid var(--gallery-accent); outline-offset: 4px; }
+.gallery-segments label:hover span { text-decoration: underline; text-underline-offset: .2em; }
+.gallery-jumps { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; }
+.gallery-jumps a { display: inline-flex; align-items: center; min-height: 44px; }
+.gallery-section { margin-bottom: 80px; }
+.gallery-section-heading { margin-bottom: 32px; }
+.gallery-section-heading h2 { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; font-size: clamp(26px, 3vw, 36px); }
+.gallery-section-heading h2 span { font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--gallery-muted); }
+.gallery-section-heading p { max-width: 64ch; color: var(--gallery-muted); font-size: 15px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 32px; }
+.gallery-card { min-width: 0; }
+.gallery-artwork { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 4px; background: var(--gallery-artwork); }
+.gallery-artwork > img, .gallery-artwork > svg { display: block; width: 100%; height: 100%; object-fit: contain; }
+.gallery-card-heading { display: flex; align-items: baseline; gap: 12px; margin: 20px 0 16px; }
+.gallery-number { flex-shrink: 0; font-size: 13px; color: var(--gallery-muted); }
+.gallery-card-heading h3 { font-size: 20px; line-height: 1.35; }
+.gallery-card-actions { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 20px; }
+.gallery-artwork-choice legend { font-size: 12px; font-weight: 400; color: var(--gallery-muted); }
+.gallery-artwork-choice .gallery-segments span { min-height: 44px; padding-inline: 12px; }
+.gallery-color-only { display: flex; align-items: center; min-height: 48px; color: var(--gallery-muted); font-size: 13px; }
+.gallery-preview-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; padding: 10px 16px; border: 1px solid var(--gallery-line); border-radius: 4px; color: var(--gallery-accent); font-size: 14px; text-decoration: none; }
+.gallery-preview-link:hover { background: var(--gallery-control); border-color: var(--gallery-accent); }
+.gallery-footer { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px 24px; padding-top: 24px; border-top: 1px solid var(--gallery-line); color: var(--gallery-muted); font-size: 13px; }
+.gallery-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+
+@media (max-width: 760px) {
+  .gallery-main { padding-top: 40px; }
+  .gallery-toolbar { margin-bottom: 48px; }
+  .gallery-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .gallery-section { margin-bottom: 64px; }
+  .gallery-section-heading { margin-bottom: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

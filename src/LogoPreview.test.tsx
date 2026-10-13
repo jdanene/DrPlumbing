@@ -2,20 +2,65 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import App from "./App";
-import { logoOptionFromSearch, preserveLogoOption } from "./logoPreviewOptions";
+import { LOGO_OPTIONS, logoOptionFromSearch, preserveLogoOption, previewHref } from "./logoPreviewOptions";
 
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
+  localStorage.clear();
   vi.spyOn(window, "scrollTo").mockImplementation(() => {});
   Element.prototype.scrollIntoView = vi.fn();
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
-it.each([["?logo=1", "1"], ["?logo=4", "4"], ["?logo=0", null], ["", null]])(
+it.each([["?logo=1", "1"], ["?logo=4", "4"], ["?logo=14", "14"], ["?logo=original", "original"], ["?logo=0", null], ["", null]])(
   "resolves only supplied logo options from %s", (search, option) => {
     expect(logoOptionFromSearch(search)?.id ?? null).toBe(option);
   },
 );
+
+it("keeps ten finalists, four references and the current logo in one catalog", () => {
+  expect(LOGO_OPTIONS).toHaveLength(15);
+  expect(LOGO_OPTIONS.filter((option) => option.group === "finalist")).toHaveLength(10);
+  expect(new Set(LOGO_OPTIONS.map((option) => option.id)).size).toBe(15);
+});
+
+it("preserves version and background through navigation and explicit logo changes", () => {
+  const url = new URL("https://preview.example/about/?source=nav#story");
+  preserveLogoOption(url, "?logo=14&logoVersion=mono&previewTheme=dark");
+  expect(url.searchParams.get("logo")).toBe("14");
+  expect(url.searchParams.get("logoVersion")).toBe("mono");
+  expect(url.searchParams.get("previewTheme")).toBe("dark");
+  expect(url.hash).toBe("#story");
+  expect(previewHref("/about/?logo=14&logoVersion=mono&previewTheme=dark&source=nav#story", { logo: "original" }))
+    .toBe("/about/?logo=original&logoVersion=mono&previewTheme=dark&source=nav#story");
+});
+
+it("shows the supplied hand-and-pipe dark-ink inset without duplicate service wording", () => {
+  window.history.replaceState(null, "", "/?logo=14&logoVersion=mono&previewTheme=dark");
+  localStorage.setItem("dr-plumbing-theme-v2", "light");
+  render(<App />);
+  const header = within(screen.getByRole("banner"));
+  expect(header.getByRole("img", { name: "Hand and pipe — dark ink" }).getAttribute("viewBox")).toBe("580 791 376 196");
+  expect(document.querySelector(".preview-brand-words")).toBeNull();
+  expect(document.documentElement.dataset.theme).toBe("dark");
+  expect(localStorage.getItem("dr-plumbing-theme-v2")).toBe("light");
+  fireEvent.click(header.getByRole("link", { name: "About" }));
+  expect(window.location.search).toBe("?logo=14&logoVersion=mono&previewTheme=dark");
+});
+
+it("falls back to supplied color when an option has no dark-ink artwork", () => {
+  window.history.replaceState(null, "", "/?logo=6&logoVersion=mono");
+  render(<App />);
+  expect(within(screen.getByRole("banner")).getByRole("img", { name: "Violet nameplate — color" })).toBeDefined();
+  expect(screen.getByRole("combobox", { name: "Logo version" }).hasAttribute("disabled")).toBe(true);
+});
+
+it("offers the current logo as an explicit comparison choice", () => {
+  window.history.replaceState(null, "", "/?logo=original");
+  render(<App />);
+  expect(screen.getByRole("navigation", { name: "Logo comparison" })).toBeDefined();
+  expect(document.querySelector(".brand-lockup img")?.getAttribute("src")).toContain("/brand/dr-logo.svg");
+});
 
 it("carries the logo through internal navigation without changing other parameters or anchors", () => {
   const url = new URL("https://preview.example/boilers/?source=menu#projects");
