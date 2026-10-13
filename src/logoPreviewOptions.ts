@@ -1,5 +1,5 @@
 export type LogoVersion = "color" | "mono";
-export type PreviewTheme = "light" | "dark";
+export type PreviewTheme = "light" | "dark" | "matched";
 type ArtworkBounds = readonly [x: number, y: number, width: number, height: number];
 
 /** Original image coordinates frame each approved lockup without changing its pixels. */
@@ -12,6 +12,7 @@ export interface LogoOption {
   height: number;
   color?: ArtworkBounds;
   mono?: ArtworkBounds;
+  plateOutline?: string;
 }
 
 /** Shared by the website controls and gallery. IDs 1–4 retain their original links. */
@@ -22,10 +23,10 @@ export const LOGO_OPTIONS: readonly LogoOption[] = [
   { id: "3", name: "Bold geometric", group: "reference", src: "/brand/logo-options/option-3.jpeg", width: 1290, height: 934 },
   { id: "4", name: "White on navy", group: "reference", src: "/brand/logo-options/option-4.jpeg", width: 1290, height: 870 },
   { id: "5", name: "Graphite and orange DR", group: "finalist", src: "/brand/logo-options/15-stencil-dr.png", width: 1536, height: 1024, color: [142, 158, 1258, 679] },
-  { id: "6", name: "Violet nameplate", group: "finalist", src: "/brand/logo-options/03-craft-wordmark.png", width: 1536, height: 1024, color: [60, 288, 1418, 434] },
+  { id: "6", name: "Violet nameplate", group: "finalist", src: "/brand/logo-options/03-craft-wordmark.png", width: 1536, height: 1024, color: [60, 288, 1418, 434], plateOutline: "68,504 73,493 90,458 155,325 166,303 168,300 171,298 175,296 1363,296 1367,298 1371,302 1374,308 1404,369 1432,426 1448,459 1460,484 1469,503 1470,509 1470,510 1469,516 1400,655 1374,707 1369,712 1365,714 172,714 168,712 163,707 155,691 69,518 68,515" },
   { id: "7", name: "Evergreen circle", group: "finalist", src: "/brand/logo-options/08-name-circle.png", width: 1536, height: 1024, color: [59, 47, 1430, 905] },
   { id: "8", name: "Navy and blue DR", group: "finalist", src: "/brand/logo-options/10-built-monogram.png", width: 1536, height: 1024, color: [211, 189, 1115, 643] },
-  { id: "9", name: "Brick maker’s mark", group: "finalist", src: "/brand/logo-options/07-maker-tile.png", width: 1536, height: 1024, color: [305, 106, 927, 811] },
+  { id: "9", name: "Brick maker’s mark", group: "finalist", src: "/brand/logo-options/07-maker-tile.png", width: 1536, height: 1024, color: [305, 106, 927, 811], plateOutline: "313,481 314,114 1224,114 1224,727 1203,748 1078,870 1039,908 1032,909 314,909 313,908" },
   { id: "10", name: "Signed Dr", group: "finalist", src: "/brand/logo-options/19-signed-name.png", width: 1536, height: 1024, color: [84, 214, 1368, 375], mono: [534, 773, 467, 133] },
   { id: "11", name: "At your door", group: "finalist", src: "/brand/logo-options/23-at-your-door.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 727, 430, 204] },
   { id: "12", name: "At your door · cap", group: "finalist", src: "/brand/logo-options/32-at-your-door-cap.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 726, 430, 205] },
@@ -57,11 +58,12 @@ export function logoVersionFromSearch(search: string, option: LogoOption): LogoV
 /**
  * Description: Gives shared previews a predictable background, independent of saved preferences.
  * Inputs: search is a query string from a valid logo preview.
- * Output: dark when explicitly requested; otherwise light.
+ * Output: dark or matched when explicitly requested; otherwise light.
  * Examples: LogoPreview.test.tsx checks dark links and the default light preview.
  */
 export function previewThemeFromSearch(search: string): PreviewTheme {
-  return new URLSearchParams(search).get("previewTheme") === "dark" ? "dark" : "light";
+  const theme = new URLSearchParams(search).get("previewTheme");
+  return theme === "dark" || theme === "matched" ? theme : "light";
 }
 
 /**

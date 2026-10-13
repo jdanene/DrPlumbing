@@ -90,3 +90,29 @@ it("keeps the production lockup when no option is requested", () => {
   expect(screen.queryByRole("navigation", { name: "Logo comparison" })).toBeNull();
   expect(document.querySelector(".brand-lockup img")?.getAttribute("src")).toContain("/brand/dr-logo.svg");
 });
+
+it("matches the selected logo palette without changing the saved website theme", () => {
+  window.history.replaceState(null, "", "/?logo=6&previewTheme=matched");
+  localStorage.setItem("dr-plumbing-theme-v2", "dark");
+  const { unmount } = render(<App />);
+  expect(document.documentElement.dataset.theme).toBe("light");
+  expect(document.documentElement.dataset.logoPalette).toBe("6");
+  expect(document.documentElement.style.getPropertyValue("--accent")).toBe("#6a38ad");
+  expect(localStorage.getItem("dr-plumbing-theme-v2")).toBe("dark");
+  expect(screen.getByRole("combobox", { name: "Preview background" }).getAttribute("aria-label")).toBeTruthy();
+  const url = new URL("https://preview.example/about/");
+  preserveLogoOption(url, window.location.search);
+  expect(url.searchParams.get("previewTheme")).toBe("matched");
+  unmount();
+  expect(document.documentElement.dataset.logoPalette).toBeUndefined();
+  expect(document.documentElement.style.getPropertyValue("--accent")).toBe("");
+});
+
+it("clips finalist artwork to its approved region and removes its presentation canvas", () => {
+  window.history.replaceState(null, "", "/?logo=7");
+  render(<App />);
+  const artwork = within(screen.getByRole("banner")).getByRole("img", { name: "Evergreen circle — color" });
+  expect(artwork.querySelector("clipPath rect")?.getAttribute("width")).toBe("1430");
+  expect(artwork.querySelector("image")?.getAttribute("filter")).toMatch(/^url\(#/);
+  expect(document.documentElement.dataset.logoPreview).toBe("7");
+});

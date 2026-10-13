@@ -11,6 +11,8 @@ import { Arrow } from "./SiteContent";
 import { serviceOptionHref } from "./serviceDetails";
 import { LogoComparisonBar, PreviewBrand } from "./LogoPreview";
 import { logoOptionFromSearch, previewHref, previewThemeFromSearch, type PreviewTheme } from "./logoPreviewOptions";
+import { logoPalette } from "./logoPalettes";
+import "./logoMatchedTheme.css";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -75,8 +77,17 @@ export default function SiteShell({
 
   useEffect(() => {
     if (previewTheme) {
-      document.documentElement.dataset.theme = previewTheme;
-      return;
+      const root = document.documentElement;
+      root.dataset.theme = previewTheme === "matched" ? "light" : previewTheme;
+      root.dataset.logoPreview = logoOption!.id;
+      const tokens = previewTheme === "matched" ? Object.entries(logoPalette(logoOption!.id).style) : [];
+      if (previewTheme === "matched") root.dataset.logoPalette = logoOption!.id;
+      for (const [key, value] of tokens) root.style.setProperty(key, String(value));
+      return () => {
+        delete root.dataset.logoPreview;
+        delete root.dataset.logoPalette;
+        for (const [key] of tokens) root.style.removeProperty(key);
+      };
     }
     if (theme === "system") delete document.documentElement.dataset.theme;
     else document.documentElement.dataset.theme = theme;
@@ -85,7 +96,7 @@ export default function SiteShell({
     } catch {
       /* Private browsing may disable storage; the current theme still works. */
     }
-  }, [theme, previewTheme]);
+  }, [theme, previewTheme, logoOption]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -460,6 +471,7 @@ export default function SiteShell({
                   }}
                 >
                   {!logoOption && <option value="system">System</option>}
+                  {logoOption && <option value="matched">Match logo</option>}
                   <option value="light">Light</option>
                   <option value="dark">Dark</option>
                 </select>

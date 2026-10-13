@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { LogoArtwork } from "./LogoPreview";
+import { logoPalette } from "./logoPalettes";
 import { LOGO_OPTIONS, logoOptionFromSearch, logoVersionFromSearch, previewHref, previewThemeFromSearch, type LogoOption, type LogoVersion, type PreviewTheme } from "./logoPreviewOptions";
 import "./logoGallery.css";
 
 const GROUPS = [
   { id: "finalist", title: "The finalists", description: "Color and supplied dark-ink versions. Open a website preview to see each choice in place." },
-  { id: "reference", title: "The first four", description: "The original references, with their supplied backgrounds and watermarks." },
+  { id: "reference", title: "The first four", description: "The four original references, included for comparison." },
   { id: "current", title: "The current logo", description: "The existing logo, included for comparison." },
 ] as const;
 
@@ -23,9 +24,10 @@ function LogoCard({ option, theme }: { option: LogoOption; theme: PreviewTheme }
       : "color",
   );
   const href = previewHref("/", { logo: option.id, logoVersion: version, previewTheme: theme });
+  const palette = theme === "matched" ? logoPalette(option.id) : undefined;
 
   return <article className="gallery-card" aria-labelledby={`logo-${option.id}-name`}>
-    <div className="gallery-artwork">
+    <div className="gallery-artwork" data-palette={palette?.name} style={palette?.style}>
       <LogoArtwork option={option} version={version} />
     </div>
     <div className="gallery-card-heading">
@@ -55,7 +57,7 @@ function LogoCard({ option, theme }: { option: LogoOption; theme: PreviewTheme }
 
 /**
  * Description: Compares the supplied logo catalog without changing the live site.
- * Inputs: Optional previewTheme=dark in the page URL selects dark surroundings.
+ * Inputs: previewTheme selects light, dark, or each logo's matched palette.
  * Output: Grouped artwork and website links; theme changes preserve the URL's other parts.
  * Examples: LogoGallery.test.tsx checks all 15 cards and theme history synchronization.
  */
@@ -85,7 +87,7 @@ export function LogoGallery() {
     <main className="gallery-main">
       <div className="gallery-intro">
         <h1>Compare the logos.</h1>
-        <p className="gallery-lead">{finalistCount} finalists, the first {referenceCount} references, and the current logo. See each one on the full website, with its layout, photos, text, and contact options unchanged.</p>
+        <p className="gallery-lead">{finalistCount} finalists, the first {referenceCount} references, and the current logo. Compare each design at its own readable size, with the existing photos, text, and contact options.</p>
         <p className="gallery-note">Production has not changed. These previews help you compare the artwork in context.</p>
       </div>
       <div className="gallery-toolbar">
@@ -101,9 +103,13 @@ export function LogoGallery() {
                 <input type="radio" name="website-background" value="dark" checked={theme === "dark"} onChange={() => setTheme("dark")} />
                 <span>Dark website</span>
               </label>
+              <label>
+                <input type="radio" name="website-background" value="matched" checked={theme === "matched"} onChange={() => setTheme("matched")} />
+                <span>Match logo</span>
+              </label>
             </div>
           </fieldset>
-          <p id="gallery-theme-help">Applies to every website preview. Dark ink is a separate artwork choice.</p>
+          <p id="gallery-theme-help">Match logo carries each design’s colors through the website. Dark ink selects the supplied monochrome artwork. On dark surfaces, unframed marks reverse to white for contrast.</p>
         </div>
         <nav className="gallery-jumps" aria-label="Logo groups">
           {GROUPS.map((group) => <a key={group.id} href={`#${group.id}`}>{group.title}</a>)}
@@ -124,7 +130,7 @@ export function LogoGallery() {
         })}
       </div>
       <footer className="gallery-footer">
-        <p>All artwork retains its supplied colors and backgrounds.</p>
+        <p>Preview only. Source artwork and production remain unchanged.</p>
         <a href="#">Back to top</a>
       </footer>
     </main>

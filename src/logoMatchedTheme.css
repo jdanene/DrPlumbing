@@ -1,0 +1,106 @@
+/* Matched palettes affect explicit logo previews only. Existing light and dark
+   appearances keep their original colors when this attribute is absent. */
+html[data-logo-palette]:root {
+  color-scheme: light;
+  --on-accent: var(--logo-on-accent);
+  --ph: var(--tint);
+  --ph-ink: var(--muted);
+  --stage: var(--tint);
+  --ground: var(--line);
+  --shadow: 0 12px 32px color-mix(in srgb, var(--band) 10%, transparent);
+}
+
+html[data-logo-palette] ::selection {
+  background: var(--accent);
+  color: var(--logo-on-accent);
+}
+
+html[data-logo-palette] :is(input, textarea) {
+  caret-color: var(--accent-ink);
+}
+
+html[data-logo-palette] .site-header {
+  background: var(--logo-header);
+}
+
+html[data-logo-palette] .btn:hover {
+  box-shadow: 0 5px 14px color-mix(in srgb, var(--band) 10%, transparent);
+}
+
+html[data-logo-palette] :is(.btn-primary, .opening-copy .btn) {
+  background: var(--accent);
+  color: var(--logo-on-accent);
+}
+
+html[data-logo-palette] :is(.btn-primary, .opening-copy .btn):hover {
+  background: var(--accent-hover);
+}
+
+html[data-logo-palette] .btn-light {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+html[data-logo-palette] .btn-light:hover {
+  background: var(--tint);
+}
+
+html[data-logo-palette] .btn-ghost-light {
+  border-color: currentColor;
+  color: inherit;
+}
+
+html[data-logo-palette] .btn-ghost-light:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+html[data-logo-palette] :is(.cta, .cta p, .done .ok) {
+  color: var(--logo-on-accent);
+}
+
+html[data-logo-palette] .cta :focus-visible {
+  outline-color: var(--logo-on-accent);
+}
+
+html[data-logo-palette] .field :is(input, select, textarea):focus {
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-ink) 14%, transparent);
+}
+
+html[data-logo-palette] .opening-photo {
+  background: var(--band);
+  color: var(--band-ink);
+}
+
+html[data-logo-palette] .opening-shade {
+  background: linear-gradient(90deg,
+    transparent 20%,
+    color-mix(in srgb, var(--band) 88%, transparent) 53%,
+    var(--band) 100%);
+}
+
+html[data-logo-palette] .opening-copy h1 span {
+  color: var(--logo-highlight);
+}
+
+html[data-logo-palette] .opening-copy p {
+  color: var(--band-ink);
+}
+
+html[data-logo-palette] .opening-copy :focus-visible {
+  outline-color: var(--band-accent);
+}
+
+html[data-logo-palette] .opening-caption {
+  background: var(--band);
+  color: var(--band-ink);
+}
+
+html[data-logo-palette] :is(.service-index-links a, .foot-base) {
+  border-color: var(--logo-band-line);
+}
+
+html[data-logo-palette] .service-index-links a:hover {
+  color: var(--band-accent);
+  border-color: var(--band-accent);
+}

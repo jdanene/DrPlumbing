@@ -43,6 +43,27 @@ rules on a Cloudflare preview deployment.
 The clickable mockups live in `design/mockups/`. See
 [design/README.md](design/README.md) for the design reference.
 
+## Logo comparison preview
+
+The `codex/logo-comparison` branch publishes the comparison at
+`/brand-comparison/`. It does not change production. Website links retain
+`logo`, `logoVersion`, and `previewTheme` through internal navigation.
+`previewTheme=matched` applies the selected logo’s semantic palette;
+`light` and `dark` keep the existing website palettes. Saved visitor preferences
+remain separate from preview choices.
+
+`src/logoPreviewOptions.ts` holds approved artwork and source coordinates.
+`LogoArtwork` clips each full-size presentation image to its selected lockup.
+An SVG luminance matte hides the neutral presentation canvas. The violet and
+brick plates use measured outlines so their cream lettering stays intact.
+Unframed marks reverse to white on dark surfaces for contrast. Original image
+files remain unchanged; these are website treatments, not vector masters.
+
+`src/logoPreview.css` sizes each lockup for its service lettering and constrains
+phone headers and footer columns. `src/logoPalettes.ts` supplies shared colors
+for the gallery and website. Palette changes affect explicit previews only.
+Keep the first four references’ watermarks; they are not cleared production art.
+
 ## Before launch
 
 - Confirm any remaining bracketed facts with the owner.
