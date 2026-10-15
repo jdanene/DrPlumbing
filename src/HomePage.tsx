@@ -1,5 +1,6 @@
 import { routeHref } from "./sitePaths";
-import { CITIES, PLUMBING_LICENSE, SERVICES } from "./content";
+import { PLUMBING_LICENSE, SERVICES } from "./content";
+import { CITY_PAGES } from "./cities";
 import { Arrow } from "./SiteContent";
 import { PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
@@ -88,7 +89,7 @@ export default function HomePage() {
         <div className="home-question-list">{QUESTIONS.map(([question, answer]) => <details key={question}><summary>{question}<span className="disclosure-mark" aria-hidden="true" /></summary><div className="answer"><p>{answer}</p></div></details>)}</div>
       </section>
 
-      <section className="home-area" id="home-area"><div className="wrap area-layout"><div><h2>Greater Seattle.<br />Your neighborhood.</h2><p>From Everett to Federal Way, including the Eastside.</p><a className="text-link" href={routeHref("areas")}>See our service area <Arrow /></a></div><ul>{CITIES.map(city => <li key={city}>{city}</li>)}</ul></div></section>
+      <section className="home-area" id="home-area"><div className="wrap area-layout"><div><h2>Greater Seattle.<br />Your neighborhood.</h2><p>From Everett to Federal Way, including the Eastside.</p><a className="text-link" href={routeHref("areas")}>See our service area <Arrow /></a></div><ul>{CITY_PAGES.map(city => <li key={city.slug}><a href={routeHref(`areas/${city.slug}`)}>{city.name}</a></li>)}</ul></div></section>
 
       <section className="home-close wrap">
         <div>
