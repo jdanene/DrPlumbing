@@ -3,16 +3,17 @@ import { act, cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import AreasPage from "./AreasPage";
-import { serviceHrefFor } from "./CityPage";
 import { BUSINESS, confirmed } from "./businessFacts";
 import {
   CITY_LANDMARKS,
+  CITY_OPTION_PAGES,
   CITY_PAGES,
   CITY_SERVICE_PAGES,
   cityAnswer,
   cityHeading,
   cityLandmarksText,
   cityPageAt,
+  serviceHrefFor,
 } from "./cities";
 import { SERVICES, serviceMenu } from "./content";
 import { renderPage } from "./prerender";
@@ -126,9 +127,9 @@ describe("the city record", () => {
     const cities = confirmed(BUSINESS.serviceCities);
     expect(CITY_PAGES.map((city) => city.name)).toEqual([...cities]);
     const cityRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/"));
-    expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`)]);
+    expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`), ...CITY_OPTION_PAGES.map((entry) => entry.route)]);
     expect(new Set(PUBLIC_ROUTES).size).toBe(PUBLIC_ROUTES.length);
-    expect(PUBLIC_ROUTES).toHaveLength(66);
+    expect(PUBLIC_ROUTES).toHaveLength(101);
   });
 
   it("names only served cities and existing services in its hand-written tables", () => {

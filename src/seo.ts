@@ -1,5 +1,5 @@
 import { BUSINESS, confirmed } from "./businessFacts";
-import { CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, type CityPageMatch } from "./cities";
+import { CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, serviceHrefFor, type CityPageMatch } from "./cities";
 import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
@@ -35,6 +35,7 @@ export const PUBLIC_ROUTES = [
   ),
   ...CITY_PAGES.map((city) => `areas/${city.slug}`),
   ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`),
+  ...CITY_OPTION_PAGES.map((entry) => entry.route),
 ];
 
 /**
@@ -51,7 +52,7 @@ function cityMetadata(page: CityPageMatch): [string, string] {
   const subject = page.service?.tab ?? "Plumbing, Heating & Cooling";
   const cities = confirmed(BUSINESS.serviceCities);
   return [
-    `${CITY_PAGE_COPY[page.route]?.heading ?? `${subject} in ${page.city.name}, WA`} | ${confirmed(BUSINESS.publicName)}`,
+    `${page.detail ? cityHeading(page) : CITY_PAGE_COPY[page.route]?.heading ?? `${subject} in ${page.city.name}, WA`} | ${confirmed(BUSINESS.publicName)}`,
     `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
   ];
 }
@@ -158,7 +159,8 @@ export function headTags(route: string, indexable = true): HeadTag[] {
       { name: "Areas we serve", item: `${SITE_ORIGIN}${routeHref("areas")}` },
       { name: cityPage.city.name, item: `${SITE_ORIGIN}${routeHref(`areas/${cityPage.city.slug}`)}` },
     ];
-    if (cityPage.service) crumbs.push({ name: cityPage.service.tab, item: canonical });
+    if (cityPage.service) crumbs.push({ name: cityPage.service.tab, item: `${SITE_ORIGIN}${serviceHrefFor(cityPage, cityPage.service.id)}` });
+    if (cityPage.detail) crumbs.push({ name: cityPage.detail.item, item: canonical });
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),

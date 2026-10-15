@@ -1,4 +1,4 @@
-import { cityPageAt } from "./cities";
+import { CITY_OPTION_PAGES, cityPageAt } from "./cities";
 import { SERVICES } from "./content";
 import { serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { CITY_PATHS, HOME_ANCHORS, PAGE_PATHS, PATH_REDIRECTS, routeHref } from "./sitePaths";
@@ -56,6 +56,8 @@ export function routeFromLocation(pathname: string, hash = "") {
   if (isLegacyRouteHash(hash)) return resolveRoute(hash);
   const path = pathname.replace(/\/+$/, "") || "/";
   if (PATH_REDIRECTS[`${path}/`]) return PATH_REDIRECTS[`${path}/`];
+  const option = CITY_OPTION_PAGES.find((item) => routeHref(item.route).replace(/\/$/, "") === path);
+  if (option) return option.route;
   for (const [route, href] of Object.entries({ ...PAGE_PATHS, ...CITY_PATHS })) {
     if ((href.replace(/\/+$/, "") || "/") === path) return route;
     if (route !== "home" && pathname.startsWith(href)) {

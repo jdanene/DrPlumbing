@@ -8,7 +8,7 @@ import {
   servicesForGroup,
 } from "./content";
 import { Arrow } from "./SiteContent";
-import { serviceOptionHref } from "./serviceDetails";
+import { CITY_OPTION_PAGES, cityPageAt, serviceHrefFor } from "./cities";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -47,6 +47,9 @@ export default function SiteShell({
   children: ReactNode;
 }) {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const routeCity = route.startsWith("areas/") ? cityPageAt(route.split("/").slice(1)) : undefined;
+  const cityPage = CITY_OPTION_PAGES.some((item) => item.citySlug === routeCity?.city.slug) ? routeCity : undefined;
+  const servicesHref = cityPage ? routeHref(`areas/${cityPage.city.slug}`) : routeHref("services");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerTop, setDrawerTop] = useState(68);
   const [theme, setTheme] = useState(() => {
@@ -170,7 +173,7 @@ export default function SiteShell({
           <nav className="main-nav" aria-label="Main" ref={navigationRef}>
             {SERVICE_GROUPS.map((group) => {
               const active = servicesForGroup(group).some(
-                (service) => service.id === route.split("/")[0],
+                (service) => service.id === (cityPage?.service?.id ?? route.split("/")[0]),
               );
               const panelId = `${group.id}-menu`;
               return (
@@ -209,21 +212,21 @@ export default function SiteShell({
                   >
                     {servicesForGroup(group).map((service) => (
                       <div className="mm-col" key={service.id}>
-                        <a className="mm-head" href={routeHref(service.id)}>
+                        <a className="mm-head" href={serviceHrefFor(cityPage, service.id)}>
                           <b>{service.tab}</b>
                           <span>{service.short}</span>
                         </a>
                         <ul>
                           {serviceMenu(service).map((item) => (
                             <li key={item}>
-                              <a href={serviceOptionHref(service.id, item)}>{item}</a>
+                              <a href={serviceHrefFor(cityPage, service.id, item)}>{item}</a>
                             </li>
                           ))}
                         </ul>
                       </div>
                     ))}
                     <div className="mm-foot">
-                      <a className="link-arrow" href={routeHref("services")}>
+                      <a className="link-arrow" href={servicesHref}>
                         All services <Arrow />
                       </a>
                       <span>Not sure what you need? Call or text (206) 671-8888.</span>
@@ -325,7 +328,7 @@ export default function SiteShell({
             <div className="drawer-service-group" key={group.id}>
               <h3 className="drawer-group">{group.label}</h3>
               {servicesForGroup(group).map((service) => (
-                <a href={routeHref(service.id)} key={service.id}>
+                <a href={serviceHrefFor(cityPage, service.id)} key={service.id}>
                   <span>
                     <b>{service.tab}</b>
                     <small>{service.short}</small>
@@ -339,7 +342,7 @@ export default function SiteShell({
         <div className="drawer-pages">
           <a href={routeHref("about")}>About us</a>
           <a href={routeHref("work")}>Our work</a>
-          <a href={routeHref("services")}>All services</a>
+          <a href={servicesHref}>All services</a>
           <a href={routeHref("book")}>Book a visit</a>
           <a href={routeHref("home-reviews")}>Reviews</a>
           <a href={routeHref("areas")}>Service area</a>
@@ -379,7 +382,7 @@ export default function SiteShell({
                       <li className="foot-sub">{group.label}</li>
                       {servicesForGroup(group).map((service) => (
                         <li key={service.id}>
-                          <a href={routeHref(service.id)}>{service.tab}</a>
+                          <a href={serviceHrefFor(cityPage, service.id)}>{service.tab}</a>
                         </li>
                       ))}
                     </Fragment>

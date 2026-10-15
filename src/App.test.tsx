@@ -38,17 +38,15 @@ describe("navigation", () => {
     },
   );
 
-  it("renders each service and focuses its heading", () => {
+  it.each(SERVICES)("renders $id and focuses its heading", (service) => {
     render(<App />);
-    for (const service of SERVICES) {
-      navigate(`/#${service.id}`);
-      const heading = screen.getByRole("heading", { level: 1 });
-      expect(heading.textContent).toBe(service.title);
-      expect(document.activeElement).toBe(heading);
-      expect(within(screen.getByRole("navigation", { name: "Services" }))
-        .getByRole("link", { name: service.tab }).getAttribute("aria-current")).toBe("page");
-      expect(window.location.hash).toBe("");
-    }
+    navigate(`/#${service.id}`);
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(heading.textContent).toBe(service.title);
+    expect(document.activeElement).toBe(heading);
+    expect(within(screen.getByRole("navigation", { name: "Services" }))
+      .getByRole("link", { name: service.tab }).getAttribute("aria-current")).toBe("page");
+    expect(window.location.hash).toBe("");
   });
 
   it("keeps About, homepage anchors, and missing-page recovery accessible", async () => {

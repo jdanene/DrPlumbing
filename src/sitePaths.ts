@@ -39,15 +39,17 @@ export const PATH_REDIRECTS: Record<string, string> = Object.fromEntries(
 
 /**
  * Description: Gives an existing route its crawlable link without exposing path aliases to callers.
- * Inputs: route is a page ID, a page ID followed by one or more child segments, or a homepage section ID.
+ * Inputs: route is a page ID, a listed city/service/option route, or a homepage section ID.
  * Output: An absolute local path; an unknown page returns the homepage.
  * Examples: "drain-sewer/hydrojetting" becomes "/drain-and-sewer/hydrojetting/"; "home" becomes "/";
- * "areas/bellevue/water-heaters" becomes "/areas-we-serve/bellevue/water-heaters/".
+ * "areas/bellevue/water-heaters" becomes "/areas-we-serve/bellevue/water-heaters/";
+ * "areas/mercer-island/water-heater-replacement/gas-water-heaters" becomes "/gas-water-heaters-mercer-island/".
  */
 export function routeHref(route: string) {
   if (HOME_ANCHORS.includes(route)) return `/#${route}`;
   if (CITY_PATHS[route]) return CITY_PATHS[route];
   const [page, ...children] = route.split("/");
+  if (page === "areas" && children.length === 3) return `/${children[2]}-${children[0]}/`;
   const path = PAGE_PATHS[page];
   if (!path) return "/";
   return children.length ? `${path}${children.join("/")}/` : path;

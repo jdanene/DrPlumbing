@@ -8,7 +8,7 @@ import AreasPage from "./AreasPage";
 import CityPage from "./CityPage";
 import { ServicePage } from "./SiteContent";
 import SiteShell from "./SiteShell";
-import { cityPageAt } from "./cities";
+import { CITY_OPTION_PAGES, cityPageAt } from "./cities";
 import { SERVICES } from "./content";
 import { HOME_ANCHORS, isLegacyRouteHash, routeFromLocation } from "./routes";
 import { serviceDetailFor } from "./serviceDetails";
@@ -116,7 +116,9 @@ export default function App({ initialRoute }: { initialRoute?: string } = {}) {
   return (
     <SiteShell route={route}>
       <main id="main" ref={mainRef} tabIndex={-1}>
-        {cityPage ? (
+        {cityPage?.service && CITY_OPTION_PAGES.some((item) => item.citySlug === cityPage.city.slug) ? (
+          <ServicePage service={cityPage.service} detail={cityPage.detail} cityPage={cityPage} />
+        ) : cityPage ? (
           <CityPage page={cityPage} />
         ) : service ? (
           <ServicePage service={service} detail={detail} />

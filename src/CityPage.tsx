@@ -1,22 +1,7 @@
 import { SERVICES, serviceMenu } from "./content";
-import { CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, cityPageAt, type CityPageMatch } from "./cities";
-import { serviceOptionHref } from "./serviceDetails";
+import { CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, serviceHrefFor, type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
-
-/**
- * Description: Chooses where a city page's service link goes, so a visitor who starts in a city stays
- * in it when the site has a page for that city and service.
- * Inputs: page is the city page being shown; serviceId names a catalog service.
- * Output: The city-and-service page when CITY_SERVICE_PAGES lists one, else the service's own page.
- * Examples: Bellevue's water-heaters link is "/areas-we-serve/bellevue/water-heaters/"; Bellevue's
- * boilers link and Newcastle's water-heaters link are the service pages.
- */
-export function serviceHrefFor(page: CityPageMatch, serviceId: string) {
-  const entry = CITY_SERVICE_PAGES.find((item) => item.citySlug === page.city.slug && item.serviceId === serviceId);
-  const match = cityPageAt([page.city.slug, entry?.slug ?? serviceId]);
-  return routeHref(match?.service ? match.route : serviceId);
-}
 
 /**
  * Description: Shows one served city, answer first, with the way into each service. A city page links
@@ -64,7 +49,7 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
             <nav className="svc-tabs" aria-label={service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}>
               {service
                 ? serviceMenu(service).map((label) => (
-                    <a className="chip" href={serviceOptionHref(service.id, label)} key={label}>{label}</a>
+                    <a className="chip" href={serviceHrefFor(page, service.id, label)} key={label}>{label}</a>
                   ))
                 : SERVICES.map((item) => {
                     const destination = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && entry.serviceId === item.id);

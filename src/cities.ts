@@ -1,6 +1,7 @@
 import { BUSINESS, confirmed, confirmedFact, displayText, pendingFact, type Fact } from "./businessFacts";
-import { SERVICES, type Service } from "./content";
-import { pathSlug } from "./sitePaths";
+import { SERVICES, serviceMenu, type Service } from "./content";
+import { serviceDetailFor, serviceOptionHref, type ServiceDetail } from "./serviceDetails";
+import { pathSlug, routeHref } from "./sitePaths";
 
 /**
  * Description: The served cities as pages: which city pages exist, which city-and-service pages
@@ -24,6 +25,7 @@ export interface CityPageMatch {
   route: string;
   city: CityPage;
   service?: Service;
+  detail?: ServiceDetail;
 }
 
 /**
@@ -57,6 +59,59 @@ export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string;
   { citySlug: "mercer-island", serviceId: "heating-cooling" },
   { citySlug: "mercer-island", serviceId: "boilers" },
 ];
+
+/**
+ * Description: Reuses approved service explanations for an individual city-service option.
+ * Inputs: service is a catalog category; label is one of its visible menu options, not a category alias.
+ * Output: Its existing detail record, or the matching catalog explanation shaped as a detail page.
+ * Examples: Gas water heaters retains its full detail; Boiler repair uses the repair section;
+ * Water softeners uses the softener item rather than unrelated filtration claims.
+ */
+function optionDetail(service: Service, label: string): ServiceDetail {
+  const detail = serviceDetailFor(service.id, label);
+  if (detail) return detail;
+  const target = pathSlug(service.optionTargets?.[label] ?? label);
+  const section = service.sections.find((section) => pathSlug(section.heading ?? "") === target);
+  const item = service.sections.flatMap((section) => section.items ?? []).find(([title]) => pathSlug(title) === target);
+  return {
+    item: label, cta: label.toLowerCase(), photo: service.photo,
+    summary: item?.[1] ?? section?.paras?.[0] ?? section?.intro,
+    sections: section ? [section] : item ? [{ heading: label, paras: item[1] ? [item[1]] : [] }] : [],
+  };
+}
+
+/** All menu options are pages only in the explicitly requested Mercer Island test. */
+export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => entry.citySlug === "mercer-island").flatMap((entry) => {
+  const service = SERVICES.find((item) => item.id === entry.serviceId)!;
+  return serviceMenu(service)
+    .filter((label) => !SERVICES.some((item) => item.id === service.optionTargets?.[label]))
+    .map((label) => ({
+      citySlug: entry.citySlug,
+      serviceId: service.id,
+      route: `areas/${entry.citySlug}/${entry.slug ?? service.id}/${pathSlug(label)}`,
+      slug: pathSlug(label),
+      detail: optionDetail(service, label),
+    }));
+});
+
+/**
+ * Description: Keeps category and option links in the current city when city pages exist.
+ * Inputs: page is the current city context or undefined; serviceId is a category; label optionally selects an option.
+ * Output: A listed city page, otherwise the original site-wide destination. Category aliases retain city context.
+ * Examples: Mercer Island Gas water heaters opens /gas-water-heaters-mercer-island/;
+ * its Water filtration systems link opens /water-filtration-mercer-island/; Newcastle retains site-wide options.
+ */
+export function serviceHrefFor(page: CityPageMatch | undefined, serviceId: string, label?: string): string {
+  if (label) {
+    const service = SERVICES.find((item) => item.id === serviceId);
+    const target = service?.optionTargets?.[label];
+    if (target && SERVICES.some((item) => item.id === target)) return serviceHrefFor(page, target);
+    const option = CITY_OPTION_PAGES.find((item) => item.citySlug === page?.city.slug && item.serviceId === serviceId && item.slug === pathSlug(label));
+    return option ? routeHref(option.route) : serviceOptionHref(serviceId, label);
+  }
+  const entry = CITY_SERVICE_PAGES.find((item) => item.citySlug === page?.city.slug && item.serviceId === serviceId);
+  return routeHref(entry ? `areas/${entry.citySlug}/${entry.slug ?? serviceId}` : serviceId);
+}
 
 /** Owner-requested search topics share one route record for visible copy and metadata. */
 export const CITY_PAGE_COPY: Record<string, {
@@ -143,20 +198,23 @@ export const CITY_PAGE_COPY: Record<string, {
  * Description: Resolves the path segments after "areas" to a city page, so routing, metadata and the
  * static build agree on which city addresses exist.
  * Inputs: segments are the path parts after the areas page: a city name or slug, then optionally a
- * listed service-page slug (the service ID when no custom slug is supplied). Later segments are ignored.
- * Output: The page's route, city and listed service. An unlisted service yields the city page; an
+ * listed service-page slug, then an optional listed option slug. Later segments are ignored.
+ * Output: The page's route, city, service and option detail when listed. An unlisted service yields the city page; an
  * unknown city yields undefined.
  * Examples: ["Bellevue"] and ["bellevue"] both give route "areas/bellevue" with no service;
  * ["bellevue", "water-heaters"] gives "areas/bellevue/water-heaters" with the water-heaters service;
- * ["bellevue", "boilers"] gives the Bellevue city page; ["nowhere"] gives undefined.
+ * ["bellevue", "boilers"] gives the Bellevue city page; ["nowhere"] gives undefined;
+ * ["mercer-island", "water-heater-replacement", "gas-water-heaters"] carries the gas detail.
  */
 export function cityPageAt(segments: readonly string[]): CityPageMatch | undefined {
-  const [citySegment = "", serviceSegment = ""] = segments;
+  const [citySegment = "", serviceSegment = "", optionSegment = ""] = segments;
   const city = CITY_PAGES.find((page) => page.slug === pathSlug(citySegment));
   if (!city) return undefined;
   const serviceId = pathSlug(serviceSegment);
   const listed = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && (entry.slug ?? entry.serviceId) === serviceId);
   const service = listed ? SERVICES.find((item) => item.id === listed.serviceId) : undefined;
+  const option = CITY_OPTION_PAGES.find((item) => item.citySlug === city.slug && item.serviceId === service?.id && item.slug === pathSlug(optionSegment));
+  if (option) return { route: option.route, city, service, detail: option.detail };
   return service
     ? { route: `areas/${city.slug}/${listed!.slug ?? service.id}`, city, service }
     : { route: `areas/${city.slug}`, city };
@@ -170,6 +228,7 @@ export function cityPageAt(segments: readonly string[]): CityPageMatch | undefin
  * water-heaters page is "Water heaters in Bellevue, WA".
  */
 export function cityHeading(page: CityPageMatch) {
+  if (page.detail) return `${page.detail.item} in ${page.city.name}, WA`;
   return CITY_PAGE_COPY[page.route]?.heading ?? `${page.service?.title ?? "Plumbing, heating and cooling"} in ${page.city.name}, WA`;
 }
 
@@ -187,7 +246,9 @@ export function cityAnswer(page: CityPageMatch) {
   const name = confirmed(BUSINESS.publicName);
   const where = `homes in ${page.city.name}, WA`;
   const copy = CITY_PAGE_COPY[page.route];
-  const sentences = copy ? [copy.lead] : page.service
+  const sentences = page.detail
+    ? [`${name} offers ${page.detail.item.toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
+    : copy ? [copy.lead] : page.service
     ? [`${name} serves ${where}.`, page.service.lead]
     : [`${name} repairs and installs plumbing, water heaters, drains and heating for ${where}.`];
   sentences.push(confirmed(BUSINESS.priceBasis));
