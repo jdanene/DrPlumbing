@@ -1,5 +1,5 @@
 import { SERVICES, serviceMenu } from "./content";
-import { cityAnswer, cityHeading, cityLandmarksText, cityPageAt, type CityPageMatch } from "./cities";
+import { CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, cityPageAt, type CityPageMatch } from "./cities";
 import { serviceOptionHref } from "./serviceDetails";
 import { routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
@@ -13,14 +13,15 @@ import { Arrow, CallToAction } from "./SiteContent";
  * boilers link and Newcastle's water-heaters link are the service pages.
  */
 export function serviceHrefFor(page: CityPageMatch, serviceId: string) {
-  const match = cityPageAt([page.city.slug, serviceId]);
+  const entry = CITY_SERVICE_PAGES.find((item) => item.citySlug === page.city.slug && item.serviceId === serviceId);
+  const match = cityPageAt([page.city.slug, entry?.slug ?? serviceId]);
   return routeHref(match?.service ? match.route : serviceId);
 }
 
 /**
  * Description: Shows one served city, answer first, with the way into each service. A city page links
- * every service; a city-and-service page links the service's own options and its full page. The page
- * renders only sentences built from confirmed facts and never a service's educational sections.
+ * every service; a city-and-service page links the service's own options and its full page. Requested
+ * search topics include practical guidance without inventing local projects or credentials.
  * Inputs: page is a resolved city page from cityPageAt().
  * Output: Breadcrumb, heading, the answer, the landmarks sentence when known, service links and the
  * call to action.
@@ -52,6 +53,12 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
           <h1 tabIndex={-1}>{cityHeading(page)}</h1>
           <p className="lead">{cityAnswer(page)}</p>
           {landmarks && <p className="lead">{landmarks}</p>}
+          {CITY_PAGE_COPY[page.route]?.sections.map((section) => (
+            <section className="other" key={section.heading}>
+              <h2>{section.heading}</h2>
+              <p className="lead">{section.text}</p>
+            </section>
+          ))}
           <div className="other">
             <h2>{service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}</h2>
             <nav className="svc-tabs" aria-label={service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}>
@@ -59,9 +66,10 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
                 ? serviceMenu(service).map((label) => (
                     <a className="chip" href={serviceOptionHref(service.id, label)} key={label}>{label}</a>
                   ))
-                : SERVICES.map((item) => (
-                    <a className="chip" href={serviceHrefFor(page, item.id)} key={item.id}>{item.tab}</a>
-                  ))}
+                : SERVICES.map((item) => {
+                    const destination = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && entry.serviceId === item.id);
+                    return <a className="chip" href={serviceHrefFor(page, item.id)} key={item.id}>{destination?.label ?? item.tab}</a>;
+                  })}
             </nav>
             {service && (
               <p>

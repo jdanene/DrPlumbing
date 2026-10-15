@@ -51,7 +51,8 @@ describe("the business record", () => {
     const cities = confirmed(BUSINESS.serviceCities);
     expect(cities).toContain("Newcastle");
     expect(new Set(cities).size).toBe(cities.length);
-    expect(cities).toHaveLength(28);
+    expect(cities).toHaveLength(29);
+    expect(cities).toContain("Mercer Island");
     expect(CITIES).toBe(cities);
     expect(BUSINESS_NAME).toBe("Dr Plumbing & Heating Grp LLC");
     expect(PLUMBING_LICENSE.number).toBe("DRPLUPH740ND");

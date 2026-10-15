@@ -193,6 +193,7 @@ export const BUSINESS = {
       "Machias",
       "Maltby",
       "Mill Creek",
+      "Mercer Island",
       "Mountlake Terrace",
       "Mukilteo",
       "Newcastle",
@@ -205,8 +206,8 @@ export const BUSINESS = {
       "Skyway",
       "Snohomish",
     ],
-    `The approved 27-city website list plus Newcastle, the home base (${OWNER_PROFILE})`,
-    "2026-10-11",
+    `The approved website list plus Newcastle, the home base (${OWNER_PROFILE}); Mercer Island added at Jide's request on 2026-10-14`,
+    "2026-10-14",
   ),
   hours: pendingFact<readonly OpeningHours[]>(
     "[HOURS]",

@@ -1,5 +1,5 @@
 import { BUSINESS, confirmed } from "./businessFacts";
-import { CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, type CityPageMatch } from "./cities";
+import { CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, type CityPageMatch } from "./cities";
 import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
@@ -34,7 +34,7 @@ export const PUBLIC_ROUTES = [
     details.map((detail) => `${serviceId}/${serviceDetailSlug(detail.item)}`),
   ),
   ...CITY_PAGES.map((city) => `areas/${city.slug}`),
-  ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.serviceId}`),
+  ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`),
 ];
 
 /**
@@ -51,7 +51,7 @@ function cityMetadata(page: CityPageMatch): [string, string] {
   const subject = page.service?.tab ?? "Plumbing, Heating & Cooling";
   const cities = confirmed(BUSINESS.serviceCities);
   return [
-    `${subject} in ${page.city.name}, WA | ${confirmed(BUSINESS.publicName)}`,
+    `${CITY_PAGE_COPY[page.route]?.heading ?? `${subject} in ${page.city.name}, WA`} | ${confirmed(BUSINESS.publicName)}`,
     `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
   ];
 }
