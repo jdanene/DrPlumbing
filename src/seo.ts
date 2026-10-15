@@ -1,3 +1,5 @@
+import { BUSINESS, confirmed } from "./businessFacts";
+import { CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, serviceHrefFor, type CityPageMatch } from "./cities";
 import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
@@ -31,12 +33,65 @@ export const PUBLIC_ROUTES = [
   ...Object.entries(SERVICE_DETAILS).flatMap(([serviceId, details]) =>
     details.map((detail) => `${serviceId}/${serviceDetailSlug(detail.item)}`),
   ),
+  ...CITY_PAGES.map((city) => `areas/${city.slug}`),
+  ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`),
+  ...CITY_OPTION_PAGES.map((entry) => entry.route),
 ];
+
+/**
+ * Description: Writes a city page's title and meta description from the facts, so a search result
+ * names the city, the firm and the price basis without a guessed claim.
+ * Inputs: page is a resolved city page.
+ * Output: The title, "Plumbing, Heating & Cooling in {City}, WA | Dr Plumbing & Heating" or
+ * "{Service tab} in {City}, WA | Dr Plumbing & Heating", and a description that ends with how many
+ * cities the firm serves.
+ * Examples: CityPages.test.tsx checks the Bellevue and Bellevue water-heaters titles and that the
+ * description names the price basis.
+ */
+function cityMetadata(page: CityPageMatch): [string, string] {
+  const subject = page.service?.tab ?? "Plumbing, Heating & Cooling";
+  const cities = confirmed(BUSINESS.serviceCities);
+  return [
+    `${page.detail ? cityHeading(page) : CITY_PAGE_COPY[page.route]?.heading ?? `${subject} in ${page.city.name}, WA`} | ${confirmed(BUSINESS.publicName)}`,
+    `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
+  ];
+}
 
 interface HeadTag {
   tag: "title" | "meta" | "link" | "script";
   attributes: Record<string, string>;
   text?: string;
+}
+
+const BUSINESS_ID = `${SITE_ORIGIN}/#business`;
+
+/**
+ * Description: Describes the business and its website for search engines, the same on every page.
+ * Inputs: None; the facts come from the business record.
+ * Output: Two schema.org nodes: the Plumber/HVACBusiness identified by BUSINESS_ID and the WebSite it publishes.
+ * Examples: Seo.test.ts checks the business node's name, telephone and areaServed, and that both nodes
+ * appear unchanged on the homepage and a service page.
+ */
+function businessGraph(): Record<string, unknown>[] {
+  return [
+    {
+      "@type": ["Plumber", "HVACBusiness"],
+      "@id": BUSINESS_ID,
+      name: BUSINESS_NAME,
+      url: `${SITE_ORIGIN}/`,
+      telephone: "+12066718888",
+      email: "drplumbinggroup@gmail.com",
+      logo: `${SITE_ORIGIN}/brand/dr-brand-mark.png`,
+      areaServed: CITIES.map((name) => ({ "@type": "City", name })),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_ORIGIN}/#website`,
+      name: "Dr Plumbing & Heating",
+      url: `${SITE_ORIGIN}/`,
+      publisher: { "@id": BUSINESS_ID },
+    },
+  ];
 }
 
 /**
@@ -48,34 +103,18 @@ interface HeadTag {
 export function headTags(route: string, indexable = true): HeadTag[] {
   const page = HOME_ANCHORS.includes(route) ? "home" : route;
   const canonical = `${SITE_ORIGIN}${routeHref(page)}`;
-  const logo = `${SITE_ORIGIN}/brand/dr-brand-mark.png`;
   const socialImage = `${SITE_ORIGIN}/brand/dr-social-card-v2.png`;
-  const businessId = `${SITE_ORIGIN}/#business`;
+  const businessId = BUSINESS_ID;
   const [serviceId, detailKey] = page.split("/");
   const service = SERVICES.find((item) => item.id === serviceId);
   const detail = detailKey ? serviceDetailFor(serviceId, detailKey) : undefined;
-  const [title, description] = PAGE_METADATA[page] ?? (detail
+  const cityPage = page.startsWith("areas/") ? cityPageAt(page.split("/").slice(1)) : undefined;
+  const [title, description] = PAGE_METADATA[page] ?? (cityPage ? cityMetadata(cityPage) : detail
     ? [`${detail.item} in Greater Seattle | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
     : ["Page not found | Dr Plumbing & Heating", "Find plumbing, heating and cooling services in the Greater Seattle area."]);
   const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years in the trade" : title;
   const graph: Record<string, unknown>[] = [
-    {
-      "@type": ["Plumber", "HVACBusiness"],
-      "@id": businessId,
-      name: BUSINESS_NAME,
-      url: `${SITE_ORIGIN}/`,
-      telephone: "+12066718888",
-      email: "drplumbinggroup@gmail.com",
-      logo,
-      areaServed: CITIES.map((name) => ({ "@type": "City", name })),
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_ORIGIN}/#website`,
-      name: "Dr Plumbing & Heating",
-      url: `${SITE_ORIGIN}/`,
-      publisher: { "@id": businessId },
-    },
+    ...businessGraph(),
     {
       "@type": "WebPage",
       "@id": `${canonical}#webpage`,
@@ -99,6 +138,29 @@ export function headTags(route: string, indexable = true): HeadTag[] {
     const crumbs = [{ name: "Home", item: `${SITE_ORIGIN}/` }];
     if (detail) crumbs.push({ name: service.tab, item: `${SITE_ORIGIN}${routeHref(serviceId)}` });
     crumbs.push({ name: detail?.item ?? service.tab, item: canonical });
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),
+    });
+  }
+  if (cityPage) {
+    // A city page's Service is scoped to that one city, unlike the site-wide service pages above.
+    graph.push({
+      "@type": "Service",
+      "@id": `${canonical}#service`,
+      name: cityHeading(cityPage),
+      description,
+      url: canonical,
+      provider: { "@id": businessId },
+      areaServed: [{ "@type": "City", name: cityPage.city.name }],
+    });
+    const crumbs = [
+      { name: "Home", item: `${SITE_ORIGIN}/` },
+      { name: "Areas we serve", item: `${SITE_ORIGIN}${routeHref("areas")}` },
+      { name: cityPage.city.name, item: `${SITE_ORIGIN}${routeHref(`areas/${cityPage.city.slug}`)}` },
+    ];
+    if (cityPage.service) crumbs.push({ name: cityPage.service.tab, item: `${SITE_ORIGIN}${serviceHrefFor(cityPage, cityPage.service.id)}` });
+    if (cityPage.detail) crumbs.push({ name: cityPage.detail.item, item: canonical });
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),

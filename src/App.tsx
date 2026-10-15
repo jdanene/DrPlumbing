@@ -5,13 +5,35 @@ import AboutPage from "./AboutPage";
 import WorkPage from "./WorkPage";
 import BookingPage from "./BookingPage";
 import AreasPage from "./AreasPage";
+import CityPage from "./CityPage";
 import { ServicePage } from "./SiteContent";
 import SiteShell from "./SiteShell";
+import { CITY_OPTION_PAGES, cityPageAt } from "./cities";
 import { SERVICES } from "./content";
 import { HOME_ANCHORS, isLegacyRouteHash, routeFromLocation } from "./routes";
 import { serviceDetailFor } from "./serviceDetails";
 import { routeHref } from "./sitePaths";
 import { updateHead } from "./seo";
+
+/**
+ * Description: Finds the city page a route shows, if any.
+ * Inputs: route is a resolved page.
+ * Output: The city page for "areas/<city>" or "areas/<city>/<service>"; undefined for every other route.
+ * Examples: "areas/bellevue/water-heaters" carries the water-heaters service; "areas" and "plumbing" give undefined.
+ */
+function cityPageFor(route: string) {
+  return route.startsWith("areas/") ? cityPageAt(route.split("/").slice(1)) : undefined;
+}
+
+/**
+ * Description: Names the service the booking form should preselect after a visit to a route.
+ * Inputs: route is a resolved page.
+ * Output: The service's tab for a service page, its details and a city-and-service page; undefined otherwise.
+ * Examples: "boilers" and "areas/bellevue/water-heaters" preselect; "areas/bellevue" and "about" do not.
+ */
+function bookingServiceFor(route: string) {
+  return SERVICES.find((item) => item.id === route.split("/")[0])?.tab ?? cityPageFor(route)?.service?.tab;
+}
 
 /**
  * Description: Converts the clickable HTML reference into native pages with browser-history navigation.
@@ -26,13 +48,14 @@ export default function App({ initialRoute }: { initialRoute?: string } = {}) {
     return {
       route,
       anchor: typeof window === "undefined" ? "" : window.location.hash.slice(1),
-      bookingService: SERVICES.find((item) => item.id === route.split("/")[0])?.tab,
+      bookingService: bookingServiceFor(route),
     };
   });
   const { route, anchor, bookingService } = navigation;
   const [serviceId, detailKey] = route.split("/");
   const service = SERVICES.find((item) => item.id === serviceId);
   const detail = service && detailKey ? serviceDetailFor(service.id, detailKey) : undefined;
+  const cityPage = cityPageFor(route);
   const mainRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
 
@@ -47,9 +70,7 @@ export default function App({ initialRoute }: { initialRoute?: string } = {}) {
       setNavigation((previous) => ({
         route: nextRoute,
         anchor: window.location.hash.slice(1),
-        bookingService:
-          SERVICES.find((item) => item.id === nextRoute.split("/")[0])?.tab ??
-          previous.bookingService,
+        bookingService: bookingServiceFor(nextRoute) ?? previous.bookingService,
       }));
     };
     const followPageLink = (event: MouseEvent) => {
@@ -95,7 +116,11 @@ export default function App({ initialRoute }: { initialRoute?: string } = {}) {
   return (
     <SiteShell route={route}>
       <main id="main" ref={mainRef} tabIndex={-1}>
-        {service ? (
+        {cityPage?.service && CITY_OPTION_PAGES.some((item) => item.citySlug === cityPage.city.slug) ? (
+          <ServicePage service={cityPage.service} detail={cityPage.detail} cityPage={cityPage} />
+        ) : cityPage ? (
+          <CityPage page={cityPage} />
+        ) : service ? (
           <ServicePage service={service} detail={detail} />
         ) : route === "services" ? (
           <ServicesPage />

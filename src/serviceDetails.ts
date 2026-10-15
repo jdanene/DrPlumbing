@@ -1,5 +1,5 @@
 import { SERVICES, type ServiceSection } from "./content";
-import { routeHref } from "./sitePaths";
+import { pathSlug, routeHref } from "./sitePaths";
 
 /**
  * Description: Keeps service explanations from the approved mockup and the owner's original site together.
@@ -541,13 +541,14 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
 };
 
 /**
- * Description: Keeps subservice hash addresses compatible with the approved mockup.
+ * Description: Keeps subservice hash addresses compatible with the approved mockup. It is the site's
+ * one slug rule, pathSlug, under its older name; callers move to pathSlug in the cleanup ticket.
  * Inputs: label is a service heading or existing slug.
  * Output: A lowercase, hyphen-separated slug with ampersands written as "and".
  * Examples: ServiceDetails.test.tsx checks "Gas water heaters", punctuation, and an empty label.
  */
 export function serviceDetailSlug(label: string) {
-  return label.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return pathSlug(label);
 }
 
 /**

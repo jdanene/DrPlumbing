@@ -1,12 +1,13 @@
 import { routeHref } from "./sitePaths";
-import { CITIES, SERVICE_AREA_MAP_URL, SERVICE_GROUPS, servicesForGroup } from "./content";
+import { CITY_PAGES } from "./cities";
+import { SERVICE_AREA_MAP_URL, SERVICE_GROUPS, servicesForGroup } from "./content";
 import { CallToAction } from "./SiteContent";
 
 /**
  * Description: Shows the supplied service-area page and its city list.
- * Inputs: None; cities come from the shared site catalog.
- * Output: City and service links beside the map, with a phone link for other addresses.
- * Examples: App.test.tsx checks the route includes Everett and Federal Way.
+ * Inputs: None; cities come from the business record through CITY_PAGES.
+ * Output: A link to each city's page and service links beside the map, with a phone link for other addresses.
+ * Examples: CityPages.test.tsx checks every served city renders as a link to its page.
  */
 export default function AreasPage() {
   return (
@@ -28,7 +29,9 @@ export default function AreasPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               <h2 className="h2">Cities in King and Snohomish counties</h2>
               <ul className="cities">
-                {CITIES.map((city) => <li key={city}>{city}</li>)}
+                {CITY_PAGES.map((city) => (
+                  <li key={city.slug}><a href={routeHref(`areas/${city.slug}`)}>{city.name}</a></li>
+                ))}
               </ul>
             </div>
             <div className="map-card">

@@ -1,18 +1,22 @@
+import { CITY_OPTION_PAGES, cityPageAt } from "./cities";
 import { SERVICES } from "./content";
 import { serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
-import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
+import { CITY_PATHS, HOME_ANCHORS, PAGE_PATHS, PATH_REDIRECTS, routeHref } from "./sitePaths";
 
 export { HOME_ANCHORS } from "./sitePaths";
 
 /**
  * Description: Resolves public hash links without an application server or router dependency.
- * Inputs: hash includes an optional # and may name a service detail.
- * Output: A known page or section; unknown details fall back to their parent and unknown parents to home.
- * Examples: App.test.tsx and ServiceDetails.test.tsx check homepage anchors, detail links, and both fallback cases.
+ * Inputs: hash includes an optional # and may name a service detail or a city under areas.
+ * Output: A known page or section; unknown details and unknown cities fall back to their parent
+ * and unknown parents to home.
+ * Examples: App.test.tsx and ServiceDetails.test.tsx check homepage anchors, detail links, and both
+ * fallback cases; CityPages.test.tsx checks "#areas/Bellevue", "#areas/nowhere" and an unlisted service.
  */
 export function resolveRoute(hash: string) {
   const route = hash.replace(/^#/, "");
-  const [serviceId, detailKey] = route.split("/");
+  const [serviceId, detailKey, ...rest] = route.split("/");
+  if (serviceId === "areas" && detailKey !== undefined) return cityPageAt([detailKey, ...rest])?.route ?? "areas";
   if (SERVICES.some((service) => service.id === serviceId)) {
     const detail = detailKey ? serviceDetailFor(serviceId, detailKey) : undefined;
     return detail ? `${serviceId}/${serviceDetailSlug(detail.item)}` : serviceId;
@@ -51,7 +55,10 @@ export function isLegacyRouteHash(hash: string) {
 export function routeFromLocation(pathname: string, hash = "") {
   if (isLegacyRouteHash(hash)) return resolveRoute(hash);
   const path = pathname.replace(/\/+$/, "") || "/";
-  for (const [route, href] of Object.entries(PAGE_PATHS)) {
+  if (PATH_REDIRECTS[`${path}/`]) return PATH_REDIRECTS[`${path}/`];
+  const option = CITY_OPTION_PAGES.find((item) => routeHref(item.route).replace(/\/$/, "") === path);
+  if (option) return option.route;
+  for (const [route, href] of Object.entries({ ...PAGE_PATHS, ...CITY_PATHS })) {
     if ((href.replace(/\/+$/, "") || "/") === path) return route;
     if (route !== "home" && pathname.startsWith(href)) {
       const detail = pathname.slice(href.length).replace(/\/+$/, "");

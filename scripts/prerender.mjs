@@ -1,6 +1,6 @@
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { PHOTOS, PUBLIC_ROUTES, SITE_ORIGIN, renderPage, routeHref } from "../dist-ssr/prerender.js";
+import { PATH_REDIRECTS, PHOTOS, PUBLIC_ROUTES, SITE_ORIGIN, renderPage, routeHref } from "../dist-ssr/prerender.js";
 
 /**
  * Description: Publishes React pages and crawl files into Vite's existing static output.
@@ -73,5 +73,8 @@ const oldPaths = [
   ["/copy-of-water-filteration", "heating-cooling"],
   ["/copy-2-of-water-filteration", "boilers"],
 ];
-await writeFile(join(output, "_redirects"), oldPaths.map(([oldPath, route]) => `${oldPath} ${routeHref(route)} 301`).join("\n") + "\n");
+const cityRedirects = Object.entries(PATH_REDIRECTS).flatMap(([oldPath, route]) => [
+  [oldPath, route], [oldPath.replace(/\/$/, ""), route],
+]);
+await writeFile(join(output, "_redirects"), [...oldPaths, ...cityRedirects].map(([oldPath, route]) => `${oldPath} ${routeHref(route)} 301`).join("\n") + "\n");
 console.log(`Prerendered ${PUBLIC_ROUTES.length} pages, 404.html, sitemap.xml, and robots.txt with ${photoPaths.size} selected photos (${indexable ? "production indexable" : "preview noindex"}).`);

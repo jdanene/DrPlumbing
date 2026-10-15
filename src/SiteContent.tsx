@@ -17,6 +17,7 @@ import {
 } from "./serviceDetails";
 import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
+import { cityAnswer, cityHeading, serviceHrefFor, type CityPageMatch } from "./cities";
 
 /**
  * Description: Draws the repeated directional cue without giving it an accessible name.
@@ -140,22 +141,25 @@ export function Values() {
 
 /**
  * Description: Renders every service through one layout so service changes stay in the catalog.
- * Inputs: service is the parent catalog entry; detail optionally selects its source subservice page.
- * Output: The source layout, complete educational sections, contextual navigation, and booking links.
+ * Inputs: service is the parent catalog entry; detail selects an option; cityPage optionally supplies location context.
+ * Output: The same source layout, photos and educational sections, with city-aware links and wording when supplied.
  * Examples: ServiceDetails.test.tsx checks all detail pages, prose-only sections, sibling links, and booking context.
  */
 export function ServicePage({
   service,
   detail,
+  cityPage,
 }: {
   service: Service;
   detail?: ServiceDetail;
+  cityPage?: CityPageMatch;
 }) {
   const page = detail ?? service;
-  const photo = detail
+  const usesCategoryArtwork = cityPage && detail && !serviceDetailFor(service.id, detail.item);
+  const photo = detail && !usesCategoryArtwork
     ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`]
     : SERVICE_PHOTOS[service.id];
-  const gallery = SERVICE_GALLERIES[detail ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
+  const gallery = SERVICE_GALLERIES[detail && !usesCategoryArtwork ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
   const relatedHeading = detail ? `More in ${service.tab}` : "Other services";
   const tabsRef = useRef<HTMLElement>(null);
@@ -181,7 +185,7 @@ export function ServicePage({
                   <a
                     key={item.id}
                     className="chip"
-                    href={routeHref(item.id)}
+                    href={serviceHrefFor(cityPage, item.id)}
                     aria-current={item.id === service.id ? "page" : undefined}
                   >
                     {item.tab}
@@ -196,11 +200,12 @@ export function ServicePage({
             <nav className="crumbs" aria-label="Breadcrumb">
               <a href={routeHref("home")}>Home</a>
               <span>/</span>
-              <a href={routeHref("services")}>{group?.label ?? "Services"}</a>
+              <a href={routeHref(cityPage ? "areas" : "services")}>{cityPage ? "Areas we serve" : group?.label ?? "Services"}</a>
+              {cityPage && <><span>/</span><a href={routeHref(`areas/${cityPage.city.slug}`)}>{cityPage.city.name}</a></>}
               <span>/</span>
               {detail ? (
                 <>
-                  <a href={routeHref(service.id)}>{service.tab}</a>
+                  <a href={serviceHrefFor(cityPage, service.id)}>{service.tab}</a>
                   <span>/</span>
                   <span>{detail.item}</span>
                 </>
@@ -208,8 +213,8 @@ export function ServicePage({
                 <span>{service.tab}</span>
               )}
             </nav>
-            <h1 tabIndex={-1}>{detail?.item ?? service.title}</h1>
-            {(page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
+            <h1 tabIndex={-1}>{cityPage ? cityHeading(cityPage) : detail?.item ?? service.title}</h1>
+            {cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
             <div className="cta-row">
               <a className="btn btn-primary" href={routeHref("book")}>
                 Book a visit
@@ -221,6 +226,16 @@ export function ServicePage({
           </div>
           {photo && <ProjectPhoto photo={photo} priority fullFrame />}
         </section>
+        {cityPage && !detail && (
+          <div className="other">
+            <h2>{service.tab} in {cityPage.city.name}</h2>
+            <nav className="svc-tabs" aria-label={`${service.tab} in ${cityPage.city.name}`}>
+              {serviceMenu(service).map((label) => (
+                <a className="chip" key={label} href={serviceHrefFor(cityPage, service.id, label)}>{label}</a>
+              ))}
+            </nav>
+          </div>
+        )}
         {page.sections.map((section, sectionIndex) => {
           const items = section.items ?? [];
           const headIntro = (items.length > 0 || section.paras) && section.intro;
@@ -282,7 +297,7 @@ export function ServicePage({
                             {!detail && (serviceDetailFor(service.id, title) || service.optionTargets?.[title]) && (
                               <a
                                 className="link-arrow"
-                                href={serviceOptionHref(service.id, title)}
+                                href={serviceHrefFor(cityPage, service.id, title)}
                                 aria-label={`Read more about ${title}`}
                               >
                                 Read more<span className="sr-only"> about {title}</span> <Arrow />
@@ -334,7 +349,9 @@ export function ServicePage({
           <nav className="svc-tabs" aria-label={relatedHeading}>
             {detail ? (
               <>
-                {(SERVICE_DETAILS[service.id] ?? [])
+                {cityPage ? serviceMenu(service).filter((label) => label !== detail.item).map((label) => (
+                  <a className="chip" href={serviceHrefFor(cityPage, service.id, label)} key={label}>{label}</a>
+                )) : (SERVICE_DETAILS[service.id] ?? [])
                   .filter((item) => item !== detail)
                   .map((item) => (
                     <a
@@ -345,11 +362,11 @@ export function ServicePage({
                       {item.item}
                     </a>
                   ))}
-                <a className="chip" href={routeHref(service.id)}>See all</a>
+                <a className="chip" href={serviceHrefFor(cityPage, service.id)}>See all</a>
               </>
             ) : (
               SERVICES.filter((item) => item.id !== service.id).map((item) => (
-                <a className="chip" href={routeHref(item.id)} key={item.id}>
+                <a className="chip" href={serviceHrefFor(cityPage, item.id)} key={item.id}>
                   {item.tab}
                 </a>
               ))
@@ -358,7 +375,7 @@ export function ServicePage({
         </div>
       </div>
       <div className="wrap" style={{ marginTop: 48 }}>
-        <CallToAction title={`Talk to us about your ${page.cta}.`} />
+        <CallToAction title={`Talk to us about your ${page.cta}${cityPage ? ` in ${cityPage.city.name}` : ""}.`} />
       </div>
     </div>
   );
