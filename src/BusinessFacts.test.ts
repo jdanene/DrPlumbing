@@ -54,7 +54,7 @@ describe("the business record", () => {
     expect(cities).toHaveLength(29);
     expect(cities).toContain("Mercer Island");
     expect(CITIES).toBe(cities);
-    expect(BUSINESS_NAME).toBe("Dr Plumbing & Heating Grp LLC");
+    expect(BUSINESS_NAME).toBe("Dr Plumbing & Heating Group LLC");
     expect(PLUMBING_LICENSE.number).toBe("DRPLUPH740ND");
   });
 });

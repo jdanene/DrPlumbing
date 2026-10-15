@@ -160,7 +160,7 @@ const OWNER_PROFILE = "Google Business Profile areas served, read 2026-10-04";
  */
 export const BUSINESS = {
   publicName: confirmedFact("Dr Plumbing & Heating", "Brand decision recorded in PROJECT_CONTEXT.md", "2026-09-27"),
-  legalName: confirmedFact("Dr Plumbing & Heating Grp LLC", "Washington L&I contractor record, UBI 604 661 707", "2026-10-10"),
+  legalName: confirmedFact("Dr Plumbing & Heating Group LLC", "Owner-approved name on the production website", "2026-10-14"),
   phone: confirmedFact<Phone>({ display: "(206) 671-8888", e164: "+12066718888" }, "Owner; shown on the live site and Google profile", "2026-10-04"),
   email: confirmedFact("drplumbinggroup@gmail.com", "Owner; shown on the live site", "2026-10-04"),
   license: confirmedFact<License>(
