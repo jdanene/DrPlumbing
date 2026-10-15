@@ -22,6 +22,18 @@ const doorPalette: LogoPalette = {
 // Each identity gets distinct canvas, action and dark-section roles. Bright logo
 // colors remain available for emphasis without forcing low-contrast link text.
 const palettes: Record<string, LogoPalette> = {
+  "18": {
+    name: "Current website neutrals and copper",
+    style: {
+      "--bg": "#fafbf9", "--surface": "#ffffff", "--tint": "#eef0eb",
+      "--ink": "#222921", "--muted": "#596158",
+      "--line": "#daddd5", "--line-strong": "#b0b8ad",
+      "--accent": "#ad4725", "--accent-hover": "#8c3418", "--accent-ink": "#943c1f",
+      "--band": "#242d27", "--band-ink": "#f6f7f2", "--band-muted": "#c5cfc4",
+      "--band-accent": "#e9ab8f", "--logo-highlight": "#e9ab8f",
+      "--logo-on-accent": "#ffffff", "--logo-header": "#ffffff", "--logo-band-line": "#b0b8ad",
+    },
+  },
   original: {
     name: "Copper and charcoal",
     style: {
@@ -73,13 +85,13 @@ const palettes: Record<string, LogoPalette> = {
   "4": {
     name: "Midnight and silver",
     style: {
-      "--bg": "#f5f5fa", "--surface": "#fcfcff", "--tint": "#e7e7f1",
+      "--bg": "#f8f7f5", "--surface": "#ffffff", "--tint": "#eae8e4",
       "--ink": "#211d36", "--muted": "#5c586e",
       "--line": "#d4d2e0", "--line-strong": "#9088a5",
       "--accent": "#383063", "--accent-hover": "#241d46", "--accent-ink": "#3a3068",
-      "--band": "#17112e", "--band-ink": "#f7f6ff", "--band-muted": "#c9c5dc",
+      "--band": "#242a2d", "--band-ink": "#faf9f6", "--band-muted": "#d1d4d3",
       "--band-accent": "#ccc3ed", "--logo-highlight": "#ccc3ed",
-      "--logo-on-accent": "#ffffff", "--logo-header": "#efedf7", "--logo-band-line": "#79718e",
+      "--logo-on-accent": "#ffffff", "--logo-header": "#ffffff", "--logo-band-line": "#79718e",
     },
   },
   "5": {
@@ -97,13 +109,13 @@ const palettes: Record<string, LogoPalette> = {
   "6": {
     name: "Violet and lavender",
     style: {
-      "--bg": "#f8f5fc", "--surface": "#fefbff", "--tint": "#ece4f7",
+      "--bg": "#f8f7f5", "--surface": "#ffffff", "--tint": "#eae8e4",
       "--ink": "#302040", "--muted": "#645171",
       "--line": "#d9cbe7", "--line-strong": "#9980ae",
       "--accent": "#6a38ad", "--accent-hover": "#512583", "--accent-ink": "#603095",
-      "--band": "#36204f", "--band-ink": "#fff8e6", "--band-muted": "#dfcee9",
+      "--band": "#242a2d", "--band-ink": "#faf9f6", "--band-muted": "#d1d4d3",
       "--band-accent": "#debfef", "--logo-highlight": "#e6cbf7",
-      "--logo-on-accent": "#fff9e8", "--logo-header": "#f1eafa", "--logo-band-line": "#9678ab",
+      "--logo-on-accent": "#fff9e8", "--logo-header": "#ffffff", "--logo-band-line": "#9678ab",
     },
   },
   "7": {
@@ -145,13 +157,13 @@ const palettes: Record<string, LogoPalette> = {
   "10": {
     name: "Oxblood and peach",
     style: {
-      "--bg": "#fcf7f0", "--surface": "#fffcf5", "--tint": "#f1e3de",
+      "--bg": "#f8f7f5", "--surface": "#ffffff", "--tint": "#eae8e4",
       "--ink": "#3d292a", "--muted": "#755758",
       "--line": "#e1cbc7", "--line-strong": "#ac8587",
       "--accent": "#963247", "--accent-hover": "#732036", "--accent-ink": "#862d40",
-      "--band": "#492332", "--band-ink": "#fff8eb", "--band-muted": "#e0c4c5",
+      "--band": "#242a2d", "--band-ink": "#faf9f6", "--band-muted": "#d1d4d3",
       "--band-accent": "#f0b497", "--logo-highlight": "#f0b497",
-      "--logo-on-accent": "#fffaf0", "--logo-header": "#f8eee4", "--logo-band-line": "#a27c88",
+      "--logo-on-accent": "#fffaf0", "--logo-header": "#ffffff", "--logo-band-line": "#a27c88",
     },
   },
   "11": doorPalette,
@@ -171,24 +183,26 @@ const palettes: Record<string, LogoPalette> = {
   "14": {
     name: "Plum and copper",
     style: {
-      "--bg": "#fcf7ee", "--surface": "#fffdf3", "--tint": "#efe2e7",
+      "--bg": "#f8f7f5", "--surface": "#ffffff", "--tint": "#eae8e4",
       "--ink": "#4b2943", "--muted": "#73546c",
       "--line": "#decbd5", "--line-strong": "#aa839c",
       "--accent": "#b0522b", "--accent-hover": "#8d3c1d", "--accent-ink": "#904020",
-      "--band": "#4b2943", "--band-ink": "#fff8e8", "--band-muted": "#dfc9d7",
+      "--band": "#242a2d", "--band-ink": "#faf9f6", "--band-muted": "#d1d4d3",
       "--band-accent": "#f3b58a", "--logo-highlight": "#f3b58a",
-      "--logo-on-accent": "#ffffff", "--logo-header": "#f6ecec", "--logo-band-line": "#a27e95",
+      "--logo-on-accent": "#ffffff", "--logo-header": "#ffffff", "--logo-band-line": "#a27e95",
     },
   },
 };
 
 /**
  * Description: Gives a logo preview the website colors chosen for its artwork.
- * Inputs: id is a catalog logo ID. Unknown or empty IDs use the current logo.
+ * Inputs: id is a catalog logo ID. Choice 15 shares choice 7's evergreen palette.
+ * Unknown or empty IDs use the current logo.
  * Output: A palette name and CSS custom properties; leaves the document unchanged.
  * Examples: logoPalette("6").name is "Violet and lavender"; an empty ID or
  * "toString" returns "Copper and charcoal". logoPalettes.test.ts checks all three.
  */
 export function logoPalette(id: string): LogoPalette {
+  if (id === "15" || id === "16" || id === "17") return palettes["7"];
   return Object.hasOwn(palettes, id) ? palettes[id] : palettes.original;
 }

@@ -18,10 +18,10 @@ it.each([["?logo=1", "1"], ["?logo=4", "4"], ["?logo=14", "14"], ["?logo=origina
   },
 );
 
-it("keeps ten finalists, four references and the current logo in one catalog", () => {
-  expect(LOGO_OPTIONS).toHaveLength(15);
-  expect(LOGO_OPTIONS.filter((option) => option.group === "finalist")).toHaveLength(10);
-  expect(new Set(LOGO_OPTIONS.map((option) => option.id)).size).toBe(15);
+it("keeps fourteen finalists, four references and the current logo in one catalog", () => {
+  expect(LOGO_OPTIONS).toHaveLength(19);
+  expect(LOGO_OPTIONS.filter((option) => option.group === "finalist")).toHaveLength(14);
+  expect(new Set(LOGO_OPTIONS.map((option) => option.id)).size).toBe(19);
 });
 
 it("preserves version and background through navigation and explicit logo changes", () => {

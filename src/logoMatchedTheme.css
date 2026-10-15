@@ -104,3 +104,7 @@ html[data-logo-palette] .service-index-links a:hover {
   color: var(--band-accent);
   border-color: var(--band-accent);
 }
+/* Choice 16 compares a charcoal photo shade while retaining the evergreen identity. */
+html:is([data-logo-preview="16"], [data-logo-preview="17"], [data-logo-preview="18"])[data-logo-palette] .opening-shade {
+  background: linear-gradient(90deg, #181b1d00 25%, #181b1d9e 54%, #181b1df0 100%);
+}

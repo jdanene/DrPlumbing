@@ -18,7 +18,7 @@ html[data-logo-preview="5"], html[data-logo-preview="8"] { --logo-height: 136px;
 html[data-logo-preview="6"] { --logo-height: 96px; }
 html[data-logo-preview="7"], html[data-logo-preview="9"] { --logo-height: 152px; }
 html[data-logo-preview="10"] { --logo-height: 88px; }
-html[data-logo-preview="11"], html[data-logo-preview="12"] { --logo-height: 120px; }
+html[data-logo-preview="11"], html[data-logo-preview="12"], html[data-logo-preview="15"], html[data-logo-preview="16"], html[data-logo-preview="17"], html[data-logo-preview="18"] { --logo-height: 120px; }
 html[data-logo-preview="13"] { --logo-height: 112px; }
 html[data-logo-preview="14"] { --logo-height: 128px; }
 html[data-logo-preview="original"]:root { --header: 104px; }

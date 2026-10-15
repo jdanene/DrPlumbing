@@ -12,10 +12,10 @@ afterEach(() => {
   delete document.documentElement.dataset.previewTheme;
 });
 
-it("shows all fifteen designs and offers only the five supplied dark-ink variants", () => {
+it("shows all nineteen designs and offers the nine supplied dark-ink variants", () => {
   render(<LogoGallery />);
-  expect(screen.getAllByRole("article")).toHaveLength(15);
-  expect(screen.getAllByRole("radio", { name: "Dark ink" })).toHaveLength(5);
+  expect(screen.getAllByRole("article")).toHaveLength(19);
+  expect(screen.getAllByRole("radio", { name: "Dark ink" })).toHaveLength(9);
   expect(within(screen.getByRole("article", { name: "Gold and silver" })).queryByRole("radio")).toBeNull();
   expect(within(screen.getByRole("article", { name: "Current website logo" })).getByRole("link").getAttribute("href"))
     .toBe("/?logo=original&logoVersion=color&previewTheme=light");

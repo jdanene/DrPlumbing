@@ -32,6 +32,10 @@ export const LOGO_OPTIONS: readonly LogoOption[] = [
   { id: "12", name: "At your door · cap", group: "finalist", src: "/brand/logo-options/32-at-your-door-cap.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 726, 430, 205] },
   { id: "13", name: "Kingfisher", group: "finalist", src: "/brand/logo-options/25-kingfisher.png", width: 1536, height: 1024, color: [142, 132, 1311, 540], mono: [486, 722, 563, 235] },
   { id: "14", name: "Hand and pipe", group: "finalist", src: "/brand/logo-options/24-steady-hand.png", width: 1536, height: 1024, color: [160, 110, 1218, 642], mono: [580, 791, 376, 196] },
+  { id: "15", name: "At your door · evergreen", group: "finalist", src: "/brand/logo-options/33-at-your-door-evergreen.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 726, 430, 205] },
+  { id: "16", name: "At your door · evergreen / charcoal shadow", group: "finalist", src: "/brand/logo-options/33-at-your-door-evergreen.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 726, 430, 205] },
+  { id: "17", name: "At your door · black and copper", group: "finalist", src: "/brand/logo-options/34-at-your-door-black-copper.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 726, 430, 205] },
+  { id: "18", name: "At your door · black / current website colors", group: "finalist", src: "/brand/logo-options/34-at-your-door-black-copper.png", width: 1536, height: 1024, color: [216, 109, 1148, 554], mono: [553, 726, 430, 205] },
 ];
 
 /**
