@@ -51,6 +51,11 @@ export const CITY_PAGES: readonly CityPage[] = confirmed(BUSINESS.serviceCities)
 export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string; slug?: string; label?: string }[] = [
   { citySlug: "bellevue", serviceId: "water-heaters" },
   { citySlug: "mercer-island", serviceId: "water-heaters", slug: "water-heater-replacement", label: "Water heater replacement" },
+  { citySlug: "mercer-island", serviceId: "plumbing" },
+  { citySlug: "mercer-island", serviceId: "drain-sewer" },
+  { citySlug: "mercer-island", serviceId: "water-filtration" },
+  { citySlug: "mercer-island", serviceId: "heating-cooling" },
+  { citySlug: "mercer-island", serviceId: "boilers" },
 ];
 
 /** Owner-requested search topics share one route record for visible copy and metadata. */
@@ -59,6 +64,51 @@ export const CITY_PAGE_COPY: Record<string, {
   lead: string;
   sections: readonly { heading: string; text: string }[];
 }> = {
+  "areas/mercer-island/plumbing": {
+    heading: "General plumbing in Mercer Island, WA",
+    lead: "Dr Plumbing & Heating repairs and installs household plumbing in Mercer Island, from leaking faucets and toilets to damaged pipes and whole-house repiping.",
+    sections: [
+      { heading: "Leaks, fixtures and water lines", text: "Tell us which fixture or pipe is affected and whether the problem is constant or happens only during use. We offer leak detection, pipe repairs, toilet installation, faucet and sink work, and shower and tub repairs." },
+      { heading: "Planning a repipe or fixture upgrade", text: "Share what you want to replace, any previous repairs and whether the fixtures will move. Pipe condition, access and the proposed layout help define the work before you approve a price." },
+      { heading: "Before your plumbing visit", text: "Send photos of the affected fixture and any visible leak. If water is escaping, stop using the fixture and shut off its water supply if you can reach the valve safely. Include your Mercer Island address when booking." },
+    ],
+  },
+  "areas/mercer-island/drain-sewer": {
+    heading: "Drain and sewer services in Mercer Island, WA",
+    lead: "Dr Plumbing & Heating clears household drains and repairs sewer lines for Mercer Island homes. We discuss the symptoms and condition of the line before choosing cleaning or repair work.",
+    sections: [
+      { heading: "One slow drain or several backed-up fixtures?", text: "A problem at one sink can differ from a backup affecting several fixtures. Tell us where water collects, whether toilets gurgle and which fixtures you were using when the problem started. Avoid using affected fixtures while wastewater is backing up." },
+      { heading: "Drain cleaning, hydrojetting or line repair", text: "Cleaning can remove a blockage, but a damaged sewer line may need repair or replacement. We offer drain cleaning, hydrojetting, sewer-line repair and trenchless options. Suitability depends on the line's condition and access." },
+      { heading: "Share the drain's repair history", text: "Let us know how often the blockage returns and whether the line has been repaired before. Existing inspection reports and photos can help us understand the problem at your Mercer Island home." },
+    ],
+  },
+  "areas/mercer-island/water-filtration": {
+    heading: "Water filtration in Mercer Island, WA",
+    lead: "Dr Plumbing & Heating installs water filtration and softening systems for Mercer Island homes. Start with the water concern and any test results so the equipment addresses the actual problem.",
+    sections: [
+      { heading: "Identify the concern before choosing a filter", text: "Taste, odor and mineral buildup do not all call for the same treatment. Describe what you notice, whether it affects hot and cold water, and whether it occurs throughout the home. A water test can help establish what needs treatment." },
+      { heading: "Compare treatment options", text: "We discuss softeners, carbon filters and reverse-osmosis systems, including whole-house and drinking-water applications. Available space, pipe access and the household's water use affect the installation." },
+      { heading: "Plan for maintenance as well as installation", text: "Filters need replacement and treatment systems need ongoing care. Ask about consumables, service access and maintenance requirements before choosing equipment. Send any water-test report and photos of your existing setup when contacting us." },
+    ],
+  },
+  "areas/mercer-island/heating-cooling": {
+    heading: "Heating and cooling in Mercer Island, WA",
+    lead: "Dr Plumbing & Heating services home heating and cooling equipment in Mercer Island. Tell us what system you have and whether you need a repair, maintenance or replacement planning.",
+    sections: [
+      { heading: "Describe the comfort problem", text: "Tell us whether the system will not start, runs without reaching the set temperature or leaves some rooms uncomfortable. Include any displayed error code, unusual sound and when the symptoms began." },
+      { heading: "Repair or replacement planning", text: "Equipment condition, the home's heating and cooling needs and the existing installation affect the options. Share the model label and photos of the equipment and surrounding space so we can discuss the next step." },
+      { heading: "Boiler or radiant heating?", text: "If your home uses a boiler and hot-water radiators or radiant floors, choose the dedicated boiler service from the Mercer Island page. Identifying the system helps us prepare for the right type of visit." },
+    ],
+  },
+  "areas/mercer-island/boilers": {
+    heading: "Boiler services in Mercer Island, WA",
+    lead: "Dr Plumbing & Heating services boilers and hydronic heating for Mercer Island homes. Contact us about boiler repairs, maintenance, replacement or uneven heat from radiators and radiant floors.",
+    sections: [
+      { heading: "A boiler problem or a heating-zone problem?", text: "Tell us whether the whole home has lost heat or only certain rooms are affected. Share any error code, visible leak or unusual noise. These details help distinguish equipment symptoms from distribution or control problems." },
+      { heading: "Maintain, repair or replace the system", text: "The boiler's condition and the existing hydronic system guide the work. We discuss the equipment, controls and installation requirements before agreeing on repairs or replacement. A replacement needs to suit the heating system it serves." },
+      { heading: "What to send before a visit", text: "Include photos of the boiler's model label, nearby piping and controls. Tell us whether the boiler also provides domestic hot water and when it was last serviced, if known. Include your Mercer Island address and access details." },
+    ],
+  },
   "areas/bellevue": {
     heading: "Plumber in Bellevue, WA",
     lead: "Dr Plumbing & Heating repairs and installs plumbing for homes in Bellevue, WA. Tell us whether you need help with a leak, a blocked drain, a fixture or a larger plumbing project.",

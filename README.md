@@ -96,6 +96,14 @@ address bar. Homepage anchors such as `/#home-faq` and service section anchors
 stay supported. Unknown paths receive Cloudflare's 404 response instead of a
 homepage with a success status.
 
+City pages come from `src/cities.ts`. Mercer Island is the six-service test:
+`/plumber-mercer-island/` links to dedicated plumbing, water-heater replacement,
+drain and sewer, filtration, heating and cooling, and boiler pages. `CITY_PATHS`
+in `src/sitePaths.ts` defines their flat public addresses. The former nested
+addresses remain supported and receive 301 rules in the generated `_redirects`.
+Other cities retain `/areas-we-serve/{city}/` addresses; only listed city-service
+combinations generate pages. These branch changes require approval before deployment.
+
 The build generates `/robots.txt` and `/sitemap.xml` for
 `https://drplumbingheating.com`. Submit the sitemap through the owner's Search
 Console after deployment; generating it does not submit it or guarantee ranking.

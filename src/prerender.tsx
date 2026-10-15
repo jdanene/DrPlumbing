@@ -4,7 +4,7 @@ import App from "./App";
 import { headTags } from "./seo";
 
 export { PUBLIC_ROUTES, SITE_ORIGIN } from "./seo";
-export { routeHref } from "./sitePaths";
+export { PATH_REDIRECTS, routeHref } from "./sitePaths";
 export { PHOTOS } from "./projectPhotos";
 
 /**

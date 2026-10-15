@@ -18,7 +18,7 @@ import { SERVICES, serviceMenu } from "./content";
 import { renderPage } from "./prerender";
 import { resolveRoute, routeFromLocation } from "./routes";
 import { PUBLIC_ROUTES, SITE_ORIGIN, headTags } from "./seo";
-import { routeHref } from "./sitePaths";
+import { CITY_PATHS, PATH_REDIRECTS, routeHref } from "./sitePaths";
 
 /** A bracketed capitalized label such as [BELLEVUE LANDMARKS]; JSON arrays use brackets too. */
 const PLACEHOLDER = /\[[A-Z][A-Z ]*\]/;
@@ -89,6 +89,26 @@ describe("city addresses", () => {
     expect(routeHref("areas/newcastle")).toBe("/areas-we-serve/newcastle/");
   });
 
+  it("uses the requested flat Mercer Island path and retains the old bookmark", () => {
+    expect(routeHref("areas/mercer-island")).toBe("/plumber-mercer-island/");
+    expect(routeFromLocation("/plumber-mercer-island/")).toBe("areas/mercer-island");
+    expect(routeFromLocation("/areas-we-serve/mercer-island/")).toBe("areas/mercer-island");
+  });
+
+  it("keeps every city alias crawlable at one canonical address", () => {
+    for (const [route, href] of Object.entries(CITY_PATHS)) {
+      expect(PUBLIC_ROUTES).toContain(route);
+      expect(routeFromLocation(href)).toBe(route);
+      expect(routeFromLocation(href.slice(0, -1))).toBe(route);
+      expect(routeFromLocation(`${href}extra/`)).toBe("not-found");
+      expect(headTags(route).find((tag) => tag.attributes.rel === "canonical")?.attributes.href).toBe(`${SITE_ORIGIN}${href}`);
+    }
+    for (const [oldPath, route] of Object.entries(PATH_REDIRECTS)) {
+      expect(routeFromLocation(oldPath)).toBe(route);
+      expect(routeFromLocation(oldPath.slice(0, -1))).toBe(route);
+    }
+  });
+
   it("resolves a city by name or slug, keeps the service only when listed, and rejects an unknown city", () => {
     expect(cityPageAt(["Bellevue"])).toEqual(bellevue);
     expect(bellevue).toMatchObject({ route: "areas/bellevue", city: { name: "Bellevue", slug: "bellevue" } });
@@ -106,9 +126,9 @@ describe("the city record", () => {
     const cities = confirmed(BUSINESS.serviceCities);
     expect(CITY_PAGES.map((city) => city.name)).toEqual([...cities]);
     const cityRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/"));
-    expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), "areas/bellevue/water-heaters", "areas/mercer-island/water-heater-replacement"]);
+    expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`)]);
     expect(new Set(PUBLIC_ROUTES).size).toBe(PUBLIC_ROUTES.length);
-    expect(PUBLIC_ROUTES).toHaveLength(61);
+    expect(PUBLIC_ROUTES).toHaveLength(66);
   });
 
   it("names only served cities and existing services in its hand-written tables", () => {
@@ -172,6 +192,41 @@ describe("city metadata", () => {
 });
 
 describe("city pages", () => {
+  it("gives all six Mercer Island service links distinct city pages", () => {
+    renderCity("areas/mercer-island");
+    const links = within(screen.getByRole("navigation", { name: "Services in Mercer Island" })).getAllByRole("link");
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "/plumbing-mercer-island/", "/water-heater-replacement-mercer-island/",
+      "/drain-and-sewer-mercer-island/", "/water-filtration-mercer-island/",
+      "/heating-and-cooling-mercer-island/", "/boilers-mercer-island/",
+    ]);
+    for (const link of links) {
+      const route = routeFromLocation(link.getAttribute("href")!);
+      expect(PUBLIC_ROUTES).toContain(route);
+      expect(renderPage(route).body).toContain("Mercer Island, WA");
+      expect(graphNodes(route, "Service")[0].areaServed).toEqual([{ "@type": "City", name: "Mercer Island" }]);
+    }
+  });
+
+  it.each([
+    ["plumbing", "General plumbing in Mercer Island, WA"],
+    ["drain-sewer", "Drain and sewer services in Mercer Island, WA"],
+    ["water-filtration", "Water filtration in Mercer Island, WA"],
+    ["heating-cooling", "Heating and cooling in Mercer Island, WA"],
+    ["boilers", "Boiler services in Mercer Island, WA"],
+  ])("renders Mercer Island %s with guidance and the correct booking service", (serviceId, heading) => {
+    renderCity(`areas/mercer-island/${serviceId}`);
+    const main = within(screen.getByRole("main"));
+    expect(main.getByRole("heading", { level: 1 }).textContent).toBe(heading);
+    expect(main.getAllByRole("heading", { level: 2 }).length).toBeGreaterThanOrEqual(4);
+    expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Mercer Island" }).getAttribute("href")).toBe("/plumber-mercer-island/");
+    act(() => {
+      window.history.pushState(null, "", "/book/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    expect((screen.getByLabelText("Service") as HTMLSelectElement).value).toBe(SERVICES.find((item) => item.id === serviceId)!.tab);
+  });
+
   it.each([
     ["areas/bellevue", "Plumber in Bellevue, WA"],
     ["areas/mercer-island", "Plumber in Mercer Island, WA"],
@@ -193,7 +248,7 @@ describe("city pages", () => {
 
   it("links Mercer Island to replacement guidance and retains the service selection in booking", () => {
     const mercer = cityPageAt(["mercer-island"])!;
-    expect(serviceHrefFor(mercer, "water-heaters")).toBe("/areas-we-serve/mercer-island/water-heater-replacement/");
+    expect(serviceHrefFor(mercer, "water-heaters")).toBe("/water-heater-replacement-mercer-island/");
     renderCity("areas/mercer-island/water-heater-replacement");
     act(() => {
       window.history.pushState(null, "", "/book/");
@@ -266,7 +321,7 @@ describe("city pages", () => {
     render(<AreasPage />);
     const list = within(screen.getByRole("list", { name: "" }) ?? screen.getByRole("list"));
     for (const city of CITY_PAGES) {
-      expect(list.getByRole("link", { name: city.name }).getAttribute("href")).toBe(`/areas-we-serve/${city.slug}/`);
+      expect(list.getByRole("link", { name: city.name }).getAttribute("href")).toBe(routeHref(`areas/${city.slug}`));
     }
   });
 });
