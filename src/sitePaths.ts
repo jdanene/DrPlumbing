@@ -21,16 +21,21 @@ export const PAGE_PATHS: Record<string, string> = {
 
 export const HOME_ANCHORS = ["home-reviews", "home-area", "home-services", "home-faq"];
 
+/** Only these owner-selected cities replicate the full Mercer Island service journey. */
+export const FULL_SERVICE_CITY_SLUGS = ["mercer-island", "federal-way", "newcastle"];
+
 /** City pages with owner-requested flat addresses; other cities retain the areas hierarchy. */
-export const CITY_PATHS: Record<string, string> = {
-  "areas/mercer-island": "/plumber-mercer-island/",
-  "areas/mercer-island/plumbing": "/plumbing-mercer-island/",
-  "areas/mercer-island/water-heater-replacement": "/water-heater-replacement-mercer-island/",
-  "areas/mercer-island/drain-sewer": "/drain-and-sewer-mercer-island/",
-  "areas/mercer-island/water-filtration": "/water-filtration-mercer-island/",
-  "areas/mercer-island/heating-cooling": "/heating-and-cooling-mercer-island/",
-  "areas/mercer-island/boilers": "/boilers-mercer-island/",
-};
+export const CITY_PATHS: Record<string, string> = Object.fromEntries(
+  FULL_SERVICE_CITY_SLUGS.flatMap((city) => [
+    [`areas/${city}`, `/plumber-${city}/`],
+    [`areas/${city}/plumbing`, `/plumbing-${city}/`],
+    [`areas/${city}/water-heater-replacement`, `/water-heater-replacement-${city}/`],
+    [`areas/${city}/drain-sewer`, `/drain-and-sewer-${city}/`],
+    [`areas/${city}/water-filtration`, `/water-filtration-${city}/`],
+    [`areas/${city}/heating-cooling`, `/heating-and-cooling-${city}/`],
+    [`areas/${city}/boilers`, `/boilers-${city}/`],
+  ]),
+);
 
 /** Old nested addresses resolve locally and redirect permanently on the static host. */
 export const PATH_REDIRECTS: Record<string, string> = Object.fromEntries(

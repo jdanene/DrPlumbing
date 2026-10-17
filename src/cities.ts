@@ -1,7 +1,7 @@
 import { BUSINESS, confirmed, confirmedFact, displayText, pendingFact, type Fact } from "./businessFacts";
 import { SERVICES, serviceMenu, type Service } from "./content";
 import { serviceDetailFor, serviceOptionHref, type ServiceDetail } from "./serviceDetails";
-import { pathSlug, routeHref } from "./sitePaths";
+import { FULL_SERVICE_CITY_SLUGS, pathSlug, routeHref } from "./sitePaths";
 
 /**
  * Description: The served cities as pages: which city pages exist, which city-and-service pages
@@ -52,12 +52,14 @@ export const CITY_PAGES: readonly CityPage[] = confirmed(BUSINESS.serviceCities)
 /** The city-and-service pages that exist. An allowlist, never a cross product of cities and services. */
 export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string; slug?: string; label?: string }[] = [
   { citySlug: "bellevue", serviceId: "water-heaters" },
-  { citySlug: "mercer-island", serviceId: "water-heaters", slug: "water-heater-replacement", label: "Water heater replacement" },
-  { citySlug: "mercer-island", serviceId: "plumbing" },
-  { citySlug: "mercer-island", serviceId: "drain-sewer" },
-  { citySlug: "mercer-island", serviceId: "water-filtration" },
-  { citySlug: "mercer-island", serviceId: "heating-cooling" },
-  { citySlug: "mercer-island", serviceId: "boilers" },
+  ...FULL_SERVICE_CITY_SLUGS.flatMap((citySlug) => [
+    { citySlug, serviceId: "water-heaters", slug: "water-heater-replacement", label: "Water heater replacement" },
+    { citySlug, serviceId: "plumbing" },
+    { citySlug, serviceId: "drain-sewer" },
+    { citySlug, serviceId: "water-filtration" },
+    { citySlug, serviceId: "heating-cooling" },
+    { citySlug, serviceId: "boilers" },
+  ]),
 ];
 
 /**
@@ -80,8 +82,8 @@ function optionDetail(service: Service, label: string): ServiceDetail {
   };
 }
 
-/** All menu options are pages only in the explicitly requested Mercer Island test. */
-export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => entry.citySlug === "mercer-island").flatMap((entry) => {
+/** All menu options become pages only for cities selected for the full service journey. */
+export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => FULL_SERVICE_CITY_SLUGS.includes(entry.citySlug)).flatMap((entry) => {
   const service = SERVICES.find((item) => item.id === entry.serviceId)!;
   return serviceMenu(service)
     .filter((label) => !SERVICES.some((item) => item.id === service.optionTargets?.[label]))
@@ -99,7 +101,7 @@ export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => entry.city
  * Inputs: page is the current city context or undefined; serviceId is a category; label optionally selects an option.
  * Output: A listed city page, otherwise the original site-wide destination. Category aliases retain city context.
  * Examples: Mercer Island Gas water heaters opens /gas-water-heaters-mercer-island/;
- * its Water filtration systems link opens /water-filtration-mercer-island/; Newcastle retains site-wide options.
+ * its Water filtration systems link opens /water-filtration-mercer-island/; Renton retains site-wide options.
  */
 export function serviceHrefFor(page: CityPageMatch | undefined, serviceId: string, label?: string): string {
   if (label) {
@@ -193,6 +195,22 @@ export const CITY_PAGE_COPY: Record<string, {
     ],
   },
 };
+
+// Reuse the approved Mercer Island wording so city replicas cannot drift in scope or service claims.
+const mercerCopy = Object.entries(CITY_PAGE_COPY).filter(([route]) => route === "areas/mercer-island" || route.startsWith("areas/mercer-island/"));
+for (const citySlug of FULL_SERVICE_CITY_SLUGS.filter((slug) => slug !== "mercer-island")) {
+  const city = CITY_PAGES.find((page) => page.slug === citySlug)!;
+  for (const [route, copy] of mercerCopy) {
+    CITY_PAGE_COPY[route.replace("mercer-island", citySlug)] = {
+      heading: copy.heading.replaceAll("Mercer Island", city.name),
+      lead: copy.lead.replaceAll("Mercer Island", city.name),
+      sections: copy.sections.map((section) => ({
+        heading: section.heading.replaceAll("Mercer Island", city.name),
+        text: section.text.replaceAll("Mercer Island", city.name),
+      })),
+    };
+  }
+}
 
 /**
  * Description: Resolves the path segments after "areas" to a city page, so routing, metadata and the

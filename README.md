@@ -155,6 +155,18 @@ Mercer Island service pages reuse `ServicePage`, including the main page's photo
 galleries and educational sections. Only location wording and navigation differ.
 These branch changes require approval before deployment.
 
+Federal Way and Newcastle replicate this same 42-page journey on the local
+`codex/federal-way-newcastle-pages` branch. Their entry points are
+`/plumber-federal-way/` and `/plumber-newcastle/`. They are not deployed.
+`FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
+paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
+with the selected city's name. Other cities keep their current behavior.
+The local build includes 183 sitemap pages; this does not change the live sitemap.
+
+The reusable instructions are committed at
+[`skills/drplumbing-city-pages/SKILL.md`](skills/drplumbing-city-pages/SKILL.md).
+Use `$drplumbing-city-pages` to repeat this work for another requested city.
+
 The build generates `/robots.txt` and `/sitemap.xml` for
 `https://drplumbingheating.com`. Submit the sitemap through the owner's Search
 Console after deployment; generating it does not submit it or guarantee ranking.

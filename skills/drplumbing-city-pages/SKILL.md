@@ -21,7 +21,7 @@ Inspect these sources before editing:
 - `src/cities.ts`: city allowlist, Mercer Island copy, category and option pages,
   and city-aware service links.
 - `src/sitePaths.ts` and `src/routes.ts`: public paths, old-path redirects, and
-  direct navigation.
+  direct navigation. `FULL_SERVICE_CITY_SLUGS` is the opt-in list for replicas.
 - `src/CityPage.tsx`, `src/SiteContent.tsx`, and `src/SiteShell.tsx`: city overview,
   service pages, header, mobile navigation, footer, and related-service links.
 - `src/content.ts`, `src/serviceDetails.ts`, and `src/projectPhotos.ts`: shared
