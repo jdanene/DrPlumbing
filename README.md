@@ -153,17 +153,14 @@ explanations. Header, mobile, footer and sibling service links retain Mercer
 Island context. Other cities and site-wide navigation keep their existing behavior.
 Mercer Island service pages reuse `ServicePage`, including the main page's photos,
 galleries and educational sections. Only location wording and navigation differ.
-These branch changes require approval before deployment.
-
-Federal Way and Newcastle replicate this same 42-page journey on the local
-`codex/federal-way-newcastle-pages` branch. Their entry points are
+Federal Way and Newcastle replicate this same 42-page journey. Their entry points are
 `/federal-way-residential-plumber/` and `/plumber-newcastle/`. Federal Way's existing
 water-heater category uses `/federal-way-water-heater-installation/`; its former
-addresses redirect to the requested paths. They are not deployed.
+addresses redirect to the requested paths.
 `FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
 paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.
-The local build includes 183 sitemap pages; this does not change the live sitemap.
+The production build includes 183 sitemap pages.
 
 The reusable instructions are committed at
 [`skills/drplumbing-city-pages/SKILL.md`](skills/drplumbing-city-pages/SKILL.md).
