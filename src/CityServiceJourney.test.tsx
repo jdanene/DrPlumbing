@@ -30,14 +30,14 @@ describe("Mercer Island service journeys", () => {
     expect(options?.querySelectorAll("a").length).toBe(serviceMenu(SERVICES.find((service) => service.id === serviceId)!).length);
   });
 
-  it("leaves every other city's service menus and site-wide options unchanged", () => {
-    expect(CITY_OPTION_PAGES.every((item) => item.citySlug === "mercer-island")).toBe(true);
-    expect(new Set(CITY_OPTION_PAGES.map((item) => routeHref(item.route))).size).toBe(35);
+  it("leaves unselected cities' service menus and site-wide options unchanged", () => {
+    expect([...new Set(CITY_OPTION_PAGES.map((item) => item.citySlug))]).toEqual(["mercer-island", "federal-way", "newcastle"]);
+    expect(new Set(CITY_OPTION_PAGES.map((item) => routeHref(item.route))).size).toBe(105);
     window.history.replaceState(null, "", "/areas-we-serve/bellevue/");
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "Plumbing" }));
     expect(within(screen.getByRole("navigation", { name: "Main" })).getByRole("link", { name: "Gas water heaters" }).getAttribute("href")).toBe("/water-heaters/gas-water-heaters/");
-    expect(serviceHrefFor(cityPageAt(["newcastle"]), "boilers", "Boiler repair")).toBe("/boilers/#boiler-repair-and-replacement");
+    expect(serviceHrefFor(cityPageAt(["renton"]), "boilers", "Boiler repair")).toBe("/boilers/#boiler-repair-and-replacement");
   });
 
   it("keeps header, mobile and footer services in Mercer Island", () => {

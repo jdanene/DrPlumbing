@@ -68,7 +68,7 @@ describe("city addresses", () => {
     ["#areas", "areas"],
     ["#areas/bellevue/water-heaters", "areas/bellevue/water-heaters"],
     ["#areas/bellevue/boilers", "areas/bellevue"],
-    ["#areas/newcastle/water-heaters", "areas/newcastle"],
+    ["#areas/renton/water-heaters", "areas/renton"],
   ])("resolves %s to %s", (hash, route) => {
     expect(resolveRoute(hash)).toBe(route);
   });
@@ -87,7 +87,8 @@ describe("city addresses", () => {
 
   it("joins the city and service into one public path", () => {
     expect(routeHref("areas/bellevue/water-heaters")).toBe("/areas-we-serve/bellevue/water-heaters/");
-    expect(routeHref("areas/newcastle")).toBe("/areas-we-serve/newcastle/");
+    expect(routeHref("areas/newcastle")).toBe("/plumber-newcastle/");
+    expect(routeHref("areas/renton")).toBe("/areas-we-serve/renton/");
   });
 
   it("uses the requested flat Mercer Island path and retains the old bookmark", () => {
@@ -129,7 +130,7 @@ describe("the city record", () => {
     const cityRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/"));
     expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`), ...CITY_OPTION_PAGES.map((entry) => entry.route)]);
     expect(new Set(PUBLIC_ROUTES).size).toBe(PUBLIC_ROUTES.length);
-    expect(PUBLIC_ROUTES).toHaveLength(101);
+    expect(PUBLIC_ROUTES).toHaveLength(183);
   });
 
   it("names only served cities and existing services in its hand-written tables", () => {
@@ -141,13 +142,27 @@ describe("the city record", () => {
     }
   });
 
-  it("keeps every city's landmarks pending until the owner supplies them", () => {
+  it("keeps unverified landmarks pending without displaying placeholders", () => {
     expect(bellevue.city.landmarks).toEqual({ status: "pending", placeholder: "[BELLEVUE LANDMARKS]" });
     const landmarks = cityPageAt(["East Hill-Meridian"])!.city.landmarks;
     expect(landmarks.status === "pending" && landmarks.placeholder).toBe("[EAST HILL MERIDIAN LANDMARKS]");
-    expect(cityLandmarksText(bellevue)).toBe("[BELLEVUE LANDMARKS]");
+    expect(cityLandmarksText(bellevue)).toBeUndefined();
     vi.stubEnv("PROD", true);
     expect(cityLandmarksText(bellevue)).toBeUndefined();
+  });
+
+  it.each([
+    ["newcastle", "Newcastle", "Lake Boren Park", "May Creek Park"],
+    ["federal-way", "Federal Way", "Celebration Park", "Steel Lake Park"],
+    ["mercer-island", "Mercer Island", "Luther Burbank Park", "Pioneer Park"],
+  ])("shows the approved landmark sentence for %s", (slug, name, first, second) => {
+    const page = cityPageAt([slug])!;
+    const sentence = `We serve homes throughout ${name}, including near ${first} and ${second}.`;
+    expect(cityLandmarksText(page)).toBe(sentence);
+    expect(CITY_LANDMARKS[slug].source).toMatch(/^https:\/\//);
+    expect(CITY_LANDMARKS[slug].confirmedOn).toBe("2026-10-17");
+    renderCity(page.route);
+    expect(screen.getByRole("main").textContent).toContain(sentence);
   });
 
   it("writes the heading and the answer from the facts alone", () => {
@@ -263,23 +278,26 @@ describe("city pages", () => {
     const main = within(screen.getByRole("main"));
     expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Plumber in Bellevue, WA");
     expect(screen.getByRole("main").textContent).toContain("You approve a flat-rate price before work starts.");
-    expect(screen.getByRole("main").textContent).toContain("[BELLEVUE LANDMARKS]");
+    expect(screen.getByRole("main").textContent).not.toMatch(PLACEHOLDER);
     const links = within(main.getByRole("navigation", { name: "Services in Bellevue" })).getAllByRole("link");
     expect(links.map((link) => link.textContent)).toEqual(SERVICES.map((service) => service.tab));
     expect(links.map((link) => link.getAttribute("href"))).toEqual(SERVICES.map((service) => serviceHrefFor(bellevue, service.id)));
     expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Areas we serve" }).getAttribute("href")).toBe("/areas-we-serve/");
   });
 
-  it("sends a Bellevue visitor to the Bellevue water-heaters page and everyone else to the service", () => {
+  it("keeps Bellevue's water-heater exception and unselected cities' original services", () => {
     expect(serviceHrefFor(bellevue, "water-heaters")).toBe("/areas-we-serve/bellevue/water-heaters/");
     expect(serviceHrefFor(bellevue, "boilers")).toBe("/boilers/");
-    expect(serviceHrefFor(cityPageAt(["newcastle"])!, "water-heaters")).toBe("/water-heaters/");
+    expect(serviceHrefFor(cityPageAt(["renton"])!, "water-heaters")).toBe("/water-heaters/");
   });
 
-  it("shows nothing in place of pending landmarks in production", () => {
-    vi.stubEnv("PROD", true);
-    renderCity("areas/bellevue");
-    expect(screen.getByRole("main").textContent).not.toContain("[");
+  it.each([false, true])("omits pending landmarks with production mode %s", (production) => {
+    vi.stubEnv("PROD", production);
+    for (const city of ["bellevue", "mercer-island", "federal-way", "newcastle"]) {
+      renderCity(`areas/${city}`);
+      expect(screen.getByRole("main").textContent).not.toMatch(PLACEHOLDER);
+      cleanup();
+    }
   });
 
   it("lists the water-heater options in Bellevue and links the full service page", () => {
@@ -314,8 +332,8 @@ describe("city pages", () => {
   it("prerenders Newcastle with its name in the body", () => {
     const { body, head } = renderPage("areas/newcastle");
     expect(body).toContain("Newcastle");
-    expect(body).toContain("Plumbing, heating and cooling in Newcastle, WA");
-    expect(head).toContain("/areas-we-serve/newcastle/");
+    expect(body).toContain("Plumber in Newcastle, WA");
+    expect(head).toContain("/plumber-newcastle/");
   });
 
   it("links every served city from the areas page", () => {

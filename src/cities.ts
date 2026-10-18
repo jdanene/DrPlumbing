@@ -1,19 +1,19 @@
-import { BUSINESS, confirmed, confirmedFact, displayText, pendingFact, type Fact } from "./businessFacts";
+import { BUSINESS, confirmed, confirmedFact, pendingFact, type ConfirmedFact, type Fact } from "./businessFacts";
 import { SERVICES, serviceMenu, type Service } from "./content";
 import { serviceDetailFor, serviceOptionHref, type ServiceDetail } from "./serviceDetails";
-import { pathSlug, routeHref } from "./sitePaths";
+import { FULL_SERVICE_CITY_SLUGS, pathSlug, routeHref } from "./sitePaths";
 
 /**
  * Description: The served cities as pages: which city pages exist, which city-and-service pages
  * exist, how a path resolves to one, and the sentences every city page says about the firm. The
  * module reads the business record and the service catalog; it holds no React and no schema.org
  * shaping (seo.ts), and it never invents a fact about a city.
- * Inputs: None. Cities come from BUSINESS.serviceCities; landmarks come from the owner.
+ * Inputs: None. Cities come from BUSINESS.serviceCities; approved landmarks cite official city records.
  * Output: CITY_PAGES, CITY_SERVICE_PAGES, cityPageAt(), cityHeading() and cityAnswer().
  * Examples: CityPages.test.tsx runs every example in the headers below.
  */
 
-/** One served city: its name, its path segment, and two landmarks the owner has named. */
+/** One served city: its name, its path segment, and its verified local landmarks. */
 export interface CityPage {
   name: string;
   slug: string;
@@ -28,36 +28,46 @@ export interface CityPageMatch {
   detail?: ServiceDetail;
 }
 
-/**
- * Two landmarks per city, keyed by city slug, as the owner supplies them. Empty until then, so every
- * city's landmarks are pending. Fill the pairs and the source line below together in one reviewed change.
- */
-export const CITY_LANDMARKS: Record<string, [string, string]> = {};
-const LANDMARKS_SOURCE = "Owner";
-const LANDMARKS_CONFIRMED_ON = "";
+/** Owner-approved landmark references, verified against each city's parks directory. */
+export const CITY_LANDMARKS: Record<string, ConfirmedFact<readonly [string, string]>> = {
+  newcastle: confirmedFact(
+    ["Lake Boren Park", "May Creek Park"],
+    "https://newcastlewa.gov/parks_and_trails/parks-trails/city-parks/",
+    "2026-10-17",
+  ),
+  "federal-way": confirmedFact(
+    ["Celebration Park", "Steel Lake Park"],
+    "https://www.federalwaywa.gov/page/our-parks",
+    "2026-10-17",
+  ),
+  "mercer-island": confirmedFact(
+    ["Luther Burbank Park", "Pioneer Park"],
+    "https://www.mercerisland.gov/parksrec/page/parks-facilities",
+    "2026-10-17",
+  ),
+};
 
 /** One page per served city, in the record's order. */
 export const CITY_PAGES: readonly CityPage[] = confirmed(BUSINESS.serviceCities).map((name) => {
   const slug = pathSlug(name);
-  const pair = CITY_LANDMARKS[slug];
   return {
     name,
     slug,
-    landmarks: pair
-      ? confirmedFact<readonly [string, string]>(pair, LANDMARKS_SOURCE, LANDMARKS_CONFIRMED_ON)
-      : pendingFact(`[${name.toUpperCase().replace(/[^A-Z]+/g, " ")} LANDMARKS]`),
+    landmarks: CITY_LANDMARKS[slug] ?? pendingFact(`[${name.toUpperCase().replace(/[^A-Z]+/g, " ")} LANDMARKS]`),
   };
 });
 
 /** The city-and-service pages that exist. An allowlist, never a cross product of cities and services. */
 export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string; slug?: string; label?: string }[] = [
   { citySlug: "bellevue", serviceId: "water-heaters" },
-  { citySlug: "mercer-island", serviceId: "water-heaters", slug: "water-heater-replacement", label: "Water heater replacement" },
-  { citySlug: "mercer-island", serviceId: "plumbing" },
-  { citySlug: "mercer-island", serviceId: "drain-sewer" },
-  { citySlug: "mercer-island", serviceId: "water-filtration" },
-  { citySlug: "mercer-island", serviceId: "heating-cooling" },
-  { citySlug: "mercer-island", serviceId: "boilers" },
+  ...FULL_SERVICE_CITY_SLUGS.flatMap((citySlug) => [
+    { citySlug, serviceId: "water-heaters", slug: "water-heater-replacement", label: citySlug === "federal-way" ? "Water heater installation" : "Water heater replacement" },
+    { citySlug, serviceId: "plumbing" },
+    { citySlug, serviceId: "drain-sewer" },
+    { citySlug, serviceId: "water-filtration" },
+    { citySlug, serviceId: "heating-cooling" },
+    { citySlug, serviceId: "boilers" },
+  ]),
 ];
 
 /**
@@ -80,8 +90,8 @@ function optionDetail(service: Service, label: string): ServiceDetail {
   };
 }
 
-/** All menu options are pages only in the explicitly requested Mercer Island test. */
-export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => entry.citySlug === "mercer-island").flatMap((entry) => {
+/** All menu options become pages only for cities selected for the full service journey. */
+export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => FULL_SERVICE_CITY_SLUGS.includes(entry.citySlug)).flatMap((entry) => {
   const service = SERVICES.find((item) => item.id === entry.serviceId)!;
   return serviceMenu(service)
     .filter((label) => !SERVICES.some((item) => item.id === service.optionTargets?.[label]))
@@ -99,7 +109,7 @@ export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => entry.city
  * Inputs: page is the current city context or undefined; serviceId is a category; label optionally selects an option.
  * Output: A listed city page, otherwise the original site-wide destination. Category aliases retain city context.
  * Examples: Mercer Island Gas water heaters opens /gas-water-heaters-mercer-island/;
- * its Water filtration systems link opens /water-filtration-mercer-island/; Newcastle retains site-wide options.
+ * its Water filtration systems link opens /water-filtration-mercer-island/; Renton retains site-wide options.
  */
 export function serviceHrefFor(page: CityPageMatch | undefined, serviceId: string, label?: string): string {
   if (label) {
@@ -194,6 +204,26 @@ export const CITY_PAGE_COPY: Record<string, {
   },
 };
 
+// Reuse the approved Mercer Island wording so city replicas cannot drift in scope or service claims.
+const mercerCopy = Object.entries(CITY_PAGE_COPY).filter(([route]) => route === "areas/mercer-island" || route.startsWith("areas/mercer-island/"));
+for (const citySlug of FULL_SERVICE_CITY_SLUGS.filter((slug) => slug !== "mercer-island")) {
+  const city = CITY_PAGES.find((page) => page.slug === citySlug)!;
+  for (const [route, copy] of mercerCopy) {
+    CITY_PAGE_COPY[route.replace("mercer-island", citySlug)] = {
+      heading: copy.heading.replaceAll("Mercer Island", city.name),
+      lead: copy.lead.replaceAll("Mercer Island", city.name),
+      sections: copy.sections.map((section) => ({
+        heading: section.heading.replaceAll("Mercer Island", city.name),
+        text: section.text.replaceAll("Mercer Island", city.name),
+      })),
+    };
+  }
+}
+
+// Federal Way uses the owner's requested residential and installation search topics.
+CITY_PAGE_COPY["areas/federal-way"].heading = "Residential plumber in Federal Way, WA";
+CITY_PAGE_COPY["areas/federal-way/water-heater-replacement"].heading = "Water heater installation in Federal Way, WA";
+
 /**
  * Description: Resolves the path segments after "areas" to a city page, so routing, metadata and the
  * static build agree on which city addresses exist.
@@ -258,12 +288,12 @@ export function cityAnswer(page: CityPageMatch) {
 }
 
 /**
- * Description: The sentence that places the firm's work in the city, from the owner's two landmarks.
+ * Description: Adds approved local references to the city's service coverage.
  * Inputs: page is a resolved city page.
- * Output: "We work in homes from A to B." when confirmed; the bracketed placeholder outside
- * production; undefined in production while the landmarks are pending.
- * Examples: Bellevue reads "[BELLEVUE LANDMARKS]" under vitest and undefined with PROD stubbed true.
+ * Output: A coverage sentence naming two verified landmarks, or undefined when none are confirmed.
+ * Examples: Newcastle names Lake Boren Park and May Creek Park; pending Bellevue landmarks add no sentence.
  */
 export function cityLandmarksText(page: CityPageMatch) {
-  return displayText(page.city.landmarks, ([from, to]) => `We work in homes from ${from} to ${to}.`);
+  const landmarks = confirmed(page.city.landmarks);
+  return landmarks ? `We serve homes throughout ${page.city.name}, including near ${landmarks[0]} and ${landmarks[1]}.` : undefined;
 }
