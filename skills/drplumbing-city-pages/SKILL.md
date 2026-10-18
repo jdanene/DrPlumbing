@@ -35,7 +35,9 @@ Inspect these sources before editing:
   `src/businessFacts.ts`. Leave all other cities and general-site links alone.
 - The current Mercer Island set has one overview, six categories, and 35 option
   pages. Inspect the current catalog before assuming those counts still apply.
-- The overview is `/plumber-{city}/`, not a generic installation or service URL.
+- The overview normally uses `/plumber-{city}/`. Preserve requested exceptions
+  recorded in `CITY_PATHS`: Federal Way uses `/federal-way-residential-plumber/`
+  and `/federal-way-water-heater-installation/` for its overview and heater category.
   Keep the existing category names and paths, including
   `/water-heater-replacement-{city}/`, `/heating-and-cooling-{city}/`, and
   `/drain-and-sewer-{city}/`. Options use `/{option}-{city}/`.
@@ -52,6 +54,9 @@ Inspect these sources before editing:
 - Localize the overview, heading, introduction, booking text, metadata, and
   service area in schema. Preserve shared business/contact facts. Do not leave
   “Mercer Island” in the new city's rendered copy or claim photos were taken there.
+- Use each city's verified landmark record for the approved coverage sentence.
+  When adding requested landmarks, verify them against official city sources and
+  record the source URL and date. Never show unfinished landmark placeholders.
 - Preserve booking service preselection and existing call/text destinations.
 - Update the generated sitemap and redirects through the route catalog; do not
   hand-edit build output. Keep development/preview indexing rules unchanged.

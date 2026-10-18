@@ -157,7 +157,9 @@ These branch changes require approval before deployment.
 
 Federal Way and Newcastle replicate this same 42-page journey on the local
 `codex/federal-way-newcastle-pages` branch. Their entry points are
-`/plumber-federal-way/` and `/plumber-newcastle/`. They are not deployed.
+`/federal-way-residential-plumber/` and `/plumber-newcastle/`. Federal Way's existing
+water-heater category uses `/federal-way-water-heater-installation/`; its former
+addresses redirect to the requested paths. They are not deployed.
 `FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
 paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.

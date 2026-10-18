@@ -25,22 +25,30 @@ export const HOME_ANCHORS = ["home-reviews", "home-area", "home-services", "home
 export const FULL_SERVICE_CITY_SLUGS = ["mercer-island", "federal-way", "newcastle"];
 
 /** City pages with owner-requested flat addresses; other cities retain the areas hierarchy. */
-export const CITY_PATHS: Record<string, string> = Object.fromEntries(
-  FULL_SERVICE_CITY_SLUGS.flatMap((city) => [
-    [`areas/${city}`, `/plumber-${city}/`],
-    [`areas/${city}/plumbing`, `/plumbing-${city}/`],
-    [`areas/${city}/water-heater-replacement`, `/water-heater-replacement-${city}/`],
-    [`areas/${city}/drain-sewer`, `/drain-and-sewer-${city}/`],
-    [`areas/${city}/water-filtration`, `/water-filtration-${city}/`],
-    [`areas/${city}/heating-cooling`, `/heating-and-cooling-${city}/`],
-    [`areas/${city}/boilers`, `/boilers-${city}/`],
-  ]),
-);
+export const CITY_PATHS: Record<string, string> = {
+  ...Object.fromEntries(
+    FULL_SERVICE_CITY_SLUGS.flatMap((city) => [
+      [`areas/${city}`, `/plumber-${city}/`],
+      [`areas/${city}/plumbing`, `/plumbing-${city}/`],
+      [`areas/${city}/water-heater-replacement`, `/water-heater-replacement-${city}/`],
+      [`areas/${city}/drain-sewer`, `/drain-and-sewer-${city}/`],
+      [`areas/${city}/water-filtration`, `/water-filtration-${city}/`],
+      [`areas/${city}/heating-cooling`, `/heating-and-cooling-${city}/`],
+      [`areas/${city}/boilers`, `/boilers-${city}/`],
+    ]),
+  ),
+  "areas/federal-way": "/federal-way-residential-plumber/",
+  "areas/federal-way/water-heater-replacement": "/federal-way-water-heater-installation/",
+};
 
 /** Old nested addresses resolve locally and redirect permanently on the static host. */
-export const PATH_REDIRECTS: Record<string, string> = Object.fromEntries(
-  Object.keys(CITY_PATHS).map((route) => [`${PAGE_PATHS.areas}${route.slice("areas/".length)}/`, route]),
-);
+export const PATH_REDIRECTS: Record<string, string> = {
+  ...Object.fromEntries(
+    Object.keys(CITY_PATHS).map((route) => [`${PAGE_PATHS.areas}${route.slice("areas/".length)}/`, route]),
+  ),
+  "/plumber-federal-way/": "areas/federal-way",
+  "/water-heater-replacement-federal-way/": "areas/federal-way/water-heater-replacement",
+};
 
 /**
  * Description: Gives an existing route its crawlable link without exposing path aliases to callers.
