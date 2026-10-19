@@ -172,6 +172,13 @@ fixture and shower pages remain available at their published URLs; grouping the
 menu does not delete those pages. Our Work features bathroom remodeling before the
 remaining projects. Photo sources are recorded in `design/photo-classification/owner-additions.json`.
 
+Photo alt text names the service shown. Every hero, section and gallery photo on
+a city-service page appends that page's city, such as “in Bellevue.” General pages
+retain the shared description without a city suffix. `ProjectPhoto` adds the
+service-area name while rendering; it never changes the shared photo record.
+General plumbing leads the service tabs, and Plumbing leads the Our Work service
+filters after All. The general plumbing hero uses the owner-selected IMG_8591.
+
 The reusable instructions are committed at
 [`skills/drplumbing-city-pages/SKILL.md`](skills/drplumbing-city-pages/SKILL.md).
 Use `$drplumbing-city-pages` to repeat this work for another requested city.

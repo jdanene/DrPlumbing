@@ -18,230 +18,234 @@ export interface ProjectPhotoData {
 
 const ROOT = "/service-photos/selected/by-service";
 export const PHOTOS = {
+  plumbingTechnician: {
+    src: `${ROOT}/about/on-the-job/176_IMG_8591 2.jpg`,
+    alt: "Residential water heater installation by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
+  },
   heatingCirculation: {
     src: `${ROOT}/boilers/hydronic-heating/008_IMG_0427.jpg`,
-    alt: "Three circulation pumps connected to insulated heating pipes beside a Rinnai appliance", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Hydronic heating system with circulation pumps by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   completedBoiler: {
     src: "/service-photos/selected/owner-submitted/boilers/hydronic-heating/completedBoiler.webp",
-    alt: "Boiler connected to copper heating circuits, an expansion tank and flue", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Boiler installation and heating pipework by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   sewerConnection: {
     src: "/service-photos/selected/owner-submitted/drain-and-sewer/sewer-line-repair-and-replacement/sewerConnection.webp",
-    alt: "Replacement sewer pipe connection and capped cleanout exposed in an excavation", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Sewer line replacement with cleanout access by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   concreteTrenching: {
     src: `${ROOT}/about/on-the-job/035_IMG_1194.jpg`,
-    alt: "Crew cutting and breaking an interior concrete floor to open a trench", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Below-floor plumbing installation and concrete trenching by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   equipmentConnections: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/system-overview/equipmentConnections.webp",
-    alt: "Insulated water pipes and shutoff valves connected to commercial mechanical equipment", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Commercial plumbing and equipment pipe connections by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   heatingPlant: {
     src: `${ROOT}/boilers/hydronic-heating/140_IMG_7279 2.jpg`,
-    alt: "Boiler plant with circulation pumps, expansion vessels and distribution pipes", width: 1600, height: 1200,
+    alt: "Commercial boiler and hydronic heating system by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   treatmentVessels: {
     src: `${ROOT}/water-filtration/system-overview/082_IMG_3517.jpg`,
-    alt: "Three water-treatment vessels with automatic controls beside a boiler", width: 1600, height: 1200,
+    alt: "Water treatment system installation by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   sinkInProgress: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/bathroom-remodeling/sinkInProgress.webp",
-    alt: "Rectangular sink on a floating wood vanity with protective wrapping on the faucet during installation", width: 1200, height: 1600,
+    alt: "Bathroom sink and faucet installation during a complete remodel by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   windowTub: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/windowTub.webp",
-    alt: "Freestanding bathtub beside tall windows with a floor-mounted faucet", width: 1200, height: 1600,
+    alt: "Freestanding bathtub and floor-mounted faucet installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   electronicToilet: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/toilet-repair-and-installation/electronicToilet.webp",
-    alt: "White toilet with illuminated controls and an electrical connection beside tan tile", width: 1600, height: 1200,
+    alt: "Modern toilet installation as part of a bathroom remodel by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   drainRoughIn: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/bathroom-remodeling/drainRoughIn.webp",
-    alt: "Drain pipes and floor connections exposed beside open wall framing during construction", width: 1200, height: 1600,
+    alt: "Drain and water line installation for a complete bathroom remodel by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   finishedTub: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/finishedTub.webp",
-    alt: "Freestanding bathtub with black wall-mounted faucet and handheld shower", width: 1200, height: 1600,
+    alt: "Bathtub installation with tub filler and handheld spray by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   kitchenSink: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/kitchen-remodeling/kitchenSink.webp",
-    alt: "Stainless steel kitchen sink with a tall spray faucet and adjacent handwashing sink", width: 1600, height: 1200,
+    alt: "Commercial kitchen sink and faucet installation by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   remodeledBathroom: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/bathroom-remodeling/remodeledBathroom.webp",
-    alt: "Finished bathroom with a freestanding tub, glass shower, overhead rain shower and wall-hung toilet", width: 1600, height: 1200,
+    alt: "Complete bathroom remodeling with walk-in shower, freestanding tub and toilet by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   doubleVanity: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/faucets-fixtures-and-sinks/doubleVanity.webp",
-    alt: "Double vanity with black faucets, illuminated mirror and wall-mounted towel warmer", width: 1600, height: 1200,
+    alt: "Double vanity and faucet installation for a bathroom remodel by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   rainShower: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/rainShower.webp",
-    alt: "Glass-enclosed shower with a ceiling-mounted rain shower head and black handheld shower", width: 1200, height: 1600,
+    alt: "Rain shower installation with glass enclosure and handheld spray by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   customShower: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/customShower.webp",
-    alt: "Steam shower with ceiling-mounted fittings and a handheld shower against blue and warm-toned tile", width: 1200, height: 1600,
+    alt: "Steam shower installation for a complete bathroom remodel by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   wallHungToilet: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/toilet-repair-and-installation/wallHungToilet.webp",
-    alt: "Wall-hung toilet beneath a concealed-cistern flush plate", width: 1200, height: 1600,
+    alt: "Wall-hung toilet and concealed cistern installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   bathroomRoughIn: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/piping-and-repiping/bathroomRoughIn.webp",
-    alt: "Bathtub beside exposed wall framing, insulation and red and blue supply pipes", width: 1200, height: 1600,
+    alt: "Bathroom plumbing installation before finishing a complete remodel by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   compactTankless: {
     src: "/service-photos/selected/owner-submitted/water-heaters/tankless-water-heaters/compactTankless.webp",
-    alt: "Wall-mounted Rheem tankless water heater with copper pipes and shutoff valves", width: 1200, height: 1600,
+    alt: "Tankless water heater installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   crawlspaceHeating: {
     src: "/service-photos/selected/owner-submitted/boilers/hydronic-heating/crawlspaceHeating.webp",
-    alt: "Hydronic heating pipework, expansion tank and wall-mounted appliances beneath floor joists", width: 1600, height: 1200,
+    alt: "Residential hydronic heating installation beneath a home by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   homeFiltration: {
     src: "/service-photos/selected/owner-submitted/water-filtration/uv-treatment/homeFiltration.webp",
-    alt: "Wall-mounted filter cartridges and UV treatment connected with copper pipes", width: 1200, height: 1600,
+    alt: "Whole-house water filtration and UV treatment installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   homeSewerWork: {
     src: "/service-photos/selected/owner-submitted/drain-and-sewer/sewer-line-repair-and-replacement/homeSewerWork.webp",
-    alt: "Crew working in a sewer excavation beside a house with removed pipe sections", width: 1200, height: 1600,
+    alt: "Residential sewer line replacement by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   boilerCloset: {
     src: "/service-photos/selected/owner-submitted/boilers/hydronic-heating/boilerCloset.webp",
-    alt: "Boiler with copper distribution pipework installed in a narrow equipment closet", width: 1200, height: 1600,
+    alt: "Boiler installation with heating distribution pipework by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   bathroom: {
     src: `${ROOT}/general-plumbing/showers-and-tubs/best/184_IMG_9192.jpg`,
-    alt: "Bathroom with tub, shower, toilet and basin", width: 1200, height: 1600, position: "50% 65%",
+    alt: "Complete bathroom remodel with bathtub, shower, sink and toilet by Dr Plumbing & Heating", width: 1200, height: 1600, position: "50% 65%",
   },
   shower: {
     src: `${ROOT}/general-plumbing/showers-and-tubs/best/188_IMG_9196.jpg`,
-    alt: "Finished bathtub and shower fittings", width: 1200, height: 1600,
+    alt: "Tub and shower fixture installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   freestandingBathroom: {
     src: "/service-photos/selected/owner-submitted/general-plumbing/showers-and-tubs/freestanding-bathroom.png",
-    alt: "Freestanding white bathtub, glass shower enclosure and wall-hung toilet in a tiled bathroom", width: 638, height: 458, frameRatio: "629 / 458", trimLeft: 9,
+    alt: "Complete bathroom remodeling with freestanding tub and walk-in shower by Dr Plumbing & Heating", width: 638, height: 458, frameRatio: "629 / 458", trimLeft: 9,
   },
   bathtubRoughIn: {
     src: `${ROOT}/general-plumbing/showers-and-tubs/best/121_IMG_4275.jpg`,
-    alt: "Bathtub beneath exposed shower valves and pipework in an unfinished wall", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Bathtub and shower plumbing installation before wall finishing by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   basin: {
     src: `${ROOT}/general-plumbing/faucets-fixtures-and-sinks/best/014_IMG_0653.jpg`,
-    alt: "Undermount basin and chrome faucet in a black stone vanity", width: 1200, height: 1600, position: "65% 65%",
+    alt: "Bathroom sink and faucet installation by Dr Plumbing & Heating", width: 1200, height: 1600, position: "65% 65%",
   },
   toilet: {
     src: `${ROOT}/general-plumbing/toilet-repair-and-installation/best/189_IMG_9197.jpg`,
-    alt: "Toilet with a bidet attachment beside a finished bathtub", width: 1600, height: 1200, position: "65% 60%",
+    alt: "Toilet and bidet attachment installation by Dr Plumbing & Heating", width: 1600, height: 1200, position: "65% 60%",
   },
   gasMeter: {
     src: `${ROOT}/general-plumbing/gas-line-repair-and-installation/best/088_IMG_3550.jpg`,
-    alt: "Outdoor gas meter, shutoff valves and connected gas pipes", width: 1200, height: 1600,
+    alt: "Gas line plumbing with meter and shutoff connections by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   manifold: {
     src: `${ROOT}/general-plumbing/piping-and-repiping/best/061_IMG_2918.jpg`,
-    alt: "Copper water-supply distribution manifold", width: 1200, height: 1600,
+    alt: "Home repiping with individual fixture shutoff valves by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   waterLine: {
     src: `${ROOT}/general-plumbing/piping-and-repiping/best/044_IMG_1446.jpg`,
-    alt: "Blue water-supply pipe in an outdoor trench", width: 1200, height: 1600,
+    alt: "Underground water-supply line installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   drillingRig: {
     src: `${ROOT}/general-plumbing/system-overview/096_IMG_3652 3.jpg`,
-    alt: "Directional drilling rig beside a driveway excavation", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Trenchless water line work with directional drilling equipment by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   roughIn: {
     src: `${ROOT}/general-plumbing/piping-and-repiping/best/127_IMG_4388.jpg`,
-    alt: "Red and blue supply pipes with black drain pipes in wall framing", width: 1600, height: 1200,
+    alt: "Water-supply and drain plumbing installation before wall finishing by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   tank: {
     src: `${ROOT}/water-heaters/electric-water-heaters/best/095_IMG_3652.jpg`,
-    alt: "Rheem electric tank water heater with an expansion tank", width: 1200, height: 1600,
+    alt: "Electric tank water heater installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   tankless: {
     src: `${ROOT}/water-heaters/tankless-water-heaters/best/132_IMG_5541.jpg`,
-    alt: "Rinnai gas tankless water heater with venting and connected pipework", width: 1379, height: 1600,
+    alt: "Gas tankless water heater installation by Dr Plumbing & Heating", width: 1379, height: 1600,
   },
   twinNavien: {
     src: `${ROOT}/water-heaters/system-overview/081_IMG_3366.jpg`,
-    alt: "Two Navien tankless water heaters with copper pipework on a blue mounting panel", width: 1600, height: 1433, frameRatio: "1600 / 1433",
+    alt: "Dual tankless water heater installation by Dr Plumbing & Heating", width: 1600, height: 1433, frameRatio: "1600 / 1433",
   },
   sewer: {
     src: `${ROOT}/drain-and-sewer/sewer-line-repair-and-replacement/best/056_IMG_1881.jpg`,
-    alt: "Green sewer pipe and coupling exposed in an outdoor trench", width: 1200, height: 1600,
+    alt: "Sewer pipe repair and replacement connection by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   filters: {
     src: `${ROOT}/water-filtration/uv-treatment/best/013_IMG_0552.jpg`,
-    alt: "Whole-house filter cartridges and UV treatment connected with copper pipes", width: 1600, height: 1200,
+    alt: "Whole-house water filtration and UV treatment by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   softener: {
     src: `${ROOT}/water-filtration/water-softeners/best/028_IMG_0890.jpg`,
-    alt: "Water softener, filter cartridges and UV treatment on a wall-mounted installation", width: 1600, height: 1200,
+    alt: "Water softener installation with filtration and UV treatment by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   unitHeater: {
     src: `${ROOT}/heating-and-cooling/heating/best/149_IMG_7290.jpg`,
-    alt: "Piped unit heater inside a protective cage", width: 1600, height: 1200,
+    alt: "Unit heater installation and connected heating pipework by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   towelRadiator: {
     src: `${ROOT}/boilers/hydronic-heating/014_IMG_0653.jpg`,
-    alt: "Wall-mounted towel radiator with pipe connections beside a bathroom vanity", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Bathroom towel radiator installation by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   boiler: {
     src: `${ROOT}/boilers/hydronic-heating/best/063_IMG_2970.jpg`,
-    alt: "Hydronic heating plant with connected appliances, circulation pumps and pipework", width: 1600, height: 1546,
+    alt: "Boiler and hydronic heating installation by Dr Plumbing & Heating", width: 1600, height: 1546,
   },
   floorStandingBoiler: {
     src: `${ROOT}/boilers/hydronic-heating/084_IMG_3526.jpg`,
-    alt: "Hydronic heating system with a Weil-McLain boiler, copper pipework and an expansion vessel", width: 1200, height: 1600,
+    alt: "Boiler installation with heating pipework and expansion tank by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   circulators: {
     src: `${ROOT}/boilers/hydronic-heating/best/009_IMG_0428.jpg`,
-    alt: "Three hydronic circulation pumps with insulated headers and blue pipe branches", width: 1200, height: 1600,
+    alt: "Hydronic heating circulation pump installation by Dr Plumbing & Heating", width: 1200, height: 1600,
   },
   technician: {
     src: `${ROOT}/about/on-the-job/best/105_IMG_3750.jpg`,
-    alt: "Mehran using a RIDGID press tool on copper heating pipework", width: 1600, height: 1200, position: "22% 45%",
+    alt: "Hydronic heating pipe installation using copper press fittings by Dr Plumbing & Heating", width: 1600, height: 1200, position: "22% 45%",
   },
   ownerWithPressTool: {
     src: `${ROOT}/about/on-the-job/best/107_IMG_3753.jpg`,
-    alt: "Mehran smiling with a press tool beside copper hydronic heating pipework", width: 1600, height: 1200, position: "22% 45%",
+    alt: "Mehran of Dr Plumbing & Heating with a copper plumbing press tool", width: 1600, height: 1200, position: "22% 45%",
   },
   copperPressDetail: {
     src: `${ROOT}/about/on-the-job/103_IMG_3745.jpg`,
-    alt: "Gloved hands using a press tool on a copper hydronic heating connection", width: 1200, height: 1600, position: "50% 85%",
+    alt: "Copper press connections for hydronic heating installation by Dr Plumbing & Heating", width: 1200, height: 1600, position: "50% 85%",
   },
   technicianFiltration: {
     src: `${ROOT}/about/on-the-job/best/033_IMG_1113.jpg`,
-    alt: "Technician standing beside a water-treatment installation", width: 1600, height: 1200, position: "20% 50%",
+    alt: "Water filtration system installation by Dr Plumbing & Heating", width: 1600, height: 1200, position: "20% 50%",
   },
   ownerOnSite: {
     src: `${ROOT}/about/on-the-job/116_IMG_4240.jpg`,
-    alt: "Mehran kneeling beside an open heating appliance and copper pipework on site", width: 1600, height: 1200,
+    alt: "Heating appliance service and connected copper plumbing by Dr Plumbing & Heating", width: 1600, height: 1200,
   },
   welding: {
     src: `${ROOT}/about/on-the-job/023_IMG_0789.jpg`,
-    alt: "Technician welding beside a pump assembly", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Pump pipework welding by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   boilerWork: {
     src: `${ROOT}/boilers/hydronic-heating/080_IMG_3354.jpg`,
-    alt: "Technician working on pipework beneath a wall-mounted HTP heating appliance", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Boiler pipework installation by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   pipeAlignment: {
     src: `${ROOT}/boilers/hydronic-heating/099_IMG_3738.jpg`,
-    alt: "Technician checking copper heating-pipe alignment with a level", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Hydronic heating pipe installation and alignment by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
   solderingHeatingPipe: {
     src: `${ROOT}/boilers/hydronic-heating/098_IMG_3724.jpg`,
-    alt: "Technician soldering a copper joint on hydronic heating pipework", width: 1200, height: 1600, frameRatio: "3 / 4",
+    alt: "Copper pipe soldering for hydronic heating by Dr Plumbing & Heating", width: 1200, height: 1600, frameRatio: "3 / 4",
   },
 } satisfies Record<string, ProjectPhotoData>;
 
 export const SERVICE_PHOTOS: Record<string, ProjectPhotoData> = {
-  plumbing: PHOTOS.freestandingBathroom,
+  plumbing: PHOTOS.plumbingTechnician,
   "water-heaters": PHOTOS.twinNavien,
   "drain-sewer": PHOTOS.sewer,
   "water-filtration": PHOTOS.filters,

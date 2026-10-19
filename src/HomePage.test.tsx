@@ -31,8 +31,16 @@ describe("the redesigned homepage", () => {
     const photos = screen.getAllByRole("img");
     expect(new Set(photos.map(photo => photo.getAttribute("src"))).size).toBe(photos.length);
     expect(photos.filter(photo => photo.getAttribute("loading") === "eager")).toHaveLength(1);
-    expect(photos[0]?.getAttribute("alt")).toContain("Gloved hands");
+    expect(photos[0]?.getAttribute("alt")).toBe(PHOTOS.copperPressDetail.alt);
     expect(photos[0]?.getAttribute("src")).toBe(PHOTOS.copperPressDetail.src);
+  });
+
+  it("uses the full-resolution bathroom original for the remodeling feature", () => {
+    render(<HomePage />);
+    const feature = screen.getByRole("heading", { name: "Bathrooms, made for everyday life." }).closest("a")!;
+    expect(feature.getAttribute("href")).toBe("/plumbing/complete-bathroom-remodeling/");
+    expect(within(feature).getByRole("img").getAttribute("src")).toBe(PHOTOS.remodeledBathroom.src);
+    expect(within(feature).getByText("Showers, tubs & fixtures")).toBeDefined();
   });
 
   it("keeps answers collapsed until requested and preserves the booking destination", () => {

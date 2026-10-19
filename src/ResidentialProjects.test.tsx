@@ -16,6 +16,14 @@ import WorkPage from "./WorkPage";
 afterEach(cleanup);
 
 describe("additive residential project placement", () => {
+  it("puts Plumbing before bathroom remodeling in the Our Work filters", () => {
+    render(<WorkPage />);
+    const filters = within(screen.getByRole("group", { name: "Filter projects" }));
+    expect(filters.getAllByRole("button").slice(0, 3).map(button => button.textContent)).toEqual([
+      "All", "Plumbing", "Complete bathroom remodeling",
+    ]);
+  });
+
   it.each([
     ["Plumbing", [PHOTOS.concreteTrenching, PHOTOS.equipmentConnections]],
     ["Boilers", [PHOTOS.heatingPlant, PHOTOS.boilerCloset, PHOTOS.completedBoiler]],
@@ -83,13 +91,16 @@ describe("additive residential project placement", () => {
     expect(screen.getAllByRole("article")).toHaveLength(WORK_PROJECTS.length);
     expect(section.getAllByRole("link", { name: /Explore bathroom remodeling/ }).every(link => link.getAttribute("href") === "/plumbing/complete-bathroom-remodeling/")).toBe(true);
   });
-  it("preserves general plumbing services and its hero", () => {
+  it("leads with General plumbing and uses the owner-selected technician photo", () => {
     render(<ServicePage service={SERVICES.find(item => item.id === "plumbing")!} />);
     const services = within(screen.getByRole("navigation", { name: "Services" }));
+    expect(services.getAllByRole("link").slice(0, 2).map(link => link.textContent)).toEqual([
+      "General plumbing", "Complete bathroom remodeling",
+    ]);
     expect(services.getByRole("link", { name: "Complete bathroom remodeling" }).getAttribute("href")).toBe("/plumbing/complete-bathroom-remodeling/");
     expect(screen.queryByRole("link", { name: "Read more about Complete bathroom remodeling" })).toBeNull();
     expect(screen.getByRole("heading", { name: "Our plumbing services" })).toBeDefined();
-    expect(screen.getByRole("img", { name: PHOTOS.freestandingBathroom.alt })).toBeDefined();
+    expect(screen.getByRole("img", { name: "Residential water heater installation by Dr Plumbing & Heating" }).getAttribute("src")).toContain("176_IMG_8591 2.jpg");
   });
 
   it("links the homepage introduction to the dedicated remodeling page", () => {

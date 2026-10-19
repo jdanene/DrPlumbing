@@ -56,7 +56,7 @@ export default function HomePage() {
         <div className="home-section-heading"><h2 id="work-title">The work.<br /><span>The difference.</span></h2><div><p>From the fittings you see to the pipework behind the wall. Take a closer look at our projects.</p><a className="text-link" href={routeHref("work")}>Explore our work <Arrow /></a></div></div>
         <div className="featured-projects">
           <a className="featured-project bathroom-project" href={routeHref("plumbing/complete-bathroom-remodeling")}>
-            <ProjectPhoto photo={PHOTOS.freestandingBathroom} fullFrame />
+            <ProjectPhoto photo={PHOTOS.remodeledBathroom} fullFrame />
             <div className="project-caption"><div><h3>Bathrooms, made for everyday life.</h3><p>Showers, tubs &amp; fixtures</p></div><span className="round-arrow"><Arrow /></span></div>
           </a>
           <a className="featured-project hot-water-project" href={routeHref("water-heaters")}>
@@ -82,7 +82,7 @@ export default function HomePage() {
 
       <section className="home-owner wrap" aria-labelledby="owner-title">
         <div className="owner-statement"><h2 id="owner-title">A family business.<br />A personal standard.</h2><blockquote>“If I would not do it in my own house, I will not recommend it for yours.”</blockquote><p><strong>Mehran</strong> · Owner, Dr Plumbing &amp; Heating</p><a className="text-link" href={routeHref("about")}>Meet the team <Arrow /></a></div>
-        <figure className="owner-van"><img src="/van/dr-sprinter-side-v9.jpg" alt="Dr Plumbing, Heating and Cooling branded Sprinter van design" width="1619" height="971" loading="lazy" /><figcaption>Family owned. Here for Greater Seattle homes.</figcaption></figure>
+        <figure className="owner-van"><img src="/van/dr-sprinter-side-v9.jpg" alt="Dr Plumbing & Heating residential plumbing and heating service van design" width="1619" height="971" loading="lazy" /><figcaption>Family owned. Here for Greater Seattle homes.</figcaption></figure>
       </section>
 
       <section className="home-review" id="home-reviews" aria-labelledby="review-title"><div className="wrap review-layout"><div><h2 id="review-title">What our<br />customers say.</h2><a className="text-link" href="https://share.google/1MNxAAukRtLZXNZlW" target="_blank" rel="noreferrer">Read Google reviews <Arrow /></a></div><figure><blockquote>“Honestly, I’ve never seen such dedication and service. They fixed every problem we had.”</blockquote><figcaption>Google review · 5 out of 5 stars</figcaption></figure></div></section>

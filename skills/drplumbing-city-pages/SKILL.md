@@ -51,6 +51,16 @@ Inspect these sources before editing:
 - Keep the main service pages' pictures, galleries, and educational sections.
   Preserve the existing category-photo fallback where Mercer Island uses it.
   Check actual image loading, not just the presence of an image element.
+- Use service-first alt text for customers and SEO/AEO, such as “Residential
+  water heater installation by Dr Plumbing & Heating.” On every city-service
+  page, append the current city's display name: “... in Bellevue.” Apply this
+  to all hero, section and gallery photos, including every detailed service
+  page in the Mercer Island, Redmond and other full-city sets. General pages
+  retain the base alt text without a city suffix. Reuse the shared photo record
+  and localize at rendering so city names never leak into general pages or
+  another city. The suffix identifies the service area, not a claim about the
+  photographed job's location. Confirm any new alt-text direction with Jide
+  before applying it.
 - Localize the overview, heading, introduction, booking text, metadata, and
   service area in schema. Preserve shared business/contact facts. Do not leave
   “Mercer Island” in the new city's rendered copy or claim photos were taken there.
@@ -65,7 +75,8 @@ Inspect these sources before editing:
 
 Extend the existing city-page and city-journey tests for each requested city.
 Check direct URLs, all category/option destinations, parent/sibling navigation,
-canonical/schema city names, original photos, and unchanged unrelated cities.
+canonical/schema city names, original photos, city suffixes on every service
+photo's alt text, no city suffixes on general pages, and unchanged unrelated cities.
 Run `npm run check`. If parallel tests time out, diagnose and run with fewer
 workers without skipping tests or increasing limits to conceal failures.
 
