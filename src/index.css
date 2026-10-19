@@ -1375,10 +1375,45 @@ section {
   gap: 24px;
   align-items: start;
 }
+.service-project-gallery:has(> figure:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 480px;
+}
+.residential-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+}
+.residential-intro h2 {
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.residential-intro p {
+  margin-block: 16px;
+  max-width: 65ch;
+  line-height: 1.65;
+}
+.residential-intro figure { margin: 0; min-width: 0; }
+.residential-intro figcaption {
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.residential-intro { padding-block: clamp(40px, 6vw, 80px); }
+@media (max-width: 760px) {
+  .residential-intro { grid-template-columns: minmax(0, 1fr); }
+}
 .service-project-gallery figure {
   margin: 0;
   min-width: 0;
 }
+.s-body > .service-project-gallery { margin-top: 24px; }
+.work-remodeling { margin-top: 32px; }
+.work-remodeling h2, .work-other-title { font-size: clamp(28px, 3vw, 40px); }
+.work-remodeling > .lead { margin-block: 12px 24px; }
+.work-other-title { margin-block: 48px 24px; }
 .service-project-gallery a {
   display: block;
   border-radius: 20px;

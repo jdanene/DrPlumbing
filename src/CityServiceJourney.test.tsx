@@ -5,10 +5,10 @@ import App from "./App";
 import { CITY_OPTION_PAGES, CITY_SERVICE_PAGES, cityPageAt, serviceHrefFor } from "./cities";
 import { SERVICES, serviceMenu } from "./content";
 import { renderPage } from "./prerender";
-import { serviceDetailFor } from "./serviceDetails";
+import { serviceDetailFor, serviceNavigationMenu } from "./serviceDetails";
 import { routeFromLocation } from "./routes";
 import { PUBLIC_ROUTES, headTags } from "./seo";
-import { pathSlug, routeHref } from "./sitePaths";
+import { FULL_SERVICE_CITY_SLUGS, pathSlug, routeHref } from "./sitePaths";
 
 beforeEach(() => {
   localStorage.clear();
@@ -27,17 +27,17 @@ describe("Mercer Island service journeys", () => {
     expect([...city.querySelectorAll("main img")].map((img) => img.getAttribute("src"))).toEqual([...original.querySelectorAll("main img")].map((img) => img.getAttribute("src")));
     expect([...city.querySelectorAll(".svc-sec h2, .svc-sec h3, .svc-sec p")].map((node) => node.textContent)).toEqual([...original.querySelectorAll(".svc-sec h2, .svc-sec h3, .svc-sec p")].map((node) => node.textContent));
     const options = city.querySelector(`nav[aria-label="${SERVICES.find((service) => service.id === serviceId)!.tab} in Mercer Island"]`);
-    expect(options?.querySelectorAll("a").length).toBe(serviceMenu(SERVICES.find((service) => service.id === serviceId)!).length);
+    expect(options?.querySelectorAll("a").length).toBe(serviceNavigationMenu(SERVICES.find((service) => service.id === serviceId)!).length);
   });
 
   it("leaves unselected cities' service menus and site-wide options unchanged", () => {
-    expect([...new Set(CITY_OPTION_PAGES.map((item) => item.citySlug))]).toEqual(["mercer-island", "federal-way", "newcastle"]);
-    expect(new Set(CITY_OPTION_PAGES.map((item) => routeHref(item.route))).size).toBe(105);
-    window.history.replaceState(null, "", "/areas-we-serve/bellevue/");
+    expect([...new Set(CITY_OPTION_PAGES.map((item) => item.citySlug))]).toEqual(FULL_SERVICE_CITY_SLUGS);
+    expect(new Set(CITY_OPTION_PAGES.map((item) => routeHref(item.route))).size).toBe(288);
+    window.history.replaceState(null, "", "/areas-we-serve/auburn/");
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "Plumbing" }));
     expect(within(screen.getByRole("navigation", { name: "Main" })).getByRole("link", { name: "Gas water heaters" }).getAttribute("href")).toBe("/water-heaters/gas-water-heaters/");
-    expect(serviceHrefFor(cityPageAt(["renton"]), "boilers", "Boiler repair")).toBe("/boilers/#boiler-repair-and-replacement");
+    expect(serviceHrefFor(cityPageAt(["auburn"]), "boilers", "Boiler repair")).toBe("/boilers/#boiler-repair-and-replacement");
   });
 
   it("keeps header, mobile and footer services in Mercer Island", () => {

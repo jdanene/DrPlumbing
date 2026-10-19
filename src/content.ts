@@ -54,13 +54,17 @@ export const SERVICES: Service[] = [
     "tab": "General plumbing",
     "title": "General plumbing",
     "cta": "plumbing",
-    "short": "Leaks, fixtures, gas lines and repiping.",
+    "short": "Bathroom remodeling, leaks, gas lines and repiping.",
     "photo": "Finished bathroom or kitchen plumbing",
     "lead": "We repair, replace and install the plumbing in your home, from a single faucet to a whole-house repipe.",
     "sections": [
       {
         "heading": "Our plumbing services",
         "items": [
+          [
+            "Complete bathroom remodeling",
+            "We remodel bathrooms from framing, electrical and plumbing through to finished fixtures, showers and tubs."
+          ],
           [
             "Leak detection",
             "We find hidden leaks in walls, floors and slabs before they do more damage."

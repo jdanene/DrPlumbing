@@ -19,13 +19,13 @@ import { SERVICES, serviceMenu } from "./content";
 import { renderPage } from "./prerender";
 import { resolveRoute, routeFromLocation } from "./routes";
 import { PUBLIC_ROUTES, SITE_ORIGIN, headTags } from "./seo";
-import { CITY_PATHS, PATH_REDIRECTS, routeHref } from "./sitePaths";
+import { CITY_PATHS, FULL_SERVICE_CITY_SLUGS, PATH_REDIRECTS, routeHref } from "./sitePaths";
 
 /** A bracketed capitalized label such as [BELLEVUE LANDMARKS]; JSON arrays use brackets too. */
 const PLACEHOLDER = /\[[A-Z][A-Z ]*\]/;
 
 const bellevue = cityPageAt(["bellevue"])!;
-const bellevueWaterHeaters = cityPageAt(["bellevue", "water-heaters"])!;
+const bellevueWaterHeaters = cityPageAt(["bellevue", "water-heater-replacement"])!;
 const waterHeaters = SERVICES.find((service) => service.id === "water-heaters")!;
 
 /**
@@ -66,9 +66,9 @@ describe("city addresses", () => {
     ["#areas/nowhere", "areas"],
     ["#areas/", "areas"],
     ["#areas", "areas"],
-    ["#areas/bellevue/water-heaters", "areas/bellevue/water-heaters"],
-    ["#areas/bellevue/boilers", "areas/bellevue"],
-    ["#areas/renton/water-heaters", "areas/renton"],
+    ["#areas/bellevue/water-heaters", "areas/bellevue/water-heater-replacement"],
+    ["#areas/bellevue/boilers", "areas/bellevue/boilers"],
+    ["#areas/auburn/water-heaters", "areas/auburn"],
   ])("resolves %s to %s", (hash, route) => {
     expect(resolveRoute(hash)).toBe(route);
   });
@@ -76,19 +76,21 @@ describe("city addresses", () => {
   it.each([
     ["/areas-we-serve/newcastle/", "areas/newcastle"],
     ["/areas-we-serve/east-hill-meridian/", "areas/east-hill-meridian"],
-    ["/areas-we-serve/bellevue/water-heaters/", "areas/bellevue/water-heaters"],
+    ["/areas-we-serve/bellevue/water-heaters/", "areas/bellevue/water-heater-replacement"],
     ["/areas-we-serve/", "areas"],
     ["/areas-we-serve/nowhere/", "not-found"],
-    ["/areas-we-serve/bellevue/boilers/", "not-found"],
+    ["/areas-we-serve/bellevue/boilers/", "areas/bellevue/boilers"],
+    ["/areas-we-serve/auburn/boilers/", "not-found"],
     ["/areas-we-serve/bellevue/water-heaters/extra/", "not-found"],
   ])("maps the path %s to %s", (pathname, route) => {
     expect(routeFromLocation(pathname)).toBe(route);
   });
 
   it("joins the city and service into one public path", () => {
-    expect(routeHref("areas/bellevue/water-heaters")).toBe("/areas-we-serve/bellevue/water-heaters/");
+    expect(routeHref("areas/bellevue/water-heater-replacement")).toBe("/water-heater-replacement-bellevue/");
     expect(routeHref("areas/newcastle")).toBe("/plumber-newcastle/");
-    expect(routeHref("areas/renton")).toBe("/areas-we-serve/renton/");
+    expect(routeHref("areas/renton")).toBe("/plumber-renton/");
+    expect(routeHref("areas/auburn")).toBe("/areas-we-serve/auburn/");
   });
 
   it("uses the requested flat Mercer Island path and retains the old bookmark", () => {
@@ -115,9 +117,11 @@ describe("city addresses", () => {
     expect(cityPageAt(["Bellevue"])).toEqual(bellevue);
     expect(bellevue).toMatchObject({ route: "areas/bellevue", city: { name: "Bellevue", slug: "bellevue" } });
     expect(bellevue.service).toBeUndefined();
-    expect(bellevueWaterHeaters.route).toBe("areas/bellevue/water-heaters");
+    expect(bellevueWaterHeaters.route).toBe("areas/bellevue/water-heater-replacement");
     expect(bellevueWaterHeaters.service).toBe(waterHeaters);
-    expect(cityPageAt(["bellevue", "boilers"])).toEqual(bellevue);
+    expect(cityPageAt(["bellevue", "water-heaters"])).toEqual(bellevueWaterHeaters);
+    expect(cityPageAt(["bellevue", "boilers"])!.service?.id).toBe("boilers");
+    expect(cityPageAt(["auburn", "boilers"])).toEqual(cityPageAt(["auburn"]));
     expect(cityPageAt(["nowhere"])).toBeUndefined();
     expect(cityPageAt([])).toBeUndefined();
   });
@@ -130,7 +134,7 @@ describe("the city record", () => {
     const cityRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/"));
     expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`), ...CITY_OPTION_PAGES.map((entry) => entry.route)]);
     expect(new Set(PUBLIC_ROUTES).size).toBe(PUBLIC_ROUTES.length);
-    expect(PUBLIC_ROUTES).toHaveLength(183);
+    expect(PUBLIC_ROUTES).toHaveLength(397);
   });
 
   it("names only served cities and existing services in its hand-written tables", () => {
@@ -143,36 +147,42 @@ describe("the city record", () => {
   });
 
   it("keeps unverified landmarks pending without displaying placeholders", () => {
-    expect(bellevue.city.landmarks).toEqual({ status: "pending", placeholder: "[BELLEVUE LANDMARKS]" });
+    const auburn = cityPageAt(["auburn"])!;
+    expect(auburn.city.landmarks).toEqual({ status: "pending", placeholder: "[AUBURN LANDMARKS]" });
     const landmarks = cityPageAt(["East Hill-Meridian"])!.city.landmarks;
     expect(landmarks.status === "pending" && landmarks.placeholder).toBe("[EAST HILL MERIDIAN LANDMARKS]");
-    expect(cityLandmarksText(bellevue)).toBeUndefined();
+    expect(cityLandmarksText(auburn)).toBeUndefined();
     vi.stubEnv("PROD", true);
-    expect(cityLandmarksText(bellevue)).toBeUndefined();
+    expect(cityLandmarksText(auburn)).toBeUndefined();
   });
 
   it.each([
-    ["newcastle", "Newcastle", "Lake Boren Park", "May Creek Park"],
-    ["federal-way", "Federal Way", "Celebration Park", "Steel Lake Park"],
-    ["mercer-island", "Mercer Island", "Luther Burbank Park", "Pioneer Park"],
-  ])("shows the approved landmark sentence for %s", (slug, name, first, second) => {
+    ["newcastle", "Newcastle", "Lake Boren Park", "May Creek Park", "2026-10-17"],
+    ["federal-way", "Federal Way", "Celebration Park", "Steel Lake Park", "2026-10-17"],
+    ["mercer-island", "Mercer Island", "Luther Burbank Park", "Pioneer Park", "2026-10-17"],
+    ["bellevue", "Bellevue", "Downtown Park", "Kelsey Creek Park", "2026-10-18"],
+    ["renton", "Renton", "Gene Coulon Memorial Beach Park", "Liberty Park", "2026-10-18"],
+    ["kirkland", "Kirkland", "Marina Park", "Juanita Bay Park", "2026-10-18"],
+    ["redmond", "Redmond", "Marymoor Park", "Idylwood Beach Park", "2026-10-18"],
+    ["issaquah", "Issaquah", "Confluence Park", "Tibbetts Valley Park", "2026-10-18"],
+  ])("shows the approved landmark sentence for %s", (slug, name, first, second, confirmedOn) => {
     const page = cityPageAt([slug])!;
     const sentence = `We serve homes throughout ${name}, including near ${first} and ${second}.`;
     expect(cityLandmarksText(page)).toBe(sentence);
     expect(CITY_LANDMARKS[slug].source).toMatch(/^https:\/\//);
-    expect(CITY_LANDMARKS[slug].confirmedOn).toBe("2026-10-17");
+    expect(CITY_LANDMARKS[slug].confirmedOn).toBe(confirmedOn);
     renderCity(page.route);
     expect(screen.getByRole("main").textContent).toContain(sentence);
   });
 
   it("writes the heading and the answer from the facts alone", () => {
     expect(cityHeading(bellevue)).toBe("Plumber in Bellevue, WA");
-    expect(cityHeading(bellevueWaterHeaters)).toBe("Water heaters in Bellevue, WA");
+    expect(cityHeading(bellevueWaterHeaters)).toBe("Water heater replacement in Bellevue, WA");
     expect(cityAnswer(bellevue)).toBe(
-      "Dr Plumbing & Heating repairs and installs plumbing for homes in Bellevue, WA. Tell us whether you need help with a leak, a blocked drain, a fixture or a larger plumbing project. You approve a flat-rate price before work starts.",
+      "Dr Plumbing & Heating serves homes in Bellevue, WA, with plumbing repairs, fixture installation, drain and sewer work, repiping and water-heater services. You approve a flat-rate price before work starts.",
     );
     expect(cityAnswer(bellevueWaterHeaters)).toBe(
-      `Dr Plumbing & Heating serves homes in Bellevue, WA. ${waterHeaters.lead} You approve a flat-rate price before work starts.`,
+      "Dr Plumbing & Heating replaces water heaters in Bellevue homes. We help you compare tank, tankless and heat-pump options with the home's hot-water demand, existing fuel supply and installation space in mind. You approve a flat-rate price before work starts.",
     );
     expect(cityAnswer(bellevue)).not.toContain("response");
   });
@@ -182,7 +192,7 @@ describe("city metadata", () => {
   it("scopes the Bellevue page to Bellevue alone", () => {
     const tags = headTags("areas/bellevue");
     expect(tags.find((tag) => tag.tag === "title")?.text).toBe("Plumber in Bellevue, WA | Dr Plumbing & Heating");
-    expect(tags.find((tag) => tag.attributes.rel === "canonical")?.attributes.href).toBe("https://drplumbingheating.com/areas-we-serve/bellevue/");
+    expect(tags.find((tag) => tag.attributes.rel === "canonical")?.attributes.href).toBe("https://drplumbingheating.com/plumber-bellevue/");
     expect(tags.find((tag) => tag.attributes.name === "description")?.attributes.content).toContain("You approve a flat-rate price before work starts.");
     const [service] = graphNodes("areas/bellevue", "Service");
     expect(service.areaServed).toEqual([{ "@type": "City", name: "Bellevue" }]);
@@ -192,8 +202,8 @@ describe("city metadata", () => {
   });
 
   it("adds the service to the Bellevue water-heaters page", () => {
-    const route = "areas/bellevue/water-heaters";
-    expect(headTags(route).find((tag) => tag.tag === "title")?.text).toBe("Water heaters in Bellevue, WA | Dr Plumbing & Heating");
+    const route = "areas/bellevue/water-heater-replacement";
+    expect(headTags(route).find((tag) => tag.tag === "title")?.text).toBe("Water heater replacement in Bellevue, WA | Dr Plumbing & Heating");
     expect(graphNodes(route, "Service")[0].areaServed).toEqual([{ "@type": "City", name: "Bellevue" }]);
     const [crumbs] = graphNodes(route, "BreadcrumbList");
     expect((crumbs.itemListElement as { name: string }[]).map((crumb) => crumb.name)).toEqual(["Home", "Areas we serve", "Bellevue", "Water heaters"]);
@@ -280,41 +290,41 @@ describe("city pages", () => {
     expect(screen.getByRole("main").textContent).toContain("You approve a flat-rate price before work starts.");
     expect(screen.getByRole("main").textContent).not.toMatch(PLACEHOLDER);
     const links = within(main.getByRole("navigation", { name: "Services in Bellevue" })).getAllByRole("link");
-    expect(links.map((link) => link.textContent)).toEqual(SERVICES.map((service) => service.tab));
+    expect(links.map((link) => link.textContent)).toEqual(SERVICES.map((service) => service.id === "water-heaters" ? "Water heater replacement" : service.tab));
     expect(links.map((link) => link.getAttribute("href"))).toEqual(SERVICES.map((service) => serviceHrefFor(bellevue, service.id)));
     expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Areas we serve" }).getAttribute("href")).toBe("/areas-we-serve/");
   });
 
-  it("keeps Bellevue's water-heater exception and unselected cities' original services", () => {
-    expect(serviceHrefFor(bellevue, "water-heaters")).toBe("/areas-we-serve/bellevue/water-heaters/");
-    expect(serviceHrefFor(bellevue, "boilers")).toBe("/boilers/");
-    expect(serviceHrefFor(cityPageAt(["renton"])!, "water-heaters")).toBe("/water-heaters/");
+  it("keeps Bellevue's services local and unselected cities' original services unchanged", () => {
+    expect(serviceHrefFor(bellevue, "water-heaters")).toBe("/water-heater-replacement-bellevue/");
+    expect(serviceHrefFor(bellevue, "boilers")).toBe("/boilers-bellevue/");
+    expect(serviceHrefFor(cityPageAt(["auburn"])!, "water-heaters")).toBe("/water-heaters/");
   });
 
   it.each([false, true])("omits pending landmarks with production mode %s", (production) => {
     vi.stubEnv("PROD", production);
-    for (const city of ["bellevue", "mercer-island", "federal-way", "newcastle"]) {
+    for (const city of [...FULL_SERVICE_CITY_SLUGS, "auburn"]) {
       renderCity(`areas/${city}`);
       expect(screen.getByRole("main").textContent).not.toMatch(PLACEHOLDER);
       cleanup();
     }
   });
 
-  it("lists the water-heater options in Bellevue and links the full service page", () => {
-    renderCity("areas/bellevue/water-heaters");
+  it("renders the full water-heater page in Bellevue with local option links", () => {
+    renderCity("areas/bellevue/water-heater-replacement");
     const main = within(screen.getByRole("main"));
-    expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Water heaters in Bellevue, WA");
-    expect(screen.getByRole("main").textContent).toContain(waterHeaters.lead);
+    expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Water heater replacement in Bellevue, WA");
+    expect(screen.getByRole("main").textContent).toContain(cityAnswer(bellevueWaterHeaters));
     const options = within(main.getByRole("navigation", { name: "Water heaters in Bellevue" })).getAllByRole("link");
     expect(options.map((link) => link.textContent)).toEqual(serviceMenu(waterHeaters));
-    expect(options[0].getAttribute("href")).toBe("/water-heaters/electric-water-heaters/");
-    expect(main.getByRole("link", { name: "More about water heaters" }).getAttribute("href")).toBe("/water-heaters/");
-    expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Bellevue" }).getAttribute("href")).toBe("/areas-we-serve/bellevue/");
-    expect(main.queryByRole("heading", { name: "Our water heater services" })).toBeNull();
+    expect(options[0].getAttribute("href")).toBe("/electric-water-heaters-bellevue/");
+    expect(main.queryByRole("link", { name: "More about water heaters" })).toBeNull();
+    expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Bellevue" }).getAttribute("href")).toBe("/plumber-bellevue/");
+    expect(main.getByRole("heading", { name: "Our water heater services" })).toBeTruthy();
   });
 
   it("preselects the service in booking after a city-and-service page, and nothing after a city page", () => {
-    renderCity("areas/bellevue/water-heaters");
+    renderCity("areas/bellevue/water-heater-replacement");
     act(() => {
       window.history.pushState(null, "", "/book/");
       window.dispatchEvent(new PopStateEvent("popstate"));

@@ -4,10 +4,10 @@ import {
   SERVICE_GROUPS,
   PLUMBING_LICENSE,
   BUSINESS_NAME,
-  serviceMenu,
   servicesForGroup,
 } from "./content";
 import { Arrow } from "./SiteContent";
+import { serviceNavigationMenu } from "./serviceDetails";
 import { CITY_OPTION_PAGES, cityPageAt, serviceHrefFor } from "./cities";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
@@ -217,7 +217,7 @@ export default function SiteShell({
                           <span>{service.short}</span>
                         </a>
                         <ul>
-                          {serviceMenu(service).map((item) => (
+                          {serviceNavigationMenu(service).map((item) => (
                             <li key={item}>
                               <a href={serviceHrefFor(cityPage, service.id, item)}>{item}</a>
                             </li>

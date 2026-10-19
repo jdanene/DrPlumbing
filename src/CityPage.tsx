@@ -1,4 +1,5 @@
-import { SERVICES, serviceMenu } from "./content";
+import { SERVICES } from "./content";
+import { serviceNavigationMenu } from "./serviceDetails";
 import { CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, serviceHrefFor, type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
@@ -10,8 +11,8 @@ import { Arrow, CallToAction } from "./SiteContent";
  * Inputs: page is a resolved city page from cityPageAt().
  * Output: Breadcrumb, heading, the answer, the landmarks sentence when known, service links and the
  * call to action.
- * Examples: CityPages.test.tsx renders Bellevue with six service links and the Bellevue water-heaters
- * page with four option links and a link to /water-heaters/.
+ * Examples: CityPages.test.tsx renders Bellevue with six city-specific service links;
+ * unselected cities keep links to the general service pages.
  */
 export default function CityPage({ page }: { page: CityPageMatch }) {
   const { city, service } = page;
@@ -48,7 +49,7 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
             <h2>{service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}</h2>
             <nav className="svc-tabs" aria-label={service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}>
               {service
-                ? serviceMenu(service).map((label) => (
+                ? serviceNavigationMenu(service).map((label) => (
                     <a className="chip" href={serviceHrefFor(page, service.id, label)} key={label}>{label}</a>
                   ))
                 : SERVICES.map((item) => {

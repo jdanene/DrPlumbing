@@ -4,7 +4,6 @@ import {
   SERVICES,
   SERVICE_GROUPS,
   VALUES,
-  serviceMenu,
   servicesForGroup,
   type Service,
 } from "./content";
@@ -13,9 +12,10 @@ import {
   serviceDetailFor,
   serviceDetailSlug,
   serviceOptionHref,
+  serviceNavigationMenu,
   type ServiceDetail,
 } from "./serviceDetails";
-import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS } from "./projectPhotos";
+import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS, type WorkProject } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
 import { cityAnswer, cityHeading, serviceHrefFor, type CityPageMatch } from "./cities";
 
@@ -92,7 +92,7 @@ export function ServiceFinder() {
           <div className="fg-cards">
             {servicesForGroup(group).map((service) => (
               <article
-                className={`scard${serviceMenu(service).length > 6 ? " wide" : ""}`}
+                className={`scard${serviceNavigationMenu(service).length > 6 ? " wide" : ""}`}
                 key={service.id}
               >
                 <a className="scard-head" href={routeHref(service.id)}>
@@ -100,7 +100,7 @@ export function ServiceFinder() {
                   <p>{service.short}</p>
                 </a>
                 <ul className="opts">
-                  {serviceMenu(service).map((item) => (
+                  {serviceNavigationMenu(service).map((item) => (
                     <li key={item}>
                       <a className="opt" href={serviceOptionHref(service.id, item)}>
                         {item}
@@ -134,6 +134,27 @@ export function Values() {
           <h3>{title}</h3>
           <p>{copy}</p>
         </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Description: Shows project evidence beside its service explanation without cropping the work.
+ * Inputs: projects contains selected photographs and factual captions in display order.
+ * Output: Full-frame images linked to their originals; an empty collection renders no figures.
+ * Examples: ResidentialProjects.test.tsx checks fixture, shower and kitchen photos inside their sections.
+ */
+function ProjectGallery({ projects }: { projects: WorkProject[] }) {
+  return (
+    <div className="service-project-gallery">
+      {projects.map(project => (
+        <figure key={project.photo.src}>
+          <a href={project.photo.src} target="_blank" rel="noreferrer" aria-label={`View full photo: ${project.title}`}>
+            <ProjectPhoto photo={project.photo} fullFrame />
+          </a>
+          <figcaption>{project.description}</figcaption>
+        </figure>
       ))}
     </div>
   );
@@ -230,13 +251,23 @@ export function ServicePage({
           <div className="other">
             <h2>{service.tab} in {cityPage.city.name}</h2>
             <nav className="svc-tabs" aria-label={`${service.tab} in ${cityPage.city.name}`}>
-              {serviceMenu(service).map((label) => (
+              {serviceNavigationMenu(service).map((label) => (
                 <a className="chip" key={label} href={serviceHrefFor(cityPage, service.id, label)}>{label}</a>
               ))}
             </nav>
           </div>
         )}
+        {detail?.sectionNavigation && (
+          <nav className="svc-tabs" aria-label="On this page">
+            {detail.sectionNavigation.map(heading => (
+              <a className="chip" key={heading} href={`#${serviceDetailSlug(heading)}`}>{heading}</a>
+            ))}
+          </nav>
+        )}
         {page.sections.map((section, sectionIndex) => {
+          const sectionGallery = detail && section.heading
+            ? SERVICE_GALLERIES[`${service.id}/${serviceDetailSlug(detail.item)}#${serviceDetailSlug(section.heading)}`]
+            : undefined;
           const items = section.items ?? [];
           const headIntro = (items.length > 0 || section.paras) && section.intro;
           return (
@@ -323,6 +354,7 @@ export function ServicePage({
                 {section.after?.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
+                {sectionGallery && <ProjectGallery projects={sectionGallery.projects} />}
               </div>
             </section>
           );
@@ -331,16 +363,7 @@ export function ServicePage({
           <section className="svc-sec" aria-label={gallery.title}>
             <div className="s-head"><h2>{gallery.title}</h2></div>
             <div className="s-body">
-              <div className="service-project-gallery">
-                {gallery.projects.map((project) => (
-                  <figure key={project.photo.src}>
-                    <a href={project.photo.src} target="_blank" rel="noreferrer" aria-label={`View full photo: ${project.title}`}>
-                      <ProjectPhoto photo={project.photo} fullFrame />
-                    </a>
-                    <figcaption>{project.description}</figcaption>
-                  </figure>
-                ))}
-              </div>
+              <ProjectGallery projects={gallery.projects} />
             </div>
           </section>
         )}
@@ -349,10 +372,10 @@ export function ServicePage({
           <nav className="svc-tabs" aria-label={relatedHeading}>
             {detail ? (
               <>
-                {cityPage ? serviceMenu(service).filter((label) => label !== detail.item).map((label) => (
+                {cityPage ? serviceNavigationMenu(service).filter((label) => label !== detail.item).map((label) => (
                   <a className="chip" href={serviceHrefFor(cityPage, service.id, label)} key={label}>{label}</a>
                 )) : (SERVICE_DETAILS[service.id] ?? [])
-                  .filter((item) => item !== detail)
+                  .filter((item) => item !== detail && serviceNavigationMenu(service).includes(item.item))
                   .map((item) => (
                     <a
                       className="chip"

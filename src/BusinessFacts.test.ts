@@ -51,8 +51,9 @@ describe("the business record", () => {
     const cities = confirmed(BUSINESS.serviceCities);
     expect(cities).toContain("Newcastle");
     expect(new Set(cities).size).toBe(cities.length);
-    expect(cities).toHaveLength(29);
+    expect(cities).toHaveLength(30);
     expect(cities).toContain("Mercer Island");
+    expect(cities).toContain("Kirkland");
     expect(CITIES).toBe(cities);
     expect(BUSINESS_NAME).toBe("Dr Plumbing & Heating Group LLC");
     expect(PLUMBING_LICENSE.number).toBe("DRPLUPH740ND");
@@ -84,7 +85,7 @@ describe("one address rule", () => {
   });
 
   it("joins every child segment after the page", () => {
-    expect(routeHref("areas/bellevue/water-heaters")).toBe("/areas-we-serve/bellevue/water-heaters/");
+    expect(routeHref("areas/bellevue/water-heater-replacement")).toBe("/water-heater-replacement-bellevue/");
     expect(routeHref("drain-sewer/hydrojetting")).toBe("/drain-and-sewer/hydrojetting/");
     expect(routeHref("home")).toBe("/");
     expect(routeHref("nowhere/x")).toBe("/");

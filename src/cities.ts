@@ -1,6 +1,6 @@
 import { BUSINESS, confirmed, confirmedFact, pendingFact, type ConfirmedFact, type Fact } from "./businessFacts";
 import { SERVICES, serviceMenu, type Service } from "./content";
-import { serviceDetailFor, serviceOptionHref, type ServiceDetail } from "./serviceDetails";
+import { serviceDetailFor, serviceNavigationMenu, serviceOptionHref, type ServiceDetail } from "./serviceDetails";
 import { FULL_SERVICE_CITY_SLUGS, pathSlug, routeHref } from "./sitePaths";
 
 /**
@@ -30,6 +30,31 @@ export interface CityPageMatch {
 
 /** Owner-approved landmark references, verified against each city's parks directory. */
 export const CITY_LANDMARKS: Record<string, ConfirmedFact<readonly [string, string]>> = {
+  bellevue: confirmedFact(
+    ["Downtown Park", "Kelsey Creek Park"],
+    "https://bellevuewa.gov/sites/default/files/media/pdf_document/2023/Park-Site-Information.pdf",
+    "2026-10-18",
+  ),
+  renton: confirmedFact(
+    ["Gene Coulon Memorial Beach Park", "Liberty Park"],
+    "https://www.rentonwa.gov/Government/Departments-and-Offices/Parks-and-Recreation/Parks-and-Trails",
+    "2026-10-18",
+  ),
+  kirkland: confirmedFact(
+    ["Marina Park", "Juanita Bay Park"],
+    "https://www.kirklandwa.gov/Government/Departments/Parks-and-Community-Services/Find-a-Park/Juanita-Bay-Park",
+    "2026-10-18",
+  ),
+  redmond: confirmedFact(
+    ["Marymoor Park", "Idylwood Beach Park"],
+    "https://www.redmond.gov/Facilities/Facility/Details/Marymoor-Park-40; https://www.redmond.gov/1555/Parks",
+    "2026-10-18",
+  ),
+  issaquah: confirmedFact(
+    ["Confluence Park", "Tibbetts Valley Park"],
+    "https://www.issaquahwa.gov/DocumentCenter/View/10623/Issaquah-Parks-System-Plan-Adopted-Nov-2024",
+    "2026-10-18",
+  ),
   newcastle: confirmedFact(
     ["Lake Boren Park", "May Creek Park"],
     "https://newcastlewa.gov/parks_and_trails/parks-trails/city-parks/",
@@ -59,7 +84,6 @@ export const CITY_PAGES: readonly CityPage[] = confirmed(BUSINESS.serviceCities)
 
 /** The city-and-service pages that exist. An allowlist, never a cross product of cities and services. */
 export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string; slug?: string; label?: string }[] = [
-  { citySlug: "bellevue", serviceId: "water-heaters" },
   ...FULL_SERVICE_CITY_SLUGS.flatMap((citySlug) => [
     { citySlug, serviceId: "water-heaters", slug: "water-heater-replacement", label: citySlug === "federal-way" ? "Water heater installation" : "Water heater replacement" },
     { citySlug, serviceId: "plumbing" },
@@ -93,7 +117,8 @@ function optionDetail(service: Service, label: string): ServiceDetail {
 /** All menu options become pages only for cities selected for the full service journey. */
 export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => FULL_SERVICE_CITY_SLUGS.includes(entry.citySlug)).flatMap((entry) => {
   const service = SERVICES.find((item) => item.id === entry.serviceId)!;
-  return serviceMenu(service)
+  // Retain published option URLs even when navigation groups them under a new page.
+  return [...new Set([...serviceNavigationMenu(service), ...serviceMenu(service)])]
     .filter((label) => !SERVICES.some((item) => item.id === service.optionTargets?.[label]))
     .map((label) => ({
       citySlug: entry.citySlug,
@@ -109,7 +134,7 @@ export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => FULL_SERVI
  * Inputs: page is the current city context or undefined; serviceId is a category; label optionally selects an option.
  * Output: A listed city page, otherwise the original site-wide destination. Category aliases retain city context.
  * Examples: Mercer Island Gas water heaters opens /gas-water-heaters-mercer-island/;
- * its Water filtration systems link opens /water-filtration-mercer-island/; Renton retains site-wide options.
+ * its Water filtration systems link opens /water-filtration-mercer-island/; Auburn retains site-wide options.
  */
 export function serviceHrefFor(page: CityPageMatch | undefined, serviceId: string, label?: string): string {
   if (label) {
@@ -174,15 +199,6 @@ export const CITY_PAGE_COPY: Record<string, {
       { heading: "What to send before a visit", text: "Include photos of the boiler's model label, nearby piping and controls. Tell us whether the boiler also provides domestic hot water and when it was last serviced, if known. Include your Mercer Island address and access details." },
     ],
   },
-  "areas/bellevue": {
-    heading: "Plumber in Bellevue, WA",
-    lead: "Dr Plumbing & Heating repairs and installs plumbing for homes in Bellevue, WA. Tell us whether you need help with a leak, a blocked drain, a fixture or a larger plumbing project.",
-    sections: [
-      { heading: "From a fixture repair to a whole-house project", text: "A dripping faucet, a running toilet and a leak behind a wall need different approaches. We offer fixture repairs, leak detection, piping and repiping, drain and sewer work, and water-heater installation and replacement." },
-      { heading: "Tell us what changed", text: "Let us know when the problem started, which fixtures it affects and whether you can see leaking water. Photos and details of previous repairs help us understand the job before a visit." },
-      { heading: "Planning a bathroom or plumbing upgrade?", text: "Share the fixtures you want to change and whether the layout is moving. We can discuss the plumbing work, access and installation options before you approve the scope and price." },
-    ],
-  },
   "areas/mercer-island": {
     heading: "Plumber in Mercer Island, WA",
     lead: "Dr Plumbing & Heating serves homes in Mercer Island, WA, with plumbing repairs, fixture installation, drain and sewer work, repiping and water-heater services.",
@@ -232,15 +248,16 @@ CITY_PAGE_COPY["areas/federal-way/water-heater-replacement"].heading = "Water he
  * Output: The page's route, city, service and option detail when listed. An unlisted service yields the city page; an
  * unknown city yields undefined.
  * Examples: ["Bellevue"] and ["bellevue"] both give route "areas/bellevue" with no service;
- * ["bellevue", "water-heaters"] gives "areas/bellevue/water-heaters" with the water-heaters service;
- * ["bellevue", "boilers"] gives the Bellevue city page; ["nowhere"] gives undefined;
+ * ["bellevue", "water-heaters"] retains the old bookmark and gives "areas/bellevue/water-heater-replacement";
+ * ["auburn", "boilers"] gives the Auburn city page; ["nowhere"] gives undefined;
  * ["mercer-island", "water-heater-replacement", "gas-water-heaters"] carries the gas detail.
  */
 export function cityPageAt(segments: readonly string[]): CityPageMatch | undefined {
   const [citySegment = "", serviceSegment = "", optionSegment = ""] = segments;
   const city = CITY_PAGES.find((page) => page.slug === pathSlug(citySegment));
   if (!city) return undefined;
-  const serviceId = pathSlug(serviceSegment);
+  const serviceId = city.slug === "bellevue" && serviceSegment === "water-heaters"
+    ? "water-heater-replacement" : pathSlug(serviceSegment);
   const listed = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && (entry.slug ?? entry.serviceId) === serviceId);
   const service = listed ? SERVICES.find((item) => item.id === listed.serviceId) : undefined;
   const option = CITY_OPTION_PAGES.find((item) => item.citySlug === city.slug && item.serviceId === service?.id && item.slug === pathSlug(optionSegment));
@@ -255,7 +272,7 @@ export function cityPageAt(segments: readonly string[]): CityPageMatch | undefin
  * Inputs: page is a resolved city page.
  * Output: An explicit search-topic heading when supplied, otherwise the city and service heading.
  * Examples: The Bellevue page is "Plumber in Bellevue, WA"; the Bellevue
- * water-heaters page is "Water heaters in Bellevue, WA".
+ * water-heater category is "Water heater replacement in Bellevue, WA".
  */
 export function cityHeading(page: CityPageMatch) {
   if (page.detail) return `${page.detail.item} in ${page.city.name}, WA`;
@@ -268,9 +285,9 @@ export function cityHeading(page: CityPageMatch) {
  * Inputs: page is a resolved city page.
  * Output: What the firm does in the city (the service's own lead on a city-and-service page), the
  * price basis, and the response time only when the owner has confirmed one.
- * Examples: Bellevue's introduction names plumbing repair and installation and ends with the
- * approved flat-rate price statement. The Bellevue water-heaters page starts "Dr Plumbing & Heating serves homes in Bellevue,
- * WA." and continues with the service's lead. No page mentions a response time today.
+ * Examples: Bellevue's introduction names household plumbing services and ends with the
+ * approved flat-rate price statement. Its heater category describes replacement options.
+ * No page mentions a response time today.
  */
 export function cityAnswer(page: CityPageMatch) {
   const name = confirmed(BUSINESS.publicName);
@@ -291,7 +308,7 @@ export function cityAnswer(page: CityPageMatch) {
  * Description: Adds approved local references to the city's service coverage.
  * Inputs: page is a resolved city page.
  * Output: A coverage sentence naming two verified landmarks, or undefined when none are confirmed.
- * Examples: Newcastle names Lake Boren Park and May Creek Park; pending Bellevue landmarks add no sentence.
+ * Examples: Newcastle names Lake Boren Park and May Creek Park; pending Auburn landmarks add no sentence.
  */
 export function cityLandmarksText(page: CityPageMatch) {
   const landmarks = confirmed(page.city.landmarks);
