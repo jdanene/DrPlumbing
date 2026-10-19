@@ -22,7 +22,7 @@ export const PAGE_PATHS: Record<string, string> = {
 export const HOME_ANCHORS = ["home-reviews", "home-area", "home-services", "home-faq"];
 
 /** Only these owner-selected cities replicate the full Mercer Island service journey. */
-export const FULL_SERVICE_CITY_SLUGS = ["mercer-island", "federal-way", "newcastle"];
+export const FULL_SERVICE_CITY_SLUGS = ["mercer-island", "federal-way", "newcastle", "bellevue", "renton", "kirkland", "redmond", "issaquah"];
 
 /** City pages with owner-requested flat addresses; other cities retain the areas hierarchy. */
 export const CITY_PATHS: Record<string, string> = {
@@ -48,6 +48,7 @@ export const PATH_REDIRECTS: Record<string, string> = {
   ),
   "/plumber-federal-way/": "areas/federal-way",
   "/water-heater-replacement-federal-way/": "areas/federal-way/water-heater-replacement",
+  "/areas-we-serve/bellevue/water-heaters/": "areas/bellevue/water-heater-replacement",
 };
 
 /**
@@ -55,7 +56,7 @@ export const PATH_REDIRECTS: Record<string, string> = {
  * Inputs: route is a page ID, a listed city/service/option route, or a homepage section ID.
  * Output: An absolute local path; an unknown page returns the homepage.
  * Examples: "drain-sewer/hydrojetting" becomes "/drain-and-sewer/hydrojetting/"; "home" becomes "/";
- * "areas/bellevue/water-heaters" becomes "/areas-we-serve/bellevue/water-heaters/";
+ * "areas/bellevue/water-heater-replacement" becomes "/water-heater-replacement-bellevue/";
  * "areas/mercer-island/water-heater-replacement/gas-water-heaters" becomes "/gas-water-heaters-mercer-island/".
  */
 export function routeHref(route: string) {

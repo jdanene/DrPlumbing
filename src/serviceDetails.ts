@@ -1,4 +1,4 @@
-import { SERVICES, type ServiceSection } from "./content";
+import { SERVICES, serviceMenu, type Service, type ServiceSection } from "./content";
 import { pathSlug, routeHref } from "./sitePaths";
 
 /**
@@ -8,6 +8,8 @@ import { pathSlug, routeHref } from "./sitePaths";
  * Examples: ServiceDetails.test.tsx covers the six original mockup details and their source copy.
  */
 export interface ServiceDetail {
+  menuReplaces?: string[];
+  sectionNavigation?: string[];
   item: string;
   cta: string;
   photo: string;
@@ -18,6 +20,20 @@ export interface ServiceDetail {
 
 export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
   "plumbing": [
+    // Scope confirmed by the owner; existing fixture and shower URLs remain available.
+    {
+      item: "Complete bathroom remodeling",
+      menuReplaces: ["Faucets, fixtures and sinks", "Showers and tubs"],
+      sectionNavigation: ["Faucets, fixtures and sinks", "Showers and tubs", "Kitchen remodeling"],
+      cta: "bathroom remodel",
+      photo: "Finished bathroom remodel",
+      summary: "One team to manage your complete bathroom remodel, from framing and electrical to plumbing and finished fixtures.",
+      sections: [
+        { heading: "Faucets, fixtures and sinks", paras: ["Choose fixtures that suit how you use the room, from a double vanity to a new sink and faucet. We coordinate their installation with the plumbing and electrical work as part of your complete remodel. Individual fixture repairs and replacements are also available."] },
+        { heading: "Showers and tubs", paras: ["We manage your bathroom remodel from start to finish, coordinating the framing, electrical, plumbing and fixture installation around your plans."] },
+        { heading: "Kitchen remodeling", paras: ["We also offer complete kitchen remodeling. Tell us about the room you want to update."] },
+      ],
+    },
     // Source: https://www.mbphg.com/burst-pipe-repair
     {
       item: "Burst pipe repair",
@@ -561,6 +577,18 @@ export function serviceDetailFor(serviceId: string, key: string) {
   return (SERVICE_DETAILS[serviceId] ?? []).find(
     (detail) => serviceDetailSlug(detail.item) === serviceDetailSlug(key),
   );
+}
+
+/**
+ * Description: Groups related services under the owner's promoted detail pages.
+ * Inputs: service is a catalog category; detail records may group existing menu labels.
+ * Output: Grouped detail pages first, followed by the remaining labels in source order.
+ * Examples: ResidentialProjects.test.tsx checks remodeling groups fixtures and showers without deleting their routes.
+ */
+export function serviceNavigationMenu(service: Service) {
+  const promoted = (SERVICE_DETAILS[service.id] ?? []).filter(detail => detail.menuReplaces?.length);
+  const grouped = new Set(promoted.flatMap(detail => [detail.item, ...detail.menuReplaces!]));
+  return [...promoted.map(detail => detail.item), ...serviceMenu(service).filter(label => !grouped.has(label))];
 }
 
 /**

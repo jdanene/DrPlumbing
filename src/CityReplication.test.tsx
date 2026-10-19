@@ -11,6 +11,10 @@ import { PATH_REDIRECTS, routeHref } from "./sitePaths";
 const replicas = [
   { slug: "federal-way", name: "Federal Way", overviewPath: "/federal-way-residential-plumber/", waterHeaterPath: "/federal-way-water-heater-installation/" },
   { slug: "newcastle", name: "Newcastle", overviewPath: "/plumber-newcastle/", waterHeaterPath: "/water-heater-replacement-newcastle/" },
+  ...["Bellevue", "Renton", "Kirkland", "Redmond", "Issaquah"].map(name => ({
+    name, slug: name.toLowerCase(), overviewPath: `/plumber-${name.toLowerCase()}/`,
+    waterHeaterPath: `/water-heater-replacement-${name.toLowerCase()}/`,
+  })),
 ];
 const referenceRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/mercer-island"));
 
@@ -22,10 +26,10 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 describe.each(replicas)("$name replicates Mercer Island", ({ slug, name, overviewPath, waterHeaterPath }) => {
-  it("has the same overview, six categories, and 35 options", () => {
-    expect(PUBLIC_ROUTES.filter((route) => route === `areas/${slug}` || route.startsWith(`areas/${slug}/`))).toHaveLength(42);
+  it("has the same overview, six categories, and 36 options including remodeling", () => {
+    expect(PUBLIC_ROUTES.filter((route) => route === `areas/${slug}` || route.startsWith(`areas/${slug}/`))).toHaveLength(43);
     expect(CITY_SERVICE_PAGES.filter((page) => page.citySlug === slug)).toHaveLength(6);
-    expect(CITY_OPTION_PAGES.filter((page) => page.citySlug === slug)).toHaveLength(35);
+    expect(CITY_OPTION_PAGES.filter((page) => page.citySlug === slug)).toHaveLength(36);
     expect(routeHref(`areas/${slug}`)).toBe(overviewPath);
     expect(routeHref(`areas/${slug}/water-heater-replacement`)).toBe(waterHeaterPath);
     expect(PATH_REDIRECTS[`/areas-we-serve/${slug}/`]).toBe(`areas/${slug}`);

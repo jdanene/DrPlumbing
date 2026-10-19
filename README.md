@@ -145,22 +145,32 @@ City pages come from `src/cities.ts`. Mercer Island is the full service-journey 
 drain and sewer, filtration, heating and cooling, and boiler pages. `CITY_PATHS`
 in `src/sitePaths.ts` defines their flat public addresses. The former nested
 addresses remain supported and receive 301 rules in the generated `_redirects`.
-Other cities retain `/areas-we-serve/{city}/` addresses; only listed city-service
-combinations generate pages. Mercer Island also has 35 option pages, such as
+Unselected cities retain `/areas-we-serve/{city}/` addresses; only listed city-service
+combinations generate pages. Mercer Island also has 36 option pages, such as
 `/gas-water-heaters-mercer-island/` and `/boiler-repair-mercer-island/`.
 `CITY_OPTION_PAGES` derives those pages from the existing service menus and
-explanations. Header, mobile, footer and sibling service links retain Mercer
-Island context. Other cities and site-wide navigation keep their existing behavior.
+explanations. Header, mobile, footer and sibling service links retain the selected
+city context. Unselected cities and site-wide navigation keep their existing behavior.
 Mercer Island service pages reuse `ServicePage`, including the main page's photos,
 galleries and educational sections. Only location wording and navigation differ.
-Federal Way and Newcastle replicate this same 42-page journey. Their entry points are
-`/federal-way-residential-plumber/` and `/plumber-newcastle/`. Federal Way's existing
+Federal Way, Newcastle, Bellevue, Renton, Kirkland, Redmond and Issaquah replicate
+this same 43-page journey. Each uses `/plumber-{city}/` except Federal Way, whose
+entry point is `/federal-way-residential-plumber/`. Federal Way's existing
 water-heater category uses `/federal-way-water-heater-installation/`; its former
-addresses redirect to the requested paths.
+addresses redirect to the requested paths. Bellevue's former
+`/areas-we-serve/bellevue/water-heaters/` address redirects to
+`/water-heater-replacement-bellevue/`.
 `FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
 paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.
-The production build includes 183 sitemap pages.
+The production build includes 397 sitemap pages.
+
+Complete bathroom remodeling appears first under General Plumbing. Its fixtures,
+showers and tubs, and kitchen sections use page anchors and matching project photos.
+The general page and all eight full-service cities share this structure. Former
+fixture and shower pages remain available at their published URLs; grouping the
+menu does not delete those pages. Our Work features bathroom remodeling before the
+remaining projects. Photo sources are recorded in `design/photo-classification/owner-additions.json`.
 
 The reusable instructions are committed at
 [`skills/drplumbing-city-pages/SKILL.md`](skills/drplumbing-city-pages/SKILL.md).

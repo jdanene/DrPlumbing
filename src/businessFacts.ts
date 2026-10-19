@@ -188,6 +188,7 @@ export const BUSINESS = {
       "Federal Way",
       "Issaquah",
       "Kent",
+      "Kirkland",
       "Lake Stevens",
       "Lynnwood",
       "Machias",
@@ -206,8 +207,8 @@ export const BUSINESS = {
       "Skyway",
       "Snohomish",
     ],
-    `The approved website list plus Newcastle, the home base (${OWNER_PROFILE}); Mercer Island added at Jide's request on 2026-10-14`,
-    "2026-10-14",
+    `The approved website list plus Newcastle, the home base (${OWNER_PROFILE}); Mercer Island added at Jide's request on 2026-10-14; Kirkland added at Jide's request on 2026-10-18`,
+    "2026-10-18",
   ),
   hours: pendingFact<readonly OpeningHours[]>(
     "[HOURS]",

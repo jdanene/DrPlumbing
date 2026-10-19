@@ -4,6 +4,7 @@ import { CITY_PAGES } from "./cities";
 import { Arrow } from "./SiteContent";
 import { PHOTOS } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
+import BathroomRemodeling from "./BathroomRemodeling";
 
 const QUESTIONS = [
   ["How does your pricing work?", "We charge flat rates. You approve the price before we start, and you pay no surprise fees."],
@@ -69,6 +70,8 @@ export default function HomePage() {
           <a href={routeHref("drain-sewer")}><ProjectPhoto photo={PHOTOS.sewer} /><div><h3>Drain &amp; sewer repair</h3><Arrow /></div></a>
         </div>
       </section>
+
+      <BathroomRemodeling />
 
       <section className="home-heating" aria-labelledby="heating-title">
         <div className="wrap heating-layout">
