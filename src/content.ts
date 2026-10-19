@@ -62,10 +62,6 @@ export const SERVICES: Service[] = [
         "heading": "Our plumbing services",
         "items": [
           [
-            "Complete bathroom remodeling",
-            "We remodel bathrooms from framing, electrical and plumbing through to finished fixtures, showers and tubs."
-          ],
-          [
             "Leak detection",
             "We find hidden leaks in walls, floors and slabs before they do more damage."
           ],

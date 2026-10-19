@@ -85,7 +85,9 @@ describe("additive residential project placement", () => {
   });
   it("preserves general plumbing services and its hero", () => {
     render(<ServicePage service={SERVICES.find(item => item.id === "plumbing")!} />);
-    expect(screen.getByRole("link", { name: "Read more about Complete bathroom remodeling" }).getAttribute("href")).toBe("/plumbing/complete-bathroom-remodeling/");
+    const services = within(screen.getByRole("navigation", { name: "Services" }));
+    expect(services.getByRole("link", { name: "Complete bathroom remodeling" }).getAttribute("href")).toBe("/plumbing/complete-bathroom-remodeling/");
+    expect(screen.queryByRole("link", { name: "Read more about Complete bathroom remodeling" })).toBeNull();
     expect(screen.getByRole("heading", { name: "Our plumbing services" })).toBeDefined();
     expect(screen.getByRole("img", { name: PHOTOS.freestandingBathroom.alt })).toBeDefined();
   });
