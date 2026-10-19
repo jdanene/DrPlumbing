@@ -55,7 +55,7 @@ export default function HomePage() {
       <section className="home-work wrap" aria-labelledby="work-title">
         <div className="home-section-heading"><h2 id="work-title">The work.<br /><span>The difference.</span></h2><div><p>From the fittings you see to the pipework behind the wall. Take a closer look at our projects.</p><a className="text-link" href={routeHref("work")}>Explore our work <Arrow /></a></div></div>
         <div className="featured-projects">
-          <a className="featured-project bathroom-project" href={routeHref("plumbing/showers-and-tubs")}>
+          <a className="featured-project bathroom-project" href={routeHref("plumbing/complete-bathroom-remodeling")}>
             <ProjectPhoto photo={PHOTOS.freestandingBathroom} fullFrame />
             <div className="project-caption"><div><h3>Bathrooms, made for everyday life.</h3><p>Showers, tubs &amp; fixtures</p></div><span className="round-arrow"><Arrow /></span></div>
           </a>
