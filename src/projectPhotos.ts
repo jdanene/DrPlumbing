@@ -325,7 +325,6 @@ export const HOME_PROJECTS: WorkProject[] = [
   { service: "boilers", category: "Boilers", title: "Heating pipework in progress", description: "Soldering a copper joint on hydronic heating pipework.", photo: PHOTOS.solderingHeatingPipe },
   { service: "boilers", category: "Boilers", title: "Working on a hydronic heating system", description: "Working on pipework beneath a wall-mounted HTP heating appliance.", photo: PHOTOS.boilerWork },
   { service: "water-heaters", category: "Water heaters", title: "Tankless water heating", description: "Two Navien tankless heaters with copper pipework on a blue mounting panel.", photo: PHOTOS.twinNavien },
-  BATHROOM_PROJECTS[0]!,
   { service: "water-filtration", category: "Water filtration", title: "Whole-house water filtration", description: "Filter cartridges and UV treatment connected to the home's water supply.", photo: PHOTOS.filters },
   { service: "drain-sewer", category: "Drain & sewer", title: "Sewer pipe repair", description: "A new pipe section and coupling in an exposed sewer line.", photo: PHOTOS.sewer },
 ];
