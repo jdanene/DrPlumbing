@@ -182,6 +182,7 @@ export function ServicePage({
     : SERVICE_PHOTOS[service.id];
   const gallery = SERVICE_GALLERIES[detail && !usesCategoryArtwork ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
+  const isBathroomRemodeling = service.id === "plumbing" && detail?.item === "Complete bathroom remodeling";
   const relatedHeading = detail ? `More in ${service.tab}` : "Other services";
   const tabsRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -193,7 +194,7 @@ export function ServicePage({
         tabs.offsetLeft -
         tabs.clientWidth / 2 +
         active.clientWidth / 2;
-  }, [service.id]);
+  }, [service.id, detail?.item]);
   return (
     <div className="view is-active" data-view="service">
       <div className="wrap">
@@ -202,12 +203,21 @@ export function ServicePage({
             {SERVICE_GROUPS.map((group) => (
               <span className="tab-group" key={group.id}>
                 <span className="tab-label">{group.label}</span>
+                {group.id === "plumbing" && (
+                  <a
+                    className="chip"
+                    href={serviceHrefFor(cityPage, "plumbing", "Complete bathroom remodeling")}
+                    aria-current={isBathroomRemodeling ? "page" : undefined}
+                  >
+                    Complete bathroom remodeling
+                  </a>
+                )}
                 {servicesForGroup(group).map((item) => (
                   <a
                     key={item.id}
                     className="chip"
                     href={serviceHrefFor(cityPage, item.id)}
-                    aria-current={item.id === service.id ? "page" : undefined}
+                    aria-current={item.id === service.id && !isBathroomRemodeling ? "page" : undefined}
                   >
                     {item.tab}
                   </a>
