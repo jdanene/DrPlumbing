@@ -1,5 +1,5 @@
 import { routeHref } from "./sitePaths";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import {
   SERVICES,
   SERVICE_GROUPS,
@@ -141,17 +141,17 @@ export function Values() {
 
 /**
  * Description: Shows project evidence beside its service explanation without cropping the work.
- * Inputs: projects contains selected photographs and factual captions in display order.
+ * Inputs: projects contains selected photographs and factual captions in display order; city optionally localizes each image's alt text.
  * Output: Full-frame images linked to their originals; an empty collection renders no figures.
  * Examples: ResidentialProjects.test.tsx checks fixture, shower and kitchen photos inside their sections.
  */
-function ProjectGallery({ projects }: { projects: WorkProject[] }) {
+function ProjectGallery({ projects, city }: { projects: WorkProject[]; city?: string }) {
   return (
     <div className="service-project-gallery">
       {projects.map(project => (
         <figure key={project.photo.src}>
           <a href={project.photo.src} target="_blank" rel="noreferrer" aria-label={`View full photo: ${project.title}`}>
-            <ProjectPhoto photo={project.photo} fullFrame />
+            <ProjectPhoto photo={project.photo} city={city} fullFrame />
           </a>
           <figcaption>{project.description}</figcaption>
         </figure>
@@ -203,24 +203,25 @@ export function ServicePage({
             {SERVICE_GROUPS.map((group) => (
               <span className="tab-group" key={group.id}>
                 <span className="tab-label">{group.label}</span>
-                {group.id === "plumbing" && (
-                  <a
-                    className="chip"
-                    href={serviceHrefFor(cityPage, "plumbing", "Complete bathroom remodeling")}
-                    aria-current={isBathroomRemodeling ? "page" : undefined}
-                  >
-                    Complete bathroom remodeling
-                  </a>
-                )}
                 {servicesForGroup(group).map((item) => (
-                  <a
-                    key={item.id}
-                    className="chip"
-                    href={serviceHrefFor(cityPage, item.id)}
-                    aria-current={item.id === service.id && !isBathroomRemodeling ? "page" : undefined}
-                  >
-                    {item.tab}
-                  </a>
+                  <Fragment key={item.id}>
+                    <a
+                      className="chip"
+                      href={serviceHrefFor(cityPage, item.id)}
+                      aria-current={item.id === service.id && !isBathroomRemodeling ? "page" : undefined}
+                    >
+                      {item.tab}
+                    </a>
+                    {item.id === "plumbing" && (
+                      <a
+                        className="chip"
+                        href={serviceHrefFor(cityPage, "plumbing", "Complete bathroom remodeling")}
+                        aria-current={isBathroomRemodeling ? "page" : undefined}
+                      >
+                        Complete bathroom remodeling
+                      </a>
+                    )}
+                  </Fragment>
                 ))}
               </span>
             ))}
@@ -255,7 +256,7 @@ export function ServicePage({
               </a>
             </div>
           </div>
-          {photo && <ProjectPhoto photo={photo} priority fullFrame />}
+          {photo && <ProjectPhoto photo={photo} city={cityPage?.city.name} priority fullFrame />}
         </section>
         {cityPage && !detail && (
           <div className="other">
@@ -350,7 +351,7 @@ export function ServicePage({
                                 href={itemPhoto.src}
                                 aria-label={`View full photo: ${itemPhoto.alt}`}
                               >
-                                <ProjectPhoto photo={itemPhoto} fullFrame />
+                                <ProjectPhoto photo={itemPhoto} city={cityPage?.city.name} fullFrame />
                               </a>
                             )}
                           </div>
@@ -364,7 +365,7 @@ export function ServicePage({
                 {section.after?.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
-                {sectionGallery && <ProjectGallery projects={sectionGallery.projects} />}
+                {sectionGallery && <ProjectGallery projects={sectionGallery.projects} city={cityPage?.city.name} />}
               </div>
             </section>
           );
@@ -373,7 +374,7 @@ export function ServicePage({
           <section className="svc-sec" aria-label={gallery.title}>
             <div className="s-head"><h2>{gallery.title}</h2></div>
             <div className="s-body">
-              <ProjectGallery projects={gallery.projects} />
+              <ProjectGallery projects={gallery.projects} city={cityPage?.city.name} />
             </div>
           </section>
         )}

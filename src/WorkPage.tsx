@@ -68,7 +68,7 @@ export default function WorkPage() {
             job.
           </p>
           <div className="chips" role="group" aria-label="Filter projects">
-            {["All", "Complete bathroom remodeling", "Plumbing", "Water heaters", "Drain & sewer", "Water filtration", "Heating & cooling", "Boilers"].map((value) => (
+            {["All", "Plumbing", "Complete bathroom remodeling", "Water heaters", "Drain & sewer", "Water filtration", "Heating & cooling", "Boilers"].map((value) => (
               <button
                 className="chip"
                 type="button"

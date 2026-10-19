@@ -7,10 +7,42 @@ import { afterEach, describe, expect, it } from "vitest";
 import { SERVICES } from "./content";
 import { DETAIL_PHOTOS, HOME_PROJECTS, PHOTOS, SERVICE_PHOTOS } from "./projectPhotos";
 import { ServicePage } from "./SiteContent";
+import { cityPageAt } from "./cities";
+import { PUBLIC_ROUTES } from "./seo";
+import { renderPage } from "./prerender";
+import { FULL_SERVICE_CITY_SLUGS } from "./sitePaths";
 
 afterEach(cleanup);
 
 describe("reviewed photo placements", () => {
+  it.each(FULL_SERVICE_CITY_SLUGS)("includes %s in every city-service photo, without changing the shared alt text", city => {
+    const photos = new Map(Object.values(PHOTOS).map(photo => [photo.src, photo]));
+    let checked = 0;
+    for (const route of PUBLIC_ROUTES.filter(route => route.startsWith(`areas/${city}/`))) {
+      const page = cityPageAt(route.split("/").slice(1))!;
+      const dom = document.createElement("div");
+      dom.innerHTML = renderPage(route).body.match(/<img\b[^>]*>/g)?.join("") ?? "";
+      for (const image of dom.querySelectorAll('img[src^="/service-photos/"]')) {
+        const photo = photos.get(image.getAttribute("src")!)!;
+        expect(image.getAttribute("alt"), route).toBe(`${photo.alt} in ${page.city.name}`);
+        checked++;
+      }
+    }
+    expect(checked).toBeGreaterThan(20);
+    expect(PHOTOS.plumbingTechnician.alt).toBe("Residential water heater installation by Dr Plumbing & Heating");
+  });
+
+  it("keeps general service photos free of city suffixes", () => {
+    const photos = new Map(Object.values(PHOTOS).map(photo => [photo.src, photo]));
+    for (const route of PUBLIC_ROUTES.filter(route => !route.startsWith("areas/"))) {
+      const dom = document.createElement("div");
+      dom.innerHTML = renderPage(route).body.match(/<img\b[^>]*>/g)?.join("") ?? "";
+      for (const image of dom.querySelectorAll('img[src^="/service-photos/"]')) {
+        expect(image.getAttribute("alt"), route).toBe(photos.get(image.getAttribute("src")!)!.alt);
+      }
+    }
+  });
+
   it("uses heating equipment, not bathroom fixtures, for the HVAC hero", () => {
     expect(SERVICE_PHOTOS["heating-cooling"]).toBe(PHOTOS.unitHeater);
     expect(DETAIL_PHOTOS["heating-cooling/ventilation"]).toBeUndefined();
