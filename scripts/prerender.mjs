@@ -1,6 +1,6 @@
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { PATH_REDIRECTS, PHOTOS, PUBLIC_ROUTES, SITE_ORIGIN, renderPage, routeHref } from "../dist-ssr/prerender.js";
+import { PAGE_DATES, PATH_REDIRECTS, PHOTOS, PUBLIC_ROUTES, SITE_ORIGIN, renderPage, routeHref } from "../dist-ssr/prerender.js";
 
 /**
  * Description: Publishes React pages and crawl files into Vite's existing static output.
@@ -37,10 +37,15 @@ for (const route of [...PUBLIC_ROUTES, "not-found"]) {
   await writeFile(file, html);
 }
 
-const locations = PUBLIC_ROUTES.map((route) => `  <url><loc>${SITE_ORIGIN}${routeHref(route)}</loc></url>`);
+const locations = PUBLIC_ROUTES.map((route) => {
+  const updated = PAGE_DATES[route]?.updated;
+  if (!updated || !/^\d{4}-\d{2}-\d{2}$/.test(updated)) throw new Error(`${route}: missing ISO last-modified date`);
+  return `  <url><loc>${SITE_ORIGIN}${routeHref(route)}</loc><lastmod>${updated}</lastmod></url>`;
+});
 await writeFile(join(output, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${locations.join("\n")}\n</urlset>\n`);
+const namedCrawlers = ["meta-webindexer", "GPTBot", "ClaudeBot", "PerplexityBot", "Google-Extended"];
 await writeFile(join(output, "robots.txt"), indexable
-  ? `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`
+  ? `${["*", ...namedCrawlers].map((crawler) => `User-agent: ${crawler}\nAllow: /\nDisallow: /api/`).join("\n\n")}\n\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`
   : "User-agent: *\nDisallow: /\n");
 
 // Host-specific rules keep both the Pages alias and branch previews out of search.
@@ -78,3 +83,6 @@ const cityRedirects = Object.entries(PATH_REDIRECTS).flatMap(([oldPath, route]) 
 ]);
 await writeFile(join(output, "_redirects"), [...oldPaths, ...cityRedirects].map(([oldPath, route]) => `${oldPath} ${routeHref(route)} 301`).join("\n") + "\n");
 console.log(`Prerendered ${PUBLIC_ROUTES.length} pages, 404.html, sitemap.xml, and robots.txt with ${photoPaths.size} selected photos (${indexable ? "production indexable" : "preview noindex"}).`);
+const reviewBefore = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+const overdue = PUBLIC_ROUTES.filter((route) => PAGE_DATES[route].updated < reviewBefore);
+console.log(`Content review: ${overdue.length} pages last modified more than 90 days ago${overdue.length ? `:\n${overdue.map(routeHref).join("\n")}` : "."}`);

@@ -28,6 +28,25 @@ npm run preview
 `preview` serves that build at the address it prints. Neither command runs tests.
 The optional `npm run check` also runs Oxlint and automated tests.
 
+The build also runs two static checks after prerendering:
+
+- `scripts/check-readability.mjs` checks all 397 public routes and the 404 page
+  for named buttons, labelled form fields, image alt text, native interactive
+  elements, and at least 200 words in each public page's raw HTML body. An empty
+  alt must explicitly mark a decorative image. The word count includes shared
+  navigation and footer text; it is not a measure of unique service copy.
+- `scripts/check-links.mjs` checks emitted `href` and `src` paths and HTML
+  fragments. Missing internal targets stop the build with the source page and
+  rule. External HTTP links get two attempts, each with a five-second timeout,
+  at most four at a time. Failures are warnings, not a deployment blocker.
+
+These checks inspect authored static HTML, not a computed browser accessibility
+tree. They cannot detect facts shown only inside photographs or event handlers
+that React attaches after hydration. They do not replace a browser accessibility
+review. Build checks and embedded header examples are the verification for
+[JDA-408](https://linear.app/jdanene39/issue/JDA-408); no test suite is required
+for that issue.
+
 The static publisher copies shared public assets and the job photographs listed
 in `src/projectPhotos.ts`. Camera originals, unused candidates and the GBP review
 package stay out of `dist/`. Local Vite still serves the full review library.
@@ -165,6 +184,10 @@ paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.
 The production build includes 397 sitemap pages.
 
+The seven `AGENT_READABLE_CITY_SLUGS` hubs additionally link every existing
+city-service category and option directly. This retrieval cohort excludes
+Kirkland; its page structure and the remaining city pages stay unchanged.
+
 Complete bathroom remodeling appears first under General Plumbing. Its fixtures,
 showers and tubs, and kitchen sections use page anchors and matching project photos.
 The general page and all eight full-service cities share this structure. Former
@@ -186,6 +209,16 @@ Use `$drplumbing-city-pages` to repeat this work for another requested city.
 The build generates `/robots.txt` and `/sitemap.xml` for
 `https://drplumbingheating.com`. Submit the sitemap through the owner's Search
 Console after deployment; generating it does not submit it or guarantee ranking.
+
+Every sitemap URL includes `lastmod` from `src/pageDates.ts`. Its initial
+2026-10-18 values record the last published shared-page content changes, cited
+by commit in that file. They are not first-publication or verification dates.
+Update the affected route override on the day its content actually merges;
+never advance dates just because a build ran. The build lists dates older than
+90 days. Visible publication/update dates and verified comparison content are
+separate work in JDA-408's second PR. Production robots explicitly allow
+meta-webindexer, GPTBot, ClaudeBot, PerplexityBot and Google-Extended, while each
+group still excludes `/api/`. Private previews still disallow all crawling.
 
 Development HTML remains `noindex`. The production build permits indexing on
 the registered domain. Host-specific `_headers` rules block both `*.pages.dev`

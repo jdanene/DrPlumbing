@@ -1,6 +1,6 @@
 import { SERVICES } from "./content";
 import { serviceNavigationMenu } from "./serviceDetails";
-import { CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, serviceHrefFor, type CityPageMatch } from "./cities";
+import { AGENT_READABLE_CITY_SLUGS, CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, serviceHrefFor, type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
 
@@ -17,6 +17,7 @@ import { Arrow, CallToAction } from "./SiteContent";
 export default function CityPage({ page }: { page: CityPageMatch }) {
   const { city, service } = page;
   const landmarks = cityLandmarksText(page);
+  const indexedJourney = AGENT_READABLE_CITY_SLUGS.includes(city.slug);
   return (
     <div className="view is-active" data-view="areas">
       <section className="block areas-page">
@@ -65,6 +66,21 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
               </p>
             )}
           </div>
+          {!service && indexedJourney && (
+            <section className="other">
+              <h2>All services in {city.name}</h2>
+              {SERVICES.map((item) => (
+                <section key={item.id}>
+                  <h3><a href={serviceHrefFor(page, item.id)}>{item.tab}</a></h3>
+                  <ul>
+                    {CITY_OPTION_PAGES.filter((option) => option.citySlug === city.slug && option.serviceId === item.id).map((option) => (
+                      <li key={option.route}><a href={routeHref(option.route)}>{option.detail.item}</a></li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </section>
+          )}
         </div>
       </section>
       <div className="wrap">

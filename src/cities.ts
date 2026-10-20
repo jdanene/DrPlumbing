@@ -28,6 +28,9 @@ export interface CityPageMatch {
   detail?: ServiceDetail;
 }
 
+/** JDA-408's measured cohort; Kirkland and the remaining cities keep their existing pages. */
+export const AGENT_READABLE_CITY_SLUGS = ["bellevue", "newcastle", "renton", "redmond", "issaquah", "federal-way", "mercer-island"];
+
 /** Owner-approved landmark references, verified against each city's parks directory. */
 export const CITY_LANDMARKS: Record<string, ConfirmedFact<readonly [string, string]>> = {
   bellevue: confirmedFact(
