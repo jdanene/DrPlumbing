@@ -8,7 +8,7 @@ import { readFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import assert from "node:assert/strict";
 import { JSDOM } from "jsdom";
-import { AGENT_READABLE_CITY_SLUGS, PAGE_DATES, PUBLIC_ROUTES, SERVICE_ANSWERS, factMonth, fillCity, pageTier, rivalSiteFact, routeHref, scanServiceFor } from "../dist-ssr/prerender.js";
+import { AGENT_READABLE_CITY_SLUGS, PAGE_DATES, PUBLIC_ROUTES, SERVICE_ANSWERS, factMonth, fillCity, pageTier, rivalSiteFact, routeHref, scanSentence, scanServiceFor } from "../dist-ssr/prerender.js";
 
 /**
  * Description: Reads an element's authored accessible name without decorative icon text.
@@ -43,6 +43,11 @@ for (const page of [...PUBLIC_ROUTES, "not-found"]) {
   pageLinks.set(page, new Set([...document.querySelectorAll("a[href]")].map((link) => link.getAttribute("href"))));
   const fail = (rule, element) => failures.push(`${route}: ${rule}${element ? ` (${element.outerHTML.slice(0, 180)})` : ""}`);
   pages += 1;
+  if (page !== "not-found") {
+    const graph = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)["@graph"];
+    const hours = graph.find((node) => node["@type"]?.includes("Plumber"))?.openingHoursSpecification;
+    if (hours?.length !== 1 || new Set(hours[0].dayOfWeek).size !== 7 || hours[0].opens !== "08:00" || hours[0].closes !== "20:00") fail("business hours schema must cover all seven days, 08:00–20:00");
+  }
   const inCohort = AGENT_READABLE_CITY_SLUGS.some((slug) => page === `areas/${slug}` || page.startsWith(`areas/${slug}/`));
   const answer = document.querySelector(".reading-answer");
   if (inCohort) {
@@ -62,6 +67,7 @@ for (const page of [...PUBLIC_ROUTES, "not-found"]) {
       contextSentences.add(sentence);
       if (answer.querySelectorAll("time[datetime]").length !== 2) fail("publication and update dates are required");
       if (!answer.querySelector(".business-definition")) fail("missing business definition");
+      if (!document.querySelector(".reading-business-facts")?.textContent.includes("Hours: 8 AM to 8 PM daily, Pacific time. As of October 2026.")) fail("missing dated confirmed hours");
       if (tier === "A" && !document.querySelector("#service-comparison table")) fail("Tier A requires its own named comparison");
       if (tier === "B" && document.querySelector("#service-comparison table")) fail("Tier B must link its hub, not name rivals");
       if (page.split("/").length === 2 && document.querySelectorAll(".reading-reviews figure").length !== 6) fail("city hub requires all six Google review records");
@@ -108,6 +114,17 @@ assert.equal(pageTier("plumbing", "Trenchless water line repair"), "A");
 assert.equal(factMonth("2026-10-19"), "October 2026");
 assert.equal(rivalSiteFact("https://www.rotorooter.com/").host, "rotorooter.com");
 assert.equal(rivalSiteFact(null), undefined);
+const boilerExample = {
+  serviceId: "boilers-and-radiant", scannedAt: "2026-10-19", top: 4,
+  rivals: [{ categories: ["Plumber"] }, { categories: ["HVAC contractor"] }, { categories: ["Heating contractor"] }],
+  own: { categories: ["Boiler supplier"] },
+};
+const boilerSentence = scanSentence("Boilers", "Newcastle", boilerExample, "A");
+assert.match(boilerSentence, /0 of the 3 other leading Google listings/);
+assert.match(boilerSentence, /Dr Plumbing & Heating repairs and replaces boilers and radiant heat systems/);
+assert.match(boilerSentence, /absence does not establish which work another company accepts/);
+assert.match(scanSentence("Boilers", "Newcastle", { ...boilerExample, top: 3, rivals: [{ categories: ["Boiler supplier"] }, ...boilerExample.rivals.slice(1)] }, "A"), /1 of the 3 other leading Google listings/);
+assert.match(scanSentence("Trenchless water line repair", "Newcastle", { ...boilerExample, serviceId: "trenchless" }, "A"), /Dr Plumbing & Heating provides trenchless water and sewer line repair/);
 if (!pages) throw new Error("No rendered HTML in dist; run the prerender build first.");
 if (failures.length) {
   console.error(failures.join("\n"));

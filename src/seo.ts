@@ -78,6 +78,12 @@ function businessGraph(): Record<string, unknown>[] {
       "@type": ["Plumber", "HVACBusiness"],
       "@id": BUSINESS_ID,
       name: BUSINESS_NAME,
+      openingHoursSpecification: confirmed(BUSINESS.hours).map((hours) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: hours.days.map((day) => `https://schema.org/${day}`),
+        opens: hours.opens,
+        closes: hours.closes,
+      })),
       url: `${SITE_ORIGIN}/`,
       telephone: "+12066718888",
       email: "drplumbinggroup@gmail.com",

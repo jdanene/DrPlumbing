@@ -1,7 +1,7 @@
 /**
  * Description: Answers the homeowner's first question before the existing service explanation.
  * Inputs: Keys are "hub", a service ID, or a service ID followed by its existing option slug.
- * Output: Final, source-backed guidance under 100 words. The city renderer fills {city}; this
+ * Output: Final guidance under 100 words, with primary sources where cited. The city renderer fills {city}; this
  * record makes no promises about a contractor's availability, prices, or a particular home's condition.
  * Examples: "water-heaters" covers repair versus replacement; "boilers/boiler-repair" covers diagnosis.
  */
@@ -25,10 +25,6 @@ const SOURCES = {
     title: "Seattle Public Utilities: Frozen Pipes in Winter Weather",
     url: "https://www.seattle.gov/utilities/your-services/water/frozen-pipes",
   },
-  repiping: {
-    title: "MB Plumbing & Heating: Piping and repiping",
-    url: "https://www.mbphg.com/repiping",
-  },
   waterLines: {
     title: "Seattle Public Utilities: Private Water Line Inspections",
     url: "https://seattle.gov/utilities/construction-resources/water/water-line-inspections",
@@ -48,10 +44,6 @@ const SOURCES = {
   showers: {
     title: "EPA WaterSense: Showerheads",
     url: "https://www.epa.gov/watersense/showerheads",
-  },
-  showerRepair: {
-    title: "MB Plumbing & Heating: Showers and Tubs",
-    url: "https://www.mbphg.com/showers-tubs",
   },
   disposal: {
     title: "InSinkErator: Garbage Disposal Leaking at the Discharge",
@@ -174,7 +166,7 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     question: "Should I repair my plumbing or replace it in {city}?",
     answer: "A single worn fixture or damaged pipe section often calls for a focused repair. Repeated leaks in different places or widespread pipe corrosion justify discussing replacement. Ask for the cause and extent of the damage before agreeing to a whole-house repipe. For a remodel, compare the complete project scope rather than the price of individual fixtures alone.",
     status: "final",
-    sources: [SOURCES.repiping],
+    sources: [],
   },
   "plumbing/complete-bathroom-remodeling": {
     question: "Do I need a complete bathroom remodel or a fixture replacement in {city}?",
@@ -192,13 +184,13 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     question: "What should I do about a burst water pipe in {city}?",
     answer: "Stop the water at the main shutoff if you can reach it safely, then call a plumber. Stay away from water near electrical equipment. A damaged section may be replaceable without repiping the house. Once the leak is controlled, check why it failed, including freezing exposure or deterioration, and address water damage as well as the pipe.",
     status: "final",
-    sources: [SOURCES.frozenPipes, SOURCES.repiping],
+    sources: [SOURCES.frozenPipes],
   },
   "plumbing/piping-and-repiping": {
     question: "Does my home in {city} need a whole-house repipe?",
     answer: "One isolated leak does not establish that every pipe needs replacement. A section repair fits limited damage; repeated leaks throughout the house, extensive corrosion or failing supply piping justify a repiping assessment. Ask which pipes are affected, what material will replace them and how walls and finishes will be restored. Base the scope on inspected condition, not the home's age alone.",
     status: "final",
-    sources: [SOURCES.repiping],
+    sources: [],
   },
   "plumbing/trenchless-water-line-repair": {
     question: "Can my water line in {city} be replaced without digging up the whole yard?",
@@ -240,7 +232,7 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     question: "Can my shower or tub in {city} be repaired instead of replaced?",
     answer: "A leaking valve, showerhead or drain can need a targeted repair rather than a new shower or tub. Water escaping into walls or floors needs its source checked before cosmetic work. If you want a different layout, tub or shower system, plan the construction and plumbing together. Compare showerheads for tested spray performance as well as water use.",
     status: "final",
-    sources: [SOURCES.showers, SOURCES.showerRepair],
+    sources: [SOURCES.showers],
   },
   "water-heaters": {
     question: "Should I repair or replace my water heater in {city}?",

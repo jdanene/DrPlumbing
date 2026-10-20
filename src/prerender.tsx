@@ -8,7 +8,7 @@ export { PATH_REDIRECTS, routeHref } from "./sitePaths";
 export { PHOTOS } from "./projectPhotos";
 export { PAGE_DATES } from "./pageDates";
 export { AGENT_READABLE_CITY_SLUGS } from "./cities";
-export { fillCity, scanServiceFor, pageTier, factMonth, rivalSiteFact } from "./agentReadable";
+export { fillCity, scanServiceFor, scanSentence, pageTier, factMonth, rivalSiteFact } from "./agentReadable";
 export { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 /**

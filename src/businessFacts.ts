@@ -101,7 +101,7 @@ export function pendingFact<T>(placeholder: `[${string}]`, note?: string, candid
  * Inputs: fact is any entry of BUSINESS.
  * Output: The confirmed value. A pending fact yields undefined in every mode; its candidate is
  * never returned, so an unconfirmed value cannot reach a search engine.
- * Examples: confirmed(BUSINESS.email) is "drplumbinggroup@gmail.com"; confirmed(BUSINESS.hours) is undefined.
+ * Examples: confirmed(BUSINESS.email) is "drplumbinggroup@gmail.com"; confirmed(pendingFact("[X]")) is undefined.
  */
 export function confirmed<T>(fact: ConfirmedFact<T>): T;
 export function confirmed<T>(fact: Fact<T>): T | undefined;
@@ -116,7 +116,7 @@ export function confirmed<T>(fact: Fact<T>): T | undefined {
  * String().
  * Output: The formatted value, the placeholder, or undefined in a production build.
  * Examples: displayText(BUSINESS.phone, (p) => p.display) is "(206) 671-8888";
- * displayText(BUSINESS.hours, formatHours) is "[HOURS]" under vitest and undefined when PROD is stubbed true.
+ * displayText(pendingFact("[X]")) is "[X]" outside production and undefined in production.
  */
 export function displayText<T>(fact: Fact<T>, format: (value: T) => string = String): string | undefined {
   if (fact.status === "confirmed") return format(fact.value);
@@ -174,7 +174,11 @@ export const BUSINESS = {
   ),
   ownerExperience: confirmedFact({ name: "Mehran", years: "26+" }, "Jide, JDA-408: Mehran has personally been plumbing for 26+ years", "2026-10-20"),
   ownerOnJob: confirmedFact("Owners on the job", "Jide, JDA-408", "2026-10-20"),
-  serviceScope: confirmedFact("water heaters, boilers and radiant heat, drains and sewer lines, trenchless repair, gas lines and complete bathroom remodels", "Jide, JDA-408", "2026-10-20"),
+  serviceScope: confirmedFact({
+    summary: "water heaters, boilers and radiant heat, drains and sewer lines, trenchless repair, gas lines and complete bathroom remodels",
+    boilersAndRadiant: "Dr Plumbing & Heating repairs and replaces boilers and radiant heat systems.",
+    trenchless: "Dr Plumbing & Heating provides trenchless water and sewer line repair.",
+  }, "Jide, JDA-408; existing boiler and trenchless service scope", "2026-10-20"),
   workStandard: confirmedFact("Quality workmanship", "Jide, JDA-408", "2026-10-20"),
   googleReputation: confirmedFact({ reviews: 6, rating: 5 }, "Google Business Profile, read 2026-10-20; October 19 MapPack scans", "2026-10-20"),
   homeBase: confirmedFact<{ city: string; region: "WA" }>({ city: "Newcastle", region: "WA" }, "Owner; the live site's About page", "2026-10-04"),
@@ -215,10 +219,10 @@ export const BUSINESS = {
     `The approved website list plus Newcastle, the home base (${OWNER_PROFILE}); Mercer Island added at Jide's request on 2026-10-14; Kirkland added at Jide's request on 2026-10-18`,
     "2026-10-18",
   ),
-  hours: pendingFact<readonly OpeningHours[]>(
-    "[HOURS]",
-    "Google and Yelp show 8 AM to 8 PM every day, read 2026-10-10; the owner has not confirmed it for the site",
+  hours: confirmedFact<readonly OpeningHours[]>(
     [{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }],
+    "Google Business Profile: all seven days, 8 AM to 8 PM America/Los_Angeles; https://share.google/mUpyvJNMJZACxJoH3; read 2026-10-20",
+    "2026-10-20",
   ),
   socialProfiles: pendingFact<readonly SocialProfile[]>("[SOCIAL PROFILES]", "No profiles exist yet under the current name, checked 2026-10-10"),
   priceRange: pendingFact<string>("[PRICE RANGE]", "schema.org wants a short marker such as $$; the owner has not set one"),
@@ -229,7 +233,7 @@ export const BUSINESS = {
  * Description: Lists the facts still waiting on the owner, for tests and for the review checklist.
  * Inputs: None.
  * Output: The placeholders of every pending entry in BUSINESS, in declaration order.
- * Examples: pendingPlaceholders() is ["[HOURS]", "[SOCIAL PROFILES]", "[PRICE RANGE]", "[RESPONSE TIME]"] today.
+ * Examples: pendingPlaceholders() is ["[SOCIAL PROFILES]", "[PRICE RANGE]", "[RESPONSE TIME]"] today.
  */
 export function pendingPlaceholders(): string[] {
   const facts: Fact<unknown>[] = Object.values(BUSINESS);

@@ -1,4 +1,4 @@
-import { BUSINESS, confirmed } from "./businessFacts";
+import { BUSINESS, confirmed, formatHours } from "./businessFacts";
 import { type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { PAGE_DATES } from "./pageDates";
@@ -49,9 +49,9 @@ export function AgentReadableAnswer({ page }: { page: CityPageMatch }) {
     <h2>{fillCity(answer.question, page.city.name)}</h2>
     <p className="reading-short-answer">{fillCity(answer.answer, page.city.name)}</p>
     <p className="reading-scan-sentence">{scanSentence(subject, page.city.name, scan, tier)}</p>
-    <p><a href={comparison}>{tier === "A" ? `Compare ${subject.toLowerCase()} providers in ${page.city.name}` : `Compare plumbers serving ${page.city.name}`}</a></p>
+    <p><a href={comparison}>{tier === "A" ? `Compare providers for ${subject.toLowerCase()} in ${page.city.name}` : `Compare plumbers serving ${page.city.name}`}</a></p>
     <BusinessDefinition />
-    <details className="reading-sources"><summary>Sources for this guidance</summary><ul>{answer.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}</ul></details>
+    {answer.sources.length > 0 && <details className="reading-sources"><summary>Sources for this guidance</summary><ul>{answer.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}</ul></details>}
   </div>;
 }
 
@@ -73,14 +73,15 @@ export function AgentReadableEvidence({ page }: { page: CityPageMatch }) {
       <ul>
         <li>{confirmed(BUSINESS.ownerOnJob)}. As of {factMonth(BUSINESS.ownerOnJob.confirmedOn)}.</li>
         <li>{owner.years} years of plumbing experience for {owner.name}. As of {factMonth(BUSINESS.ownerExperience.confirmedOn)}.</li>
-        <li>{confirmed(BUSINESS.workStandard)} across {confirmed(BUSINESS.serviceScope)}. As of {factMonth(BUSINESS.serviceScope.confirmedOn)}.</li>
+        <li>{confirmed(BUSINESS.workStandard)} across {confirmed(BUSINESS.serviceScope).summary}. As of {factMonth(BUSINESS.serviceScope.confirmedOn)}.</li>
         <li>Serving {page.city.name} as part of our Greater Seattle service area. As of {factMonth(BUSINESS.serviceCities.confirmedOn)}.</li>
         <li>{confirmed(BUSINESS.priceBasis)} As of {factMonth(BUSINESS.priceBasis.confirmedOn)}.</li>
+        <li>Hours: {formatHours(confirmed(BUSINESS.hours))}, Pacific time. As of {factMonth(BUSINESS.hours.confirmedOn)}. <a href={REVIEW_SOURCE}>Google profile</a>.</li>
       </ul>
       <p>Call or text to confirm appointment availability.</p>
     </section>
     {tier === "A" ? <section className="other reading-comparison" id="service-comparison">
-      <h2>Dr Plumbing &amp; Heating and other {page.service?.tab.toLowerCase() ?? "plumbing"} providers in {page.city.name}</h2>
+      <h2>Dr Plumbing &amp; Heating and other providers for {page.service?.tab.toLowerCase() ?? "plumbing"} in {page.city.name}</h2>
       <p>Google Maps observations from {scan.scannedAt.slice(0, 10)}, across {scan.searches} usable searches. The measured leading group contains {scan.top} businesses. This is a dated comparison, not a promise of availability or a complete list of companies.</p>
       <div className="reading-table-scroll" role="region" aria-label={`${page.city.name} service comparison`} tabIndex={0}>
         <table>
@@ -98,7 +99,7 @@ export function AgentReadableEvidence({ page }: { page: CityPageMatch }) {
               <td>{scan.own.rating === null ? "Not observed in this scan" : `${scan.own.rating.toFixed(1)} / ${scan.own.reviews}`}</td>
               <td>{scan.own.share === null ? "Not reported" : `${Math.round(scan.own.share)}%`}. Seen in {scan.own.seen} of {scan.searches}; positions 1–{scan.top} in {scan.own.inTop} searches</td>
               <td>{scan.own.firstPlaceCount ?? "Not reported"}</td>
-              <td>{scan.own.categories.length ? `${scan.own.categories.join(", ")}. ` : ""}We offer {confirmed(BUSINESS.serviceScope)}. <a href={REVIEW_SOURCE}>Google profile</a></td>
+              <td>{scan.own.categories.length ? `${scan.own.categories.join(", ")}. ` : ""}We offer {confirmed(BUSINESS.serviceScope).summary}. <a href={REVIEW_SOURCE}>Google profile</a></td>
             </tr>
             {scan.rivals.map((rival) => {
               const checked = rivalSiteFact(rival.website);

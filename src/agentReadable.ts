@@ -1,6 +1,7 @@
 import { AGENT_READABLE_CITY_SLUGS, type CityPageMatch } from "./cities";
 import { pathSlug } from "./sitePaths";
 import { RIVAL_SITE_FACTS } from "./content/rivalFacts";
+import { BUSINESS, confirmed } from "./businessFacts";
 
 export interface Rival {
   name: string;
@@ -100,16 +101,18 @@ export function rivalSiteFact(website: string | null) {
 /**
  * Description: Gives each page one service-and-city-specific sentence from its own saved scan.
  * Inputs: subject identifies the page; scan contains measured Google observations, not promises of service.
- * Output: A unique sentence. A category's absence is never treated as proof a rival lacks that service.
- * Examples: A boiler page reports the number of leading listings with a boiler category; Tier B reports its measured leading-listing count.
+ * Output: Unique page context. Category counts exclude our listing and never prove a rival lacks a service.
+ * Examples: Newcastle boilers reports zero of three other leaders, then our verified boiler scope;
+ * a scan without our listing counts every rival; Tier B reports its measured leading-listing count.
  */
 export function scanSentence(subject: string, city: string, scan: RivalScan, tier: "A" | "B") {
   const introduction = `For ${subject.toLowerCase()} in ${city}`;
   if (scan.serviceId === "boilers-and-radiant" || scan.serviceId === "trenchless") {
     const term = scan.serviceId === "trenchless" ? "trenchless" : "boiler";
     const count = scan.rivals.filter((rival) => rival.categories.some((category) => category.toLowerCase().includes(term))).length;
-    const ownCount = scan.rivals.length < scan.top && scan.own.categories.some((category) => category.toLowerCase().includes(term)) ? 1 : 0;
-    return `${introduction}, ${count + ownCount} of the ${scan.top} leading Google listings included “${term}” in their categories in ${factMonth(scan.scannedAt)}; categories alone do not establish which work a company accepts.`;
+    const scope = confirmed(BUSINESS.serviceScope);
+    const ourService = scan.serviceId === "trenchless" ? scope.trenchless : scope.boilersAndRadiant;
+    return `${introduction}, ${count} of the ${scan.rivals.length} other leading Google listings included “${term}” in their categories in ${factMonth(scan.scannedAt)}. ${ourService} A Google category's absence does not establish which work another company accepts.`;
   }
   if (tier === "B") return `${introduction}, the ${factMonth(scan.scannedAt)} scan identified ${scan.top} leading businesses across ${scan.searches} usable searches; the city hub comparison explains the wider plumbing choices.`;
   const leaders = scan.rivals.slice(0, 2).map((rival) => `${rival.name}${rival.share === null ? "" : ` (${Math.round(rival.share)}% of searches in positions 1–3)`}`).join(" and ");

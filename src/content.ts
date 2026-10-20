@@ -341,7 +341,7 @@ export const SERVICES: Service[] = [
     "cta": "boiler",
     "short": "Hydronic boiler repair, service and replacement.",
     "photo": "Boiler or radiant heat job",
-    "lead": "We provide top-quality boiler services to keep your home's heating system running smoothly. Whether you need a routine maintenance check or repairs or replacement, we have the expertise to get the job done right. Our team of licensed professionals is available to handle all of your boiler service needs.",
+    "lead": "We maintain, repair and replace boilers, including the piping, pumps and controls that carry heat through your home.",
     "sections": [
       {
         "heading": "What is a hydronic boiler system?",

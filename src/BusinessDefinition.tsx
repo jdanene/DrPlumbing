@@ -11,7 +11,7 @@ export default function BusinessDefinition() {
   const owner = confirmed(BUSINESS.ownerExperience);
   return <p className="business-definition">
     {confirmed(BUSINESS.publicName)} is an owner-operated plumbing and heating company in {confirmed(BUSINESS.homeBase).city}, WA.
-    {" "}Its owner, {owner.name}, has been plumbing for {owner.years} years. We serve the Eastside and Greater Seattle with {confirmed(BUSINESS.serviceScope)}.
+    {" "}Its owner, {owner.name}, has been plumbing for {owner.years} years. We serve the Eastside and Greater Seattle with {confirmed(BUSINESS.serviceScope).summary}.
     {" "}{confirmed(BUSINESS.priceBasis)}
     {" "}As of {factMonth(BUSINESS.ownerExperience.confirmedOn)}.
   </p>;
