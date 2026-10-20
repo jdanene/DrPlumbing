@@ -1,18 +1,25 @@
 import { PUBLIC_ROUTES } from "./seo";
+import { AGENT_READABLE_CITY_SLUGS } from "./cities";
 
 /**
- * Description: Records the last published HTML change for each existing page, not the build day.
+ * Description: Records known publication and content-revision dates, not the build day.
  * Inputs: Public route IDs; future content edits add an override on their actual merge day.
- * Output: A complete route-to-date map used by the sitemap and later visible content dates.
+ * Output: A complete route-to-date map used by the sitemap and visible city-page dates.
  * Examples: Object.keys(PAGE_DATES).length equals PUBLIC_ROUTES.length.
  *
- * Source: shared SiteShell content changed in 8d2c55af (2026-10-18, America/Los_Angeles),
- * affecting every rendered page. Later service/photo changes on the same day include
- * f0506630, 89b15256 and b989f6bb. These are last-modified dates, not first-publication dates.
+ * Source: this October 20 revision changes shared license facts on every page and
+ * the definition on general pages, so every page has a content revision on that date.
+ * The previous shared-shell baseline was 8d2c55af on October 18. Revision dates are
+ * not first-publication dates and do not assert that an unmerged branch is live.
  * Do not replace them with today's date merely because a build ran.
  */
-const baselineUpdated = "2026-10-18";
+const baselineUpdated = "2026-10-20";
 const routeUpdates: Record<string, string> = {};
-export const PAGE_DATES: Record<string, { updated: string }> = Object.fromEntries(
-  PUBLIC_ROUTES.map((route) => [route, { updated: routeUpdates[route] ?? baselineUpdated }]),
+export const PAGE_DATES: Record<string, { published?: string; updated: string }> = Object.fromEntries(
+  PUBLIC_ROUTES.map((route) => {
+    const inCohort = AGENT_READABLE_CITY_SLUGS.some((slug) => route === `areas/${slug}` || route.startsWith(`areas/${slug}/`));
+    // The ticket records the cohort's original production launch on October 18.
+    // October 20 is this content revision, not a claim that this unmerged PR is live.
+    return [route, { ...(inCohort ? { published: "2026-10-18" } : {}), updated: routeUpdates[route] ?? baselineUpdated }];
+  }),
 );

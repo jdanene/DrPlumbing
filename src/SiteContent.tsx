@@ -18,6 +18,8 @@ import {
 import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS, type WorkProject } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
 import { cityAnswer, cityHeading, serviceHrefFor, type CityPageMatch } from "./cities";
+import { AgentReadableAnswer, AgentReadableEvidence } from "./AgentReadableContent";
+import { isAgentReadable } from "./agentReadable";
 
 /**
  * Description: Draws the repeated directional cue without giving it an accessible name.
@@ -227,7 +229,7 @@ export function ServicePage({
             ))}
           </nav>
         </div>
-        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}${!detail && service.id === "plumbing" ? " svc-hero--plumbing" : ""}`}>
+        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}${!detail && service.id === "plumbing" ? " svc-hero--plumbing" : ""}${isAgentReadable(cityPage) ? " svc-hero--agent-readable" : ""}`}>
           <div className="copy">
             <nav className="crumbs" aria-label="Breadcrumb">
               <a href={routeHref("home")}>Home</a>
@@ -246,7 +248,7 @@ export function ServicePage({
               )}
             </nav>
             <h1 tabIndex={-1}>{cityPage ? cityHeading(cityPage) : detail?.item ?? service.title}</h1>
-            {cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
+            {cityPage && isAgentReadable(cityPage) ? <AgentReadableAnswer page={cityPage} /> : cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
             <div className="cta-row">
               <a className="btn btn-primary" href={routeHref("book")}>
                 Book a visit
@@ -258,6 +260,7 @@ export function ServicePage({
           </div>
           {photo && <ProjectPhoto photo={photo} city={cityPage?.city.name} priority fullFrame />}
         </section>
+        {cityPage && isAgentReadable(cityPage) && <AgentReadableEvidence page={cityPage} />}
         {cityPage && !detail && (
           <div className="other">
             <h2>{service.tab} in {cityPage.city.name}</h2>

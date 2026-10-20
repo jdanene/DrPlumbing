@@ -9,6 +9,9 @@ import {
 import { Arrow } from "./SiteContent";
 import { serviceNavigationMenu } from "./serviceDetails";
 import { CITY_OPTION_PAGES, cityPageAt, serviceHrefFor } from "./cities";
+import BusinessDefinition from "./BusinessDefinition";
+import { BUSINESS } from "./businessFacts";
+import { factMonth } from "./agentReadable";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -373,7 +376,7 @@ export default function SiteShell({
                 >
                   <BrandLogo onDark />
                 </a>
-                <p>Family owned and run from Newcastle, Washington. Serving the Greater Seattle area.</p>
+                {routeCity ? <p>Family owned and run from Newcastle, Washington. Serving the Greater Seattle area.</p> : <BusinessDefinition />}
               </div>
               <div>
                 <h3>Services</h3>
@@ -434,8 +437,9 @@ export default function SiteShell({
                   </li>
                   <li>
                     <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
-                      WA plumbing contractor lic. {PLUMBING_LICENSE.number}
+                      Active WA plumbing contractor lic. {PLUMBING_LICENSE.number}
                     </a>
+                    {" "}(as of {factMonth(BUSINESS.license.confirmedOn)})
                   </li>
                 </ul>
               </div>

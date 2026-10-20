@@ -35,6 +35,11 @@ The build also runs two static checks after prerendering:
   elements, and at least 200 words in each public page's raw HTML body. An empty
   alt must explicitly mark a decorative image. The word count includes shared
   navigation and footer text; it is not a measure of unique service copy.
+  It also checks all 301 target-city pages for their first-H2 question, short
+  answer, unique measured sentence, publication/update dates and correct tier:
+  98 named comparisons and 203 hub-linked service pages. Each hub has all six
+  Google review records, including the rating-only review without an invented
+  quotation.
 - `scripts/check-links.mjs` checks emitted `href` and `src` paths and HTML
   fragments. Missing internal targets stop the build with the source page and
   rule. External HTTP links get two attempts, each with a five-second timeout,
@@ -210,15 +215,47 @@ The build generates `/robots.txt` and `/sitemap.xml` for
 `https://drplumbingheating.com`. Submit the sitemap through the owner's Search
 Console after deployment; generating it does not submit it or guarantee ranking.
 
-Every sitemap URL includes `lastmod` from `src/pageDates.ts`. Its initial
-2026-10-18 values record the last published shared-page content changes, cited
-by commit in that file. They are not first-publication or verification dates.
-Update the affected route override on the day its content actually merges;
-never advance dates just because a build ran. The build lists dates older than
-90 days. Visible publication/update dates and verified comparison content are
-separate work in JDA-408's second PR. Production robots explicitly allow
+Every sitemap URL includes `lastmod` from `src/pageDates.ts`. The target city's
+publication date is October 18, as recorded in JDA-408. This revision changes
+shared license facts on every page, so every URL's content revision is October
+20. Update affected overrides if the actual merge occurs later; never
+advance dates just because a build ran. These same records supply the visible
+city-page dates. Unknown first-publication dates for other pages are not guessed.
+The build lists revisions older than 90 days. Production robots explicitly allow
 meta-webindexer, GPTBot, ClaudeBot, PerplexityBot and Google-Extended, while each
 group still excludes `/api/`. Private previews still disallow all crawling.
+
+The seven-city reading structure uses `AgentReadableContent.tsx` and the 43
+final questions and answers in `src/content/serviceAnswers.ts`. Primary-source
+links remain beside the guidance. Owner facts come from `businessFacts.ts`.
+The comparison preserves the saved scan's numbers even when the current Google
+review count differs. Google category omissions never prove a service is absent.
+Only the official-site claims in `src/content/rivalFacts.ts` appear as checked
+services or hours; unreadable or unchecked sites get no such claim.
+
+`scripts/export-rivals.mjs` generates `src/content/rivals.json` from existing
+MapPack observations. Run `node scripts/export-rivals.mjs --help` for the saved
+acquisition and authenticated read modes. Exact positions 1–3 counts are required;
+the exporter fails rather than label rank-within-N counts as top-three share.
+The committed export's provenance records read-only MapPack repository access
+and all 49 scans. Refreshing existing observations is not a provider rescan.
+No credentials enter the export. The measurement evidence and remaining external
+measurement work are recorded in [the baseline](docs/actions/jda408-baseline.md).
+
+For a repository-based refresh, use the current local MapPack backend's Python
+environment, without pulling into a dirty checkout:
+
+```sh
+/path/to/mappack/backend/.venv/bin/python scripts/acquire-rivals.py \
+  --mappack-root /path/to/mappack --env-file /path/to/mappack/.env \
+  --date 2026-10-19 --output /private/tmp/rivals-acquisition.json
+node scripts/export-rivals.mjs --input /private/tmp/rivals-acquisition.json
+```
+
+Acquisition enforces a read-only database transaction, selects existing saved
+scans for that date, and fails on incomplete or mismatched evidence. It never
+buys a scan or changes MapPack. A stale MapPack source tree fails with an update
+instruction rather than using different measurement rules silently.
 
 Development HTML remains `noindex`. The production build permits indexing on
 the registered domain. Host-specific `_headers` rules block both `*.pages.dev`

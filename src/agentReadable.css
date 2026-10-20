@@ -1,0 +1,32 @@
+.reading-answer { max-width: 70ch; }
+.reading-answer h2 { font-size: clamp(1.4rem, 2.5vw, 1.9rem); line-height: 1.25; margin-block: 1.25rem .75rem; }
+.reading-answer p { margin-block: .75rem; }
+.page-dates, .reading-sources { color: var(--muted); font-size: .875rem; }
+.reading-short-answer { font-size: 1.125rem; line-height: 1.6; }
+.reading-scan-sentence, .business-definition { line-height: 1.6; }
+.reading-sources summary, .reading-comparison summary { cursor: pointer; padding-block: .5rem; }
+.reading-evidence { margin-block: 2rem; }
+.reading-evidence ul { padding-inline-start: 1.25rem; }
+.reading-evidence li { margin-block: .75rem; }
+.reading-comparison > p, .reading-business-facts p { margin-block: 1rem; max-width: 75ch; }
+.reading-table-scroll { overflow-x: auto; margin-block: 1.5rem; border: 1px solid var(--line); }
+.reading-table-scroll:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
+.reading-comparison table { width: 100%; border-collapse: collapse; min-width: 54rem; }
+.reading-comparison caption { text-align: left; padding: 1rem; color: var(--muted); }
+.reading-comparison th, .reading-comparison td { text-align: left; vertical-align: top; padding: 1rem; border-top: 1px solid var(--line); }
+.reading-comparison thead { background: var(--tint); }
+.reading-comparison td p { margin-block: .75rem 0; }
+.reading-comparison th[scope="row"] { min-width: 11rem; }
+.reading-reviews figure { margin: 1.5rem 0; max-width: 70ch; }
+.reading-reviews blockquote { font-size: 1.125rem; line-height: 1.6; }
+.reading-reviews figcaption { color: var(--muted); margin-top: .5rem; }
+@media (max-width: 48rem) {
+  .reading-table-scroll { max-width: 100%; }
+  .reading-answer { min-width: 0; }
+}
+@media (max-width: 56.25rem) {
+  .view[data-view="service"] .svc-hero--agent-readable { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .view[data-view="service"] .svc-hero--agent-readable > .copy,
+  .view[data-view="service"] .svc-hero--agent-readable > .project-photo { grid-column: 1 / -1; min-width: 0; }
+  .svc-hero--agent-readable ~ .svc-sec { grid-template-columns: minmax(0, 1fr); }
+}
