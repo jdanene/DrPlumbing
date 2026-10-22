@@ -1,0 +1,3386 @@
+{
+ "Boilers and radiant": {
+  "Bellevue": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 89,
+   "us": {
+    "in_top": 0,
+    "seen": 24,
+    "median_position": 7.5
+   },
+   "rivals": [
+    {
+     "name": "Seattle Heating & Cooling",
+     "share": 60,
+     "first": 21,
+     "reviews": 56,
+     "rating": 4.8,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning system supplier",
+      "Air duct cleaning service",
+      "Contractor",
+      "Dryer vent cleaning service",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier"
+     ],
+     "website": "seattlehvac.com",
+     "is_us": false
+    },
+    {
+     "name": "Agni Heating & Cooling",
+     "share": 58,
+     "first": 32,
+     "reviews": 81,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor"
+     ],
+     "website": "agniheating.com",
+     "is_us": false
+    },
+    {
+     "name": "A-Service: Heating Cooling & Appliance Repair Bellevue",
+     "share": 28,
+     "first": 15,
+     "reviews": 90,
+     "rating": 5,
+     "categories": [
+      "Appliance repair service"
+     ],
+     "website": "aptechpro.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 2,
+   "scan": "2026-10-20",
+   "usable": 88,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Varsity Heating and Cooling",
+     "share": 91,
+     "first": 49,
+     "reviews": 141,
+     "rating": 5,
+     "categories": [
+      "Heating contractor"
+     ],
+     "website": "varsityheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Northwest Expert Heating, Cooling & Electrical",
+     "share": 66,
+     "first": 3,
+     "reviews": 1231,
+     "rating": 4.9,
+     "categories": [
+      "Heating contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrical installation service",
+      "Electrician",
+      "Furnace repair service",
+      "HVAC contractor"
+     ],
+     "website": "www.nwexpert.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 80,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Hotwire Furnace, Air Conditioning & Appliance Repair Issaquah",
+     "share": 82,
+     "first": 48,
+     "reviews": 87,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Appliance repair service",
+      "Furnace repair service",
+      "Heating contractor",
+      "Microwave oven repair service",
+      "Refrigerator repair service",
+      "Washer & dryer repair service"
+     ],
+     "website": "hotwirerepair.com",
+     "is_us": false
+    },
+    {
+     "name": "Noble Plumbing, Heating & Cooling",
+     "share": 57,
+     "first": 18,
+     "reviews": 142,
+     "rating": 5,
+     "categories": [
+      "Heating contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Boiler supplier",
+      "Furnace repair service",
+      "Plumber",
+      "Heating equipment supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.noble-plumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Top Heating and Cooling",
+     "share": 44,
+     "first": 2,
+     "reviews": 71,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Plumber"
+     ],
+     "website": "topheatcool.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 10,
+    "seen": 76,
+    "median_position": 7.0
+   },
+   "rivals": [
+    {
+     "name": "Nortech Heating, Cooling & Refrigeration",
+     "share": 56,
+     "first": 21,
+     "reviews": 153,
+     "rating": 4.5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Furnace repair service",
+      "Heating contractor",
+      "Refrigerator repair service"
+     ],
+     "website": "nortechservices.com",
+     "is_us": false
+    },
+    {
+     "name": "Agni Heating & Cooling",
+     "share": 47,
+     "first": 30,
+     "reviews": 81,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor"
+     ],
+     "website": "agniheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Water Heater Doctor",
+     "share": 30,
+     "first": 4,
+     "reviews": 126,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "waterheaterdoctor.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 85,
+   "us": {
+    "in_top": 48,
+    "seen": 85,
+    "median_position": 4
+   },
+   "rivals": [
+    {
+     "name": "Agni Heating & Cooling",
+     "share": 48,
+     "first": 20,
+     "reviews": 81,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor"
+     ],
+     "website": "agniheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Dr Plumbing & Heating Group",
+     "share": 47,
+     "first": 15,
+     "reviews": 5,
+     "rating": 5,
+     "categories": [
+      "Heating contractor",
+      "Drainage service",
+      "Service establishment",
+      "Plumber"
+     ],
+     "website": "drplumbingheating.com",
+     "is_us": true
+    },
+    {
+     "name": "Newcastle Heating & Cooling Services Specialists",
+     "share": 40,
+     "first": 30,
+     "reviews": 1,
+     "rating": 5,
+     "categories": [
+      "Contractor"
+     ],
+     "website": null,
+     "is_us": false
+    },
+    {
+     "name": "All Hi-Tech Heating & Air Conditioning",
+     "share": 27,
+     "first": 7,
+     "reviews": 103,
+     "rating": 4.7,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Appliance repair service",
+      "Dryer vent cleaning service",
+      "Fireplace store",
+      "Furnace parts supplier",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor"
+     ],
+     "website": "myfurnace.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Ballard Heating, Cooling, Electric & Plumbing",
+     "share": 64,
+     "first": 43,
+     "reviews": 107,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning store",
+      "Electrician",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor",
+      "Plumber"
+     ],
+     "website": "ballardservices.com",
+     "is_us": false
+    },
+    {
+     "name": "All Climate Heating & Air Conditioning",
+     "share": 56,
+     "first": 15,
+     "reviews": 718,
+     "rating": 4.8,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor"
+     ],
+     "website": "www.allclimate.net",
+     "is_us": false
+    },
+    {
+     "name": "Pearce Heating & A/C",
+     "share": 43,
+     "first": 14,
+     "reviews": 390,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor"
+     ],
+     "website": "pearceheating.com",
+     "is_us": false
+    },
+    {
+     "name": "One Hour Heating and Air Conditioning",
+     "share": 36,
+     "first": 0,
+     "reviews": 146,
+     "rating": 5,
+     "categories": [
+      "Heating contractor",
+      "Air conditioning contractor",
+      "Air conditioning system supplier",
+      "Heating equipment supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.onehourheatandair.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 5,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 3,
+    "seen": 27,
+    "median_position": 9
+   },
+   "rivals": [
+    {
+     "name": "Greenwood Heating and Home Services",
+     "share": 38,
+     "first": 15,
+     "reviews": 4997,
+     "rating": 4.9,
+     "categories": [
+      "HVAC contractor",
+      "Air duct cleaning service",
+      "Electrician",
+      "Heating contractor",
+      "Plumber",
+      "Water damage restoration service"
+     ],
+     "website": "www.greenwoodheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Washington Water Heaters, Heating & Air Conditioning",
+     "share": 32,
+     "first": 11,
+     "reviews": 320,
+     "rating": 4.9,
+     "categories": [
+      "Heating contractor",
+      "Air conditioning contractor",
+      "Plumber"
+     ],
+     "website": "washingtonwaterheaters.com",
+     "is_us": false
+    },
+    {
+     "name": "Chipper Radiant Heating Repair",
+     "share": 30,
+     "first": 18,
+     "reviews": 3,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Heating contractor"
+     ],
+     "website": "kingcountyplumberheaterrepair.com",
+     "is_us": false
+    },
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 27,
+     "first": 15,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Seattle Air Superior",
+     "share": 20,
+     "first": 1,
+     "reviews": 89,
+     "rating": 4.8,
+     "categories": [
+      "HVAC contractor",
+      "Air compressor repair service",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Air filter supplier",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier",
+      "Insulation contractor"
+     ],
+     "website": "www.seattleairsuperior.com",
+     "is_us": false
+    }
+   ]
+  }
+ },
+ "Drain and sewer": {
+  "Bellevue": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 7,
+    "median_position": 19
+   },
+   "rivals": [
+    {
+     "name": "American Rooter Sewer & Drain Service LLC",
+     "share": 92,
+     "first": 38,
+     "reviews": 367,
+     "rating": 5,
+     "categories": [
+      "Contractor",
+      "Drainage service",
+      "Plumber"
+     ],
+     "website": "www.americanrooterwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Washington Rooter Sewer & Drain Service LLC",
+     "share": 64,
+     "first": 24,
+     "reviews": 331,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Septic system service"
+     ],
+     "website": "warooterllc.com",
+     "is_us": false
+    },
+    {
+     "name": "Ready Rooter Plumbing and Drain",
+     "share": 47,
+     "first": 15,
+     "reviews": 2009,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "readyrooter4you.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 2,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Steady Flow Sewer & Drain Co",
+     "share": 83,
+     "first": 66,
+     "reviews": 210,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "steadyflowdrainco.com",
+     "is_us": false
+    },
+    {
+     "name": "Hilad Federal Way Plumbers & Drain",
+     "share": 46,
+     "first": 7,
+     "reviews": 18,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": null,
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Eastside Plumbing, Sewer, Septic, Electric, Heating & Air - Issaquah",
+     "share": 83,
+     "first": 45,
+     "reviews": 97,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrical installation service",
+      "Electrician",
+      "HVAC contractor",
+      "Septic system service",
+      "Sewage disposal service"
+     ],
+     "website": "www.eastsideplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 40,
+     "first": 9,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Seattle Select Sewers",
+     "share": 30,
+     "first": 5,
+     "reviews": 36,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Service establishment",
+      "General contractor",
+      "Home inspector",
+      "Drainage service"
+     ],
+     "website": "www.seattleselectsewers.com",
+     "is_us": false
+    },
+    {
+     "name": "American Rooter Sewer & Drain Service LLC",
+     "share": 30,
+     "first": 20,
+     "reviews": 367,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Contractor"
+     ],
+     "website": "www.americanrooterwa.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 19,
+    "median_position": 16
+   },
+   "rivals": [
+    {
+     "name": "American Rooter Sewer & Drain Service LLC",
+     "share": 93,
+     "first": 37,
+     "reviews": 367,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Contractor"
+     ],
+     "website": "www.americanrooterwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Ready Rooter Plumbing and Drain",
+     "share": 78,
+     "first": 28,
+     "reviews": 2009,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "readyrooter4you.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 46,
+     "first": 14,
+     "reviews": 2680,
+     "rating": 4.6,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service",
+      "Water purification company",
+      "Water softening equipment supplier"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 35,
+    "median_position": 17
+   },
+   "rivals": [
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 68,
+     "first": 24,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Ready Rooter Plumbing and Drain",
+     "share": 59,
+     "first": 21,
+     "reviews": 2009,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "readyrooter4you.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 57,
+     "first": 34,
+     "reviews": 798,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Roto-Rooter Water Damage Restoration Services",
+     "share": 90,
+     "first": 48,
+     "reviews": 336,
+     "rating": 4.8,
+     "categories": [
+      "Water damage restoration service",
+      "Contractor",
+      "Drainage service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Washington Rooter Sewer & Drain Service LLC",
+     "share": 57,
+     "first": 25,
+     "reviews": 331,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Septic system service"
+     ],
+     "website": "warooterllc.com",
+     "is_us": false
+    },
+    {
+     "name": "All Plumbing & Jetting",
+     "share": 43,
+     "first": 2,
+     "reviews": 3,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "davesplumbingpro.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 3,
+    "median_position": 19
+   },
+   "rivals": [
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 63,
+     "first": 44,
+     "reviews": 798,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 32,
+     "first": 0,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "All Phase Plumbing",
+     "share": 28,
+     "first": 15,
+     "reviews": 52,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Gas installation service",
+      "Septic system service"
+     ],
+     "website": "www.allphaseplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "I Need A Plumber Now and Sewer Services",
+     "share": 26,
+     "first": 0,
+     "reviews": 5,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.ineedaplumbernow.net",
+     "is_us": false
+    }
+   ]
+  }
+ },
+ "Heating and cooling": {
+  "Bellevue": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 1,
+    "median_position": 14
+   },
+   "rivals": [
+    {
+     "name": "Seattle Heating & Cooling",
+     "share": 41,
+     "first": 25,
+     "reviews": 56,
+     "rating": 4.8,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning system supplier",
+      "Air duct cleaning service",
+      "Contractor",
+      "Dryer vent cleaning service",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier"
+     ],
+     "website": "seattlehvac.com",
+     "is_us": false
+    },
+    {
+     "name": "Agni Heating & Cooling",
+     "share": 39,
+     "first": 8,
+     "reviews": 81,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor"
+     ],
+     "website": "agniheating.com",
+     "is_us": false
+    },
+    {
+     "name": "All Hi-Tech",
+     "share": 28,
+     "first": 13,
+     "reviews": 79,
+     "rating": 4.7,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Furnace repair service",
+      "Heating contractor"
+     ],
+     "website": "myfurnace.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 2,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Northwest Expert Heating, Cooling & Electrical",
+     "share": 83,
+     "first": 44,
+     "reviews": 1231,
+     "rating": 4.9,
+     "categories": [
+      "Furnace repair service",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrical installation service",
+      "Electrician",
+      "Heating contractor",
+      "HVAC contractor"
+     ],
+     "website": "www.nwexpert.com",
+     "is_us": false
+    },
+    {
+     "name": "Varsity Heating and Cooling",
+     "share": 51,
+     "first": 2,
+     "reviews": 141,
+     "rating": 5,
+     "categories": [
+      "Heating contractor"
+     ],
+     "website": "varsityheating.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Hotwire Furnace, Air Conditioning & Appliance Repair Issaquah",
+     "share": 94,
+     "first": 61,
+     "reviews": 87,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Appliance repair service",
+      "Furnace repair service",
+      "Heating contractor",
+      "Microwave oven repair service",
+      "Refrigerator repair service",
+      "Washer & dryer repair service"
+     ],
+     "website": "hotwirerepair.com",
+     "is_us": false
+    },
+    {
+     "name": "Product Air Heating, Cooling, and Electric Issaquah",
+     "share": 78,
+     "first": 26,
+     "reviews": 77,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Heating contractor",
+      "Electrician"
+     ],
+     "website": "productairheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Top Heating and Cooling",
+     "share": 47,
+     "first": 0,
+     "reviews": 71,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Plumber"
+     ],
+     "website": "topheatcool.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 9,
+    "median_position": 17
+   },
+   "rivals": [
+    {
+     "name": "All Hi-Tech Heating & Air Conditioning",
+     "share": 72,
+     "first": 36,
+     "reviews": 103,
+     "rating": 4.7,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Appliance repair service",
+      "Dryer vent cleaning service",
+      "Fireplace store",
+      "Furnace parts supplier",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor"
+     ],
+     "website": "myfurnace.com",
+     "is_us": false
+    },
+    {
+     "name": "Nortech Heating, Cooling & Refrigeration",
+     "share": 42,
+     "first": 2,
+     "reviews": 153,
+     "rating": 4.5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Furnace repair service",
+      "Heating contractor",
+      "Refrigerator repair service"
+     ],
+     "website": "nortechservices.com",
+     "is_us": false
+    },
+    {
+     "name": "Quality Bellevue HVAC Repair",
+     "share": 34,
+     "first": 13,
+     "reviews": 5,
+     "rating": 5,
+     "categories": [
+      "Air conditioning repair service"
+     ],
+     "website": "qualitybellevuehvacrepair.site",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 22,
+    "median_position": 15.5
+   },
+   "rivals": [
+    {
+     "name": "Alpha Heating & Air Conditioning",
+     "share": 70,
+     "first": 14,
+     "reviews": 38,
+     "rating": 3.6,
+     "categories": [
+      "HVAC contractor"
+     ],
+     "website": "alphaheatandac.com",
+     "is_us": false
+    },
+    {
+     "name": "All Hi-Tech Heating & Air Conditioning",
+     "share": 56,
+     "first": 22,
+     "reviews": 103,
+     "rating": 4.7,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Appliance repair service",
+      "Dryer vent cleaning service",
+      "Fireplace store",
+      "Furnace parts supplier",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor"
+     ],
+     "website": "myfurnace.com",
+     "is_us": false
+    },
+    {
+     "name": "Quality Bellevue HVAC Repair",
+     "share": 43,
+     "first": 33,
+     "reviews": 5,
+     "rating": 5,
+     "categories": [
+      "Air conditioning repair service"
+     ],
+     "website": "qualitybellevuehvacrepair.site",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "All Climate Heating & Air Conditioning",
+     "share": 82,
+     "first": 56,
+     "reviews": 718,
+     "rating": 4.8,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor"
+     ],
+     "website": "www.allclimate.net",
+     "is_us": false
+    },
+    {
+     "name": "Pearce Heating & A/C",
+     "share": 48,
+     "first": 22,
+     "reviews": 390,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor"
+     ],
+     "website": "pearceheating.com",
+     "is_us": false
+    },
+    {
+     "name": "One Hour Heating and Air Conditioning",
+     "share": 36,
+     "first": 0,
+     "reviews": 146,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning system supplier",
+      "Heating equipment supplier",
+      "Heating contractor"
+     ],
+     "website": "www.onehourheatandair.com",
+     "is_us": false
+    },
+    {
+     "name": "Ballard Heating, Cooling, Electric & Plumbing",
+     "share": 30,
+     "first": 0,
+     "reviews": 107,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning store",
+      "Electrician",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor",
+      "Plumber"
+     ],
+     "website": "ballardservices.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Greenwood Heating and Home Services",
+     "share": 34,
+     "first": 20,
+     "reviews": 4997,
+     "rating": 4.9,
+     "categories": [
+      "HVAC contractor",
+      "Air duct cleaning service",
+      "Electrician",
+      "Heating contractor",
+      "Plumber",
+      "Water damage restoration service"
+     ],
+     "website": "www.greenwoodheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Seattle Air Superior",
+     "share": 33,
+     "first": 8,
+     "reviews": 89,
+     "rating": 4.8,
+     "categories": [
+      "HVAC contractor",
+      "Air compressor repair service",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air duct cleaning service",
+      "Air filter supplier",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier",
+      "Insulation contractor"
+     ],
+     "website": "www.seattleairsuperior.com",
+     "is_us": false
+    },
+    {
+     "name": "One Hour Heating & Air Conditioning - Newcastle",
+     "share": 32,
+     "first": 10,
+     "reviews": 129,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning system supplier",
+      "Furnace repair service",
+      "Heating equipment supplier"
+     ],
+     "website": "www.onehourheatandair.com",
+     "is_us": false
+    },
+    {
+     "name": "Mountain Valley Heating & A/C",
+     "share": 29,
+     "first": 10,
+     "reviews": 168,
+     "rating": 4.9,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Furnace repair service"
+     ],
+     "website": "mountainvalleyheating.com",
+     "is_us": false
+    }
+   ]
+  }
+ },
+ "Plumber": {
+  "Bellevue": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 4,
+    "median_position": 13.5
+   },
+   "rivals": [
+    {
+     "name": "Homeservice Plumbers",
+     "share": 66,
+     "first": 37,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 56,
+     "first": 18,
+     "reviews": 1211,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Ben\u2019s Plumbing & Drain Cleaning",
+     "share": 34,
+     "first": 2,
+     "reviews": 135,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "HVAC contractor",
+      "Drainage service",
+      "Sewage disposal service",
+      "Water filter supplier"
+     ],
+     "website": "bens.plumbing",
+     "is_us": false
+    },
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 29,
+     "first": 9,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Steady Flow Sewer & Drain Co",
+     "share": 47,
+     "first": 25,
+     "reviews": 210,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "steadyflowdrainco.com",
+     "is_us": false
+    },
+    {
+     "name": "In & Out Plumbing",
+     "share": 42,
+     "first": 15,
+     "reviews": 398,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Bathroom remodeler",
+      "Drainage service",
+      "Hot water system supplier"
+     ],
+     "website": "plumbinginwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Beacon Plumbing, Heating, Electrical & Mechanical Inc - Auburn",
+     "share": 38,
+     "first": 16,
+     "reviews": 353,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrical installation service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor",
+      "HVAC contractor",
+      "Mechanical contractor",
+      "Septic system service"
+     ],
+     "website": "www.beaconplumbing.net",
+     "is_us": false
+    },
+    {
+     "name": "Hilad Federal Way Plumbers & Drain",
+     "share": 24,
+     "first": 10,
+     "reviews": 18,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": null,
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Eastside Plumbing, Sewer, Septic, Electric, Heating & Air - Issaquah",
+     "share": 92,
+     "first": 61,
+     "reviews": 97,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrical installation service",
+      "Electrician",
+      "HVAC contractor",
+      "Septic system service",
+      "Sewage disposal service"
+     ],
+     "website": "www.eastsideplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Noble Plumbing, Heating & Cooling",
+     "share": 53,
+     "first": 0,
+     "reviews": 142,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Boiler supplier",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.noble-plumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 32,
+     "first": 10,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 1,
+    "seen": 17,
+    "median_position": 13
+   },
+   "rivals": [
+    {
+     "name": "Homeservice Plumbers",
+     "share": 82,
+     "first": 56,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    },
+    {
+     "name": "Ben\u2019s Plumbing & Drain Cleaning",
+     "share": 61,
+     "first": 0,
+     "reviews": 135,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "HVAC contractor",
+      "Drainage service",
+      "Sewage disposal service",
+      "Water filter supplier"
+     ],
+     "website": "bens.plumbing",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 43,
+     "first": 6,
+     "reviews": 2680,
+     "rating": 4.6,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service",
+      "Water purification company",
+      "Water softening equipment supplier"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 4,
+    "seen": 36,
+    "median_position": 12.5
+   },
+   "rivals": [
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 60,
+     "first": 31,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Homeservice Plumbers",
+     "share": 59,
+     "first": 39,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 54,
+     "first": 12,
+     "reviews": 798,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Ben\u2019s Plumbing & Drain Cleaning",
+     "share": 43,
+     "first": 0,
+     "reviews": 135,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "HVAC contractor",
+      "Drainage service",
+      "Sewage disposal service",
+      "Water filter supplier"
+     ],
+     "website": "bens.plumbing",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "OneCall Plumber - Redmond",
+     "share": 76,
+     "first": 28,
+     "reviews": 32,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "onecallplumber.shop",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Water Damage Restoration Services",
+     "share": 71,
+     "first": 21,
+     "reviews": 336,
+     "rating": 4.8,
+     "categories": [
+      "Water damage restoration service",
+      "Contractor",
+      "Drainage service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Five Star Plumbers Redmond",
+     "share": 47,
+     "first": 6,
+     "reviews": 14,
+     "rating": 4.1,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "fivestarplumbersredmond.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 62,
+     "first": 31,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 50,
+     "first": 11,
+     "reviews": 798,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Harts Plumbers, Electricians, & HVAC Technicians",
+     "share": 26,
+     "first": 11,
+     "reviews": 1425,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrician",
+      "Heating contractor",
+      "HVAC contractor"
+     ],
+     "website": "hartsservices.com",
+     "is_us": false
+    }
+   ]
+  }
+ },
+ "Trenchless": {
+  "Bellevue": {
+   "top": 5,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 20,
+    "median_position": 11.5
+   },
+   "rivals": [
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 49,
+     "first": 16,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    },
+    {
+     "name": "American Rooter Sewer & Drain Service LLC",
+     "share": 47,
+     "first": 4,
+     "reviews": 367,
+     "rating": 5,
+     "categories": [
+      "Contractor",
+      "Drainage service",
+      "Plumber"
+     ],
+     "website": "www.americanrooterwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Price Busters Plumbing & Sewer",
+     "share": 42,
+     "first": 15,
+     "reviews": 47,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "pricebustersplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Master Bore LLC",
+     "share": 37,
+     "first": 19,
+     "reviews": 60,
+     "rating": 4.9,
+     "categories": [
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "www.masterbore.com",
+     "is_us": false
+    },
+    {
+     "name": "Eastside Repipe and Plumbing",
+     "share": 31,
+     "first": 12,
+     "reviews": 89,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Repair service"
+     ],
+     "website": "eastsiderepipeandplumbing.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 86,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Steady Flow Sewer & Drain Co",
+     "share": 83,
+     "first": 69,
+     "reviews": 210,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "steadyflowdrainco.com",
+     "is_us": false
+    },
+    {
+     "name": "Bob Oates Sewer & Rooter",
+     "share": 42,
+     "first": 0,
+     "reviews": 10,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Contractor",
+      "Drainage service"
+     ],
+     "website": "boboates.com",
+     "is_us": false
+    },
+    {
+     "name": "Raptor Plumbing & Sewer",
+     "share": 35,
+     "first": 1,
+     "reviews": 195,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor"
+     ],
+     "website": "raptorplumbingsewer.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 81,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Eastside Plumbing, Sewer, Septic, Electric, Heating & Air - Issaquah",
+     "share": 77,
+     "first": 34,
+     "reviews": 97,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrical installation service",
+      "Electrician",
+      "HVAC contractor",
+      "Septic system service",
+      "Sewage disposal service"
+     ],
+     "website": "www.eastsideplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 56,
+     "first": 35,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Seattle Select Sewers",
+     "share": 37,
+     "first": 10,
+     "reviews": 36,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Service establishment",
+      "General contractor",
+      "Home inspector",
+      "Drainage service"
+     ],
+     "website": "www.seattleselectsewers.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 73,
+    "median_position": 11
+   },
+   "rivals": [
+    {
+     "name": "Master Bore LLC",
+     "share": 66,
+     "first": 54,
+     "reviews": 60,
+     "rating": 4.9,
+     "categories": [
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "www.masterbore.com",
+     "is_us": false
+    },
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 58,
+     "first": 0,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Homeservice Plumbers",
+     "share": 52,
+     "first": 0,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 88,
+    "median_position": 9.0
+   },
+   "rivals": [
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 94,
+     "first": 46,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    },
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 44,
+     "first": 8,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Master Bore LLC",
+     "share": 40,
+     "first": 17,
+     "reviews": 60,
+     "rating": 4.9,
+     "categories": [
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "www.masterbore.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 2,
+   "scan": "2026-10-20",
+   "usable": 82,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Roto-Rooter Water Damage Restoration Services",
+     "share": 99,
+     "first": 54,
+     "reviews": 336,
+     "rating": 4.8,
+     "categories": [
+      "Water damage restoration service",
+      "Contractor",
+      "Drainage service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Price Busters Plumbing & Sewer",
+     "share": 37,
+     "first": 11,
+     "reviews": 47,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "pricebustersplumbing.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 4,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 1,
+    "seen": 29,
+    "median_position": 9
+   },
+   "rivals": [
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 61,
+     "first": 24,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Garys Pipelining & Drain Services Llc",
+     "share": 38,
+     "first": 27,
+     "reviews": 13,
+     "rating": 4.7,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.garyspipelining.com",
+     "is_us": false
+    },
+    {
+     "name": "I Need A Plumber Now and Sewer Services",
+     "share": 30,
+     "first": 0,
+     "reviews": 5,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.ineedaplumbernow.net",
+     "is_us": false
+    },
+    {
+     "name": "PRICOR Tech",
+     "share": 23,
+     "first": 2,
+     "reviews": 116,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Repair service"
+     ],
+     "website": "www.pricortech.com",
+     "is_us": false
+    }
+   ]
+  }
+ },
+ "Water filtration": {
+  "Bellevue": {
+   "top": 7,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "HD Fowler Company",
+     "share": 47,
+     "first": 19,
+     "reviews": 59,
+     "rating": 4.2,
+     "categories": [
+      "Plumbing supply store",
+      "Irrigation equipment supplier",
+      "Pipe supplier",
+      "Pump supplier",
+      "Water works equipment supplier",
+      "Wholesaler"
+     ],
+     "website": "www.hdfowler.com",
+     "is_us": false
+    },
+    {
+     "name": "Lowe's Home Improvement",
+     "share": 24,
+     "first": 5,
+     "reviews": 1457,
+     "rating": 3.6,
+     "categories": [
+      "Home improvement store",
+      "Appliance store",
+      "Building materials supplier",
+      "Flooring store",
+      "Furniture store",
+      "Garden center",
+      "Hardware store",
+      "Outdoor furniture store",
+      "Paint store",
+      "Tool store"
+     ],
+     "website": "www.lowes.com",
+     "is_us": false
+    },
+    {
+     "name": "Price Busters Plumbing & Sewer",
+     "share": 23,
+     "first": 4,
+     "reviews": 47,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "pricebustersplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "The Home Depot",
+     "share": 22,
+     "first": 6,
+     "reviews": 2675,
+     "rating": 4.1,
+     "categories": [
+      "Home improvement store",
+      "Appliance store",
+      "Bathroom supply store",
+      "Flooring store",
+      "Garden center",
+      "Hardware store",
+      "Kitchen supply store",
+      "Lumber store",
+      "Paint store",
+      "Tool store"
+     ],
+     "website": "www.homedepot.com",
+     "is_us": false
+    },
+    {
+     "name": "Filtrific Co LLC",
+     "share": 22,
+     "first": 0,
+     "reviews": 1,
+     "rating": 5,
+     "categories": [],
+     "website": "filtrific.com",
+     "is_us": false
+    },
+    {
+     "name": "FreshPure Waters - Whole Foods - Bellevue Water Refill Station",
+     "share": 22,
+     "first": 20,
+     "reviews": 1,
+     "rating": 5,
+     "categories": [
+      "Water purification company"
+     ],
+     "website": "www.freshpure.com",
+     "is_us": false
+    },
+    {
+     "name": "Eastside Repipe and Plumbing",
+     "share": 20,
+     "first": 11,
+     "reviews": 89,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Repair service"
+     ],
+     "website": "eastsiderepipeandplumbing.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 85,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Culligan Water of Seattle",
+     "share": 84,
+     "first": 50,
+     "reviews": 225,
+     "rating": 4.5,
+     "categories": [
+      "Water softening equipment supplier",
+      "Bottled water supplier",
+      "Water cooler supplier",
+      "Water filter supplier",
+      "Water purification company",
+      "Water testing service",
+      "Water treatment supplier"
+     ],
+     "website": "www.culligan.com",
+     "is_us": false
+    },
+    {
+     "name": "Aquametrics LLC",
+     "share": 67,
+     "first": 8,
+     "reviews": 10,
+     "rating": 3.7,
+     "categories": [
+      "Water filter supplier",
+      "Water treatment supplier"
+     ],
+     "website": "aquametricsusa.com",
+     "is_us": false
+    },
+    {
+     "name": "Purified Water To Go",
+     "share": 54,
+     "first": 12,
+     "reviews": 191,
+     "rating": 4.5,
+     "categories": [
+      "Bottled water supplier",
+      "Water purification company"
+     ],
+     "website": "www.fedwaypurifiedwatertogo.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 5,
+   "scan": "2026-10-20",
+   "usable": 82,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Lowe's Home Improvement",
+     "share": 90,
+     "first": 22,
+     "reviews": 1457,
+     "rating": 3.6,
+     "categories": [
+      "Home improvement store",
+      "Appliance store",
+      "Building materials supplier",
+      "Flooring store",
+      "Furniture store",
+      "Garden center",
+      "Hardware store",
+      "Outdoor furniture store",
+      "Paint store",
+      "Tool store"
+     ],
+     "website": "www.lowes.com",
+     "is_us": false
+    },
+    {
+     "name": "Eastside Plumbing, Sewer, Septic, Electric, Heating & Air - Issaquah",
+     "share": 45,
+     "first": 31,
+     "reviews": 97,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrical installation service",
+      "Electrician",
+      "HVAC contractor",
+      "Septic system service",
+      "Sewage disposal service"
+     ],
+     "website": "www.eastsideplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "The Home Depot",
+     "share": 41,
+     "first": 0,
+     "reviews": 1606,
+     "rating": 4,
+     "categories": [
+      "Home improvement store",
+      "Appliance store",
+      "Bathroom supply store",
+      "Flooring store",
+      "Garden center",
+      "Hardware store",
+      "Kitchen supply store",
+      "Lumber store",
+      "Paint store",
+      "Tool store"
+     ],
+     "website": "www.homedepot.com",
+     "is_us": false
+    },
+    {
+     "name": "SERVPRO of Issaquah/North Bend",
+     "share": 37,
+     "first": 24,
+     "reviews": 22,
+     "rating": 4.8,
+     "categories": [
+      "Water damage restoration service",
+      "Air duct cleaning service",
+      "Building restoration service",
+      "Carpet cleaning service",
+      "Cleaners",
+      "Crime victim service",
+      "Debris removal service",
+      "Fire damage restoration service",
+      "Graffiti removal service",
+      "Waste management service"
+     ],
+     "website": "www.servpro.com",
+     "is_us": false
+    },
+    {
+     "name": "Noble Plumbing, Heating & Cooling",
+     "share": 37,
+     "first": 0,
+     "reviews": 142,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Boiler supplier",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.noble-plumbing.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "HD Fowler Company",
+     "share": 40,
+     "first": 21,
+     "reviews": 59,
+     "rating": 4.2,
+     "categories": [
+      "Plumbing supply store",
+      "Irrigation equipment supplier",
+      "Pipe supplier",
+      "Pump supplier",
+      "Water works equipment supplier",
+      "Wholesaler"
+     ],
+     "website": "www.hdfowler.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 31,
+     "first": 18,
+     "reviews": 2680,
+     "rating": 4.6,
+     "categories": [
+      "Water softening equipment supplier",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service",
+      "Water purification company",
+      "Plumber"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "True Value Hardware",
+     "share": 31,
+     "first": 6,
+     "reviews": 98,
+     "rating": 4.3,
+     "categories": [
+      "Hardware store",
+      "Do-it-yourself shop",
+      "Home improvement store",
+      "Key duplication service",
+      "Paint store",
+      "Plumbing supply store",
+      "Tool rental service",
+      "Tool repair shop",
+      "Tool store"
+     ],
+     "website": "www.truevalue.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 6,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 40,
+     "first": 11,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "HD Fowler Company",
+     "share": 37,
+     "first": 15,
+     "reviews": 59,
+     "rating": 4.2,
+     "categories": [
+      "Plumbing supply store",
+      "Irrigation equipment supplier",
+      "Pipe supplier",
+      "Pump supplier",
+      "Water works equipment supplier",
+      "Wholesaler"
+     ],
+     "website": "www.hdfowler.com",
+     "is_us": false
+    },
+    {
+     "name": "Eastside Plumbing, Sewer, Septic, Electric, Heating & Air - Issaquah",
+     "share": 33,
+     "first": 28,
+     "reviews": 97,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrical installation service",
+      "Electrician",
+      "HVAC contractor",
+      "Septic system service",
+      "Sewage disposal service"
+     ],
+     "website": "www.eastsideplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Keller Supply",
+     "share": 33,
+     "first": 23,
+     "reviews": 22,
+     "rating": 4.8,
+     "categories": [
+      "Plumbing supply store",
+      "Bathroom supply store",
+      "Hardware store",
+      "Pipe supplier"
+     ],
+     "website": "www.kellersupply.com",
+     "is_us": false
+    },
+    {
+     "name": "Noble Plumbing, Heating & Cooling",
+     "share": 28,
+     "first": 0,
+     "reviews": 142,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Boiler supplier",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.noble-plumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Lowe's Home Improvement",
+     "share": 28,
+     "first": 3,
+     "reviews": 2127,
+     "rating": 3.9,
+     "categories": [
+      "Home improvement store",
+      "Appliance store",
+      "Building materials supplier",
+      "Flooring store",
+      "Furniture store",
+      "Garden center",
+      "Hardware store",
+      "Outdoor furniture store",
+      "Paint store",
+      "Tool store"
+     ],
+     "website": "www.lowes.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 5,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "HydroFLOW USA",
+     "share": 62,
+     "first": 10,
+     "reviews": 5,
+     "rating": 5,
+     "categories": [
+      "Water softening equipment supplier",
+      "Water filter supplier",
+      "Corporate office"
+     ],
+     "website": "www.hydroflow-usa.com",
+     "is_us": false
+    },
+    {
+     "name": "Keller Supply Kitchen & Bath Showcase",
+     "share": 42,
+     "first": 29,
+     "reviews": 30,
+     "rating": 3.7,
+     "categories": [
+      "Plumbing supply store"
+     ],
+     "website": "www.kellersupply.com",
+     "is_us": false
+    },
+    {
+     "name": "The Home Depot",
+     "share": 34,
+     "first": 0,
+     "reviews": 2131,
+     "rating": 4.1,
+     "categories": [
+      "Home improvement store",
+      "Appliance store",
+      "Bathroom supply store",
+      "Flooring store",
+      "Garden center",
+      "Hardware store",
+      "Kitchen supply store",
+      "Lumber store",
+      "Paint store",
+      "Tool store"
+     ],
+     "website": "www.homedepot.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Water Damage Restoration Services",
+     "share": 33,
+     "first": 18,
+     "reviews": 336,
+     "rating": 4.8,
+     "categories": [
+      "Water damage restoration service",
+      "Contractor",
+      "Drainage service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "Ballard Heating, Cooling, Electric & Plumbing",
+     "share": 28,
+     "first": 12,
+     "reviews": 107,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning store",
+      "Electrician",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor",
+      "Plumber"
+     ],
+     "website": "ballardservices.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 7,
+   "scan": "2026-10-20",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 40,
+     "first": 23,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Sierra Fish & Pets",
+     "share": 23,
+     "first": 0,
+     "reviews": 1442,
+     "rating": 4.3,
+     "categories": [
+      "Pet store"
+     ],
+     "website": "sierrafishandpets.com",
+     "is_us": false
+    },
+    {
+     "name": "Keller Supply",
+     "share": 22,
+     "first": 5,
+     "reviews": 22,
+     "rating": 4.8,
+     "categories": [
+      "Plumbing supply store",
+      "Bathroom supply store",
+      "Hardware store",
+      "Pipe supplier"
+     ],
+     "website": "www.kellersupply.com",
+     "is_us": false
+    },
+    {
+     "name": "5 Microns Inc. Asbestos, Mold, Drinking Water, Radon, Air Quality Testing Lab",
+     "share": 22,
+     "first": 9,
+     "reviews": 137,
+     "rating": 4.9,
+     "categories": [
+      "Environmental consultant",
+      "Asbestos testing service",
+      "Water damage restoration service",
+      "Water testing service"
+     ],
+     "website": "5microns.tech",
+     "is_us": false
+    },
+    {
+     "name": "McLendon Hardware",
+     "share": 19,
+     "first": 4,
+     "reviews": 1139,
+     "rating": 4.4,
+     "categories": [
+      "Hardware store",
+      "Building materials store",
+      "Electrical supply store",
+      "Fastener supplier",
+      "Garden center",
+      "Lumber store",
+      "Paint store",
+      "Plumbing supply store",
+      "Tool store"
+     ],
+     "website": "www.mclendons.com",
+     "is_us": false
+    },
+    {
+     "name": "All Phase Plumbing",
+     "share": 19,
+     "first": 7,
+     "reviews": 52,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Gas installation service",
+      "Septic system service"
+     ],
+     "website": "www.allphaseplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Benla Water Heater Service",
+     "share": 18,
+     "first": 11,
+     "reviews": 266,
+     "rating": 4.8,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.benla.biz",
+     "is_us": false
+    }
+   ]
+  }
+ },
+ "Water heaters": {
+  "Bellevue": {
+   "top": 4,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 1,
+    "seen": 14,
+    "median_position": 12.0
+   },
+   "rivals": [
+    {
+     "name": "Homeservice Plumbers",
+     "share": 59,
+     "first": 30,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    },
+    {
+     "name": "ProMax Water Heaters & Plumbing",
+     "share": 30,
+     "first": 17,
+     "reviews": 58,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Service establishment"
+     ],
+     "website": "promaxwaterheaters.com",
+     "is_us": false
+    },
+    {
+     "name": "Steve\u2019s Plumbing, LLC",
+     "share": 26,
+     "first": 12,
+     "reviews": 299,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.callstevesplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Ridgid Plumbing and Drain Services",
+     "share": 21,
+     "first": 4,
+     "reviews": 97,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "ridgidplumbingwa.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Federal Way": {
+   "top": 6,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Pat's Plumbing",
+     "share": 36,
+     "first": 13,
+     "reviews": 194,
+     "rating": 4.3,
+     "categories": [
+      "Plumber",
+      "Drainage service"
+     ],
+     "website": "patsplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "In & Out Plumbing",
+     "share": 32,
+     "first": 12,
+     "reviews": 398,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Bathroom remodeler",
+      "Drainage service",
+      "Hot water system supplier"
+     ],
+     "website": "plumbinginwa.com",
+     "is_us": false
+    },
+    {
+     "name": "Steady Flow Sewer & Drain Co",
+     "share": 29,
+     "first": 16,
+     "reviews": 210,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Drilling contractor",
+      "Utility contractor"
+     ],
+     "website": "steadyflowdrainco.com",
+     "is_us": false
+    },
+    {
+     "name": "Tribeca Federal Way Plumbing Experts",
+     "share": 22,
+     "first": 4,
+     "reviews": 8,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "tribecafederalwayplumbingexperts.com",
+     "is_us": false
+    },
+    {
+     "name": "Seawave Plumbing LLC",
+     "share": 22,
+     "first": 7,
+     "reviews": 17,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Repair service"
+     ],
+     "website": "seawaveplumbingllc.com",
+     "is_us": false
+    },
+    {
+     "name": "Beacon Plumbing, Heating, Electrical & Mechanical Inc - Auburn",
+     "share": 20,
+     "first": 5,
+     "reviews": 353,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrical installation service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor",
+      "HVAC contractor",
+      "Mechanical contractor",
+      "Septic system service"
+     ],
+     "website": "www.beaconplumbing.net",
+     "is_us": false
+    }
+   ]
+  },
+  "Issaquah": {
+   "top": 3,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Noble Plumbing, Heating & Cooling",
+     "share": 92,
+     "first": 49,
+     "reviews": 142,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Boiler supplier",
+      "Furnace repair service",
+      "Heating contractor",
+      "Heating equipment supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.noble-plumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Eastside Plumbing, Sewer, Septic, Electric, Heating & Air - Issaquah",
+     "share": 53,
+     "first": 3,
+     "reviews": 97,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Electrical installation service",
+      "Electrician",
+      "HVAC contractor",
+      "Septic system service",
+      "Sewage disposal service"
+     ],
+     "website": "www.eastsideplumbing.com",
+     "is_us": false
+    },
+    {
+     "name": "Top Heating and Cooling",
+     "share": 43,
+     "first": 11,
+     "reviews": 71,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "HVAC contractor"
+     ],
+     "website": "topheatcool.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Mercer Island": {
+   "top": 3,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 8,
+    "seen": 54,
+    "median_position": 11.0
+   },
+   "rivals": [
+    {
+     "name": "Water Heater Doctor",
+     "share": 62,
+     "first": 42,
+     "reviews": 126,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "waterheaterdoctor.com",
+     "is_us": false
+    },
+    {
+     "name": "Homeservice Plumbers",
+     "share": 62,
+     "first": 28,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    },
+    {
+     "name": "Seattle Plumbing, Piping & Heater",
+     "share": 30,
+     "first": 0,
+     "reviews": 2,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "dspplumbingsvs.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Newcastle": {
+   "top": 4,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 27,
+    "seen": 80,
+    "median_position": 6.5
+   },
+   "rivals": [
+    {
+     "name": "Homeservice Plumbers",
+     "share": 58,
+     "first": 27,
+     "reviews": 1533,
+     "rating": 4.9,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "www.homeserviceplumbers.com",
+     "is_us": false
+    },
+    {
+     "name": "Aquarius plumbing & heating LLC",
+     "share": 43,
+     "first": 25,
+     "reviews": 50,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Service establishment"
+     ],
+     "website": null,
+     "is_us": false
+    },
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 38,
+     "first": 9,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 34,
+     "first": 13,
+     "reviews": 797,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Redmond": {
+   "top": 5,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 0,
+    "median_position": null
+   },
+   "rivals": [
+    {
+     "name": "Ballard Heating, Cooling, Electric & Plumbing",
+     "share": 41,
+     "first": 18,
+     "reviews": 107,
+     "rating": 5,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Air conditioning store",
+      "Electrician",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor",
+      "HVAC contractor"
+     ],
+     "website": "ballardservices.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Water Damage Restoration Services",
+     "share": 36,
+     "first": 4,
+     "reviews": 336,
+     "rating": 4.8,
+     "categories": [
+      "Water damage restoration service",
+      "Contractor",
+      "Drainage service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    },
+    {
+     "name": "OneCall Plumber - Redmond",
+     "share": 31,
+     "first": 13,
+     "reviews": 32,
+     "rating": 5,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "onecallplumber.shop",
+     "is_us": false
+    },
+    {
+     "name": "Five Star Plumbers Redmond",
+     "share": 29,
+     "first": 6,
+     "reviews": 14,
+     "rating": 4.1,
+     "categories": [
+      "Plumber"
+     ],
+     "website": "fivestarplumbersredmond.com",
+     "is_us": false
+    },
+    {
+     "name": "Pearce Heating & A/C",
+     "share": 24,
+     "first": 8,
+     "reviews": 390,
+     "rating": 5,
+     "categories": [
+      "HVAC contractor",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Electrician",
+      "Furnace repair service",
+      "Heating contractor"
+     ],
+     "website": "pearceheating.com",
+     "is_us": false
+    }
+   ]
+  },
+  "Renton": {
+   "top": 4,
+   "scan": "2026-10-19",
+   "usable": 90,
+   "us": {
+    "in_top": 0,
+    "seen": 11,
+    "median_position": 15
+   },
+   "rivals": [
+    {
+     "name": "The Plumbing Joint Inc.",
+     "share": 44,
+     "first": 6,
+     "reviews": 485,
+     "rating": 4.5,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Hot water system supplier",
+      "Septic system service",
+      "Water purification company"
+     ],
+     "website": "www.plumbingjoint.com",
+     "is_us": false
+    },
+    {
+     "name": "Trusted Plumbing & Heating - Renton",
+     "share": 39,
+     "first": 23,
+     "reviews": 466,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Air conditioning repair service",
+      "Contractor",
+      "Drainage service",
+      "Furnace repair service",
+      "Gas installation service",
+      "Heating contractor",
+      "Hot water system supplier",
+      "HVAC contractor"
+     ],
+     "website": "www.trustedplumbingheating.com",
+     "is_us": false
+    },
+    {
+     "name": "Washington Water Heaters, Heating & Air Conditioning",
+     "share": 37,
+     "first": 21,
+     "reviews": 320,
+     "rating": 4.9,
+     "categories": [
+      "Plumber",
+      "Air conditioning contractor",
+      "Heating contractor"
+     ],
+     "website": "washingtonwaterheaters.com",
+     "is_us": false
+    },
+    {
+     "name": "Roto-Rooter Plumbing & Water Cleanup",
+     "share": 29,
+     "first": 12,
+     "reviews": 797,
+     "rating": 4.8,
+     "categories": [
+      "Plumber",
+      "Drainage service",
+      "Excavating contractor",
+      "Repair service",
+      "Water damage restoration service"
+     ],
+     "website": "www.rotorooter.com",
+     "is_us": false
+    }
+   ]
+  }
+ }
+}
