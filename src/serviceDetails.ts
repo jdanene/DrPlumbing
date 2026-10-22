@@ -530,12 +530,12 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
     },
     {
       "item": "Hydrojetting",
-      "summary": "Hydrojetting uses high-pressure water to clear buildup inside a drain or sewer line. If clogs keep returning or sewage backs up, we inspect the line and tell you whether it is the right fix.",
+      "summary": "Hydro jetting uses high-pressure water to clear buildup inside a drain or sewer line. If clogs keep returning or sewage backs up, we inspect the line and tell you whether it is the right fix.",
       "cta": "drains",
-      "photo": "Hydrojetting a main line",
+      "photo": "Hydro jetting a main line",
       "sections": [
         {
-          "heading": "How hydrojetting clears a pipe",
+          "heading": "How hydro jetting clears a pipe",
           "paras": [
             "A specialized nozzle sends water through the pipe at pressures up to 4,000 psi. The water breaks up stubborn clogs, loosens accumulated sludge and cleans the pipe walls. It can clear buildup that other methods leave behind."
           ]
@@ -559,7 +559,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
             ]
           ],
           "after": [
-            "We inspect the line before work begins, identify which sections need cleaning and explain whether hydrojetting is the right solution."
+            "We inspect the line before work begins, identify which sections need cleaning and explain whether hydro jetting is the right solution."
           ]
         }
       ]

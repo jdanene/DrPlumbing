@@ -7,7 +7,7 @@ import {
   servicesForGroup,
 } from "./content";
 import { Arrow } from "./SiteContent";
-import { CITY_OPTION_PAGES, cityPageAt, cityOptionLabel, cityServiceMenu, serviceHrefFor } from "./cities";
+import { CITY_OPTION_PAGES, cityPageAt, optionLabel, cityServiceMenu, serviceHrefFor } from "./cities";
 import { BUSINESS, confirmed, formatHours } from "./businessFacts";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
@@ -219,7 +219,7 @@ export default function SiteShell({
                         <ul>
                           {cityServiceMenu(service, cityPage).map((item) => (
                             <li key={item}>
-                              <a href={serviceHrefFor(cityPage, service.id, item)}>{cityPage ? cityOptionLabel(service.id, item) : item}</a>
+                              <a href={serviceHrefFor(cityPage, service.id, item)}>{optionLabel(service.id, item)}</a>
                             </li>
                           ))}
                         </ul>

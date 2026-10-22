@@ -276,6 +276,20 @@ page's "Emergency service" line is gone. Copy is the two sections Jidè kept.
 406 pages in the sitemap (one new general page); tests, build and both checks
 pass.
 
+## 13. The typed phrases become the site's names, at the source
+
+Jidè approved renaming the general pages to match the city pages, and added
+Bathroom remodeling. The builder's city-only label table became the site's one
+label map (`optionLabel` in `src/cities.ts`), applied to the header menu, page
+headings, titles, breadcrumbs, chips and the hub lists on general and city pages
+alike. Keys and URLs are unchanged. Shown names now: Hydro jetting, Tankless
+water heater installation, Water softener installation, Reverse osmosis
+installation, Radiant floor heating repair, Trenchless water line replacement,
+Water filtration system installation (category title; the nav tab stays "Water
+filtration"), Bathroom remodeling. The shared sentences that still said
+"hydrojetting" were renamed; the Our Work filter and category read "Bathroom
+remodeling". Tests name links by the shown label.
+
 ## Next
 
 1. Description rewrite with the exact scan phrases: "boiler repair", "boiler

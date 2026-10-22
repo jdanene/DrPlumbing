@@ -12,6 +12,7 @@ import {
 } from "./serviceDetails";
 import { routeHref } from "./sitePaths";
 import { headTags } from "./seo";
+import { optionLabel } from "./cities";
 
 const detailCases = [
   ["plumbing", "Garbage disposals"],
@@ -81,7 +82,7 @@ describe("detail-page journeys", () => {
     render(<App />);
     const detail = serviceDetailFor(serviceId, title)!;
     const main = screen.getByRole("main");
-    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe(title);
+    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe(optionLabel(serviceId, title));
     expect(document.title).toBe(headTags(`${serviceId}/${serviceDetailSlug(title)}`).find(tag => tag.tag === "title")?.text);
     if (detail.lead) expect(within(main).getByText(detail.lead)).toBeDefined();
     for (const section of detail.sections) {
@@ -107,9 +108,10 @@ describe("detail-page journeys", () => {
     const expected = "/water-heaters/tankless-water-heaters/";
     await user.click(screen.getByRole("button", { name: "Plumbing" }));
     const menu = within(screen.getByRole("navigation", { name: "Main" }));
-    expect(menu.getByRole("link", { name: "Tankless water heaters" }).getAttribute("href")).toBe(expected);
-    await user.click(menu.getByRole("link", { name: "Tankless water heaters" }));
-    await screen.findByRole("heading", { name: "Tankless water heaters", level: 1 });
+    const shown = optionLabel("water-heaters", "Tankless water heaters");
+    expect(menu.getByRole("link", { name: shown }).getAttribute("href")).toBe(expected);
+    await user.click(menu.getByRole("link", { name: shown }));
+    await screen.findByRole("heading", { name: shown, level: 1 });
     expect(screen.getByRole("button", { name: "Plumbing" }).closest(".nav-drop")?.classList.contains("is-current")).toBe(true);
   });
 

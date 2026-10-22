@@ -2,7 +2,7 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { CITY_OPTION_PAGES, CITY_SERVICE_PAGES, cityOptionLabel, cityPageAt, cityServiceMenu, serviceHrefFor } from "./cities";
+import { CITY_OPTION_PAGES, CITY_SERVICE_PAGES, optionLabel, cityPageAt, cityServiceMenu, serviceHrefFor } from "./cities";
 import { SERVICES, serviceMenu } from "./content";
 import { renderPage } from "./prerender";
 import { serviceDetailFor } from "./serviceDetails";
@@ -58,7 +58,7 @@ describe("Mercer Island service journeys", () => {
     window.history.replaceState(null, "", "/water-heater-replacement-mercer-island/");
     render(<App />);
     for (const label of ["Gas water heaters", "Electric water heaters", "Tankless water heaters"]) {
-      const shown = cityOptionLabel("water-heaters", label);
+      const shown = optionLabel("water-heaters", label);
       const main = within(screen.getByRole("main"));
       fireEvent.click(main.getByRole("link", { name: shown }));
       expect(window.location.pathname).toBe(`/${pathSlug(label)}-mercer-island/`);
@@ -80,7 +80,7 @@ describe("Mercer Island service journeys", () => {
       expect(PUBLIC_ROUTES).toContain(route);
       expect(routeHref(route)).toBe(path);
       const { body, head } = renderPage(route);
-      expect(body).toContain(`${isCategory ? "Water filtration system installation" : cityOptionLabel(serviceId, label)} in Mercer Island, WA`);
+      expect(body).toContain(`${isCategory ? "Water filtration system installation" : optionLabel(serviceId, label)} in Mercer Island, WA`);
       expect(head).toContain(`https://drplumbingheating.com${path}`);
       expect(headTags(route).find((tag) => tag.tag === "title")?.text).toContain("Mercer Island");
       if (!isCategory) {

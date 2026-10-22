@@ -31,8 +31,9 @@ export interface CityPageMatch {
 /** JDA-408's measured cohort; Kirkland and the remaining cities keep their existing pages. */
 export const AGENT_READABLE_CITY_SLUGS = ["bellevue", "newcastle", "renton", "redmond", "issaquah", "federal-way", "mercer-island"];
 
-/** Display phrases change independently of published option labels and slugs. */
-const CITY_OPTION_LABELS: Record<string, string> = {
+/** The names people type, shown everywhere; the option keys and published slugs stay as they were. */
+const OPTION_LABELS: Record<string, string> = {
+  "plumbing/complete-bathroom-remodeling": "Bathroom remodeling",
   "drain-sewer/hydrojetting": "Hydro jetting",
   "boilers/radiant-floor-heating": "Radiant floor heating repair",
   "water-filtration/water-softeners": "Water softener installation",
@@ -42,14 +43,15 @@ const CITY_OPTION_LABELS: Record<string, string> = {
 };
 
 /**
- * Description: Names a city option without changing its established route identity.
+ * Description: Names a service option the way people type it, on general and city pages alike,
+ * without changing its established route identity.
  * Inputs: serviceId is a catalog ID; label is the original option label or slug.
- * Output: The approved city phrase, or the original label for unchanged options.
+ * Output: The approved phrase, or the original label for unchanged options.
  * Examples: boilers + Radiant floor heating returns Radiant floor heating repair;
  * water-heaters + Gas water heaters stays Gas water heaters.
  */
-export function cityOptionLabel(serviceId: string, label: string) {
-  return CITY_OPTION_LABELS[`${serviceId}/${pathSlug(label)}`] ?? label;
+export function optionLabel(serviceId: string, label: string) {
+  return OPTION_LABELS[`${serviceId}/${pathSlug(label)}`] ?? label;
 }
 
 const CITY_EXTRA_DETAILS: Record<string, ServiceDetail[]> = {
@@ -324,7 +326,7 @@ export function cityPageAt(segments: readonly string[]): CityPageMatch | undefin
  * water-heater category is "Water heater replacement in Bellevue, WA".
  */
 export function cityHeading(page: CityPageMatch) {
-  if (page.detail) return `${cityOptionLabel(page.service!.id, page.detail.item)} in ${page.city.name}, WA`;
+  if (page.detail) return `${optionLabel(page.service!.id, page.detail.item)} in ${page.city.name}, WA`;
   return CITY_PAGE_COPY[page.route]?.heading ?? `${page.service?.title ?? "Plumbing, heating and cooling"} in ${page.city.name}, WA`;
 }
 
@@ -345,7 +347,7 @@ export function cityAnswer(page: CityPageMatch) {
   const sentences = page.detail
     ? [page.detail.item === "Emergency plumber"
       ? `An emergency plumber in ${page.city.name} can help with an active leak, burst pipe or sewer backup.`
-      : `${name} offers ${cityOptionLabel(page.service!.id, page.detail.item).toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
+      : `${name} offers ${optionLabel(page.service!.id, page.detail.item).toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
     : copy ? [copy.lead] : page.service
     ? [`${name} serves ${where}.`, page.service.lead]
     : [`${name} repairs and installs plumbing, water heaters, drains and heating for ${where}.`];

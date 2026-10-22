@@ -150,7 +150,7 @@ export const SERVICES: Service[] = [
     "tab": "Drain & sewer",
     "title": "Drain and sewer",
     "cta": "drain or sewer line",
-    "short": "Drain cleaning, hydrojetting and sewer line repair.",
+    "short": "Drain cleaning, hydro jetting and sewer line repair.",
     "photo": "Sewer line or drain job",
     "lead": "We clear clogged drains and repair or replace damaged sewer lines.",
     "sections": [
@@ -181,7 +181,7 @@ export const SERVICES: Service[] = [
     "id": "water-filtration",
     "summary": "Different filters solve different water problems. We help you choose a softener or filtration system for the water in your home.",
     "tab": "Water filtration",
-    "title": "Water filtration and softener",
+    "title": "Water filtration system installation",
     "cta": "water",
     "short": "Softeners, reverse osmosis and carbon filters.",
     "photo": "Softener or filtration setup",

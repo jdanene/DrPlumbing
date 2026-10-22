@@ -20,7 +20,7 @@ describe("additive residential project placement", () => {
     render(<WorkPage />);
     const filters = within(screen.getByRole("group", { name: "Filter projects" }));
     expect(filters.getAllByRole("button").slice(0, 3).map(button => button.textContent)).toEqual([
-      "All", "Plumbing", "Complete bathroom remodeling",
+      "All", "Plumbing", "Bathroom remodeling",
     ]);
   });
 
@@ -65,7 +65,7 @@ describe("additive residential project placement", () => {
   });
   it("separates bathroom remodeling from the existing plumbing projects", async () => {
     render(<WorkPage />);
-    const remodeling = screen.getByRole("button", { name: "Complete bathroom remodeling" });
+    const remodeling = screen.getByRole("button", { name: "Bathroom remodeling" });
     await userEvent.click(remodeling);
     expect(remodeling.getAttribute("aria-pressed")).toBe("true");
     expect(screen.getByRole("heading", { name: "Steam shower" })).toBeDefined();
@@ -83,7 +83,7 @@ describe("additive residential project placement", () => {
   });
   it("features complete bathroom remodeling in Our Work without duplicating or dropping projects", () => {
     render(<WorkPage />);
-    const section = within(screen.getByRole("region", { name: "Complete bathroom remodeling" }));
+    const section = within(screen.getByRole("region", { name: "Bathroom remodeling" }));
     expect(section.getAllByRole("article")).toHaveLength(REMODELING_PROJECTS.length);
     for (const photo of [PHOTOS.remodeledBathroom, PHOTOS.customShower, PHOTOS.doubleVanity, PHOTOS.rainShower, PHOTOS.finishedTub]) {
       expect(section.getByRole("img", { name: photo.alt })).toBeDefined();
@@ -95,9 +95,9 @@ describe("additive residential project placement", () => {
     render(<ServicePage service={SERVICES.find(item => item.id === "plumbing")!} />);
     const services = within(screen.getByRole("navigation", { name: "Services" }));
     expect(services.getAllByRole("link").slice(0, 2).map(link => link.textContent)).toEqual([
-      "General plumbing", "Complete bathroom remodeling",
+      "General plumbing", "Bathroom remodeling",
     ]);
-    expect(services.getByRole("link", { name: "Complete bathroom remodeling" }).getAttribute("href")).toBe("/plumbing/complete-bathroom-remodeling/");
+    expect(services.getByRole("link", { name: "Bathroom remodeling" }).getAttribute("href")).toBe("/plumbing/complete-bathroom-remodeling/");
     expect(screen.queryByRole("link", { name: "Read more about Complete bathroom remodeling" })).toBeNull();
     expect(screen.getByRole("heading", { name: "Our plumbing services" })).toBeDefined();
     expect(screen.getByRole("img", { name: "Residential water heater installation by Dr Plumbing & Heating" }).getAttribute("src")).toContain("176_IMG_8591 2.jpg");
@@ -139,7 +139,7 @@ describe("additive residential project placement", () => {
 
   it("shows confirmed scope, section anchors and photos on the general remodeling page", () => {
     render(<ServicePage service={SERVICES.find(item => item.id === "plumbing")!} detail={serviceDetailFor("plumbing", "Complete bathroom remodeling")} />);
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Complete bathroom remodeling");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Bathroom remodeling");
     expect(screen.getByText(/One team to manage your complete bathroom remodel/)).toBeDefined();
     expect(screen.getByText(/We manage your bathroom remodel from start to finish/)).toBeDefined();
     const navigation = within(screen.getByRole("navigation", { name: "On this page" }));
@@ -168,7 +168,7 @@ describe("additive residential project placement", () => {
     expect(detail).toBeDefined();
     render(<ServicePage service={service} detail={detail} />);
     expect(screen.getByRole("img", { name: photo.alt })).toBeDefined();
-    expect(screen.queryByRole("region", { name: "Complete bathroom remodeling" })).toBeNull();
+    expect(screen.queryByRole("region", { name: "Bathroom remodeling" })).toBeNull();
   });
 
   it("keeps original shower images alongside the new ones", () => {

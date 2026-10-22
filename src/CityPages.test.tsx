@@ -12,7 +12,7 @@ import {
   cityAnswer,
   cityHeading,
   cityLandmarksText,
-  cityOptionLabel,
+  optionLabel,
   cityPageAt,
   cityServiceMenu,
   serviceHrefFor,
@@ -320,7 +320,7 @@ describe("city pages", () => {
     expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Water heater replacement in Bellevue, WA");
     expect(screen.getByRole("main").textContent).toContain(cityAnswer(bellevueWaterHeaters));
     const options = within(main.getByRole("navigation", { name: "Water heaters in Bellevue" })).getAllByRole("link");
-    expect(options.map((link) => link.textContent)).toEqual(cityServiceMenu(waterHeaters, bellevueWaterHeaters).map((label) => cityOptionLabel("water-heaters", label)));
+    expect(options.map((link) => link.textContent)).toEqual(cityServiceMenu(waterHeaters, bellevueWaterHeaters).map((label) => optionLabel("water-heaters", label)));
     expect(options[0].getAttribute("href")).toBe("/water-heater-repair-bellevue/");
     expect(options[1].getAttribute("href")).toBe("/electric-water-heaters-bellevue/");
     expect(main.queryByRole("link", { name: "More about water heaters" })).toBeNull();

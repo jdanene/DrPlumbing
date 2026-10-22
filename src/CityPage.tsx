@@ -1,5 +1,5 @@
 import { SERVICES } from "./content";
-import { AGENT_READABLE_CITY_SLUGS, CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, cityOptionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
+import { AGENT_READABLE_CITY_SLUGS, CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, optionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
 
@@ -50,7 +50,7 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
             <nav className="svc-tabs" aria-label={service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}>
               {service
                 ? cityServiceMenu(service, page).map((label) => (
-                    <a className="chip" href={serviceHrefFor(page, service.id, label)} key={label}>{cityOptionLabel(service.id, label)}</a>
+                    <a className="chip" href={serviceHrefFor(page, service.id, label)} key={label}>{optionLabel(service.id, label)}</a>
                   ))
                 : SERVICES.map((item) => {
                     const destination = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && entry.serviceId === item.id);
@@ -73,7 +73,7 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
                   <h3><a href={serviceHrefFor(page, item.id)}>{item.tab}</a></h3>
                   <ul>
                     {CITY_OPTION_PAGES.filter((option) => option.citySlug === city.slug && option.serviceId === item.id).map((option) => (
-                      <li key={option.route}><a href={routeHref(option.route)}>{cityOptionLabel(item.id, option.detail.item)}</a></li>
+                      <li key={option.route}><a href={routeHref(option.route)}>{optionLabel(item.id, option.detail.item)}</a></li>
                     ))}
                   </ul>
                 </section>

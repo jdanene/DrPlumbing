@@ -68,7 +68,7 @@ export default function WorkPage() {
             job.
           </p>
           <div className="chips" role="group" aria-label="Filter projects">
-            {["All", "Plumbing", "Complete bathroom remodeling", "Water heaters", "Drain & sewer", "Water filtration", "Heating & cooling", "Boilers"].map((value) => (
+            {["All", "Plumbing", "Bathroom remodeling", "Water heaters", "Drain & sewer", "Water filtration", "Heating & cooling", "Boilers"].map((value) => (
               <button
                 className="chip"
                 type="button"
@@ -85,7 +85,7 @@ export default function WorkPage() {
           </p>
           {featured.length > 0 && (
             <section className="work-remodeling" aria-labelledby="work-remodeling-title">
-              <h2 id="work-remodeling-title">Complete bathroom remodeling</h2>
+              <h2 id="work-remodeling-title">Bathroom remodeling</h2>
               <p className="lead">From framing, electrical and plumbing to finished fixtures, showers and tubs.</p>
               <div className="work-grid">
                 {featured.map(project => <WorkCard key={project.photo.src} project={project} remodeling />)}
