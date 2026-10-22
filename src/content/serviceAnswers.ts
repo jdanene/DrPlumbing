@@ -265,8 +265,8 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     sources: [SOURCES.heatPumpWater, SOURCES.heatPumpDesign],
   },
   "water-heaters/water-heater-repair": {
-    question: "Can my water heater in {city} be repaired?",
-    answer: "Water heater repair in {city} starts with finding the cause of a leak, missing hot water or temperature problem. A failed element, control or valve can justify a repair when the rest of the heater is sound. A leaking tank or repeated failures can make replacement the better choice. Ask for the diagnosis, repair price and installed replacement alternative before deciding. Keep clear of water near electrical equipment and report any gas smell from a safe location.",
+    question: "Can my water heater in {city} be fixed, or does it need replacing?",
+    answer: "Most water heater repair calls in {city} come down to one part: a heating element or thermostat on an electric heater, a pilot, igniter or gas valve on a gas one, or a relief valve that drips. We fix those and leave the heater in place. If the tank itself is leaking, or the heater is past ten or twelve years and failing again, a new one is the better buy, and we will tell you so. You get the diagnosis, the repair price and the replacement price side by side before any work starts.",
     status: "final",
     sources: [SOURCES.waterHeaterRepair, SOURCES.gasSafety],
   },

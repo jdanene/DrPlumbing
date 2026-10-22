@@ -56,11 +56,11 @@ export function cityOptionLabel(serviceId: string, label: string) {
 const CITY_EXTRA_DETAILS: Record<string, ServiceDetail[]> = {
   "water-heaters": [{
     item: "Water heater repair", cta: "water heater repair", photo: "Water heater repair",
-    summary: "We diagnose and repair water heaters, including leaks, missing hot water and temperature problems. We explain the failed component and whether repair or replacement fits the heater's condition.",
+    summary: "No hot water, a puddle under the tank, or a shower that runs hot and cold? We find the cause, tell you what the fix costs, and tell you straight if the heater is worth fixing.",
     sections: [
-      { heading: "Find the cause before replacing the heater", paras: ["A failed control, heating element, valve or other serviceable component can cause a hot-water problem without making the whole heater unusable. We check the symptoms, equipment and connections before recommending work."] },
-      { heading: "Repair or replacement", paras: ["A repair can suit an isolated fault in an otherwise sound heater. A leaking tank or repeated failures can make replacement the better choice. We explain the repair scope and the alternative before you approve a flat-rate price."] },
-      { heading: "Before the visit", paras: ["Send the heater's model label and photos of any visible leak or error code. Keep clear of water near electrical equipment. If you smell gas, leave the area and call the utility or 911 from a safe location."] },
+      { heading: "What usually goes wrong", paras: ["No hot water on an electric heater is most often a dead heating element or thermostat. On a gas heater it is usually the pilot, the igniter or the gas valve. Water that is too hot or never hot enough points to the thermostat. A drip from the relief valve or a fitting is a part we can change. Water coming from the tank itself means the tank is done."] },
+      { heading: "Fix it or replace it", paras: ["We repair a sound heater with one failed part. We tell you to replace it when the tank leaks, when it is past ten or twelve years and failing again, or when the repair would cost close to half of a new heater. Either way, you approve a flat-rate price before we start."] },
+      { heading: "Before we come", paras: ["Text us a photo of the label on the heater, and of the leak or the error code if there is one. If water is pooling near the heater's wiring or an outlet, keep away from it and switch off the breaker if you can reach it safely. If you smell gas, leave the house and call the gas company or 911 from outside."] },
     ],
   }],
 };

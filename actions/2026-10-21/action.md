@@ -235,6 +235,21 @@ measured evidence says assistants quote visible text, so the site's share of
 any movement is expected to be small; the profile work above carries the
 plumber-rank targets.
 
+## 10. The eight water heater repair pages rewritten in the house voice
+
+Jidè, after the revert: "Is there a way you can have the new pages have a more
+natural and human tone?" The pages are new, so they are not production-approved
+copy. Rewritten to match the approved water heater pages ("Running out of hot
+water or noticing unusual temperatures? We inspect your gas water heater,
+explain the problem and recommend repair or replacement."): the question is
+"Can my water heater in {city} be fixed, or does it need replacing?"; the
+answer (96 words, also the page's description) names the parts that usually
+fail, says when a new heater is the better buy, and promises the repair and
+replacement prices side by side; the three sections are "What usually goes
+wrong", "Fix it or replace it" and "Before we come". The repair-or-replace rule
+(leaking tank; past ten or twelve years and failing again; repair near half the
+price of new) is standard trade guidance, as JDA-408 allowed.
+
 ## Next
 
 1. Description rewrite with the exact scan phrases: "boiler repair", "boiler
