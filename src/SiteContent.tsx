@@ -18,8 +18,6 @@ import {
 import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS, type WorkProject } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
 import { cityAnswer, cityHeading, cityOptionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
-import { AgentReadableAnswer, AgentReadableEvidence } from "./AgentReadableContent";
-import { isAgentReadable } from "./agentReadable";
 import { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 /**
@@ -179,7 +177,7 @@ export function ServicePage({
   cityPage?: CityPageMatch;
 }) {
   const page = detail ?? service;
-  const repairAnswer = cityPage && !isAgentReadable(cityPage) && service.id === "water-heaters" && detail?.item === "Water heater repair"
+  const repairAnswer = cityPage && service.id === "water-heaters" && detail?.item === "Water heater repair"
     ? SERVICE_ANSWERS["water-heaters/water-heater-repair"] : undefined;
   const cityEmergencyPhoto = cityPage && service.id === "heating-cooling" && detail?.item === "Emergency service" ? SERVICE_PHOTOS.plumbing : undefined;
   const usesCategoryArtwork = cityPage && detail && !cityEmergencyPhoto && !DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`] && !serviceDetailFor(service.id, detail.item);
@@ -233,7 +231,7 @@ export function ServicePage({
             ))}
           </nav>
         </div>
-        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}${!detail && service.id === "plumbing" ? " svc-hero--plumbing" : ""}${isAgentReadable(cityPage) ? " svc-hero--agent-readable" : ""}`}>
+        <section className={`svc-hero${photo ? "" : " svc-hero--text-only"}${!detail && service.id === "plumbing" ? " svc-hero--plumbing" : ""}`}>
           <div className="copy">
             <nav className="crumbs" aria-label="Breadcrumb">
               <a href={routeHref("home")}>Home</a>
@@ -252,7 +250,7 @@ export function ServicePage({
               )}
             </nav>
             <h1 tabIndex={-1}>{cityPage ? cityHeading(cityPage) : detail?.item ?? service.title}</h1>
-            {cityPage && isAgentReadable(cityPage) ? <AgentReadableAnswer page={cityPage} /> : repairAnswer ? <div className="service-repair-answer">
+            {repairAnswer ? <div className="service-repair-answer">
               <h2>{repairAnswer.question.replaceAll("{city}", cityPage!.city.name)}</h2>
               <p className="lead">{repairAnswer.answer.replaceAll("{city}", cityPage!.city.name)}</p>
             </div> : cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
@@ -267,7 +265,6 @@ export function ServicePage({
           </div>
           {photo && <ProjectPhoto photo={photo} city={cityPage?.city.name} priority fullFrame />}
         </section>
-        {cityPage && isAgentReadable(cityPage) && <AgentReadableEvidence page={cityPage} />}
         {cityPage && !detail && (
           <div className="other">
             <h2>{service.tab} in {cityPage.city.name}</h2>

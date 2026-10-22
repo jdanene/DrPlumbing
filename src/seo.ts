@@ -3,6 +3,8 @@ import { CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, city
 import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
+import { answerKey, fillCity, isAgentReadable } from "./agentReadable";
+import { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 export const SITE_ORIGIN = "https://drplumbingheating.com";
 
@@ -51,9 +53,10 @@ export const PUBLIC_ROUTES = [
 function cityMetadata(page: CityPageMatch): [string, string] {
   const subject = page.service?.tab ?? "Plumbing, Heating & Cooling";
   const cities = confirmed(BUSINESS.serviceCities);
+  const answer = isAgentReadable(page) ? SERVICE_ANSWERS[answerKey(page)] : undefined;
   return [
     `${page.detail ? cityHeading(page) : CITY_PAGE_COPY[page.route]?.heading ?? `${subject} in ${page.city.name}, WA`} | ${confirmed(BUSINESS.publicName)}`,
-    `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
+    answer ? fillCity(answer.answer, page.city.name) : `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
   ];
 }
 
@@ -87,6 +90,17 @@ function businessGraph(): Record<string, unknown>[] {
       url: `${SITE_ORIGIN}/`,
       telephone: "+12066718888",
       email: "drplumbinggroup@gmail.com",
+      contactPoint: [{
+        "@type": "ContactPoint",
+        contactType: "emergency",
+        telephone: "+12066718888",
+        hoursAvailable: confirmed(BUSINESS.emergencyHours).map((hours) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: hours.days.map((day) => `https://schema.org/${day}`),
+          opens: hours.opens,
+          closes: hours.closes,
+        })),
+      }],
       logo: `${SITE_ORIGIN}/brand/dr-brand-mark.png`,
       areaServed: CITIES.map((name) => ({ "@type": "City", name })),
     },

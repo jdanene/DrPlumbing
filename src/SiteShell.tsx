@@ -8,9 +8,7 @@ import {
 } from "./content";
 import { Arrow } from "./SiteContent";
 import { CITY_OPTION_PAGES, cityPageAt, cityOptionLabel, cityServiceMenu, serviceHrefFor } from "./cities";
-import BusinessDefinition from "./BusinessDefinition";
-import { BUSINESS } from "./businessFacts";
-import { factMonth } from "./agentReadable";
+import { BUSINESS, confirmed, formatHours } from "./businessFacts";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -186,7 +184,6 @@ export default function SiteShell({
                   <button
                     type="button"
                     data-group={group.id}
-                    aria-label={`${group.label} services`}
                     aria-expanded={openGroup === group.id}
                     aria-controls={panelId}
                     onClick={() =>
@@ -375,7 +372,7 @@ export default function SiteShell({
                 >
                   <BrandLogo onDark />
                 </a>
-                {routeCity ? <p>Family owned and run from Newcastle, Washington. Serving the Greater Seattle area.</p> : <BusinessDefinition />}
+                <p>Family owned and run from Newcastle, Washington. Serving the Greater Seattle area.</p>
               </div>
               <div>
                 <h3>Services</h3>
@@ -429,6 +426,7 @@ export default function SiteShell({
                     <a href="tel:2066718888">(206) 671-8888</a>
                   </li>
                   <li>Newcastle, WA</li>
+                  <li>{formatHours(confirmed(BUSINESS.hours))}. Emergency service {formatHours(confirmed(BUSINESS.emergencyHours))}.</li>
                   <li>
                     <a href="mailto:drplumbinggroup@gmail.com">
                       drplumbinggroup@gmail.com
@@ -438,7 +436,6 @@ export default function SiteShell({
                     <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
                       Active WA plumbing contractor lic. {PLUMBING_LICENSE.number}
                     </a>
-                    {" "}(as of {factMonth(BUSINESS.license.confirmedOn)})
                   </li>
                 </ul>
               </div>

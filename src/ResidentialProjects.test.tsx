@@ -152,7 +152,7 @@ describe("additive residential project placement", () => {
 
   it("keeps the new photos in Our Work and preserves the old bathroom projects", () => {
     for (const project of Object.values(RESIDENTIAL_PROJECTS)) expect(WORK_PROJECTS).toContain(project);
-    for (const photo of [PHOTOS.freestandingBathroom, PHOTOS.bathroom, PHOTOS.bathtubRoughIn]) {
+    for (const photo of [PHOTOS.bathroom, PHOTOS.bathtubRoughIn]) {
       expect(WORK_PROJECTS.some(project => project.photo === photo)).toBe(true);
     }
   });

@@ -35,11 +35,8 @@ The build also runs two static checks after prerendering:
   elements, and at least 200 words in each public page's raw HTML body. An empty
   alt must explicitly mark a decorative image. The word count includes shared
   navigation and footer text; it is not a measure of unique service copy.
-  It also checks all 308 target-city pages for their first-H2 question, short
-  answer, unique measured sentence, publication/update dates and correct tier:
-  105 named comparisons and 203 hub-linked service pages. Each hub has all six
-  Google review records, including the rating-only review without an invented
-  quotation.
+  On the seven target cities' pages it checks that the meta description is
+  the page's short answer (1–100 words) and that no comparison block renders.
 - `scripts/check-links.mjs` checks emitted `href` and `src` paths and HTML
   fragments. Missing internal targets stop the build with the source page and
   rule. External HTTP links get two attempts, each with a five-second timeout,
@@ -48,9 +45,7 @@ The build also runs two static checks after prerendering:
 These checks inspect authored static HTML, not a computed browser accessibility
 tree. They cannot detect facts shown only inside photographs or event handlers
 that React attaches after hydration. They do not replace a browser accessibility
-review. Build checks and embedded header examples are the verification for
-[JDA-408](https://linear.app/jdanene39/issue/JDA-408); no test suite is required
-for that issue.
+review.
 
 The static publisher copies shared public assets and the job photographs listed
 in `src/projectPhotos.ts`. Camera originals, unused candidates and the GBP review
@@ -194,8 +189,9 @@ slugs or the shared general-service labels. Emergency plumber pages retain their
 existing emergency-service paths but use plumbing content, photos and evidence.
 
 The seven `AGENT_READABLE_CITY_SLUGS` hubs additionally link every existing
-city-service category and option directly. This retrieval cohort excludes
-Kirkland; its new repair page has plain Q&A without measured comparison blocks.
+city-service category and option directly, so a crawler reaches all 43 pages
+from the hub. Every city's water heater repair page opens with its question and
+a short answer; the other pages keep their approved copy.
 
 Complete bathroom remodeling appears first under General Plumbing. Its fixtures,
 showers and tubs, and kitchen sections use page anchors and matching project photos.
@@ -224,46 +220,22 @@ publication date is October 18, as recorded in JDA-408. New repair pages have no
 invented historical publication date. The shared-license revision is October 20;
 the eight detailed city journeys record October 21's phrase, repair-page and
 hours changes. Update affected overrides if the actual merge occurs later; never
-advance dates just because a build ran. These same records supply the visible
-city-page dates. Unknown first-publication dates for other pages are not guessed.
+advance dates just because a build ran. Unknown first-publication dates for
+other pages are not guessed.
 The build lists revisions older than 90 days. Production robots explicitly allow
 meta-webindexer, GPTBot, ClaudeBot, PerplexityBot and Google-Extended, while each
 group still excludes `/api/`. Private previews still disallow all crawling.
 
-The seven-city reading structure uses `AgentReadableContent.tsx` and the 44
-final questions and answers in `src/content/serviceAnswers.ts`. Primary-source
-links remain beside the guidance. Owner facts come from `businessFacts.ts`.
-The comparison preserves the saved scan's numbers even when the current Google
-review count differs. Google category omissions never prove a service is absent.
-Only the official-site claims in `src/content/rivalFacts.ts` appear as checked
-services or hours; unreadable or unchecked sites get no such claim.
+The machine layer for the seven target cities lives in the head, not the copy:
+each page's meta description and WebPage description carry its short answer
+from `src/content/serviceAnswers.ts` (one record per page type, city filled
+in), and the business schema carries the facts from `businessFacts.ts`.
 Regular hours are 8 AM to 8 PM daily, Pacific time; overnight emergency service
-is 8 PM to 8 AM daily, confirmed by Jide on October 21. The opening-hours schema
-keeps regular hours, not a claim that regular service runs 24 hours.
-
-`scripts/export-rivals.mjs` generates `src/content/rivals.json` from existing
-MapPack observations. Run `node scripts/export-rivals.mjs --help` for the saved
-acquisition and authenticated read modes. Exact positions 1–3 counts are required;
-the exporter fails rather than label rank-within-N counts as top-three share.
-The committed export's provenance records read-only MapPack repository access
-and all 49 scans. Refreshing existing observations is not a provider rescan.
-No credentials enter the export. The measurement evidence and remaining external
-measurement work are recorded in [the baseline](docs/actions/jda408-baseline.md).
-
-For a repository-based refresh, use the current local MapPack backend's Python
-environment, without pulling into a dirty checkout:
-
-```sh
-/path/to/mappack/backend/.venv/bin/python scripts/acquire-rivals.py \
-  --mappack-root /path/to/mappack --env-file /path/to/mappack/.env \
-  --date 2026-10-19 --output /private/tmp/rivals-acquisition.json
-node scripts/export-rivals.mjs --input /private/tmp/rivals-acquisition.json
-```
-
-Acquisition enforces a read-only database transaction, selects existing saved
-scans for that date, and fails on incomplete or mismatched evidence. It never
-buys a scan or changes MapPack. A stale MapPack source tree fails with an update
-instruction rather than using different measurement rules silently.
+is 8 PM to 8 AM daily, confirmed by Jidè on October 21; both show in the footer
+and the schema. On October 21 Jidè rejected the visible question, comparison,
+review and dated-fact blocks the ticket had asked for; the record is in
+[`actions/2026-10-21/action.md`](actions/2026-10-21/action.md) and the saved
+scan evidence in [`actions/2026-10-20/`](actions/2026-10-20/).
 
 Development HTML remains `noindex`. The production build permits indexing on
 the registered domain. Host-specific `_headers` rules block both `*.pages.dev`

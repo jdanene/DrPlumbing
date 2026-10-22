@@ -185,12 +185,62 @@ drain cleaning, sewer line repair and replacement, Federal Way's water heater
 installation, and the heating-and-cooling pages (HVAC firms own those phrases;
 not his trade this quarter).
 
+## 9. The visible reading blocks come off the site (Jidè, late October 21)
+
+Jidè opened the PR #26 preview (`/plumber-newcastle/`) and rejected the visible
+result of the AEO offensive: the question and answer block at the top, the scan
+sentence ("60% of searches in positions 1–3 … across 90 usable searches"), the
+"Compare providers" link, the definition paragraph, "Sources for this guidance",
+"What you can expect" with "As of October 2026" on every line, the comparison
+table naming rivals with their ratings and review counts beside our six, "When
+another provider may fit", "How this comparison was measured", and the reviews
+block. His words: "really bad", "absolutely not", "revert the pages back",
+"don't rewrite the production approved pages unless it's completely new".
+
+His understanding was that the offensive was descriptors for AI, hidden in the
+HTML. The sources say otherwise (Hoffman's post: "try highlighting the text
+with your mouse. If you can't, AI likely can't read it"; the Effective AEO
+report §5: a "visible plain-language FAQ", JSON-LD "that mirrors the visible
+text"), and hidden text is the first line of the arena report's Avoid list. The
+decision stands as a product call: the pages show only the approved copy.
+
+What Claude changed on the PR #26 branch, at Jidè's instruction ("review the pr
+fix anything broken", "remove useless tests"):
+
+- Removed from every page: `AgentReadableContent.tsx` (answer and evidence
+  blocks), `BusinessDefinition.tsx`, `agentReadable.css`, the rival data
+  (`rivals.json`, `rivalFacts.ts`, `acquire-rivals.py`, `export-rivals.mjs`),
+  the reviews record, the footer rewrite and the "(as of …)" after the license.
+- Kept, invisible or asked for: the eight title renames; the eight water heater
+  repair pages (new, so they open with their question and short answer); the
+  hub's list of its 42 pages; sitemap `lastmod` dates; crawler allow lines; the
+  link check; the facts record with regular and emergency hours.
+- Added, behind the scenes: each target-city page's meta description and
+  WebPage description is its short answer (1–100 words, city filled in); the
+  business schema carries the emergency line as a ContactPoint with
+  hoursAvailable 20:00–08:00. One visible line: hours and the emergency hours
+  on the footer's contact list.
+- Tests: deleted `CityReplication.test.tsx` (329 HTML-equality cases, 253
+  broken by the renames); fixed the label and count expectations in the rest;
+  fixed the Our Work photo test, which had failed on `main` since `b989f6b`
+  removed a duplicate bathroom photo.
+- `check-readability.mjs` now checks the description and the absence of
+  comparison blocks on the seven cities instead of the removed visible blocks.
+
+What we are looking for changes with it: the site now contributes titles,
+descriptions and facts, not a visible comparison. The four-week read keeps the
+same instruments (Search Console per page, the $2.65 rescan, the 21 assistant
+prompts, pages indexed), with the expectation written down honestly: the
+measured evidence says assistants quote visible text, so the site's share of
+any movement is expected to be small; the profile work above carries the
+plumber-rank targets.
+
 ## Next
 
 1. Description rewrite with the exact scan phrases: "boiler repair", "boiler
    replacement", "radiant floor heating repair", "water heater repair", "tankless
    water heater installation", "trenchless sewer repair", "trenchless water line
    replacement", "hydro jetting", "water filtration system", "reverse osmosis".
-2. Builder applies the PR #26 comments (site hours split; eight page-title
-   renames; eight water heater repair pages); Claude reviews; Jidè merges.
+2. Builder applied the PR #26 comments (commit 682ba0b); Claude reviewed and
+   reverted the visible blocks (section 9); Jidè merges.
 3. Rescans as above once Google publishes (services take up to 1 day).

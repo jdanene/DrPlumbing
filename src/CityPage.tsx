@@ -2,7 +2,6 @@ import { SERVICES } from "./content";
 import { AGENT_READABLE_CITY_SLUGS, CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, cityOptionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
-import { AgentReadableAnswer, AgentReadableEvidence } from "./AgentReadableContent";
 
 /**
  * Description: Shows one served city, answer first, with the way into each service. A city page links
@@ -38,7 +37,7 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
             )}
           </nav>
           <h1 tabIndex={-1}>{cityHeading(page)}</h1>
-          {indexedJourney ? <AgentReadableAnswer page={page} /> : <p className="lead">{cityAnswer(page)}</p>}
+          <p className="lead">{cityAnswer(page)}</p>
           {landmarks && <p className="lead">{landmarks}</p>}
           {CITY_PAGE_COPY[page.route]?.sections.map((section) => (
             <section className="other" key={section.heading}>
@@ -81,7 +80,6 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
               ))}
             </section>
           )}
-          {indexedJourney && <AgentReadableEvidence page={page} />}
         </div>
       </section>
       <div className="wrap">

@@ -2,10 +2,10 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { CITY_OPTION_PAGES, CITY_SERVICE_PAGES, cityPageAt, serviceHrefFor } from "./cities";
+import { CITY_OPTION_PAGES, CITY_SERVICE_PAGES, cityOptionLabel, cityPageAt, cityServiceMenu, serviceHrefFor } from "./cities";
 import { SERVICES, serviceMenu } from "./content";
 import { renderPage } from "./prerender";
-import { serviceDetailFor, serviceNavigationMenu } from "./serviceDetails";
+import { serviceDetailFor } from "./serviceDetails";
 import { routeFromLocation } from "./routes";
 import { PUBLIC_ROUTES, headTags } from "./seo";
 import { FULL_SERVICE_CITY_SLUGS, pathSlug, routeHref } from "./sitePaths";
@@ -27,12 +27,13 @@ describe("Mercer Island service journeys", () => {
     expect([...city.querySelectorAll("main img")].map((img) => img.getAttribute("src"))).toEqual([...original.querySelectorAll("main img")].map((img) => img.getAttribute("src")));
     expect([...city.querySelectorAll(".svc-sec h2, .svc-sec h3, .svc-sec p")].map((node) => node.textContent)).toEqual([...original.querySelectorAll(".svc-sec h2, .svc-sec h3, .svc-sec p")].map((node) => node.textContent));
     const options = city.querySelector(`nav[aria-label="${SERVICES.find((service) => service.id === serviceId)!.tab} in Mercer Island"]`);
-    expect(options?.querySelectorAll("a").length).toBe(serviceNavigationMenu(SERVICES.find((service) => service.id === serviceId)!).length);
+    expect(options?.querySelectorAll("a").length).toBe(cityServiceMenu(SERVICES.find((service) => service.id === serviceId)!, cityPageAt(["mercer-island"])).length);
   });
 
   it("leaves unselected cities' service menus and site-wide options unchanged", () => {
     expect([...new Set(CITY_OPTION_PAGES.map((item) => item.citySlug))]).toEqual(FULL_SERVICE_CITY_SLUGS);
-    expect(new Set(CITY_OPTION_PAGES.map((item) => routeHref(item.route))).size).toBe(288);
+    // 36 options plus water heater repair, in each of the eight full-journey cities.
+    expect(new Set(CITY_OPTION_PAGES.map((item) => routeHref(item.route))).size).toBe(296);
     window.history.replaceState(null, "", "/areas-we-serve/auburn/");
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "Plumbing" }));
@@ -57,10 +58,11 @@ describe("Mercer Island service journeys", () => {
     window.history.replaceState(null, "", "/water-heater-replacement-mercer-island/");
     render(<App />);
     for (const label of ["Gas water heaters", "Electric water heaters", "Tankless water heaters"]) {
+      const shown = cityOptionLabel("water-heaters", label);
       const main = within(screen.getByRole("main"));
-      fireEvent.click(main.getByRole("link", { name: label }));
+      fireEvent.click(main.getByRole("link", { name: shown }));
       expect(window.location.pathname).toBe(`/${pathSlug(label)}-mercer-island/`);
-      expect(main.getByRole("heading", { level: 1 }).textContent).toBe(`${label} in Mercer Island, WA`);
+      expect(main.getByRole("heading", { level: 1 }).textContent).toBe(`${shown} in Mercer Island, WA`);
     }
     fireEvent.click(within(screen.getByRole("main")).getByRole("link", { name: "Boilers" }));
     expect(window.location.pathname).toBe("/boilers-mercer-island/");
@@ -78,7 +80,7 @@ describe("Mercer Island service journeys", () => {
       expect(PUBLIC_ROUTES).toContain(route);
       expect(routeHref(route)).toBe(path);
       const { body, head } = renderPage(route);
-      expect(body).toContain(`${isCategory ? "Water filtration" : label} in Mercer Island, WA`);
+      expect(body).toContain(`${isCategory ? "Water filtration system installation" : cityOptionLabel(serviceId, label)} in Mercer Island, WA`);
       expect(head).toContain(`https://drplumbingheating.com${path}`);
       expect(headTags(route).find((tag) => tag.tag === "title")?.text).toContain("Mercer Island");
       if (!isCategory) {
