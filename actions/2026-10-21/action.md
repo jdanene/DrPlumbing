@@ -132,24 +132,30 @@ If a phrase moves, the words did it, and the next step is the matching website
 page title (JDA-408). If nothing moves after two weeks, the profile text is not
 the lever for that phrase and the next lever is reviews.
 
-## Hours (decision made, Jidè to enter)
+## 5. Hours (saved by Claude, pending review)
 
-The profile says 8 AM to 8 PM daily. Jidè, 2026-10-21: the owner made those
-numbers up and is not awake at 8 PM, but takes emergency calls when the price is
-right, and "if 8 PM hurts us you can change that time". The arena report found
-that being closed at the 9 PM scan cost 1 to 2 places. Decision: main hours
-**Open 24 hours, every day**, so the hours agree with the description and the
-"Emergency plumber" service. Special hours do not apply (they are for dates), and
-Google has no emergency "more hours" type for plumbers. Claude could not enter
-it (the harness blocks hours changes), so Jidè enters it in Business
-information → Hours: describe "Open 24 hours, every day", Apply hours, Save. The
-fallback if he will not promise the night: 7 AM to 10 PM daily. The site's
-`src/businessFacts.ts` copied 8-to-8 from the profile and must match whatever is
-set.
+Main hours changed from 8 AM to 8 PM daily to **Open 24 hours, every day**
+([typed](evidence/screenshots/07-hours-24-typed.jpg), [pending](evidence/screenshots/08-hours-pending.jpg)).
+Each day set through the "Opens at" picker's "24 hours" option; the "Describe
+your opening hours" box did not apply the change.
+
+Why: Jidè, 2026-10-21: the 8-to-8 numbers were made up, the owner is not awake
+at 8 PM, but he takes emergency calls when the price is right, and "if 8 PM hurts
+us you can change that time". The arena report found that being closed at the
+9 PM scan cost 1 to 2 places. 24 hours makes the hours agree with the description
+("emergency repairs") and the "Emergency plumber" service. Special hours were
+considered and rejected: they are exceptions for dates (holidays), and Google's
+"more hours" types (breakfast, delivery, pickup, senior hours) have no emergency
+type, so neither removes the "Closed" label at night.
+
+Previous value, for rollback: 8:00 AM to 8:00 PM, Sunday through Saturday.
+
+Follow-up: the site's `src/businessFacts.ts` (PR #26 branch) copied 8-to-8 from
+the profile and must say 24 hours too, or the site and the profile disagree.
 
 ## Not changed today
 
-- Reviews link (battle plan step 5): to pull from "Ask for reviews" after the saves.
+- Reviews link (battle plan step 5): to pull from "Ask for reviews" next.
 
 ## Next
 
