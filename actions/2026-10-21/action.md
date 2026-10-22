@@ -32,8 +32,12 @@ before publishing: the description "up to 10 minutes", services "up to 1 day".
    > and customer satisfaction. Washington State Contractor Registration No.
    > DRPLUPH740ND.
 
-   No 24/7 claim. Jidè, 2026-10-21: it is a one-man business; he takes emergency
-   calls when the price is right, but is not awake at 8 PM.
+   Second save, later the same day, pending review (725 of 750 characters;
+   [`evidence/description-entered-v2.txt`](evidence/description-entered-v2.txt),
+   [screenshot](evidence/screenshots/13-description-v2-pending.jpg)): one sentence
+   added before the flat-rate line, "Regular hours are 8 AM to 8 PM; emergency
+   service runs 8 PM to 8 AM." Jidè, 2026-10-21: the profile hours became 24 hours
+   (step 7), so the description states the split to keep it truthful.
 
 2. **Categories**: no change. Primary Plumber; additional Drainage service, Heating
    contractor. "Service establishment" was already gone. Google's list has no
@@ -159,8 +163,22 @@ type, so neither removes the "Closed" label at night.
 
 Previous value, for rollback: 8:00 AM to 8:00 PM, Sunday through Saturday.
 
-Follow-up: the site's `src/businessFacts.ts` (PR #26 branch) copied 8-to-8 from
-the profile and must say 24 hours too, or the site and the profile disagree.
+Follow-up: the site states the split as two facts, regular 8 AM to 8 PM and
+emergency 8 PM to 8 AM. Jidè: not done by Claude; posted as instructions on
+[PR #26](https://github.com/jdanene/DrPlumbing/pull/26#issuecomment-6332351589).
+
+## 8. Website pages: what exists and what the builder changes (PR #26)
+
+Battle plan steps 6 and 7 were wrong: the PR #26 branch already builds 362
+pages, a page for every service in all eight cities. What is missing is the
+exact wording. Seven title patterns do not say the scan phrase (Hydrojetting /
+hydro jetting; Radiant floor heating / radiant floor heating repair; Water
+softeners / water softener installation; Reverse osmosis / reverse osmosis
+installation; Trenchless water line repair / replacement; Tankless water
+heaters / tankless water heater installation; Emergency service / emergency
+plumber), and no "water heater repair in {City}" page exists although Newcastle
+"water heater repair" is already top 3 in 10 of 30 searches. Instructions
+posted as the same PR #26 comment; Claude made no code change.
 
 ## Next
 
@@ -168,5 +186,6 @@ the profile and must say 24 hours too, or the site and the profile disagree.
    replacement", "radiant floor heating repair", "water heater repair", "tankless
    water heater installation", "trenchless sewer repair", "trenchless water line
    replacement", "hydro jetting", "water filtration system", "reverse osmosis".
-2. `src/businessFacts.ts` hours to 24 hours (PR #26 branch).
+2. Builder applies the PR #26 comment (site hours split; page titles; water
+   heater repair pages); Jidè merges.
 3. Rescans as above once Google publishes (services take up to 1 day).
