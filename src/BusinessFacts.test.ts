@@ -63,6 +63,10 @@ describe("the business record", () => {
 });
 
 describe("hours as a customer reads them", () => {
+  it("reads the confirmed overnight emergency hours", () => {
+    expect(formatHours(confirmed(BUSINESS.emergencyHours))).toBe("8 PM to 8 AM daily");
+  });
+
   it("reads daily for seven days and names a run of days otherwise", () => {
     expect(formatHours([{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }])).toBe("8 AM to 8 PM daily");
     expect(formatHours([

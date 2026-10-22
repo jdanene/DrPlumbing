@@ -194,7 +194,7 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
   },
   "plumbing/trenchless-water-line-repair": {
     question: "Can my water line in {city} be replaced without digging up the whole yard?",
-    answer: "Trenchless replacement can reduce digging along a buried water line, but access points are still needed. The route, nearby utilities, pipe condition and approved replacement material determine whether it fits. A localized leak may need a smaller repair instead. Compare excavation and surface restoration in both quotes, and confirm permits and inspections with the local authority.",
+    answer: "Trenchless water line replacement in {city} can reduce digging along a buried supply pipe, but access points are still needed. The route, nearby utilities, pipe condition and approved replacement material determine whether it fits. A localized leak may need a smaller repair instead. Compare excavation and surface restoration in both quotes, and confirm permits and inspections with the local authority.",
     status: "final",
     sources: [SOURCES.trenchlessWater, SOURCES.waterLines],
   },
@@ -254,7 +254,7 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
   },
   "water-heaters/tankless-water-heaters": {
     question: "Is a tankless water heater a good fit for my home in {city}?",
-    answer: "Tankless fits homes that want hot water without storing a large tank, provided the unit can supply the fixtures running at the same time. Size it for simultaneous flow and incoming water temperature, not a fixed household-size rule. A gas model also needs adequate gas supply and approved venting. Compare the full installation and maintenance requirements with a tank or heat pump model before choosing.",
+    answer: "Tankless water heater installation in {city} fits homes that want hot water without storing a large tank, provided the unit can supply the fixtures running at the same time. Size it for simultaneous flow and incoming water temperature, not a fixed household-size rule. A gas model also needs adequate gas supply and approved venting. Compare the full installation and maintenance requirements with a tank or heat pump model before choosing.",
     status: "final",
     sources: [SOURCES.tankless, SOURCES.heatPumpWater],
   },
@@ -263,6 +263,12 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     answer: "A heat pump water heater is worth comparing when you want to reduce electric water-heating use and have a suitable installation space. Check airflow, operating temperature, noise, condensate drainage and the model's electrical requirements. Choose capacity for peak demand; frequent simultaneous showers can require more stored hot water. If the location cannot meet the manufacturer's requirements, compare ducting, another location or a different heater type.",
     status: "final",
     sources: [SOURCES.heatPumpWater, SOURCES.heatPumpDesign],
+  },
+  "water-heaters/water-heater-repair": {
+    question: "Can my water heater in {city} be repaired?",
+    answer: "Water heater repair in {city} starts with finding the cause of a leak, missing hot water or temperature problem. A failed element, control or valve can justify a repair when the rest of the heater is sound. A leaking tank or repeated failures can make replacement the better choice. Ask for the diagnosis, repair price and installed replacement alternative before deciding. Keep clear of water near electrical equipment and report any gas smell from a safe location.",
+    status: "final",
+    sources: [SOURCES.waterHeaterRepair, SOURCES.gasSafety],
   },
   "drain-sewer": {
     question: "Do my blocked drains in {city} need cleaning or sewer repair?",
@@ -277,8 +283,8 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     sources: [SOURCES.drainCleaning],
   },
   "drain-sewer/hydrojetting": {
-    question: "Is hydrojetting the right fix for my drains in {city}?",
-    answer: "Hydrojetting uses pressurized water to remove grease, soap and sludge from a line. It fits buildup that needs more than opening a path through a clog, but the contractor must assess whether the pipe can tolerate the method. A damaged or collapsed sewer needs repair, not a promise that jetting will restore it. Ask what the inspection shows and why jetting suits that pipe.",
+    question: "Is hydro jetting the right fix for my drains in {city}?",
+    answer: "Hydro jetting in {city} uses pressurized water to remove grease, soap and sludge from a line. It fits buildup that needs more than opening a path through a clog, but the contractor must assess whether the pipe can tolerate the method. A damaged or collapsed sewer needs repair, not a promise that jetting will restore it. Ask what the inspection shows and why jetting suits that pipe.",
     status: "final",
     sources: [SOURCES.jetting, SOURCES.trenchlessWater],
   },
@@ -296,13 +302,13 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
   },
   "water-filtration": {
     question: "Which water filtration system should I install in {city}?",
-    answer: "Start with your utility's water-quality report or a water test, then identify the problem you want treated. A drinking-water filter can suit one kitchen tap; a whole-home system treats all incoming water and needs a reason to do so. Choose a product certified for the specific contaminant. A softener, carbon filter, reverse-osmosis system and UV unit solve different problems; no single treatment removes everything.",
+    answer: "Water filtration system installation in {city} starts with your utility's water-quality report or a water test, then the problem you want treated. A drinking-water filter can suit one kitchen tap; a whole-home system treats all incoming water and needs a reason to do so. Choose a product certified for the specific contaminant. A softener, carbon filter, reverse-osmosis system and UV unit solve different problems; no single treatment removes everything.",
     status: "final",
     sources: [SOURCES.filterSelection],
   },
   "water-filtration/water-softeners": {
     question: "Does my home in {city} need a water softener?",
-    answer: "A softener fits water with measured hardness that causes scale or soap problems. Test first rather than assuming every local home needs one. Size it for hardness and water use, and compare salt use, regeneration water and maintenance. Softening targets minerals such as calcium and magnesium; it does not replace treatment for germs or every other contaminant.",
+    answer: "Water softener installation in {city} fits water with measured hardness that causes scale or soap problems. Test first rather than assuming every local home needs one. Size it for hardness and water use, and compare salt use, regeneration water and maintenance. Softening targets minerals such as calcium and magnesium; it does not replace treatment for germs or every other contaminant.",
     status: "final",
     sources: [SOURCES.waterTreatment, SOURCES.homeTreatment],
   },
@@ -314,7 +320,7 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
   },
   "water-filtration/reverse-osmosis": {
     question: "Should I install reverse osmosis for drinking water in {city}?",
-    answer: "Reverse osmosis fits a drinking-water treatment goal that a simpler filter cannot meet, when the selected unit is certified for the substances of concern. An under-sink installation treats water for drinking and cooking without treating every tap. Compare filter and membrane replacement, available space and wastewater use. A WaterSense-labeled system uses less reject water than less-efficient models; RO does not remove every contaminant.",
+    answer: "Reverse osmosis installation in {city} fits a drinking-water treatment goal that a simpler filter cannot meet, when the selected unit is certified for the substances of concern. An under-sink installation treats water for drinking and cooking without treating every tap. Compare filter and membrane replacement, available space and wastewater use. A WaterSense-labeled system uses less reject water than less-efficient models; RO does not remove every contaminant.",
     status: "final",
     sources: [SOURCES.waterTreatment, SOURCES.homeTreatment],
   },
@@ -373,10 +379,10 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     sources: [SOURCES.heatingRepair],
   },
   "heating-cooling/emergency-service": {
-    question: "What should I do when my heating system fails in {city}?",
-    answer: "A gas smell is a safety emergency: leave the area and call the utility or 911 from outside. For a heating failure without immediate danger, request service and confirm when someone can attend. Tell the contractor the equipment type, symptoms and any displayed error code. Do not bypass safety controls or attempt gas or electrical repairs to get the system running.",
+    question: "When should I call an emergency plumber in {city}?",
+    answer: "An emergency plumber in {city} can help with an active leak, burst pipe or sewer backup that cannot wait for a routine visit. Shut off the water if you can reach the valve safely, and stop using backed-up fixtures. Keep clear of water near electrical equipment. For a gas smell, leave and call the utility or 911 from outside. Call to describe the problem and confirm when a plumber can attend.",
     status: "final",
-    sources: [SOURCES.gasSafety, SOURCES.hydronicDiagnosis],
+    sources: [SOURCES.gasSafety, SOURCES.frozenPipes],
   },
   boilers: {
     question: "Should I repair or replace my boiler in {city}?",
@@ -391,8 +397,8 @@ export const SERVICE_ANSWERS: Record<string, ServiceAnswer> = {
     sources: [SOURCES.hydronicDiagnosis],
   },
   "boilers/radiant-floor-heating": {
-    question: "Will radiant floor heating work in my home in {city}?",
-    answer: "Radiant floors suit projects where the floor assembly, insulation and heat source can meet the room's heating needs. Flooring materials affect heat output, so assess the complete construction before choosing a system. If an existing floor is cold, check water flow, controls and insulation before assuming its tubing or boiler must be replaced. Electric floor warming and water-based whole-room heating need different designs.",
+    question: "What does radiant floor heating repair in {city} involve?",
+    answer: "Radiant floor heating repair in {city} starts with checking water flow, controls and the heat source before assuming the floor tubing needs replacement. Flooring materials and insulation affect heat output, so assess the complete system. A cold zone may need a pump, valve or thermostat repair rather than a new boiler. Electric floor warming and water-based whole-room heating need different diagnosis and repair work.",
     status: "final",
     sources: [SOURCES.radiantDesign, SOURCES.radiantDiagnosis],
   },

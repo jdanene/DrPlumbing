@@ -1,5 +1,5 @@
 import { BUSINESS, confirmed, formatHours } from "./businessFacts";
-import { type CityPageMatch } from "./cities";
+import { cityOptionLabel, type CityPageMatch } from "./cities";
 import { routeHref } from "./sitePaths";
 import { PAGE_DATES } from "./pageDates";
 import { SERVICE_ANSWERS } from "./content/serviceAnswers";
@@ -39,7 +39,7 @@ export function AgentReadableAnswer({ page }: { page: CityPageMatch }) {
   const tier = pageTier(page.service?.id, page.detail?.item);
   const scan = scanFor(page);
   const dates = PAGE_DATES[page.route];
-  const subject = page.detail?.item ?? page.service?.tab ?? "Plumbing services";
+  const subject = page.detail ? cityOptionLabel(page.service!.id, page.detail.item) : page.service?.tab ?? "Plumbing services";
   const comparison = tier === "A" ? "#service-comparison" : `${routeHref(`areas/${page.city.slug}`)}#service-comparison`;
   return <div className="reading-answer" data-answer-key={key} data-reading-tier={tier}>
     <p className="page-dates">
@@ -76,7 +76,7 @@ export function AgentReadableEvidence({ page }: { page: CityPageMatch }) {
         <li>{confirmed(BUSINESS.workStandard)} across {confirmed(BUSINESS.serviceScope).summary}. As of {factMonth(BUSINESS.serviceScope.confirmedOn)}.</li>
         <li>Serving {page.city.name} as part of our Greater Seattle service area. As of {factMonth(BUSINESS.serviceCities.confirmedOn)}.</li>
         <li>{confirmed(BUSINESS.priceBasis)} As of {factMonth(BUSINESS.priceBasis.confirmedOn)}.</li>
-        <li>Hours: {formatHours(confirmed(BUSINESS.hours))}, Pacific time. As of {factMonth(BUSINESS.hours.confirmedOn)}. <a href={REVIEW_SOURCE}>Google profile</a>.</li>
+        <li>Hours: {formatHours(confirmed(BUSINESS.hours))}, Pacific time; emergency service {formatHours(confirmed(BUSINESS.emergencyHours))}. As of {factMonth(BUSINESS.emergencyHours.confirmedOn)}. <a href={REVIEW_SOURCE}>Google profile</a>.</li>
       </ul>
       <p>Call or text to confirm appointment availability.</p>
     </section>

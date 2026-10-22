@@ -39,6 +39,12 @@ Kirkland's existing detailed journey. No city was deleted to force the older
 21-city control count. Shared license text changes across the site; only the
 seven target journeys receive the new question, answer and comparison blocks.
 
+The October 21 addition creates eight water-heater repair pages, bringing the
+current build to 405 routes. Seven join the measured reading cohort (308 pages);
+Kirkland's repair page has plain Q&A without scan comparisons. The October 20
+indexing snapshot remains 397 historical observations; no indexing status has
+been invented for the eight new routes.
+
 ## Search performance and assistant naming
 
 The initial Website view showed September 20–October 19: 718 impressions,

@@ -51,7 +51,7 @@ export const WEEKDAYS: readonly Weekday[] = [
   "Sunday",
 ];
 
-/** Opening hours for a set of days; times are 24-hour "HH:MM". */
+/** Opening hours for a set of days; times are 24-hour "HH:MM". A closing time before opening spans midnight. */
 export interface OpeningHours {
   days: readonly Weekday[];
   opens: string;
@@ -126,10 +126,11 @@ export function displayText<T>(fact: Fact<T>, format: (value: T) => string = Str
 /**
  * Description: Writes opening hours the way a customer reads them.
  * Inputs: hours is one or more entries; a single entry covering all seven days reads as "daily".
+ * An overnight schedule retains its evening opening and next-morning closing time.
  * Output: One clause per entry joined with ", ", such as "8 AM to 8 PM daily" or
  * "8 AM to 6 PM Monday to Friday, 9 AM to 1 PM Saturday".
  * Examples: formatHours([{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }]) is "8 AM to 8 PM daily";
- * formatHours([]) is "".
+ * formatHours(confirmed(BUSINESS.emergencyHours)) is "8 PM to 8 AM daily"; formatHours([]) is "".
  */
 export function formatHours(hours: readonly OpeningHours[]): string {
   return hours.map((entry) => `${clockText(entry.opens)} to ${clockText(entry.closes)} ${daysText(entry.days)}`).join(", ");
@@ -221,8 +222,13 @@ export const BUSINESS = {
   ),
   hours: confirmedFact<readonly OpeningHours[]>(
     [{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }],
-    "Google Business Profile: all seven days, 8 AM to 8 PM America/Los_Angeles; https://share.google/mUpyvJNMJZACxJoH3; read 2026-10-20",
-    "2026-10-20",
+    "Jide confirmed regular service hours, separate from overnight emergency service: 8 AM to 8 PM daily, America/Los_Angeles; PR26 comment 6332351589",
+    "2026-10-21",
+  ),
+  emergencyHours: confirmedFact<readonly OpeningHours[]>(
+    [{ days: WEEKDAYS, opens: "20:00", closes: "08:00" }],
+    "Jide confirmed emergency service hours: 8 PM to 8 AM daily, America/Los_Angeles",
+    "2026-10-21",
   ),
   socialProfiles: pendingFact<readonly SocialProfile[]>("[SOCIAL PROFILES]", "No profiles exist yet under the current name, checked 2026-10-10"),
   priceRange: pendingFact<string>("[PRICE RANGE]", "schema.org wants a short marker such as $$; the owner has not set one"),

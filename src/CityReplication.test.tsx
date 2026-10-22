@@ -26,10 +26,10 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 describe.each(replicas)("$name replicates Mercer Island", ({ slug, name, overviewPath, waterHeaterPath }) => {
-  it("has the same overview, six categories, and 36 options including remodeling", () => {
-    expect(PUBLIC_ROUTES.filter((route) => route === `areas/${slug}` || route.startsWith(`areas/${slug}/`))).toHaveLength(43);
+  it("has the same overview, six categories, and 37 options including water heater repair", () => {
+    expect(PUBLIC_ROUTES.filter((route) => route === `areas/${slug}` || route.startsWith(`areas/${slug}/`))).toHaveLength(44);
     expect(CITY_SERVICE_PAGES.filter((page) => page.citySlug === slug)).toHaveLength(6);
-    expect(CITY_OPTION_PAGES.filter((page) => page.citySlug === slug)).toHaveLength(36);
+    expect(CITY_OPTION_PAGES.filter((page) => page.citySlug === slug)).toHaveLength(37);
     expect(routeHref(`areas/${slug}`)).toBe(overviewPath);
     expect(routeHref(`areas/${slug}/water-heater-replacement`)).toBe(waterHeaterPath);
     expect(PATH_REDIRECTS[`/areas-we-serve/${slug}/`]).toBe(`areas/${slug}`);

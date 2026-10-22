@@ -30,14 +30,14 @@ The optional `npm run check` also runs Oxlint and automated tests.
 
 The build also runs two static checks after prerendering:
 
-- `scripts/check-readability.mjs` checks all 397 public routes and the 404 page
+- `scripts/check-readability.mjs` checks all 405 public routes and the 404 page
   for named buttons, labelled form fields, image alt text, native interactive
   elements, and at least 200 words in each public page's raw HTML body. An empty
   alt must explicitly mark a decorative image. The word count includes shared
   navigation and footer text; it is not a measure of unique service copy.
-  It also checks all 301 target-city pages for their first-H2 question, short
+  It also checks all 308 target-city pages for their first-H2 question, short
   answer, unique measured sentence, publication/update dates and correct tier:
-  98 named comparisons and 203 hub-linked service pages. Each hub has all six
+  105 named comparisons and 203 hub-linked service pages. Each hub has all six
   Google review records, including the rating-only review without an invented
   quotation.
 - `scripts/check-links.mjs` checks emitted `href` and `src` paths and HTML
@@ -170,7 +170,7 @@ drain and sewer, filtration, heating and cooling, and boiler pages. `CITY_PATHS`
 in `src/sitePaths.ts` defines their flat public addresses. The former nested
 addresses remain supported and receive 301 rules in the generated `_redirects`.
 Unselected cities retain `/areas-we-serve/{city}/` addresses; only listed city-service
-combinations generate pages. Mercer Island also has 36 option pages, such as
+combinations generate pages. Mercer Island also has 37 option pages, such as
 `/gas-water-heaters-mercer-island/` and `/boiler-repair-mercer-island/`.
 `CITY_OPTION_PAGES` derives those pages from the existing service menus and
 explanations. Header, mobile, footer and sibling service links retain the selected
@@ -178,7 +178,7 @@ city context. Unselected cities and site-wide navigation keep their existing beh
 Mercer Island service pages reuse `ServicePage`, including the main page's photos,
 galleries and educational sections. Only location wording and navigation differ.
 Federal Way, Newcastle, Bellevue, Renton, Kirkland, Redmond and Issaquah replicate
-this same 43-page journey. Each uses `/plumber-{city}/` except Federal Way, whose
+this same 44-page journey. Each uses `/plumber-{city}/` except Federal Way, whose
 entry point is `/federal-way-residential-plumber/`. Federal Way's existing
 water-heater category uses `/federal-way-water-heater-installation/`; its former
 addresses redirect to the requested paths. Bellevue's former
@@ -187,11 +187,15 @@ addresses redirect to the requested paths. Bellevue's former
 `FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
 paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.
-The production build includes 397 sitemap pages.
+The production build includes 405 sitemap pages. Each full city journey includes
+`/water-heater-repair-{city}/`, with its own question and repair guidance.
+City display labels use the approved search phrases without changing published
+slugs or the shared general-service labels. Emergency plumber pages retain their
+existing emergency-service paths but use plumbing content, photos and evidence.
 
 The seven `AGENT_READABLE_CITY_SLUGS` hubs additionally link every existing
 city-service category and option directly. This retrieval cohort excludes
-Kirkland; its page structure and the remaining city pages stay unchanged.
+Kirkland; its new repair page has plain Q&A without measured comparison blocks.
 
 Complete bathroom remodeling appears first under General Plumbing. Its fixtures,
 showers and tubs, and kitchen sections use page anchors and matching project photos.
@@ -216,22 +220,26 @@ The build generates `/robots.txt` and `/sitemap.xml` for
 Console after deployment; generating it does not submit it or guarantee ranking.
 
 Every sitemap URL includes `lastmod` from `src/pageDates.ts`. The target city's
-publication date is October 18, as recorded in JDA-408. This revision changes
-shared license facts on every page, so every URL's content revision is October
-20. Update affected overrides if the actual merge occurs later; never
+publication date is October 18, as recorded in JDA-408. New repair pages have no
+invented historical publication date. The shared-license revision is October 20;
+the eight detailed city journeys record October 21's phrase, repair-page and
+hours changes. Update affected overrides if the actual merge occurs later; never
 advance dates just because a build ran. These same records supply the visible
 city-page dates. Unknown first-publication dates for other pages are not guessed.
 The build lists revisions older than 90 days. Production robots explicitly allow
 meta-webindexer, GPTBot, ClaudeBot, PerplexityBot and Google-Extended, while each
 group still excludes `/api/`. Private previews still disallow all crawling.
 
-The seven-city reading structure uses `AgentReadableContent.tsx` and the 43
+The seven-city reading structure uses `AgentReadableContent.tsx` and the 44
 final questions and answers in `src/content/serviceAnswers.ts`. Primary-source
 links remain beside the guidance. Owner facts come from `businessFacts.ts`.
 The comparison preserves the saved scan's numbers even when the current Google
 review count differs. Google category omissions never prove a service is absent.
 Only the official-site claims in `src/content/rivalFacts.ts` appear as checked
 services or hours; unreadable or unchecked sites get no such claim.
+Regular hours are 8 AM to 8 PM daily, Pacific time; overnight emergency service
+is 8 PM to 8 AM daily, confirmed by Jide on October 21. The opening-hours schema
+keeps regular hours, not a claim that regular service runs 24 hours.
 
 `scripts/export-rivals.mjs` generates `src/content/rivals.json` from existing
 MapPack observations. Run `node scripts/export-rivals.mjs --help` for the saved

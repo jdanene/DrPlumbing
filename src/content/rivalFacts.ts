@@ -94,7 +94,7 @@ export const RIVAL_SITE_FACTS = [
     checkedOn: "2026-10-20",
     source: "https://www.plumbingjoint.com/",
     fact: "Its site describes a family-owned and operated full-service plumbing business serving Renton and surrounding areas, with plumbing services advertised as available 24/7.",
-    whenToConsider: "For an overnight plumbing emergency, The Plumbing Joint's advertised 24/7 service is an alternative to waiting for a daytime appointment. Confirm dispatch timing and whether the team can handle your specific sewer, water-heater or heating problem.",
+    whenToConsider: "If we cannot attend when you need service, The Plumbing Joint's advertised 24/7 service is another option. Confirm dispatch timing and whether its team can handle your specific sewer, water-heater or heating problem.",
   },
   {
     host: "garyspipelining.com",

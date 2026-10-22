@@ -265,6 +265,7 @@ export const DETAIL_PHOTOS: Partial<Record<string, ProjectPhotoData>> = {
   "water-heaters/electric-water-heaters": PHOTOS.tank,
   "water-heaters/gas-water-heaters": PHOTOS.tankless,
   "water-heaters/tankless-water-heaters": PHOTOS.tankless,
+  "water-heaters/water-heater-repair": PHOTOS.tank,
   "drain-sewer/sewer-line-repair-and-replacement": PHOTOS.sewer,
   "water-filtration/water-softeners": PHOTOS.softener,
   "water-filtration/uv-treatment": PHOTOS.filters,

@@ -60,6 +60,7 @@ export function fillCity(text: string, city: string) {
  * Examples: scanServiceFor("plumbing", "Trenchless water line repair") returns "trenchless"; scanServiceFor("boilers") returns "boilers-and-radiant".
  */
 export function scanServiceFor(service?: string, item?: string) {
+  if (item === "Emergency service") return "plumber";
   if (item?.startsWith("Trenchless")) return "trenchless";
   return ({ boilers: "boilers-and-radiant", "heating-cooling": "heating-and-cooling", "drain-sewer": "drain-and-sewer" } as Record<string, string>)[service ?? ""] ?? (service === "plumbing" || !service ? "plumber" : service);
 }

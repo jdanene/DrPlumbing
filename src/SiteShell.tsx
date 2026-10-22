@@ -7,8 +7,7 @@ import {
   servicesForGroup,
 } from "./content";
 import { Arrow } from "./SiteContent";
-import { serviceNavigationMenu } from "./serviceDetails";
-import { CITY_OPTION_PAGES, cityPageAt, serviceHrefFor } from "./cities";
+import { CITY_OPTION_PAGES, cityPageAt, cityOptionLabel, cityServiceMenu, serviceHrefFor } from "./cities";
 import BusinessDefinition from "./BusinessDefinition";
 import { BUSINESS } from "./businessFacts";
 import { factMonth } from "./agentReadable";
@@ -221,9 +220,9 @@ export default function SiteShell({
                           <span>{service.short}</span>
                         </a>
                         <ul>
-                          {serviceNavigationMenu(service).map((item) => (
+                          {cityServiceMenu(service, cityPage).map((item) => (
                             <li key={item}>
-                              <a href={serviceHrefFor(cityPage, service.id, item)}>{item}</a>
+                              <a href={serviceHrefFor(cityPage, service.id, item)}>{cityPage ? cityOptionLabel(service.id, item) : item}</a>
                             </li>
                           ))}
                         </ul>

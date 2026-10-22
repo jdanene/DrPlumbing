@@ -17,9 +17,10 @@ import {
 } from "./serviceDetails";
 import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS, type WorkProject } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
-import { cityAnswer, cityHeading, serviceHrefFor, type CityPageMatch } from "./cities";
+import { cityAnswer, cityHeading, cityOptionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
 import { AgentReadableAnswer, AgentReadableEvidence } from "./AgentReadableContent";
 import { isAgentReadable } from "./agentReadable";
+import { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 /**
  * Description: Draws the repeated directional cue without giving it an accessible name.
@@ -178,10 +179,13 @@ export function ServicePage({
   cityPage?: CityPageMatch;
 }) {
   const page = detail ?? service;
-  const usesCategoryArtwork = cityPage && detail && !serviceDetailFor(service.id, detail.item);
-  const photo = detail && !usesCategoryArtwork
+  const repairAnswer = cityPage && !isAgentReadable(cityPage) && service.id === "water-heaters" && detail?.item === "Water heater repair"
+    ? SERVICE_ANSWERS["water-heaters/water-heater-repair"] : undefined;
+  const cityEmergencyPhoto = cityPage && service.id === "heating-cooling" && detail?.item === "Emergency service" ? SERVICE_PHOTOS.plumbing : undefined;
+  const usesCategoryArtwork = cityPage && detail && !cityEmergencyPhoto && !DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`] && !serviceDetailFor(service.id, detail.item);
+  const photo = cityEmergencyPhoto ?? (detail && !usesCategoryArtwork
     ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`]
-    : SERVICE_PHOTOS[service.id];
+    : SERVICE_PHOTOS[service.id]);
   const gallery = SERVICE_GALLERIES[detail && !usesCategoryArtwork ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
   const isBathroomRemodeling = service.id === "plumbing" && detail?.item === "Complete bathroom remodeling";
@@ -241,14 +245,17 @@ export function ServicePage({
                 <>
                   <a href={serviceHrefFor(cityPage, service.id)}>{service.tab}</a>
                   <span>/</span>
-                  <span>{detail.item}</span>
+                  <span>{cityPage ? cityOptionLabel(service.id, detail.item) : detail.item}</span>
                 </>
               ) : (
                 <span>{service.tab}</span>
               )}
             </nav>
             <h1 tabIndex={-1}>{cityPage ? cityHeading(cityPage) : detail?.item ?? service.title}</h1>
-            {cityPage && isAgentReadable(cityPage) ? <AgentReadableAnswer page={cityPage} /> : cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
+            {cityPage && isAgentReadable(cityPage) ? <AgentReadableAnswer page={cityPage} /> : repairAnswer ? <div className="service-repair-answer">
+              <h2>{repairAnswer.question.replaceAll("{city}", cityPage!.city.name)}</h2>
+              <p className="lead">{repairAnswer.answer.replaceAll("{city}", cityPage!.city.name)}</p>
+            </div> : cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
             <div className="cta-row">
               <a className="btn btn-primary" href={routeHref("book")}>
                 Book a visit
@@ -265,8 +272,8 @@ export function ServicePage({
           <div className="other">
             <h2>{service.tab} in {cityPage.city.name}</h2>
             <nav className="svc-tabs" aria-label={`${service.tab} in ${cityPage.city.name}`}>
-              {serviceNavigationMenu(service).map((label) => (
-                <a className="chip" key={label} href={serviceHrefFor(cityPage, service.id, label)}>{label}</a>
+              {cityServiceMenu(service, cityPage).map((label) => (
+                <a className="chip" key={label} href={serviceHrefFor(cityPage, service.id, label)}>{cityOptionLabel(service.id, label)}</a>
               ))}
             </nav>
           </div>
@@ -386,8 +393,8 @@ export function ServicePage({
           <nav className="svc-tabs" aria-label={relatedHeading}>
             {detail ? (
               <>
-                {cityPage ? serviceNavigationMenu(service).filter((label) => label !== detail.item).map((label) => (
-                  <a className="chip" href={serviceHrefFor(cityPage, service.id, label)} key={label}>{label}</a>
+                {cityPage ? cityServiceMenu(service, cityPage).filter((label) => label !== detail.item).map((label) => (
+                  <a className="chip" href={serviceHrefFor(cityPage, service.id, label)} key={label}>{cityOptionLabel(service.id, label)}</a>
                 )) : (SERVICE_DETAILS[service.id] ?? [])
                   .filter((item) => item !== detail && serviceNavigationMenu(service).includes(item.item))
                   .map((item) => (
