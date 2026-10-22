@@ -250,6 +250,18 @@ wrong", "Fix it or replace it" and "Before we come". The repair-or-replace rule
 (leaking tank; past ten or twelve years and failing again; repair near half the
 price of new) is standard trade guidance, as JDA-408 allowed.
 
+## 11. Two builder rewrites kept, on Jidè's word
+
+Beyond the new pages and the renames, the PR changed wording in two places on
+existing pages: the Boilers lead ("We maintain, repair and replace boilers,
+including the piping, pumps and controls that carry heat through your home."
+in place of the "top-quality boiler services" sentence) and the Emergency
+plumber page body (two short sections, "Limit the damage safely" and "Tell us
+what is happening", in place of the one approved line). Claude flagged both as
+rewrites of approved copy; Jidè, October 21: "its oke new emergency page
+sections and boiler lead". Both stay. The footer gains the hours line and the
+word "Active" before the license number.
+
 ## Next
 
 1. Description rewrite with the exact scan phrases: "boiler repair", "boiler
