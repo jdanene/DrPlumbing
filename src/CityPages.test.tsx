@@ -224,7 +224,8 @@ describe("city metadata", () => {
 describe("city pages", () => {
   it("gives all six Mercer Island service links distinct city pages", () => {
     renderCity("areas/mercer-island");
-    const links = within(screen.getByRole("navigation", { name: "Services in Mercer Island" })).getAllByRole("link");
+    // The six service groups head the grouped list; their option pages sit under them as chips.
+    const links = within(screen.getByRole("navigation", { name: "Services in Mercer Island" })).getAllByRole("heading", { level: 3 }).map((heading) => within(heading).getByRole("link"));
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
       "/plumbing-mercer-island/", "/water-heater-replacement-mercer-island/",
       "/drain-and-sewer-mercer-island/", "/water-filtration-mercer-island/",
@@ -293,7 +294,7 @@ describe("city pages", () => {
     expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Plumber in Bellevue, WA");
     expect(screen.getByRole("main").textContent).toContain("You approve a flat-rate price before work starts.");
     expect(screen.getByRole("main").textContent).not.toMatch(PLACEHOLDER);
-    const links = within(main.getByRole("navigation", { name: "Services in Bellevue" })).getAllByRole("link");
+    const links = within(main.getByRole("navigation", { name: "Services in Bellevue" })).getAllByRole("heading", { level: 3 }).map((heading) => within(heading).getByRole("link"));
     expect(links.map((link) => link.textContent)).toEqual(SERVICES.map((service) => service.id === "water-heaters" ? "Water heater replacement" : service.tab));
     expect(links.map((link) => link.getAttribute("href"))).toEqual(SERVICES.map((service) => serviceHrefFor(bellevue, service.id)));
     expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Areas we serve" }).getAttribute("href")).toBe("/areas-we-serve/");

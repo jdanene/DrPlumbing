@@ -253,14 +253,25 @@ export function ServicePage({
               <h2>{repairAnswer.question.replaceAll("{city}", cityPage!.city.name)}</h2>
               <p className="lead">{repairAnswer.answer.replaceAll("{city}", cityPage!.city.name)}</p>
             </div> : cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
-            <div className="cta-row">
-              <a className="btn btn-primary" href={routeHref("book")}>
-                Book a visit
-              </a>
-              <a className="btn btn-outline" href="tel:2066718888">
-                Call (206) 671-8888
-              </a>
-            </div>
+            {detail?.item === "Emergency plumber" ? (
+              <div className="cta-row">
+                <a className="btn btn-primary" href="tel:2066718888">
+                  Call (206) 671-8888
+                </a>
+                <a className="btn btn-outline" href={routeHref("book")}>
+                  Book a visit
+                </a>
+              </div>
+            ) : (
+              <div className="cta-row">
+                <a className="btn btn-primary" href={routeHref("book")}>
+                  Book a visit
+                </a>
+                <a className="btn btn-outline" href="tel:2066718888">
+                  Call (206) 671-8888
+                </a>
+              </div>
+            )}
           </div>
           {photo && <ProjectPhoto photo={photo} city={cityPage?.city.name} priority fullFrame />}
         </section>

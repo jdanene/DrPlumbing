@@ -290,6 +290,35 @@ filtration"), Bathroom remodeling. The shared sentences that still said
 "hydrojetting" were renamed; the Our Work filter and category read "Bathroom
 remodeling". Tests name links by the shown label.
 
+## 14. HCI review of the hub list and the two new page types (hci-design skill)
+
+Method: the skill's review walk (purpose and scope, predictable action, feedback,
+navigation, hierarchy, operability, product coherence) on the rendered preview,
+desktop and phone width. Findings, with the smallest correction applied:
+
+- **Hub, "Services in {City}" + "All services in {City}"**: revise, applied. Two
+  stacked blocks for one scope: a chip row of the six groups, then the same six
+  groups again as underlined headings over 42 browser-default bullets in one
+  narrow column, a full screen of underlined text that read as a sitemap dump.
+  The product's pattern for option lists is the chip (`.svc-tabs .chip`, used on
+  every service page). Correction: one block, "Services in {City}", with each
+  group as a heading link and its pages as chips beneath it, in a two-column grid
+  that stacks on phones. Same links, same crawlable text. Check: the readability
+  check's hub-links rule still passes; screenshots 16 and 17.
+- **Emergency plumber page**: revise, applied. The hero's primary button was
+  "Book a visit" with "Call" secondary; an emergency's main action is the call.
+  Correction: on this page only, Call is primary and first. Check: screenshot 18.
+- **Water heater repair page**: supported. Headings alone tell the task (title,
+  the question, "What usually goes wrong", "Fix it or replace it", "Before we
+  come"); the answer sits under the question; the actions follow. Optional
+  refinement, not applied: the 96-word answer is long for a hero.
+- **Heating & cooling options** ("Installation", "Maintenance", "Repair",
+  "Heating"): not changed. Under their group heading they read; as flat labels
+  they are ambiguous. Approved copy; a rename is a separate decision.
+- **Footer hours line**: supported; readable, beside the phone and address.
+- Not checked: keyboard focus order through the grouped chips in a browser,
+  and observed use. A source review is not a usability study.
+
 ## Next
 
 1. Description rewrite with the exact scan phrases: "boiler repair", "boiler
