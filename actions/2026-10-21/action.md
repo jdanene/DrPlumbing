@@ -44,8 +44,8 @@ before publishing: the description "up to 10 minutes", services "up to 1 day".
    Hydro jetting · Emergency plumber · Water softener installation · Reverse
    osmosis installation · Bathroom remodeling · Gas line installation.
 
-4. **Services, batch B**, under Plumber, typed by Claude, Save pending from Jidè
-   ([typed](evidence/screenshots/06-services-batch-b-typed.jpg)):
+4. **Services, batch B**, under Plumber, saved by Jidè, pending review
+   ([typed](evidence/screenshots/06-services-batch-b-typed.jpg), [saved](evidence/screenshots/09-services-batch-b-saved.jpg)):
    Boiler replacement · Radiant floor heating repair · Trenchless sewer repair ·
    Trenchless water line replacement · Water filtration system installation.
 
@@ -132,7 +132,16 @@ If a phrase moves, the words did it, and the next step is the matching website
 page title (JDA-408). If nothing moves after two weeks, the profile text is not
 the lever for that phrase and the next lever is reviews.
 
-## 5. Hours (saved by Claude, pending review)
+5. **Services, Drainage service category**, saved by Claude, pending review
+   ([typed](evidence/screenshots/10-drainage-services-typed.jpg), [saved](evidence/screenshots/11-drainage-services-saved-pending.jpg)):
+   Hydro jetting · Drain cleaning · Sewer line repair · Sewer line replacement.
+   The category had no services of its own before today.
+
+6. **Review link** read from "Ask for reviews" ([screenshot](evidence/screenshots/12-review-link.jpg)):
+   `https://g.page/r/CcmsSYO6C_WuEBM/review`. Battle plan step 5: Jidè texts it
+   after every job. No profile change.
+
+## 7. Hours (saved by Claude, pending review)
 
 Main hours changed from 8 AM to 8 PM daily to **Open 24 hours, every day**
 ([typed](evidence/screenshots/07-hours-24-typed.jpg), [pending](evidence/screenshots/08-hours-pending.jpg)).
@@ -153,18 +162,11 @@ Previous value, for rollback: 8:00 AM to 8:00 PM, Sunday through Saturday.
 Follow-up: the site's `src/businessFacts.ts` (PR #26 branch) copied 8-to-8 from
 the profile and must say 24 hours too, or the site and the profile disagree.
 
-## Not changed today
-
-- Reviews link (battle plan step 5): to pull from "Ask for reviews" next.
-
 ## Next
 
-1. Jidè saves batch B.
-2. Claude types the Drainage service list (Hydro jetting, Drain cleaning, Sewer
-   line repair, Sewer line replacement) and a Heating contractor list (Boiler
-   replacement, Radiant floor heating repair); Jidè saves each.
-3. Description rewrite with the exact scan phrases: "boiler repair", "boiler
+1. Description rewrite with the exact scan phrases: "boiler repair", "boiler
    replacement", "radiant floor heating repair", "water heater repair", "tankless
    water heater installation", "trenchless sewer repair", "trenchless water line
    replacement", "hydro jetting", "water filtration system", "reverse osmosis".
-4. Rescans as above once Google publishes.
+2. `src/businessFacts.ts` hours to 24 hours (PR #26 branch).
+3. Rescans as above once Google publishes (services take up to 1 day).
