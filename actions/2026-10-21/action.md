@@ -171,14 +171,19 @@ emergency 8 PM to 8 AM. Jidè: not done by Claude; posted as instructions on
 
 Battle plan steps 6 and 7 were wrong: the PR #26 branch already builds 362
 pages, a page for every service in all eight cities. What is missing is the
-exact wording. Seven title patterns do not say the scan phrase (Hydrojetting /
+exact wording. Eight title patterns do not say the scan phrase (Hydrojetting /
 hydro jetting; Radiant floor heating / radiant floor heating repair; Water
 softeners / water softener installation; Reverse osmosis / reverse osmosis
 installation; Trenchless water line repair / replacement; Tankless water
 heaters / tankless water heater installation; Emergency service / emergency
-plumber), and no "water heater repair in {City}" page exists although Newcastle
+plumber; Water filtration / water filtration system installation), and no "water heater repair in {City}" page exists although Newcastle
 "water heater repair" is already top 3 in 10 of 30 searches. Instructions
-posted as the same PR #26 comment; Claude made no code change.
+posted as PR #26 comments (October 21, with an addendum for the eighth
+rename); Claude made no code change. Unchanged on purpose: plumber, boiler
+repair and replacement, trenchless sewer repair, water heater replacement,
+drain cleaning, sewer line repair and replacement, Federal Way's water heater
+installation, and the heating-and-cooling pages (HVAC firms own those phrases;
+not his trade this quarter).
 
 ## Next
 
@@ -186,6 +191,6 @@ posted as the same PR #26 comment; Claude made no code change.
    replacement", "radiant floor heating repair", "water heater repair", "tankless
    water heater installation", "trenchless sewer repair", "trenchless water line
    replacement", "hydro jetting", "water filtration system", "reverse osmosis".
-2. Builder applies the PR #26 comment (site hours split; page titles; water
-   heater repair pages); Jidè merges.
+2. Builder applies the PR #26 comments (site hours split; eight page-title
+   renames; eight water heater repair pages); Claude reviews; Jidè merges.
 3. Rescans as above once Google publishes (services take up to 1 day).

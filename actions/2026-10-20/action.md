@@ -115,6 +115,6 @@ appeared in their map searches and the pages cannot change that.
 
 The builder applies the [October 21 comment](https://github.com/jdanene/DrPlumbing/pull/26#issuecomment-6332351589):
 the site's hours as two facts (regular 8 AM to 8 PM, emergency 8 PM to 8 AM);
-seven page titles renamed to the scan phrases; water heater repair pages for the
+eight page titles renamed to the scan phrases; water heater repair pages for the
 eight cities. Claude reviews on the PR; Jidè merges. The merge date goes into the
 dates map and sets the four-week read.
