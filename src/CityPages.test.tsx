@@ -137,7 +137,7 @@ describe("the city record", () => {
     const cityRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/"));
     expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`), ...CITY_OPTION_PAGES.map((entry) => entry.route)]);
     expect(new Set(PUBLIC_ROUTES).size).toBe(PUBLIC_ROUTES.length);
-    expect(PUBLIC_ROUTES).toHaveLength(405);
+    expect(PUBLIC_ROUTES).toHaveLength(406);
   });
 
   it("names only served cities and existing services in its hand-written tables", () => {

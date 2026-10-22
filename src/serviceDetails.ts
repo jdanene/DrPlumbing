@@ -20,6 +20,17 @@ export interface ServiceDetail {
 
 export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
   "plumbing": [
+    // Moved from the heating page's "Emergency service" line on October 21; the old city addresses redirect here.
+    {
+      item: "Emergency plumber",
+      cta: "emergency plumbing",
+      photo: "Emergency plumbing repair",
+      summary: "We handle urgent plumbing problems, including burst pipes, active leaks and drain or sewer backups. Call to describe the problem and confirm the next available visit.",
+      sections: [
+        { heading: "Limit the damage safely", paras: ["Shut off the water supply if you can safely reach the valve. Stop using fixtures when wastewater is backing up. Keep clear of water near electrical equipment. For a gas smell, leave the area and call the utility or 911 from outside."] },
+        { heading: "Tell us what is happening", paras: ["Describe the leak or backup, when it began and whether you can stop the water. Send photos if it is safe. We confirm the next step and explain the work and flat-rate price before starting."] },
+      ],
+    },
     // Scope confirmed by the owner; existing fixture and shower URLs remain available.
     {
       item: "Complete bathroom remodeling",

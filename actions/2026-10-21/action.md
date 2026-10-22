@@ -262,6 +262,20 @@ rewrites of approved copy; Jidè, October 21: "its oke new emergency page
 sections and boiler lead". Both stay. The footer gains the hours line and the
 word "Active" before the license number.
 
+## 12. Emergency plumber gets a real home, on the general site and in every city
+
+Jidè: "does it make sense to be under heating & cooling?" and "lets fix it both
+on main and for city specific". On `main` the Heating & cooling page carried a
+menu line called "Emergency service" ("For emergency plumbing or hydronic
+heating, call …"), and the city pages inherited it at `/emergency-service-{city}/`.
+Now: one detail record, "Emergency plumber", under General plumbing. The general
+page is `/plumbing/emergency-plumber/` (first item in the plumbing menu); every
+full-journey city gets `/emergency-plumber-{city}/` from the same record; the
+eight old `/emergency-service-{city}/` addresses 301 to the new ones; the heating
+page's "Emergency service" line is gone. Copy is the two sections Jidè kept.
+406 pages in the sitemap (one new general page); tests, build and both checks
+pass.
+
 ## Next
 
 1. Description rewrite with the exact scan phrases: "boiler repair", "boiler

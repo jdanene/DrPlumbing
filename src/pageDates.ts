@@ -23,7 +23,7 @@ export const PAGE_DATES: Record<string, { published?: string; updated: string }>
     const inCohort = AGENT_READABLE_CITY_SLUGS.some((slug) => route === `areas/${slug}` || route.startsWith(`areas/${slug}/`));
     // The ticket records the cohort's original production launch on October 18.
     // October 20 is this content revision, not a claim that this unmerged PR is live.
-    const newRepairPage = route.endsWith("/water-heater-repair");
+    const newRepairPage = route.endsWith("/water-heater-repair") || route.endsWith("/emergency-plumber");
     return [route, { ...(inCohort && !newRepairPage ? { published: "2026-10-18" } : {}), updated: routeUpdates[route] ?? baselineUpdated }];
   }),
 );

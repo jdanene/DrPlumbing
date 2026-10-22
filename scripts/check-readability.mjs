@@ -41,7 +41,7 @@ const cityPhrases = {
   "water-filtration/reverse-osmosis": "Reverse osmosis installation",
   "plumbing/trenchless-water-line-repair": "Trenchless water line replacement",
   "water-heater-replacement/tankless-water-heaters": "Tankless water heater installation",
-  "heating-cooling/emergency-service": "Emergency plumber",
+  "plumbing/emergency-plumber": "Emergency plumber",
   "water-filtration": "Water filtration system installation",
   "water-heater-replacement/water-heater-repair": "Water heater repair",
 };

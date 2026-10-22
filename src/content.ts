@@ -62,6 +62,10 @@ export const SERVICES: Service[] = [
         "heading": "Our plumbing services",
         "items": [
           [
+            "Emergency plumber",
+            "Burst pipes, active leaks and sewer backups. Call and we confirm the next available visit."
+          ],
+          [
             "Leak detection",
             "We find hidden leaks in walls, floors and slabs before they do more damage."
           ],
@@ -308,10 +312,6 @@ export const SERVICES: Service[] = [
           [
             "Repair",
             "We find the cause of the failure and fix it."
-          ],
-          [
-            "Emergency service",
-            "For emergency plumbing or hydronic heating, call (206) 671-8888."
           ]
         ]
       }
@@ -322,8 +322,7 @@ export const SERVICES: Service[] = [
       "Air conditioning",
       "Installation",
       "Maintenance",
-      "Repair",
-      "Emergency service"
+      "Repair"
     ]
   },
   {

@@ -185,8 +185,9 @@ with the selected city's name. Other cities keep their current behavior.
 The production build includes 405 sitemap pages. Each full city journey includes
 `/water-heater-repair-{city}/`, with its own question and repair guidance.
 City display labels use the approved search phrases without changing published
-slugs or the shared general-service labels. Emergency plumber pages retain their
-existing emergency-service paths but use plumbing content, photos and evidence.
+slugs or the shared general-service labels. Each full city journey also has an
+Emergency plumber page under General plumbing at `/emergency-plumber-{city}/`;
+the heating page's old `/emergency-service-{city}/` addresses redirect to it.
 
 The seven `AGENT_READABLE_CITY_SLUGS` hubs additionally link every existing
 city-service category and option directly, so a crawler reaches all 43 pages

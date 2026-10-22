@@ -39,7 +39,6 @@ const CITY_OPTION_LABELS: Record<string, string> = {
   "water-filtration/reverse-osmosis": "Reverse osmosis installation",
   "plumbing/trenchless-water-line-repair": "Trenchless water line replacement",
   "water-heaters/tankless-water-heaters": "Tankless water heater installation",
-  "heating-cooling/emergency-service": "Emergency plumber",
 };
 
 /**
@@ -152,14 +151,6 @@ export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string;
 function optionDetail(service: Service, label: string): ServiceDetail {
   const extra = CITY_EXTRA_DETAILS[service.id]?.find((detail) => detail.item === label);
   if (extra) return extra;
-  if (service.id === "heating-cooling" && label === "Emergency service") return {
-    item: label, cta: "emergency plumbing", photo: "Emergency plumbing repair",
-    summary: "We handle urgent plumbing problems, including burst pipes, active leaks and drain or sewer backups. Call to describe the problem and confirm the next available visit.",
-    sections: [
-      { heading: "Limit the damage safely", paras: ["Shut off the water supply if you can safely reach the valve. Stop using fixtures when wastewater is backing up. Keep clear of water near electrical equipment. For a gas smell, leave the area and call the utility or 911 from outside."] },
-      { heading: "Tell us what is happening", paras: ["Describe the leak or backup, when it began and whether you can stop the water. Send photos if it is safe. We confirm the next step and explain the work and flat-rate price before starting."] },
-    ],
-  };
   const detail = serviceDetailFor(service.id, label);
   if (detail) return detail;
   const target = pathSlug(service.optionTargets?.[label] ?? label);
@@ -352,7 +343,7 @@ export function cityAnswer(page: CityPageMatch) {
   const where = `homes in ${page.city.name}, WA`;
   const copy = CITY_PAGE_COPY[page.route];
   const sentences = page.detail
-    ? [page.detail.item === "Emergency service"
+    ? [page.detail.item === "Emergency plumber"
       ? `An emergency plumber in ${page.city.name} can help with an active leak, burst pipe or sewer backup.`
       : `${name} offers ${cityOptionLabel(page.service!.id, page.detail.item).toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
     : copy ? [copy.lead] : page.service

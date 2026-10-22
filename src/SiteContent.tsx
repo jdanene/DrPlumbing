@@ -179,11 +179,10 @@ export function ServicePage({
   const page = detail ?? service;
   const repairAnswer = cityPage && service.id === "water-heaters" && detail?.item === "Water heater repair"
     ? SERVICE_ANSWERS["water-heaters/water-heater-repair"] : undefined;
-  const cityEmergencyPhoto = cityPage && service.id === "heating-cooling" && detail?.item === "Emergency service" ? SERVICE_PHOTOS.plumbing : undefined;
-  const usesCategoryArtwork = cityPage && detail && !cityEmergencyPhoto && !DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`] && !serviceDetailFor(service.id, detail.item);
-  const photo = cityEmergencyPhoto ?? (detail && !usesCategoryArtwork
+  const usesCategoryArtwork = cityPage && detail && !DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`] && !serviceDetailFor(service.id, detail.item);
+  const photo = detail && !usesCategoryArtwork
     ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`]
-    : SERVICE_PHOTOS[service.id]);
+    : SERVICE_PHOTOS[service.id];
   const gallery = SERVICE_GALLERIES[detail && !usesCategoryArtwork ? `${service.id}/${serviceDetailSlug(detail.item)}` : service.id];
   const group = SERVICE_GROUPS.find((item) => item.serviceIds.includes(service.id));
   const isBathroomRemodeling = service.id === "plumbing" && detail?.item === "Complete bathroom remodeling";
