@@ -63,7 +63,7 @@ export const SERVICES: Service[] = [
         "items": [
           [
             "Emergency plumber",
-            "Burst pipes, active leaks and sewer backups. Call and we confirm the next available visit."
+            "Burst pipes, active leaks and sewer backups. Call and we tell you what to do and when we can come."
           ],
           [
             "Leak detection",

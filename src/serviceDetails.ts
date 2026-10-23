@@ -25,10 +25,10 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
       item: "Emergency plumber",
       cta: "emergency plumbing",
       photo: "Emergency plumbing repair",
-      summary: "We handle urgent plumbing problems, including burst pipes, active leaks and drain or sewer backups. Call to describe the problem and confirm the next available visit.",
+      summary: "A burst pipe, an active leak or sewage backing up can't wait. Call us, tell us what you see, and we'll say what to do right now and the soonest we can come.",
       sections: [
-        { heading: "Limit the damage safely", paras: ["Shut off the water supply if you can safely reach the valve. Stop using fixtures when wastewater is backing up. Keep clear of water near electrical equipment. For a gas smell, leave the area and call the utility or 911 from outside."] },
-        { heading: "Tell us what is happening", paras: ["Describe the leak or backup, when it began and whether you can stop the water. Send photos if it is safe. We confirm the next step and explain the work and flat-rate price before starting."] },
+        { heading: "Limit the damage safely", paras: ["If you can reach the main shutoff safely, turn the water off. If sewage is backing up, stop running water and flushing. Keep away from any water near outlets, appliances or the water heater's wiring. If you smell gas, get everyone outside and call the gas company or 911 from there."] },
+        { heading: "Tell us what you see", paras: ["Where the water is coming from, when it started, and whether you managed to shut it off. Send a photo if it is safe to take one. We confirm the next step and give you a flat-rate price before any work starts."] },
       ],
     },
     // Scope confirmed by the owner; existing fixture and shower URLs remain available.

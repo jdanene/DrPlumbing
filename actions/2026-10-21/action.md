@@ -1,14 +1,21 @@
-# 2026-10-21 · Google Business Profile, Week 1 of the battle plan
+# 2026-10-21 · Week 1: the Google Business Profile, then the website put right
+
+One working day, October 21 into the 22nd. Two halves: the profile edits of
+the battle plan's Week 1, and the review of PR #26 that ended with the visible
+AEO blocks off the site and the pages renamed to the phrases people type.
+Evidence for everything is in [`evidence/`](evidence/).
 
 ## What we did
 
-Edited the Google Business Profile of Dr Plumbing & Heating Group (Business
-Profile Manager, account dominicanene@gmail.com). Claude typed every value in
-Chrome; Jidè pressed Save on each services batch. Google reviews profile edits
-before publishing: the description "up to 10 minutes", services "up to 1 day".
+### On the Google Business Profile
 
-1. **Description** replaced (saved by Claude; 656 of 750 characters). The text
-   entered is in [`evidence/description-entered.txt`](evidence/description-entered.txt):
+Dr Plumbing & Heating Group, Business Profile Manager, account
+dominicanene@gmail.com. Claude typed every value in Chrome; Jidè pressed Save on
+the first two services batches. Google reviews profile edits before publishing:
+the description within minutes, services within a day.
+
+1. **Description** replaced (656 of 750 characters;
+   [`evidence/description-entered.txt`](evidence/description-entered.txt)):
 
    > Dr Plumbing & Heating Group is a licensed plumber serving Newcastle, Bellevue,
    > Renton, Mercer Island, Issaquah, Redmond and Federal Way. The owners do the work
@@ -32,38 +39,163 @@ before publishing: the description "up to 10 minutes", services "up to 1 day".
    > and customer satisfaction. Washington State Contractor Registration No.
    > DRPLUPH740ND.
 
-   Second save, later the same day, pending review (725 of 750 characters;
+   Second save the same day (725 of 750;
    [`evidence/description-entered-v2.txt`](evidence/description-entered-v2.txt),
    [screenshot](evidence/screenshots/13-description-v2-pending.jpg)): one sentence
    added before the flat-rate line, "Regular hours are 8 AM to 8 PM; emergency
-   service runs 8 PM to 8 AM." Jidè, 2026-10-21: the profile hours became 24 hours
-   (step 7), so the description states the split to keep it truthful.
+   service runs 8 PM to 8 AM." Jidè: the profile hours became 24 hours (item 5),
+   so the description states the split to keep it truthful.
 
 2. **Categories**: no change. Primary Plumber; additional Drainage service, Heating
-   contractor. "Service establishment" was already gone. Google's list has no
-   "Water heater repair service" category ([screenshot](evidence/screenshots/03-category-search-no-water-heater.png)).
+   contractor. Google's list has no "Water heater repair service" category
+   ([screenshot](evidence/screenshots/03-category-search-no-water-heater.png)).
 
-3. **Services, batch A**, under Plumber, saved by Jidè, pending review
-   ([typed](evidence/screenshots/04-services-batch-a-typed.jpg), [saved](evidence/screenshots/05-services-batch-a-saved-pending.jpg)):
-   Hydro jetting · Emergency plumber · Water softener installation · Reverse
-   osmosis installation · Bathroom remodeling · Gas line installation.
+3. **Services added**, three saves:
+   - Under Plumber, saved by Jidè ([typed](evidence/screenshots/04-services-batch-a-typed.jpg),
+     [saved](evidence/screenshots/05-services-batch-a-saved-pending.jpg)): Hydro jetting ·
+     Emergency plumber · Water softener installation · Reverse osmosis installation ·
+     Bathroom remodeling · Gas line installation.
+   - Under Plumber, saved by Jidè ([typed](evidence/screenshots/06-services-batch-b-typed.jpg),
+     [saved](evidence/screenshots/09-services-batch-b-saved.jpg)): Boiler replacement ·
+     Radiant floor heating repair · Trenchless sewer repair · Trenchless water line
+     replacement · Water filtration system installation.
+   - Under Drainage service, which had no services of its own, saved by Claude
+     ([typed](evidence/screenshots/10-drainage-services-typed.jpg),
+     [saved](evidence/screenshots/11-drainage-services-saved-pending.jpg)): Hydro jetting ·
+     Drain cleaning · Sewer line repair · Sewer line replacement.
 
-4. **Services, batch B**, under Plumber, saved by Jidè, pending review
-   ([typed](evidence/screenshots/06-services-batch-b-typed.jpg), [saved](evidence/screenshots/09-services-batch-b-saved.jpg)):
-   Boiler replacement · Radiant floor heating repair · Trenchless sewer repair ·
-   Trenchless water line replacement · Water filtration system installation.
+   Services already on the profile, kept: faucet, shower, toilet, garbage disposal
+   and sump pump work; leak detection and repair; pipe repair; drain cleaning; sewer
+   cleaning, repair and sewer-line replacement; water heater installation, repair
+   and replacement; tankless water heater installation and repair; electric, gas,
+   heat pump and traditional water heaters; piping and repiping; gas line;
+   trenchless sewer; trenchless water line repair; underground water-line repair
+   and replacement; water line replacement; water filtration; heating system
+   installation, maintenance and repair; install AC; boiler installation, repair
+   and maintenance; hydronic heating installation and repair; radiant floor
+   heating installation and repair; ductless heating & A/C.
 
-   Services already on the profile before today, kept: faucet, shower, toilet,
-   garbage disposal and sump pump work; leak detection and repair; pipe repair;
-   drain cleaning; sewer cleaning, repair and sewer-line replacement; water heater
-   installation, repair and replacement; tankless water heater installation and
-   repair; electric, gas, heat pump and traditional water heaters; piping and
-   repiping; gas line; trenchless sewer; trenchless water line repair; underground
-   water-line repair and replacement; water line replacement; water filtration;
-   heating system installation, maintenance and repair; install AC; boiler
-   installation, repair and maintenance; hydronic heating installation and
-   repair; radiant floor heating installation and repair; ductless heating & A/C.
-   The Drainage service category had no services of its own.
+4. **Review link** read from "Ask for reviews" ([screenshot](evidence/screenshots/12-review-link.jpg)):
+   `https://g.page/r/CcmsSYO6C_WuEBM/review`. Battle plan step 5: Jidè texts it
+   after every job.
+
+5. **Hours** changed from 8 AM to 8 PM daily to **Open 24 hours, every day**
+   ([typed](evidence/screenshots/07-hours-24-typed.jpg), [pending](evidence/screenshots/08-hours-pending.jpg)),
+   each day set through the "Opens at" picker's "24 hours" option. Jidè: the
+   8-to-8 numbers were made up, the owner is not awake at 8 PM, but he takes
+   emergency calls when the price is right, and "if 8 PM hurts us you can change
+   that time". The arena report found that being closed at the 9 PM scan cost 1
+   to 2 places. Special hours were considered and rejected: they are exceptions
+   for dates, and Google's "more hours" types have no emergency type, so neither
+   removes the "Closed" label at night. Previous value, for rollback: 8:00 AM to
+   8:00 PM, Sunday through Saturday.
+
+### On the website (PR #26, branch `agent-readable/seven-cities`)
+
+6. **The builder's list.** The branch already built a page for every service in
+   all eight full-journey cities; what was missing was wording. Posted on the PR
+   ([comment](https://github.com/jdanene/DrPlumbing/pull/26#issuecomment-6332351589),
+   [addendum](https://github.com/jdanene/DrPlumbing/pull/26#issuecomment-6332441893)):
+   eight title renames to the scan phrases, eight "Water heater repair in {City}"
+   pages, and the site's hours as two facts (regular 8 AM–8 PM, emergency 8 PM–8 AM).
+   The builder applied it in 682ba0b.
+
+7. **The visible AEO blocks came off.** Jidè opened the preview and rejected what
+   the ticket had asked for and the builder had built: the question and answer
+   at the top, the scan sentence ("60% of searches in positions 1–3 … across 90
+   usable searches"), "Compare providers", the definition, "Sources for this
+   guidance", "What you can expect" with "As of October 2026" on every line, the
+   comparison table naming rivals' ratings and review counts beside our six,
+   "When another provider may fit", "How this comparison was measured", the
+   reviews block. His words: "really bad", "absolutely not", "revert the pages
+   back", "don't rewrite the production approved pages unless it's completely
+   new". His understanding was that the offensive was descriptors hidden in the
+   HTML; the sources say otherwise (Hoffman: "try highlighting the text with your
+   mouse. If you can't, AI likely can't read it"; the Effective AEO report §5: a
+   "visible plain-language FAQ", JSON-LD "that mirrors the visible text"), and
+   hidden text is the first line of the arena report's Avoid list. The decision
+   stands as a product call, and a sound one: a comparison is a weapon for a firm
+   with a record to show, and ours is six reviews against hundreds.
+
+   Removed (14362ae): the answer and evidence components, the definition, the
+   rival data and its scripts, the reviews record, the footer rewrite, the
+   "(as of …)" after the license, and the 329-case HTML-equality test file.
+   Kept: the title renames, the repair pages, the hub's links to its pages,
+   sitemap dates, crawler access, the link check, the facts record. Added, in
+   the head only: each target-city page's meta description is its short answer;
+   the business schema carries the emergency line as a ContactPoint. One visible
+   line: hours on the footer's contact list.
+
+8. **Two builder rewrites kept on Jidè's word**: the Boilers lead ("We maintain,
+   repair and replace boilers, including the piping, pumps and controls that
+   carry heat through your home.") and the Emergency page's two sections. Both
+   had come from Claude's October 20 review.
+
+9. **The eight water heater repair pages** rewritten in the house voice (870e853):
+   question "Can my water heater in {city} be fixed, or does it need replacing?";
+   a 96-word answer that names the parts that usually fail, says when a new
+   heater is the better buy, and promises the repair and replacement prices side
+   by side; sections "What usually goes wrong", "Fix it or replace it", "Before
+   we come". The repair-or-replace rule (leaking tank; past ten or twelve years
+   and failing again; repair near half the price of new) is standard trade
+   guidance, as JDA-408 allowed.
+
+10. **Emergency plumber given a home** (e5cdcdc). On `main` the Heating & cooling
+    page carried a menu line called "Emergency service" and the city pages
+    inherited it at `/emergency-service-{city}/`. Jidè: "does it make sense to be
+    under heating & cooling?" Now one detail record, "Emergency plumber", under
+    General plumbing: `/plumbing/emergency-plumber/` on the general site,
+    `/emergency-plumber-{city}/` in every full-journey city, the eight old
+    addresses redirecting (301), the heating page's line gone. Its copy was
+    rewritten in the house voice on the final pass (item 13).
+
+11. **The typed phrases became the site's names, at the source** (5c9212f). Jidè
+    approved renaming the general pages to match the cities, and added Bathroom
+    remodeling. The builder's city-only label table became the site's one label
+    map (`optionLabel` in `src/cities.ts`), applied to the header menu, headings,
+    titles, breadcrumbs, chips and the hub lists on general and city pages
+    alike; keys and URLs unchanged. Shown names: Hydro jetting, Tankless water
+    heater installation, Water softener installation, Reverse osmosis
+    installation, Radiant floor heating repair, Trenchless water line
+    replacement, Water filtration system installation (category title; the nav
+    tab stays "Water filtration"), Bathroom remodeling. The shared sentences that
+    still said "hydrojetting" and the Our Work filter followed.
+
+12. **HCI review of the hub list and the two new page types** (ca702eb), with the
+    hci-design skill's review walk on the rendered preview at desktop and phone
+    width ([before](evidence/screenshots/16-hub-services-before.jpg),
+    [after](evidence/screenshots/17-hub-services-after.jpg),
+    [emergency](evidence/screenshots/18-emergency-call-first.jpg)):
+    - Hub: revise, applied. Two stacked blocks for one scope, a chip row of the
+      six groups and then the same groups as underlined headings over 42
+      browser-default bullets in one narrow column. Now one block, "Services in
+      {City}", each group a heading link with its pages as chips beneath it, four
+      columns on desktop and one on phones (checked at 375 px: one column, no
+      sideways scroll). Same links, same crawlable text.
+    - Emergency plumber page: revise, applied. The primary button was "Book a
+      visit"; an emergency's main action is the call, so Call is first and filled
+      on that page only.
+    - Water heater repair page: supported; the headings alone tell the task.
+    - Not changed: the Heating & cooling options "Installation", "Maintenance",
+      "Repair" (approved copy; ambiguous as flat labels). Not checked: keyboard
+      focus order in a real browser, and observed use.
+
+13. **Final review for production** (the last commit). The emergency copy
+    rewritten in the house voice, same facts ("A burst pipe, an active leak or
+    sewage backing up can't wait. Call us, tell us what you see, and we'll say
+    what to do right now and the soonest we can come."; sections "Limit the
+    damage safely" and "Tell us what you see"). Page dates simplified to one
+    content date, October 22, since the header menu changed on every page. The
+    baseline doc and README no longer describe the removed blocks or the deleted
+    rival export. The sweep of the built site found the category pages' item
+    lists still printing "Hydrojetting" and "Tankless water heaters" and the
+    general emergency description still saying "confirm the next available
+    visit"; all three now use the shown names and the house voice. The emergency
+    city lead no longer names the three emergencies twice ("Need an emergency
+    plumber in Newcastle?" then the shared summary). `npm run check` (lint, 219
+    tests, build with the readability and link checks over 406 pages) passes;
+    no leftovers of the removed blocks, placeholders, unfilled city tokens or old
+    addresses remain in any built page.
 
 ## Why
 
@@ -115,12 +247,19 @@ radiant (high-ticket, already close), Newcastle water heaters, Renton and
 Newcastle trenchless (weak holders, big jobs), then hydro jetting and water
 filtration (an empty field, mid-ticket). Emergency stays on the profile.
 
+The website's part is the same idea applied to the pages: the same words in the
+titles, the H1 and the first sentence, where the evidence says assistants and
+Google read them; the short answers in the descriptions; the hours and services
+in the structured data. The comparison experiment is off until the review count
+is real.
+
 ## What we are looking for
 
-After Google publishes the edits, rescan five series ($0.054 each, $0.27):
-Newcastle Boilers and radiant, Mercer Island Boilers and radiant, Newcastle
-Water heaters, Renton Trenchless, Newcastle Drain and sewer. Mark the change on
-the MapPack Website tab with this folder's name. Success looks like:
+After Google publishes the profile edits and the PR is live, rescan five series
+($0.054 each, $0.27): Newcastle Boilers and radiant, Mercer Island Boilers and
+radiant, Newcastle Water heaters, Renton Trenchless, Newcastle Drain and sewer.
+Mark the change on the MapPack Website tab with this folder's name. Success
+looks like:
 
 - Newcastle "boiler repair": top 3 in 20 or more of 30 (from 12); "boiler
   replacement" 12 or more (from 6).
@@ -132,199 +271,18 @@ the MapPack Website tab with this folder's name. Success looks like:
 - "hydro jetting" and "water filtration system": first appearances at all in
   Newcastle and Mercer Island (from 0 of 60).
 
-If a phrase moves, the words did it, and the next step is the matching website
-page title (JDA-408). If nothing moves after two weeks, the profile text is not
-the lever for that phrase and the next lever is reviews.
-
-5. **Services, Drainage service category**, saved by Claude, pending review
-   ([typed](evidence/screenshots/10-drainage-services-typed.jpg), [saved](evidence/screenshots/11-drainage-services-saved-pending.jpg)):
-   Hydro jetting · Drain cleaning · Sewer line repair · Sewer line replacement.
-   The category had no services of its own before today.
-
-6. **Review link** read from "Ask for reviews" ([screenshot](evidence/screenshots/12-review-link.jpg)):
-   `https://g.page/r/CcmsSYO6C_WuEBM/review`. Battle plan step 5: Jidè texts it
-   after every job. No profile change.
-
-## 7. Hours (saved by Claude, pending review)
-
-Main hours changed from 8 AM to 8 PM daily to **Open 24 hours, every day**
-([typed](evidence/screenshots/07-hours-24-typed.jpg), [pending](evidence/screenshots/08-hours-pending.jpg)).
-Each day set through the "Opens at" picker's "24 hours" option; the "Describe
-your opening hours" box did not apply the change.
-
-Why: Jidè, 2026-10-21: the 8-to-8 numbers were made up, the owner is not awake
-at 8 PM, but he takes emergency calls when the price is right, and "if 8 PM hurts
-us you can change that time". The arena report found that being closed at the
-9 PM scan cost 1 to 2 places. 24 hours makes the hours agree with the description
-("emergency repairs") and the "Emergency plumber" service. Special hours were
-considered and rejected: they are exceptions for dates (holidays), and Google's
-"more hours" types (breakfast, delivery, pickup, senior hours) have no emergency
-type, so neither removes the "Closed" label at night.
-
-Previous value, for rollback: 8:00 AM to 8:00 PM, Sunday through Saturday.
-
-Follow-up: the site states the split as two facts, regular 8 AM to 8 PM and
-emergency 8 PM to 8 AM. Jidè: not done by Claude; posted as instructions on
-[PR #26](https://github.com/jdanene/DrPlumbing/pull/26#issuecomment-6332351589).
-
-## 8. Website pages: what exists and what the builder changes (PR #26)
-
-Battle plan steps 6 and 7 were wrong: the PR #26 branch already builds 362
-pages, a page for every service in all eight cities. What is missing is the
-exact wording. Eight title patterns do not say the scan phrase (Hydrojetting /
-hydro jetting; Radiant floor heating / radiant floor heating repair; Water
-softeners / water softener installation; Reverse osmosis / reverse osmosis
-installation; Trenchless water line repair / replacement; Tankless water
-heaters / tankless water heater installation; Emergency service / emergency
-plumber; Water filtration / water filtration system installation), and no "water heater repair in {City}" page exists although Newcastle
-"water heater repair" is already top 3 in 10 of 30 searches. Instructions
-posted as PR #26 comments (October 21, with an addendum for the eighth
-rename); Claude made no code change. Unchanged on purpose: plumber, boiler
-repair and replacement, trenchless sewer repair, water heater replacement,
-drain cleaning, sewer line repair and replacement, Federal Way's water heater
-installation, and the heating-and-cooling pages (HVAC firms own those phrases;
-not his trade this quarter).
-
-## 9. The visible reading blocks come off the site (Jidè, late October 21)
-
-Jidè opened the PR #26 preview (`/plumber-newcastle/`) and rejected the visible
-result of the AEO offensive: the question and answer block at the top, the scan
-sentence ("60% of searches in positions 1–3 … across 90 usable searches"), the
-"Compare providers" link, the definition paragraph, "Sources for this guidance",
-"What you can expect" with "As of October 2026" on every line, the comparison
-table naming rivals with their ratings and review counts beside our six, "When
-another provider may fit", "How this comparison was measured", and the reviews
-block. His words: "really bad", "absolutely not", "revert the pages back",
-"don't rewrite the production approved pages unless it's completely new".
-
-His understanding was that the offensive was descriptors for AI, hidden in the
-HTML. The sources say otherwise (Hoffman's post: "try highlighting the text
-with your mouse. If you can't, AI likely can't read it"; the Effective AEO
-report §5: a "visible plain-language FAQ", JSON-LD "that mirrors the visible
-text"), and hidden text is the first line of the arena report's Avoid list. The
-decision stands as a product call: the pages show only the approved copy.
-
-What Claude changed on the PR #26 branch, at Jidè's instruction ("review the pr
-fix anything broken", "remove useless tests"):
-
-- Removed from every page: `AgentReadableContent.tsx` (answer and evidence
-  blocks), `BusinessDefinition.tsx`, `agentReadable.css`, the rival data
-  (`rivals.json`, `rivalFacts.ts`, `acquire-rivals.py`, `export-rivals.mjs`),
-  the reviews record, the footer rewrite and the "(as of …)" after the license.
-- Kept, invisible or asked for: the eight title renames; the eight water heater
-  repair pages (new, so they open with their question and short answer); the
-  hub's list of its 42 pages; sitemap `lastmod` dates; crawler allow lines; the
-  link check; the facts record with regular and emergency hours.
-- Added, behind the scenes: each target-city page's meta description and
-  WebPage description is its short answer (1–100 words, city filled in); the
-  business schema carries the emergency line as a ContactPoint with
-  hoursAvailable 20:00–08:00. One visible line: hours and the emergency hours
-  on the footer's contact list.
-- Tests: deleted `CityReplication.test.tsx` (329 HTML-equality cases, 253
-  broken by the renames); fixed the label and count expectations in the rest;
-  fixed the Our Work photo test, which had failed on `main` since `b989f6b`
-  removed a duplicate bathroom photo.
-- `check-readability.mjs` now checks the description and the absence of
-  comparison blocks on the seven cities instead of the removed visible blocks.
-
-What we are looking for changes with it: the site now contributes titles,
-descriptions and facts, not a visible comparison. The four-week read keeps the
-same instruments (Search Console per page, the $2.65 rescan, the 21 assistant
-prompts, pages indexed), with the expectation written down honestly: the
-measured evidence says assistants quote visible text, so the site's share of
-any movement is expected to be small; the profile work above carries the
-plumber-rank targets.
-
-## 10. The eight water heater repair pages rewritten in the house voice
-
-Jidè, after the revert: "Is there a way you can have the new pages have a more
-natural and human tone?" The pages are new, so they are not production-approved
-copy. Rewritten to match the approved water heater pages ("Running out of hot
-water or noticing unusual temperatures? We inspect your gas water heater,
-explain the problem and recommend repair or replacement."): the question is
-"Can my water heater in {city} be fixed, or does it need replacing?"; the
-answer (96 words, also the page's description) names the parts that usually
-fail, says when a new heater is the better buy, and promises the repair and
-replacement prices side by side; the three sections are "What usually goes
-wrong", "Fix it or replace it" and "Before we come". The repair-or-replace rule
-(leaking tank; past ten or twelve years and failing again; repair near half the
-price of new) is standard trade guidance, as JDA-408 allowed.
-
-## 11. Two builder rewrites kept, on Jidè's word
-
-Beyond the new pages and the renames, the PR changed wording in two places on
-existing pages: the Boilers lead ("We maintain, repair and replace boilers,
-including the piping, pumps and controls that carry heat through your home."
-in place of the "top-quality boiler services" sentence) and the Emergency
-plumber page body (two short sections, "Limit the damage safely" and "Tell us
-what is happening", in place of the one approved line). Claude flagged both as
-rewrites of approved copy; Jidè, October 21: "its oke new emergency page
-sections and boiler lead". Both stay. The footer gains the hours line and the
-word "Active" before the license number.
-
-## 12. Emergency plumber gets a real home, on the general site and in every city
-
-Jidè: "does it make sense to be under heating & cooling?" and "lets fix it both
-on main and for city specific". On `main` the Heating & cooling page carried a
-menu line called "Emergency service" ("For emergency plumbing or hydronic
-heating, call …"), and the city pages inherited it at `/emergency-service-{city}/`.
-Now: one detail record, "Emergency plumber", under General plumbing. The general
-page is `/plumbing/emergency-plumber/` (first item in the plumbing menu); every
-full-journey city gets `/emergency-plumber-{city}/` from the same record; the
-eight old `/emergency-service-{city}/` addresses 301 to the new ones; the heating
-page's "Emergency service" line is gone. Copy is the two sections Jidè kept.
-406 pages in the sitemap (one new general page); tests, build and both checks
-pass.
-
-## 13. The typed phrases become the site's names, at the source
-
-Jidè approved renaming the general pages to match the city pages, and added
-Bathroom remodeling. The builder's city-only label table became the site's one
-label map (`optionLabel` in `src/cities.ts`), applied to the header menu, page
-headings, titles, breadcrumbs, chips and the hub lists on general and city pages
-alike. Keys and URLs are unchanged. Shown names now: Hydro jetting, Tankless
-water heater installation, Water softener installation, Reverse osmosis
-installation, Radiant floor heating repair, Trenchless water line replacement,
-Water filtration system installation (category title; the nav tab stays "Water
-filtration"), Bathroom remodeling. The shared sentences that still said
-"hydrojetting" were renamed; the Our Work filter and category read "Bathroom
-remodeling". Tests name links by the shown label.
-
-## 14. HCI review of the hub list and the two new page types (hci-design skill)
-
-Method: the skill's review walk (purpose and scope, predictable action, feedback,
-navigation, hierarchy, operability, product coherence) on the rendered preview,
-desktop and phone width. Findings, with the smallest correction applied:
-
-- **Hub, "Services in {City}" + "All services in {City}"**: revise, applied. Two
-  stacked blocks for one scope: a chip row of the six groups, then the same six
-  groups again as underlined headings over 42 browser-default bullets in one
-  narrow column, a full screen of underlined text that read as a sitemap dump.
-  The product's pattern for option lists is the chip (`.svc-tabs .chip`, used on
-  every service page). Correction: one block, "Services in {City}", with each
-  group as a heading link and its pages as chips beneath it, in a two-column grid
-  that stacks on phones. Same links, same crawlable text. Check: the readability
-  check's hub-links rule still passes; screenshots 16 and 17.
-- **Emergency plumber page**: revise, applied. The hero's primary button was
-  "Book a visit" with "Call" secondary; an emergency's main action is the call.
-  Correction: on this page only, Call is primary and first. Check: screenshot 18.
-- **Water heater repair page**: supported. Headings alone tell the task (title,
-  the question, "What usually goes wrong", "Fix it or replace it", "Before we
-  come"); the answer sits under the question; the actions follow. Optional
-  refinement, not applied: the 96-word answer is long for a hero.
-- **Heating & cooling options** ("Installation", "Maintenance", "Repair",
-  "Heating"): not changed. Under their group heading they read; as flat labels
-  they are ambiguous. Approved copy; a rename is a separate decision.
-- **Footer hours line**: supported; readable, beside the phone and address.
-- Not checked: keyboard focus order through the grouped chips in a browser,
-  and observed use. A source review is not a usability study.
+If a phrase moves, the words did it. If nothing moves after two weeks, the
+profile text is not the lever for that phrase and the next lever is reviews.
+The site's share of any movement is expected to be small: the measured evidence
+says assistants quote visible text, and the site now contributes titles,
+descriptions and facts, not a visible comparison.
 
 ## Next
 
-1. Description rewrite with the exact scan phrases: "boiler repair", "boiler
+1. Jidè merges PR #26; the merge is the deploy. The sitemap's content date is
+   October 22; advance it only if the content changes again before the merge.
+2. Description rewrite with the exact scan phrases: "boiler repair", "boiler
    replacement", "radiant floor heating repair", "water heater repair", "tankless
    water heater installation", "trenchless sewer repair", "trenchless water line
    replacement", "hydro jetting", "water filtration system", "reverse osmosis".
-2. Builder applied the PR #26 comments (commit 682ba0b); Claude reviewed and
-   reverted the visible blocks (section 9); Jidè merges.
-3. Rescans as above once Google publishes (services take up to 1 day).
+3. Rescans as above once Google publishes (services take up to a day).

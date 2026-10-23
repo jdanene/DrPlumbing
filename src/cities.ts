@@ -346,7 +346,7 @@ export function cityAnswer(page: CityPageMatch) {
   const copy = CITY_PAGE_COPY[page.route];
   const sentences = page.detail
     ? [page.detail.item === "Emergency plumber"
-      ? `An emergency plumber in ${page.city.name} can help with an active leak, burst pipe or sewer backup.`
+      ? `Need an emergency plumber in ${page.city.name}?`
       : `${name} offers ${optionLabel(page.service!.id, page.detail.item).toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
     : copy ? [copy.lead] : page.service
     ? [`${name} serves ${where}.`, page.service.lead]

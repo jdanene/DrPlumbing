@@ -351,15 +351,15 @@ export function ServicePage({
                             </svg>
                           ) : null}
                           <div className="service-item-copy">
-                            <h3>{title}</h3>
+                            <h3>{optionLabel(service.id, title)}</h3>
                             {copy && <p>{copy}</p>}
                             {!detail && (serviceDetailFor(service.id, title) || service.optionTargets?.[title]) && (
                               <a
                                 className="link-arrow"
                                 href={serviceHrefFor(cityPage, service.id, title)}
-                                aria-label={`Read more about ${title}`}
+                                aria-label={`Read more about ${optionLabel(service.id, title)}`}
                               >
-                                Read more<span className="sr-only"> about {title}</span> <Arrow />
+                                Read more<span className="sr-only"> about {optionLabel(service.id, title)}</span> <Arrow />
                               </a>
                             )}
                             {itemPhoto && itemPhoto.src !== photo?.src && (

@@ -30,7 +30,7 @@ The optional `npm run check` also runs Oxlint and automated tests.
 
 The build also runs two static checks after prerendering:
 
-- `scripts/check-readability.mjs` checks all 405 public routes and the 404 page
+- `scripts/check-readability.mjs` checks all 406 public routes and the 404 page
   for named buttons, labelled form fields, image alt text, native interactive
   elements, and at least 200 words in each public page's raw HTML body. An empty
   alt must explicitly mark a decorative image. The word count includes shared
@@ -182,7 +182,7 @@ addresses redirect to the requested paths. Bellevue's former
 `FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
 paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.
-The production build includes 405 sitemap pages. Each full city journey includes
+The production build includes 406 sitemap pages. Each full city journey includes
 `/water-heater-repair-{city}/`, with its own question and repair guidance.
 City display labels use the approved search phrases without changing published
 slugs or the shared general-service labels. Each full city journey also has an
@@ -216,13 +216,10 @@ The build generates `/robots.txt` and `/sitemap.xml` for
 `https://drplumbingheating.com`. Submit the sitemap through the owner's Search
 Console after deployment; generating it does not submit it or guarantee ranking.
 
-Every sitemap URL includes `lastmod` from `src/pageDates.ts`. The target city's
-publication date is October 18, as recorded in JDA-408. New repair pages have no
-invented historical publication date. The shared-license revision is October 20;
-the eight detailed city journeys record October 21's phrase, repair-page and
-hours changes. Update affected overrides if the actual merge occurs later; never
-advance dates just because a build ran. Unknown first-publication dates for
-other pages are not guessed.
+Every sitemap URL includes `lastmod` from `src/pageDates.ts`, the date the
+page's content last changed (October 22, 2026 for every page, when the service
+names in the header changed). Change a route's date when its content changes;
+never advance dates just because a build ran.
 The build lists revisions older than 90 days. Production robots explicitly allow
 meta-webindexer, GPTBot, ClaudeBot, PerplexityBot and Google-Extended, while each
 group still excludes `/api/`. Private previews still disallow all crawling.

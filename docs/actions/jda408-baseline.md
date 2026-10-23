@@ -6,10 +6,11 @@ has been published by this PR.
 
 ## Existing Google Maps observations
 
-The committed [rival export](../../src/content/rivals.json) contains all 49
-city/service pairs and 4,358 usable searches from the saved October 19 scans.
-It preserves requested/observed dates, scan IDs and native timestamps. The
-provenance identifies read-only MapPack repository access, not an HTTP response.
+The rival export built for this PR (all 49 city/service pairs, 4,358 usable
+searches from the saved October 19 scans) was removed from the site on
+October 21 with the visible comparison blocks; the same scan tables are kept in
+[`actions/2026-10-20/evidence/`](../../actions/2026-10-20/evidence/) and
+[`actions/2026-10-21/evidence/`](../../actions/2026-10-21/evidence/).
 No scan was bought or rerun.
 
 The measured leading-group size and positions 1–3 share are separate quantities.
@@ -36,14 +37,17 @@ same change, including pages already indexed.
 The live content record contains 30 served cities, not the issue's older 28-city
 description. Seven are treated, leaving 23 held city journeys, including
 Kirkland's existing detailed journey. No city was deleted to force the older
-21-city control count. Shared license text changes across the site; only the
-seven target journeys receive the new question, answer and comparison blocks.
+21-city control count.
 
-The October 21 addition creates eight water-heater repair pages, bringing the
-current build to 405 routes. Seven join the measured reading cohort (308 pages);
-Kirkland's repair page has plain Q&A without scan comparisons. The October 20
-indexing snapshot remains 397 historical observations; no indexing status has
-been invented for the eight new routes.
+What the seven target journeys carry after October 21 is in the head, not the
+copy: each page's meta description is its short answer, and the business schema
+holds the hours and the emergency line. Jidè removed the visible question,
+comparison, review and dated-fact blocks on October 21 (see
+[`actions/2026-10-21/action.md`](../../actions/2026-10-21/action.md)). The
+October 21 additions are eight water heater repair pages and, on October 22,
+the Emergency plumber page under General plumbing, bringing the build to 406
+routes. The October 20 indexing snapshot remains 397 historical observations;
+no indexing status has been invented for the new routes.
 
 ## Search performance and assistant naming
 
