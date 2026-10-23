@@ -1,4 +1,4 @@
-import { routeHref } from "./sitePaths";
+import { pathSlug, routeHref } from "./sitePaths";
 import { useState } from "react";
 import { REMODELING_PROJECTS, WORK_PROJECTS, type WorkProject } from "./projectPhotos";
 import { Arrow, CallToAction } from "./SiteContent";
@@ -37,6 +37,9 @@ function WorkCard({ project, remodeling = false }: { project: WorkProject; remod
  * Output: Project cards in the selected category; filters retain keyboard focus.
  * Examples: All shows the full catalog; Water heaters filters by category; existing projects remain available.
  */
+/** The filter and section order Jidè set on October 22: the jobs people ask about most first, heating last. */
+const WORK_CATEGORIES = ["Water heaters", "Bathroom remodeling", "Plumbing", "Drain & sewer", "Water filtration", "Boilers", "Heating & cooling"];
+
 export default function WorkPage() {
   const [category, setCategory] = useState("All");
   const projects = WORK_PROJECTS.filter(
@@ -44,6 +47,11 @@ export default function WorkPage() {
   );
   const featured = REMODELING_PROJECTS.filter(project => projects.includes(project));
   const remaining = projects.filter(project => !featured.includes(project));
+  // Each service gets its own heading, in the filter order, so a reader or a crawler finds the water heater or boiler jobs by name.
+  const groups = WORK_CATEGORIES.map((name) => {
+    const remodeling = name === "Bathroom remodeling";
+    return { name, remodeling, projects: remodeling ? featured : remaining.filter((project) => project.category === name) };
+  }).filter((group) => group.projects.length > 0);
   return (
     <div className="view is-active" data-view="work">
       <section className="block" style={{ paddingTop: "clamp(32px,5vw,64px)" }}>
@@ -68,7 +76,7 @@ export default function WorkPage() {
             job.
           </p>
           <div className="chips" role="group" aria-label="Filter projects">
-            {["All", "Plumbing", "Bathroom remodeling", "Water heaters", "Drain & sewer", "Water filtration", "Heating & cooling", "Boilers"].map((value) => (
+            {["All", ...WORK_CATEGORIES].map((value) => (
               <button
                 className="chip"
                 type="button"
@@ -83,19 +91,15 @@ export default function WorkPage() {
           <p className="sr-only" role="status">
             {projects.length} projects
           </p>
-          {featured.length > 0 && (
-            <section className="work-remodeling" aria-labelledby="work-remodeling-title">
-              <h2 id="work-remodeling-title">Bathroom remodeling</h2>
-              <p className="lead">From framing, electrical and plumbing to finished fixtures, showers and tubs.</p>
+          {groups.map((group) => (
+            <section key={group.name} className={group.remodeling ? "work-remodeling" : undefined} aria-labelledby={`work-${pathSlug(group.name)}-title`}>
+              <h2 className={group.remodeling ? undefined : "work-other-title"} id={`work-${pathSlug(group.name)}-title`}>{group.name}</h2>
+              {group.remodeling && <p className="lead">From framing, electrical and plumbing to finished fixtures, showers and tubs.</p>}
               <div className="work-grid">
-                {featured.map(project => <WorkCard key={project.photo.src} project={project} remodeling />)}
+                {group.projects.map(project => <WorkCard key={project.photo.src} project={project} remodeling={group.remodeling} />)}
               </div>
             </section>
-          )}
-          {featured.length > 0 && remaining.length > 0 && <h2 className="work-other-title">More of our work</h2>}
-          <div className="work-grid">
-            {remaining.map(project => <WorkCard key={project.title} project={project} />)}
-          </div>
+          ))}
         </div>
       </section>
       <div className="wrap">

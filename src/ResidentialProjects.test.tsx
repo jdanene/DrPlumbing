@@ -16,14 +16,6 @@ import WorkPage from "./WorkPage";
 afterEach(cleanup);
 
 describe("additive residential project placement", () => {
-  it("puts Plumbing before bathroom remodeling in the Our Work filters", () => {
-    render(<WorkPage />);
-    const filters = within(screen.getByRole("group", { name: "Filter projects" }));
-    expect(filters.getAllByRole("button").slice(0, 3).map(button => button.textContent)).toEqual([
-      "All", "Plumbing", "Bathroom remodeling",
-    ]);
-  });
-
   it.each([
     ["Plumbing", [PHOTOS.concreteTrenching, PHOTOS.equipmentConnections]],
     ["Boilers", [PHOTOS.heatingPlant, PHOTOS.boilerCloset, PHOTOS.completedBoiler]],

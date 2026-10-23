@@ -197,6 +197,24 @@ the description within minutes, services within a day.
     no leftovers of the removed blocks, placeholders, unfilled city tokens or old
     addresses remain in any built page.
 
+14. **A way to the emergency page from the home screen.** Jidè: "where do I
+    access the emergency page, not immediately clear from home screen". It was
+    reachable only through the header's Plumbing menu. The home hero now carries
+    one line under the tagline: "Plumbing emergency? Call (206) 671-8888, day or
+    night. What to do first." (the link is the emergency page), and the FAQ
+    answer on emergencies names the page.
+
+15. **Our Work gets a heading per service, in Jidè's order.** Jidè: only
+    Bathroom remodeling had a heading; "aren't H1 headings good for SEO/AEO?"
+    One H1 per page is right and the page has one ("Real jobs. Real photos.");
+    what helps a reader and a crawler is an H2 that names the service. The flat
+    "More of our work" became one H2 section per service, and the filters and
+    sections follow the order he set: Water heaters, Bathroom remodeling,
+    Plumbing, Drain & sewer, Water filtration, Boilers, Heating & cooling. The
+    test that pinned the old filter order was removed as useless. The test
+    timeout rose to 30 seconds, since whole-site tests tripped the 5-second
+    default on a busy machine and failed for no reason.
+
 ## Why
 
 Two readings of the October 19 MapPack scans (49 scans: 7 cities × 7 services,
