@@ -200,9 +200,15 @@ the description within minutes, services within a day.
 14. **A way to the emergency page from the home screen.** Jidè: "where do I
     access the emergency page, not immediately clear from home screen". It was
     reachable only through the header's Plumbing menu. The home hero now carries
-    one line under the tagline: "Plumbing emergency? Call (206) 671-8888, day or
-    night. What to do first." (the link is the emergency page), and the FAQ
-    answer on emergencies names the page.
+    one line under the tagline, checked with the hci-design skill after Jidè
+    asked whether it had been: "Plumbing emergency? Call (206) 671-8888, day or
+    night." with the phone as the one link in the sentence, then the site's
+    arrow text-link pattern naming what the page holds, "Burst pipe, leak or
+    backup: what to do first →" (the first draft's "What to do first." was a
+    vague trigger, two competing links in one sentence). The FAQ answer on
+    emergencies names the page. Weighed and rejected: a seventh tile in "How can
+    we help?" (breaks the six-tile grid) and a red Emergency link in the header
+    (the phone is already there).
 
 15. **Our Work gets a heading per service, in Jidè's order.** Jidè: only
     Bathroom remodeling had a heading; "aren't H1 headings good for SEO/AEO?"
