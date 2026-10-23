@@ -216,9 +216,9 @@ the description within minutes, services within a day.
     and the line came out again. Then: "but don't we need to show we can handle
     emergency as well?" The answer that keeps the spacing: the tagline itself
     says it, as a third phrase in the same line, linked to the page: "26+ years
-    in the trade. Emergency plumber, day or night." (first shipped as
-    "Emergencies day or night", which Jidè called vague; the page's own name
-    says what and when). No new element, no new style; one more line of
+    in the trade. Available for emergency plumbing 24/7." (first shipped as
+    "Emergencies day or night", which Jidè called vague; Jidè chose the
+    wording). No new element, no new style; one more line of
     tagline on a phone. The page's other doors are Google (its real
     one), the Plumbing menu, the FAQ answer, which names it, and each city hub. Weighed and rejected along the way: a seventh tile in
     "How can we help?" (breaks the six-tile grid) and a red Emergency link in
