@@ -49,6 +49,8 @@ export const PATH_REDIRECTS: Record<string, string> = {
   "/plumber-federal-way/": "areas/federal-way",
   "/water-heater-replacement-federal-way/": "areas/federal-way/water-heater-replacement",
   "/areas-we-serve/bellevue/water-heaters/": "areas/bellevue/water-heater-replacement",
+  // The heating page's "Emergency service" line became the Emergency plumber page under General plumbing on October 21.
+  ...Object.fromEntries(FULL_SERVICE_CITY_SLUGS.map((slug) => [`/emergency-service-${slug}/`, `areas/${slug}/plumbing/emergency-plumber`])),
 };
 
 /**

@@ -4,8 +4,12 @@ import App from "./App";
 import { headTags } from "./seo";
 
 export { PUBLIC_ROUTES, SITE_ORIGIN } from "./seo";
-export { PATH_REDIRECTS, routeHref } from "./sitePaths";
+export { FULL_SERVICE_CITY_SLUGS, PATH_REDIRECTS, routeHref } from "./sitePaths";
 export { PHOTOS } from "./projectPhotos";
+export { PAGE_DATES } from "./pageDates";
+export { AGENT_READABLE_CITY_SLUGS } from "./cities";
+export { fillCity } from "./agentReadable";
+export { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 /**
  * Description: Renders the existing React page and its metadata for a static Cloudflare response.

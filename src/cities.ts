@@ -28,6 +28,55 @@ export interface CityPageMatch {
   detail?: ServiceDetail;
 }
 
+/** JDA-408's measured cohort; Kirkland and the remaining cities keep their existing pages. */
+export const AGENT_READABLE_CITY_SLUGS = ["bellevue", "newcastle", "renton", "redmond", "issaquah", "federal-way", "mercer-island"];
+
+/** The names people type, shown everywhere; the option keys and published slugs stay as they were. */
+const OPTION_LABELS: Record<string, string> = {
+  "plumbing/complete-bathroom-remodeling": "Bathroom remodeling",
+  "drain-sewer/hydrojetting": "Hydro jetting",
+  "boilers/radiant-floor-heating": "Radiant floor heating repair",
+  "water-filtration/water-softeners": "Water softener installation",
+  "water-filtration/reverse-osmosis": "Reverse osmosis installation",
+  "plumbing/trenchless-water-line-repair": "Trenchless water line replacement",
+  "water-heaters/tankless-water-heaters": "Tankless water heater installation",
+};
+
+/**
+ * Description: Names a service option the way people type it, on general and city pages alike,
+ * without changing its established route identity.
+ * Inputs: serviceId is a catalog ID; label is the original option label or slug.
+ * Output: The approved phrase, or the original label for unchanged options.
+ * Examples: boilers + Radiant floor heating returns Radiant floor heating repair;
+ * water-heaters + Gas water heaters stays Gas water heaters.
+ */
+export function optionLabel(serviceId: string, label: string) {
+  return OPTION_LABELS[`${serviceId}/${pathSlug(label)}`] ?? label;
+}
+
+const CITY_EXTRA_DETAILS: Record<string, ServiceDetail[]> = {
+  "water-heaters": [{
+    item: "Water heater repair", cta: "water heater repair", photo: "Water heater repair",
+    summary: "No hot water, a puddle under the tank, or a shower that runs hot and cold? We find the cause, tell you what the fix costs, and tell you straight if the heater is worth fixing.",
+    sections: [
+      { heading: "What usually goes wrong", paras: ["No hot water on an electric heater is most often a dead heating element or thermostat. On a gas heater it is usually the pilot, the igniter or the gas valve. Water that is too hot or never hot enough points to the thermostat. A drip from the relief valve or a fitting is a part we can change. Water coming from the tank itself means the tank is done."] },
+      { heading: "Fix it or replace it", paras: ["We repair a sound heater with one failed part. We tell you to replace it when the tank leaks, when it is past ten or twelve years and failing again, or when the repair would cost close to half of a new heater. Either way, you approve a flat-rate price before we start."] },
+      { heading: "Before we come", paras: ["Text us a photo of the label on the heater, and of the leak or the error code if there is one. If water is pooling near the heater's wiring or an outlet, keep away from it and switch off the breaker if you can reach it safely. If you smell gas, leave the house and call the gas company or 911 from outside."] },
+    ],
+  }],
+};
+
+/**
+ * Description: Adds requested city-only options to the existing service menu.
+ * Inputs: service is a catalog category; page supplies city context when present.
+ * Output: Original option labels for link lookup; only full city journeys gain water heater repair.
+ * Examples: A Bellevue heater menu includes Water heater repair; a general heater menu does not.
+ */
+export function cityServiceMenu(service: Service, page?: CityPageMatch) {
+  const extra = page && FULL_SERVICE_CITY_SLUGS.includes(page.city.slug) ? CITY_EXTRA_DETAILS[service.id] ?? [] : [];
+  return [...extra.map((detail) => detail.item), ...serviceNavigationMenu(service)];
+}
+
 /** Owner-approved landmark references, verified against each city's parks directory. */
 export const CITY_LANDMARKS: Record<string, ConfirmedFact<readonly [string, string]>> = {
   bellevue: confirmedFact(
@@ -102,6 +151,8 @@ export const CITY_SERVICE_PAGES: readonly { citySlug: string; serviceId: string;
  * Water softeners uses the softener item rather than unrelated filtration claims.
  */
 function optionDetail(service: Service, label: string): ServiceDetail {
+  const extra = CITY_EXTRA_DETAILS[service.id]?.find((detail) => detail.item === label);
+  if (extra) return extra;
   const detail = serviceDetailFor(service.id, label);
   if (detail) return detail;
   const target = pathSlug(service.optionTargets?.[label] ?? label);
@@ -118,7 +169,7 @@ function optionDetail(service: Service, label: string): ServiceDetail {
 export const CITY_OPTION_PAGES = CITY_SERVICE_PAGES.filter((entry) => FULL_SERVICE_CITY_SLUGS.includes(entry.citySlug)).flatMap((entry) => {
   const service = SERVICES.find((item) => item.id === entry.serviceId)!;
   // Retain published option URLs even when navigation groups them under a new page.
-  return [...new Set([...serviceNavigationMenu(service), ...serviceMenu(service)])]
+  return [...new Set([...(CITY_EXTRA_DETAILS[service.id] ?? []).map((detail) => detail.item), ...serviceNavigationMenu(service), ...serviceMenu(service)])]
     .filter((label) => !SERVICES.some((item) => item.id === service.optionTargets?.[label]))
     .map((label) => ({
       citySlug: entry.citySlug,
@@ -173,8 +224,8 @@ export const CITY_PAGE_COPY: Record<string, {
     ],
   },
   "areas/mercer-island/water-filtration": {
-    heading: "Water filtration in Mercer Island, WA",
-    lead: "Dr Plumbing & Heating installs water filtration and softening systems for Mercer Island homes. Start with the water concern and any test results so the equipment addresses the actual problem.",
+    heading: "Water filtration system installation in Mercer Island, WA",
+    lead: "Dr Plumbing & Heating provides water filtration system installation for Mercer Island homes. Start with the water concern and any test results so the equipment addresses the actual problem.",
     sections: [
       { heading: "Identify the concern before choosing a filter", text: "Taste, odor and mineral buildup do not all call for the same treatment. Describe what you notice, whether it affects hot and cold water, and whether it occurs throughout the home. A water test can help establish what needs treatment." },
       { heading: "Compare treatment options", text: "We discuss softeners, carbon filters and reverse-osmosis systems, including whole-house and drinking-water applications. Available space, pipe access and the household's water use affect the installation." },
@@ -275,7 +326,7 @@ export function cityPageAt(segments: readonly string[]): CityPageMatch | undefin
  * water-heater category is "Water heater replacement in Bellevue, WA".
  */
 export function cityHeading(page: CityPageMatch) {
-  if (page.detail) return `${page.detail.item} in ${page.city.name}, WA`;
+  if (page.detail) return `${optionLabel(page.service!.id, page.detail.item)} in ${page.city.name}, WA`;
   return CITY_PAGE_COPY[page.route]?.heading ?? `${page.service?.title ?? "Plumbing, heating and cooling"} in ${page.city.name}, WA`;
 }
 
@@ -294,7 +345,9 @@ export function cityAnswer(page: CityPageMatch) {
   const where = `homes in ${page.city.name}, WA`;
   const copy = CITY_PAGE_COPY[page.route];
   const sentences = page.detail
-    ? [`${name} offers ${page.detail.item.toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
+    ? [page.detail.item === "Emergency plumber"
+      ? `Need an emergency plumber in ${page.city.name}?`
+      : `${name} offers ${optionLabel(page.service!.id, page.detail.item).toLowerCase()} for ${where}.`, page.detail.summary ?? page.detail.lead ?? page.service!.lead]
     : copy ? [copy.lead] : page.service
     ? [`${name} serves ${where}.`, page.service.lead]
     : [`${name} repairs and installs plumbing, water heaters, drains and heating for ${where}.`];

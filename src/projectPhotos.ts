@@ -265,6 +265,8 @@ export const DETAIL_PHOTOS: Partial<Record<string, ProjectPhotoData>> = {
   "water-heaters/electric-water-heaters": PHOTOS.tank,
   "water-heaters/gas-water-heaters": PHOTOS.tankless,
   "water-heaters/tankless-water-heaters": PHOTOS.tankless,
+  "water-heaters/water-heater-repair": PHOTOS.tank,
+  "plumbing/emergency-plumber": PHOTOS.plumbingTechnician,
   "drain-sewer/sewer-line-repair-and-replacement": PHOTOS.sewer,
   "water-filtration/water-softeners": PHOTOS.softener,
   "water-filtration/uv-treatment": PHOTOS.filters,
@@ -284,17 +286,17 @@ export interface WorkProject {
 
 /** Owner's October 18 selection; captions report visible work, not unverified locations or outcomes. */
 export const RESIDENTIAL_PROJECTS = {
-  sinkInProgress: { service: "plumbing/complete-bathroom-remodeling", category: "Complete bathroom remodeling", title: "Sink installation in progress", description: "Fixture installation is included in the complete remodel, so you don’t have to coordinate it as a separate project.", photo: PHOTOS.sinkInProgress },
-  windowTub: { service: "plumbing/complete-bathroom-remodeling", category: "Complete bathroom remodeling", title: "Freestanding bathtub", description: "A freestanding tub with a floor-mounted faucet offers an alternative to a built-in bath.", photo: PHOTOS.windowTub },
-  electronicToilet: { service: "plumbing/toilet-repair-and-installation", category: "Complete bathroom remodeling", title: "Modern toilet installation", description: "A streamlined design with integrated controls.", photo: PHOTOS.electronicToilet },
-  drainRoughIn: { service: "plumbing/complete-bathroom-remodeling", category: "Complete bathroom remodeling", title: "Plumbing before the finishing work", description: "We install the water and drain pipes before the walls and floors are finished.", photo: PHOTOS.drainRoughIn },
-  tub: { service: "plumbing/complete-bathroom-remodeling", category: "Complete bathroom remodeling", title: "Freestanding bathtub", description: "Freestanding bathtub.", photo: PHOTOS.finishedTub },
-  bathroom: { service: "plumbing/complete-bathroom-remodeling", category: "Complete bathroom remodeling", title: "Finished bathroom remodel", description: "A separate bath and walk-in shower in one complete bathroom remodel.", photo: PHOTOS.remodeledBathroom },
-  vanity: { service: "plumbing/faucets-fixtures-and-sinks", category: "Complete bathroom remodeling", title: "Double vanity and bathroom fixtures", description: "Two sinks give each person their own space in a shared bathroom.", photo: PHOTOS.doubleVanity },
-  rain: { service: "plumbing/showers-and-tubs", category: "Complete bathroom remodeling", title: "Rain shower and glass enclosure", description: "Overhead rain and handheld shower options in a walk-in enclosure.", photo: PHOTOS.rainShower },
-  shower: { service: "plumbing/complete-bathroom-remodeling", category: "Complete bathroom remodeling", title: "Steam shower", description: "A steam shower with overhead and handheld shower options.", photo: PHOTOS.customShower },
-  toilet: { service: "plumbing/toilet-repair-and-installation", category: "Complete bathroom remodeling", title: "Wall-hung toilet", description: "A concealed cistern and wall-hung bowl leave the floor beneath accessible for cleaning.", photo: PHOTOS.wallHungToilet },
-  roughIn: { service: "plumbing/piping-and-repiping", category: "Complete bathroom remodeling", title: "Bathroom supply lines before finishing", description: "Water-supply lines installed while the walls are open, before finishing the bathroom.", photo: PHOTOS.bathroomRoughIn },
+  sinkInProgress: { service: "plumbing/complete-bathroom-remodeling", category: "Bathroom remodeling", title: "Sink installation in progress", description: "Fixture installation is included in the complete remodel, so you don’t have to coordinate it as a separate project.", photo: PHOTOS.sinkInProgress },
+  windowTub: { service: "plumbing/complete-bathroom-remodeling", category: "Bathroom remodeling", title: "Freestanding bathtub", description: "A freestanding tub with a floor-mounted faucet offers an alternative to a built-in bath.", photo: PHOTOS.windowTub },
+  electronicToilet: { service: "plumbing/toilet-repair-and-installation", category: "Bathroom remodeling", title: "Modern toilet installation", description: "A streamlined design with integrated controls.", photo: PHOTOS.electronicToilet },
+  drainRoughIn: { service: "plumbing/complete-bathroom-remodeling", category: "Bathroom remodeling", title: "Plumbing before the finishing work", description: "We install the water and drain pipes before the walls and floors are finished.", photo: PHOTOS.drainRoughIn },
+  tub: { service: "plumbing/complete-bathroom-remodeling", category: "Bathroom remodeling", title: "Freestanding bathtub", description: "Freestanding bathtub.", photo: PHOTOS.finishedTub },
+  bathroom: { service: "plumbing/complete-bathroom-remodeling", category: "Bathroom remodeling", title: "Finished bathroom remodel", description: "A separate bath and walk-in shower in one complete bathroom remodel.", photo: PHOTOS.remodeledBathroom },
+  vanity: { service: "plumbing/faucets-fixtures-and-sinks", category: "Bathroom remodeling", title: "Double vanity and bathroom fixtures", description: "Two sinks give each person their own space in a shared bathroom.", photo: PHOTOS.doubleVanity },
+  rain: { service: "plumbing/showers-and-tubs", category: "Bathroom remodeling", title: "Rain shower and glass enclosure", description: "Overhead rain and handheld shower options in a walk-in enclosure.", photo: PHOTOS.rainShower },
+  shower: { service: "plumbing/complete-bathroom-remodeling", category: "Bathroom remodeling", title: "Steam shower", description: "A steam shower with overhead and handheld shower options.", photo: PHOTOS.customShower },
+  toilet: { service: "plumbing/toilet-repair-and-installation", category: "Bathroom remodeling", title: "Wall-hung toilet", description: "A concealed cistern and wall-hung bowl leave the floor beneath accessible for cleaning.", photo: PHOTOS.wallHungToilet },
+  roughIn: { service: "plumbing/piping-and-repiping", category: "Bathroom remodeling", title: "Bathroom supply lines before finishing", description: "Water-supply lines installed while the walls are open, before finishing the bathroom.", photo: PHOTOS.bathroomRoughIn },
   tankless: { service: "water-heaters/tankless-water-heaters", category: "Water heaters", title: "Compact tankless water heater", description: "Wall-mounted water heating without a storage tank.", photo: PHOTOS.compactTankless },
   heating: { service: "boilers", category: "Boilers", title: "Heating pipework beneath the home", description: "Heating equipment and distribution pipework fitted beneath the home.", photo: PHOTOS.crawlspaceHeating },
   filtration: { service: "water-filtration/uv-treatment", category: "Water filtration", title: "Wall-mounted water treatment", description: "Filtration and UV treatment connected to the household water supply.", photo: PHOTOS.homeFiltration },
@@ -303,8 +305,8 @@ export const RESIDENTIAL_PROJECTS = {
 } satisfies Record<string, WorkProject>;
 
 const BATHROOM_PROJECTS: WorkProject[] = [
-  { service: "plumbing/showers-and-tubs", category: "Complete bathroom remodeling", title: "Freestanding tub and walk-in shower", description: "A finished bathroom with a freestanding tub, glass shower enclosure and wall-hung toilet.", photo: PHOTOS.freestandingBathroom },
-  { service: "plumbing/showers-and-tubs", category: "Complete bathroom remodeling", title: "Bathtub plumbing before the walls close", description: "A bathtub with shower valves and pipework visible in the open wall framing.", photo: PHOTOS.bathtubRoughIn },
+  { service: "plumbing/showers-and-tubs", category: "Bathroom remodeling", title: "Freestanding tub and walk-in shower", description: "A finished bathroom with a freestanding tub, glass shower enclosure and wall-hung toilet.", photo: PHOTOS.freestandingBathroom },
+  { service: "plumbing/showers-and-tubs", category: "Bathroom remodeling", title: "Bathtub plumbing before the walls close", description: "A bathtub with shower valves and pipework visible in the open wall framing.", photo: PHOTOS.bathtubRoughIn },
 ];
 
 /** Screenshot-selected originals; shared records keep service galleries and category filters aligned. */
@@ -318,7 +320,7 @@ export const EQUIPMENT_PROJECTS = {
   treatmentVessels: { service: "water-filtration", category: "Water filtration", title: "Multi-tank water treatment", description: "Three treatment tanks with automatic controls serve the building’s water system.", photo: PHOTOS.treatmentVessels },
 } satisfies Record<string, WorkProject>;
 
-const SINK_PROJECT: WorkProject = { service: "plumbing/faucets-fixtures-and-sinks", category: "Complete bathroom remodeling", title: "Vanity and faucet installation", description: "An undermount sink and faucet installed as part of the finished bathroom.", photo: PHOTOS.basin };
+const SINK_PROJECT: WorkProject = { service: "plumbing/faucets-fixtures-and-sinks", category: "Bathroom remodeling", title: "Vanity and faucet installation", description: "An undermount sink and faucet installed as part of the finished bathroom.", photo: PHOTOS.basin };
 
 /** Lead with people working, then show finished installations across residential services. */
 export const HOME_PROJECTS: WorkProject[] = [
@@ -374,7 +376,7 @@ export const WORK_PROJECTS: WorkProject[] = [
   { service: "water-filtration", category: "Water filtration", title: "Water softening and treatment", description: "A softener, filter cartridges and UV treatment in one installation.", photo: PHOTOS.softener },
   { service: "plumbing", category: "Plumbing", title: "Water-supply line", description: "A new water-supply pipe laid in an outdoor trench.", photo: PHOTOS.waterLine },
   { service: "plumbing", category: "Plumbing", title: "Supply and drain rough-in", description: "Water and drain lines installed before the walls are closed.", photo: PHOTOS.roughIn },
-  { service: "plumbing", category: "Complete bathroom remodeling", title: "Bathroom plumbing", description: "A finished bathroom with a tub, shower, basin and toilet.", photo: PHOTOS.bathroom },
+  { service: "plumbing", category: "Bathroom remodeling", title: "Bathroom plumbing", description: "A finished bathroom with a tub, shower, basin and toilet.", photo: PHOTOS.bathroom },
   BATHROOM_PROJECTS[1]!,
   { service: "plumbing/piping-and-repiping", category: "Plumbing", title: "Fixture-by-fixture water supply", description: "A hot and cold water manifold with individual shutoffs for household fixtures.", photo: PHOTOS.manifold },
 ];
@@ -382,5 +384,5 @@ export const WORK_PROJECTS: WorkProject[] = [
 /** Finished rooms lead the remodeling category; construction and older projects remain available. */
 export const REMODELING_PROJECTS: WorkProject[] = [
   ...REMODELING_FEATURES,
-  ...WORK_PROJECTS.filter(project => project.category === "Complete bathroom remodeling" && !REMODELING_FEATURES.includes(project)),
+  ...WORK_PROJECTS.filter(project => project.category === "Bathroom remodeling" && !REMODELING_FEATURES.includes(project)),
 ];

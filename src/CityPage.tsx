@@ -1,7 +1,6 @@
 import { SERVICES } from "./content";
-import { serviceNavigationMenu } from "./serviceDetails";
-import { CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, serviceHrefFor, type CityPageMatch } from "./cities";
-import { routeHref } from "./sitePaths";
+import { CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityLandmarksText, optionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
+import { FULL_SERVICE_CITY_SLUGS, routeHref } from "./sitePaths";
 import { Arrow, CallToAction } from "./SiteContent";
 
 /**
@@ -17,6 +16,7 @@ import { Arrow, CallToAction } from "./SiteContent";
 export default function CityPage({ page }: { page: CityPageMatch }) {
   const { city, service } = page;
   const landmarks = cityLandmarksText(page);
+  const fullJourney = FULL_SERVICE_CITY_SLUGS.includes(city.slug);
   return (
     <div className="view is-active" data-view="areas">
       <section className="block areas-page">
@@ -47,16 +47,37 @@ export default function CityPage({ page }: { page: CityPageMatch }) {
           ))}
           <div className="other">
             <h2>{service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}</h2>
-            <nav className="svc-tabs" aria-label={service ? `${service.tab} in ${city.name}` : `Services in ${city.name}`}>
-              {service
-                ? serviceNavigationMenu(service).map((label) => (
-                    <a className="chip" href={serviceHrefFor(page, service.id, label)} key={label}>{label}</a>
-                  ))
-                : SERVICES.map((item) => {
-                    const destination = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && entry.serviceId === item.id);
-                    return <a className="chip" href={serviceHrefFor(page, item.id)} key={item.id}>{destination?.label ?? item.tab}</a>;
-                  })}
-            </nav>
+            {service ? (
+              <nav className="svc-tabs" aria-label={`${service.tab} in ${city.name}`}>
+                {cityServiceMenu(service, page).map((label) => (
+                  <a className="chip" href={serviceHrefFor(page, service.id, label)} key={label}>{optionLabel(service.id, label)}</a>
+                ))}
+              </nav>
+            ) : fullJourney ? (
+              // Every page of the city, grouped under its service, in the site's chip pattern.
+              <nav className="city-service-groups" aria-label={`Services in ${city.name}`}>
+                {SERVICES.map((item) => {
+                  const destination = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && entry.serviceId === item.id);
+                  return (
+                    <section key={item.id}>
+                      <h3><a href={serviceHrefFor(page, item.id)}>{destination?.label ?? item.tab}</a></h3>
+                      <div className="svc-tabs">
+                        {CITY_OPTION_PAGES.filter((option) => option.citySlug === city.slug && option.serviceId === item.id).map((option) => (
+                          <a className="chip" href={routeHref(option.route)} key={option.route}>{optionLabel(item.id, option.detail.item)}</a>
+                        ))}
+                      </div>
+                    </section>
+                  );
+                })}
+              </nav>
+            ) : (
+              <nav className="svc-tabs" aria-label={`Services in ${city.name}`}>
+                {SERVICES.map((item) => {
+                  const destination = CITY_SERVICE_PAGES.find((entry) => entry.citySlug === city.slug && entry.serviceId === item.id);
+                  return <a className="chip" href={serviceHrefFor(page, item.id)} key={item.id}>{destination?.label ?? item.tab}</a>;
+                })}
+              </nav>
+            )}
             {service && (
               <p>
                 <a className="link-arrow" href={routeHref(service.id)}>

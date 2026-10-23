@@ -1,8 +1,10 @@
 import { BUSINESS, confirmed } from "./businessFacts";
-import { CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, serviceHrefFor, type CityPageMatch } from "./cities";
+import { CITY_OPTION_PAGES, CITY_PAGE_COPY, CITY_PAGES, CITY_SERVICE_PAGES, cityAnswer, cityHeading, cityPageAt, optionLabel, serviceHrefFor, type CityPageMatch } from "./cities";
 import { BUSINESS_NAME, CITIES, SERVICES } from "./content";
 import { SERVICE_DETAILS, serviceDetailFor, serviceDetailSlug } from "./serviceDetails";
 import { HOME_ANCHORS, PAGE_PATHS, routeHref } from "./sitePaths";
+import { answerKey, fillCity, isAgentReadable } from "./agentReadable";
+import { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 export const SITE_ORIGIN = "https://drplumbingheating.com";
 
@@ -17,13 +19,14 @@ const PAGE_METADATA: Record<string, [string, string]> = {
   plumbing: ["Plumbing Repair & Installation in Greater Seattle | Dr Plumbing & Heating", "Leak detection, burst pipes, repiping, trenchless water lines, gas lines, toilets, faucets and sump pumps. Licensed plumbers serving Everett to Federal Way."],
   "water-heaters": ["Water Heater Repair & Installation in Greater Seattle | Dr Plumbing & Heating", "Electric, gas, tankless and heat pump water heaters. We repair, replace and install water heaters in homes from Everett to Federal Way. (206) 671-8888."],
   "drain-sewer": ["Drain Cleaning & Sewer Repair in Greater Seattle | Dr Plumbing & Heating", "Drain cleaning, hydro jetting and sewer line repair and replacement across Greater Seattle, including Seattle, Bellevue and Renton."],
-  "water-filtration": ["Water Filtration & Softeners in Greater Seattle | Dr Plumbing & Heating", "Water softeners, carbon filters, reverse osmosis and iron and sulfur filters, installed by licensed plumbers serving Greater Seattle and the Eastside."],
+  "water-filtration": ["Water Filtration System Installation in Greater Seattle | Dr Plumbing & Heating", "Water softeners, carbon filters, reverse osmosis and iron and sulfur filters, installed by licensed plumbers serving Greater Seattle and the Eastside."],
   "heating-cooling": ["Heating & Cooling (HVAC) in Greater Seattle | Dr Plumbing & Heating", "Furnace, heat pump and air conditioning installation, maintenance and repair in the Greater Seattle area."],
   boilers: ["Boiler Service & Hydronic Heating in Greater Seattle | Dr Plumbing & Heating", "Hydronic boiler maintenance, repair and replacement, including radiant floor and baseboard heat. Annual boiler service from licensed technicians."],
+  "plumbing/emergency-plumber": ["Emergency Plumber in Greater Seattle | Dr Plumbing & Heating", "Burst pipe, active leak or sewer backup? Call (206) 671-8888. We tell you what to do right now and the soonest we can come, with a flat-rate price before work starts. Serving Newcastle, Bellevue, Renton and the Eastside."],
   "plumbing/garbage-disposals": ["Garbage Disposal Repair & Installation | Dr Plumbing & Heating", "Garbage disposal installation, repair and cleaning for homes and commercial kitchens in Seattle, WA and the Greater Seattle area."],
   "water-heaters/electric-water-heaters": ["Electric Water Heaters in Greater Seattle | Dr Plumbing & Heating", "Tank and tankless electric water heaters sized to your home. Repair, replacement and installation from licensed plumbers serving Greater Seattle."],
   "water-heaters/gas-water-heaters": ["Gas Water Heater Repair & Replacement | Dr Plumbing & Heating", "Gas and propane water heater repair, maintenance and replacement. Running out of hot water, or water too hot? Our plumbers can help."],
-  "water-heaters/tankless-water-heaters": ["Tankless Water Heaters in Greater Seattle | Dr Plumbing & Heating", "On-demand tankless water heaters sized to your family's hot water use, plus tankless repair and maintenance. Serving Everett to Federal Way."],
+  "water-heaters/tankless-water-heaters": ["Tankless Water Heater Installation in Greater Seattle | Dr Plumbing & Heating", "On-demand tankless water heaters sized to your family's hot water use, plus tankless repair and maintenance. Serving Everett to Federal Way."],
   "water-heaters/heat-pump-water-heaters": ["Heat Pump Water Heaters in Greater Seattle | Dr Plumbing & Heating", "Energy-efficient heat pump water heaters that can lower your energy bills. Installation, service and help choosing a model in the Greater Seattle area."],
   "drain-sewer/hydrojetting": ["Hydro Jetting for Drains & Sewer Lines | Dr Plumbing & Heating", "Hydro jetting at up to 4,000 psi clears stubborn clogs and years of sludge from drains and sewer lines. Serving Seattle, WA and nearby cities."],
 };
@@ -51,9 +54,10 @@ export const PUBLIC_ROUTES = [
 function cityMetadata(page: CityPageMatch): [string, string] {
   const subject = page.service?.tab ?? "Plumbing, Heating & Cooling";
   const cities = confirmed(BUSINESS.serviceCities);
+  const answer = isAgentReadable(page) ? SERVICE_ANSWERS[answerKey(page)] : undefined;
   return [
     `${page.detail ? cityHeading(page) : CITY_PAGE_COPY[page.route]?.heading ?? `${subject} in ${page.city.name}, WA`} | ${confirmed(BUSINESS.publicName)}`,
-    `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
+    answer ? fillCity(answer.answer, page.city.name) : `${cityAnswer(page)} One of ${cities.length} cities we serve across Greater Seattle.`,
   ];
 }
 
@@ -78,9 +82,26 @@ function businessGraph(): Record<string, unknown>[] {
       "@type": ["Plumber", "HVACBusiness"],
       "@id": BUSINESS_ID,
       name: BUSINESS_NAME,
+      openingHoursSpecification: confirmed(BUSINESS.hours).map((hours) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: hours.days.map((day) => `https://schema.org/${day}`),
+        opens: hours.opens,
+        closes: hours.closes,
+      })),
       url: `${SITE_ORIGIN}/`,
       telephone: "+12066718888",
       email: "drplumbinggroup@gmail.com",
+      contactPoint: [{
+        "@type": "ContactPoint",
+        contactType: "emergency",
+        telephone: "+12066718888",
+        hoursAvailable: confirmed(BUSINESS.emergencyHours).map((hours) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: hours.days.map((day) => `https://schema.org/${day}`),
+          opens: hours.opens,
+          closes: hours.closes,
+        })),
+      }],
       logo: `${SITE_ORIGIN}/brand/dr-brand-mark.png`,
       areaServed: CITIES.map((name) => ({ "@type": "City", name })),
     },
@@ -110,7 +131,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
   const detail = detailKey ? serviceDetailFor(serviceId, detailKey) : undefined;
   const cityPage = page.startsWith("areas/") ? cityPageAt(page.split("/").slice(1)) : undefined;
   const [title, description] = PAGE_METADATA[page] ?? (cityPage ? cityMetadata(cityPage) : detail
-    ? [`${detail.item} in Greater Seattle | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
+    ? [`${optionLabel(serviceId, detail.item)} in Greater Seattle | Dr Plumbing & Heating`, detail.summary ?? detail.lead ?? service?.lead ?? "Plumbing, heating and cooling in the Greater Seattle area."]
     : ["Page not found | Dr Plumbing & Heating", "Find plumbing, heating and cooling services in the Greater Seattle area."]);
   const socialTitle = page === "home" ? "Greater Seattle Area | 26+ years in the trade" : title;
   const graph: Record<string, unknown>[] = [
@@ -129,7 +150,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
     graph.push({
       "@type": "Service",
       "@id": `${canonical}#service`,
-      name: detail?.item ?? service.title,
+      name: detail ? optionLabel(serviceId, detail.item) : service.title,
       description,
       url: canonical,
       provider: { "@id": businessId },
@@ -137,7 +158,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
     });
     const crumbs = [{ name: "Home", item: `${SITE_ORIGIN}/` }];
     if (detail) crumbs.push({ name: service.tab, item: `${SITE_ORIGIN}${routeHref(serviceId)}` });
-    crumbs.push({ name: detail?.item ?? service.tab, item: canonical });
+    crumbs.push({ name: detail ? optionLabel(serviceId, detail.item) : service.tab, item: canonical });
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),
@@ -160,7 +181,7 @@ export function headTags(route: string, indexable = true): HeadTag[] {
       { name: cityPage.city.name, item: `${SITE_ORIGIN}${routeHref(`areas/${cityPage.city.slug}`)}` },
     ];
     if (cityPage.service) crumbs.push({ name: cityPage.service.tab, item: `${SITE_ORIGIN}${serviceHrefFor(cityPage, cityPage.service.id)}` });
-    if (cityPage.detail) crumbs.push({ name: cityPage.detail.item, item: canonical });
+    if (cityPage.detail) crumbs.push({ name: optionLabel(cityPage.service!.id, cityPage.detail.item), item: canonical });
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, ...crumb })),

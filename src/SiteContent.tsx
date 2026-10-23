@@ -17,7 +17,8 @@ import {
 } from "./serviceDetails";
 import { DETAIL_PHOTOS, SERVICE_GALLERIES, SERVICE_PHOTOS, type WorkProject } from "./projectPhotos";
 import ProjectPhoto from "./ProjectPhoto";
-import { cityAnswer, cityHeading, serviceHrefFor, type CityPageMatch } from "./cities";
+import { cityAnswer, cityHeading, optionLabel, cityServiceMenu, serviceHrefFor, type CityPageMatch } from "./cities";
+import { SERVICE_ANSWERS } from "./content/serviceAnswers";
 
 /**
  * Description: Draws the repeated directional cue without giving it an accessible name.
@@ -103,7 +104,7 @@ export function ServiceFinder() {
                   {serviceNavigationMenu(service).map((item) => (
                     <li key={item}>
                       <a className="opt" href={serviceOptionHref(service.id, item)}>
-                        {item}
+                        {optionLabel(service.id, item)}
                       </a>
                     </li>
                   ))}
@@ -176,7 +177,9 @@ export function ServicePage({
   cityPage?: CityPageMatch;
 }) {
   const page = detail ?? service;
-  const usesCategoryArtwork = cityPage && detail && !serviceDetailFor(service.id, detail.item);
+  const repairAnswer = cityPage && service.id === "water-heaters" && detail?.item === "Water heater repair"
+    ? SERVICE_ANSWERS["water-heaters/water-heater-repair"] : undefined;
+  const usesCategoryArtwork = cityPage && detail && !DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`] && !serviceDetailFor(service.id, detail.item);
   const photo = detail && !usesCategoryArtwork
     ? DETAIL_PHOTOS[`${service.id}/${serviceDetailSlug(detail.item)}`]
     : SERVICE_PHOTOS[service.id];
@@ -218,7 +221,7 @@ export function ServicePage({
                         href={serviceHrefFor(cityPage, "plumbing", "Complete bathroom remodeling")}
                         aria-current={isBathroomRemodeling ? "page" : undefined}
                       >
-                        Complete bathroom remodeling
+                        Bathroom remodeling
                       </a>
                     )}
                   </Fragment>
@@ -239,22 +242,36 @@ export function ServicePage({
                 <>
                   <a href={serviceHrefFor(cityPage, service.id)}>{service.tab}</a>
                   <span>/</span>
-                  <span>{detail.item}</span>
+                  <span>{optionLabel(service.id, detail.item)}</span>
                 </>
               ) : (
                 <span>{service.tab}</span>
               )}
             </nav>
-            <h1 tabIndex={-1}>{cityPage ? cityHeading(cityPage) : detail?.item ?? service.title}</h1>
-            {cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
-            <div className="cta-row">
-              <a className="btn btn-primary" href={routeHref("book")}>
-                Book a visit
-              </a>
-              <a className="btn btn-outline" href="tel:2066718888">
-                Call (206) 671-8888
-              </a>
-            </div>
+            <h1 tabIndex={-1}>{cityPage ? cityHeading(cityPage) : detail ? optionLabel(service.id, detail.item) : service.title}</h1>
+            {repairAnswer ? <div className="service-repair-answer">
+              <h2>{repairAnswer.question.replaceAll("{city}", cityPage!.city.name)}</h2>
+              <p className="lead">{repairAnswer.answer.replaceAll("{city}", cityPage!.city.name)}</p>
+            </div> : cityPage ? <p className="lead">{cityAnswer(cityPage)}</p> : (page.summary || page.lead) && <p className="lead">{page.summary ?? page.lead}</p>}
+            {detail?.item === "Emergency plumber" ? (
+              <div className="cta-row">
+                <a className="btn btn-primary" href="tel:2066718888">
+                  Call (206) 671-8888
+                </a>
+                <a className="btn btn-outline" href={routeHref("book")}>
+                  Book a visit
+                </a>
+              </div>
+            ) : (
+              <div className="cta-row">
+                <a className="btn btn-primary" href={routeHref("book")}>
+                  Book a visit
+                </a>
+                <a className="btn btn-outline" href="tel:2066718888">
+                  Call (206) 671-8888
+                </a>
+              </div>
+            )}
           </div>
           {photo && <ProjectPhoto photo={photo} city={cityPage?.city.name} priority fullFrame />}
         </section>
@@ -262,8 +279,8 @@ export function ServicePage({
           <div className="other">
             <h2>{service.tab} in {cityPage.city.name}</h2>
             <nav className="svc-tabs" aria-label={`${service.tab} in ${cityPage.city.name}`}>
-              {serviceNavigationMenu(service).map((label) => (
-                <a className="chip" key={label} href={serviceHrefFor(cityPage, service.id, label)}>{label}</a>
+              {cityServiceMenu(service, cityPage).map((label) => (
+                <a className="chip" key={label} href={serviceHrefFor(cityPage, service.id, label)}>{optionLabel(service.id, label)}</a>
               ))}
             </nav>
           </div>
@@ -334,15 +351,15 @@ export function ServicePage({
                             </svg>
                           ) : null}
                           <div className="service-item-copy">
-                            <h3>{title}</h3>
+                            <h3>{optionLabel(service.id, title)}</h3>
                             {copy && <p>{copy}</p>}
                             {!detail && (serviceDetailFor(service.id, title) || service.optionTargets?.[title]) && (
                               <a
                                 className="link-arrow"
                                 href={serviceHrefFor(cityPage, service.id, title)}
-                                aria-label={`Read more about ${title}`}
+                                aria-label={`Read more about ${optionLabel(service.id, title)}`}
                               >
-                                Read more<span className="sr-only"> about {title}</span> <Arrow />
+                                Read more<span className="sr-only"> about {optionLabel(service.id, title)}</span> <Arrow />
                               </a>
                             )}
                             {itemPhoto && itemPhoto.src !== photo?.src && (
@@ -383,8 +400,8 @@ export function ServicePage({
           <nav className="svc-tabs" aria-label={relatedHeading}>
             {detail ? (
               <>
-                {cityPage ? serviceNavigationMenu(service).filter((label) => label !== detail.item).map((label) => (
-                  <a className="chip" href={serviceHrefFor(cityPage, service.id, label)} key={label}>{label}</a>
+                {cityPage ? cityServiceMenu(service, cityPage).filter((label) => label !== detail.item).map((label) => (
+                  <a className="chip" href={serviceHrefFor(cityPage, service.id, label)} key={label}>{optionLabel(service.id, label)}</a>
                 )) : (SERVICE_DETAILS[service.id] ?? [])
                   .filter((item) => item !== detail && serviceNavigationMenu(service).includes(item.item))
                   .map((item) => (
@@ -393,7 +410,7 @@ export function ServicePage({
                       href={serviceOptionHref(service.id, item.item)}
                       key={item.item}
                     >
-                      {item.item}
+                      {optionLabel(service.id, item.item)}
                     </a>
                   ))}
                 <a className="chip" href={serviceHrefFor(cityPage, service.id)}>See all</a>

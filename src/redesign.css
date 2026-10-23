@@ -283,6 +283,16 @@ details[open] .disclosure-mark::after { transform: rotate(0deg); }
   .action-bar .btn { padding-inline: 12px; font-size: 15px; }
   .site-footer { padding-block: 48px 32px; }
 }
+.opening-emergency { font-size: 15px; margin-top: -6px; }
+.opening-emergency a { color: inherit; }
+.opening-emergency a[href^="tel:"] { text-decoration: underline; text-underline-offset: 3px; }
+.opening-emergency .text-link { display: inline; font-size: 15px; line-height: 1.6; }
+.opening-emergency .text-link svg { vertical-align: middle; margin-left: 6px; }
+.city-service-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px 32px; }
+.city-service-groups h3 { font-size: 17px; margin: 0 0 8px; }
+.city-service-groups h3 a { text-decoration: none; color: inherit; }
+.city-service-groups h3 a:hover { text-decoration: underline; }
+.city-service-groups .svc-tabs { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after, details::details-content { animation: none !important; transition: none !important; }

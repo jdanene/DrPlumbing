@@ -12,10 +12,13 @@ import {
   cityAnswer,
   cityHeading,
   cityLandmarksText,
+  optionLabel,
   cityPageAt,
+  cityServiceMenu,
   serviceHrefFor,
 } from "./cities";
-import { SERVICES, serviceMenu } from "./content";
+import { SERVICE_ANSWERS } from "./content/serviceAnswers";
+import { SERVICES } from "./content";
 import { renderPage } from "./prerender";
 import { resolveRoute, routeFromLocation } from "./routes";
 import { PUBLIC_ROUTES, SITE_ORIGIN, headTags } from "./seo";
@@ -134,7 +137,7 @@ describe("the city record", () => {
     const cityRoutes = PUBLIC_ROUTES.filter((route) => route.startsWith("areas/"));
     expect(cityRoutes).toEqual([...cities.map((name) => `areas/${cityPageAt([name])!.city.slug}`), ...CITY_SERVICE_PAGES.map((entry) => `areas/${entry.citySlug}/${entry.slug ?? entry.serviceId}`), ...CITY_OPTION_PAGES.map((entry) => entry.route)]);
     expect(new Set(PUBLIC_ROUTES).size).toBe(PUBLIC_ROUTES.length);
-    expect(PUBLIC_ROUTES).toHaveLength(397);
+    expect(PUBLIC_ROUTES).toHaveLength(406);
   });
 
   it("names only served cities and existing services in its hand-written tables", () => {
@@ -193,7 +196,8 @@ describe("city metadata", () => {
     const tags = headTags("areas/bellevue");
     expect(tags.find((tag) => tag.tag === "title")?.text).toBe("Plumber in Bellevue, WA | Dr Plumbing & Heating");
     expect(tags.find((tag) => tag.attributes.rel === "canonical")?.attributes.href).toBe("https://drplumbingheating.com/plumber-bellevue/");
-    expect(tags.find((tag) => tag.attributes.name === "description")?.attributes.content).toContain("You approve a flat-rate price before work starts.");
+    // The target cities carry the short answer as their description; the page copy itself is unchanged.
+    expect(tags.find((tag) => tag.attributes.name === "description")?.attributes.content).toBe(SERVICE_ANSWERS.hub.answer.replaceAll("{city}", "Bellevue"));
     const [service] = graphNodes("areas/bellevue", "Service");
     expect(service.areaServed).toEqual([{ "@type": "City", name: "Bellevue" }]);
     expect(service.name).toBe("Plumber in Bellevue, WA");
@@ -220,7 +224,8 @@ describe("city metadata", () => {
 describe("city pages", () => {
   it("gives all six Mercer Island service links distinct city pages", () => {
     renderCity("areas/mercer-island");
-    const links = within(screen.getByRole("navigation", { name: "Services in Mercer Island" })).getAllByRole("link");
+    // The six service groups head the grouped list; their option pages sit under them as chips.
+    const links = within(screen.getByRole("navigation", { name: "Services in Mercer Island" })).getAllByRole("heading", { level: 3 }).map((heading) => within(heading).getByRole("link"));
     expect(links.map((link) => link.getAttribute("href"))).toEqual([
       "/plumbing-mercer-island/", "/water-heater-replacement-mercer-island/",
       "/drain-and-sewer-mercer-island/", "/water-filtration-mercer-island/",
@@ -237,7 +242,7 @@ describe("city pages", () => {
   it.each([
     ["plumbing", "General plumbing in Mercer Island, WA"],
     ["drain-sewer", "Drain and sewer services in Mercer Island, WA"],
-    ["water-filtration", "Water filtration in Mercer Island, WA"],
+    ["water-filtration", "Water filtration system installation in Mercer Island, WA"],
     ["heating-cooling", "Heating and cooling in Mercer Island, WA"],
     ["boilers", "Boiler services in Mercer Island, WA"],
   ])("renders Mercer Island %s with guidance and the correct booking service", (serviceId, heading) => {
@@ -289,7 +294,7 @@ describe("city pages", () => {
     expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Plumber in Bellevue, WA");
     expect(screen.getByRole("main").textContent).toContain("You approve a flat-rate price before work starts.");
     expect(screen.getByRole("main").textContent).not.toMatch(PLACEHOLDER);
-    const links = within(main.getByRole("navigation", { name: "Services in Bellevue" })).getAllByRole("link");
+    const links = within(main.getByRole("navigation", { name: "Services in Bellevue" })).getAllByRole("heading", { level: 3 }).map((heading) => within(heading).getByRole("link"));
     expect(links.map((link) => link.textContent)).toEqual(SERVICES.map((service) => service.id === "water-heaters" ? "Water heater replacement" : service.tab));
     expect(links.map((link) => link.getAttribute("href"))).toEqual(SERVICES.map((service) => serviceHrefFor(bellevue, service.id)));
     expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Areas we serve" }).getAttribute("href")).toBe("/areas-we-serve/");
@@ -316,8 +321,9 @@ describe("city pages", () => {
     expect(main.getByRole("heading", { level: 1 }).textContent).toBe("Water heater replacement in Bellevue, WA");
     expect(screen.getByRole("main").textContent).toContain(cityAnswer(bellevueWaterHeaters));
     const options = within(main.getByRole("navigation", { name: "Water heaters in Bellevue" })).getAllByRole("link");
-    expect(options.map((link) => link.textContent)).toEqual(serviceMenu(waterHeaters));
-    expect(options[0].getAttribute("href")).toBe("/electric-water-heaters-bellevue/");
+    expect(options.map((link) => link.textContent)).toEqual(cityServiceMenu(waterHeaters, bellevueWaterHeaters).map((label) => optionLabel("water-heaters", label)));
+    expect(options[0].getAttribute("href")).toBe("/water-heater-repair-bellevue/");
+    expect(options[1].getAttribute("href")).toBe("/electric-water-heaters-bellevue/");
     expect(main.queryByRole("link", { name: "More about water heaters" })).toBeNull();
     expect(within(main.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", { name: "Bellevue" }).getAttribute("href")).toBe("/plumber-bellevue/");
     expect(main.getByRole("heading", { name: "Our water heater services" })).toBeTruthy();

@@ -8,7 +8,7 @@ import BathroomRemodeling from "./BathroomRemodeling";
 
 const QUESTIONS = [
   ["How does your pricing work?", "We charge flat rates. You approve the price before we start, and you pay no surprise fees."],
-  ["Do you offer emergency service?", "Yes, for plumbing and hydronic heating. Call (206) 671-8888."],
+  ["Do you offer emergency service?", "Yes, day or night, for plumbing and hydronic heating. Call (206) 671-8888. The Emergency plumber page under General plumbing says what to do while you wait."],
   ["Are you licensed and insured?", `Yes. We are licensed, bonded and insured in Washington. Our plumbing contractor license is ${PLUMBING_LICENSE.number}.`],
   ["What areas do you serve?", "Homes across the Greater Seattle area, from Everett to Federal Way, including the Eastside. See our service area page for the full list."],
   ["Should I choose a tank or tankless water heater?", "A tank stores hot water. A tankless unit heats water on demand and takes less space. We size the unit to how your household uses hot water."],
@@ -34,6 +34,7 @@ export default function HomePage() {
           <div className="opening-copy">
             <h1 id="home-title" tabIndex={-1}>Your local <br />plumbing &amp;<br /><span>heating team.</span></h1>
             <p>Family owned. Serving Greater Seattle.<br />26+ years in the trade.</p>
+            <p className="opening-emergency">Plumbing emergency? <a href="tel:2066718888">Call (206) 671-8888</a>, day or night.<br /><a className="text-link" href={routeHref("plumbing/emergency-plumber")}>Burst pipe, leak or backup: what to do first <Arrow /></a></p>
             <a className="btn btn-primary opening-book" href={routeHref("book")}>Book a visit <Arrow /></a>
           </div>
           <span className="opening-caption">Copper connections · Hydronic heating work</span>

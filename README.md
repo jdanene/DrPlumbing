@@ -28,6 +28,25 @@ npm run preview
 `preview` serves that build at the address it prints. Neither command runs tests.
 The optional `npm run check` also runs Oxlint and automated tests.
 
+The build also runs two static checks after prerendering:
+
+- `scripts/check-readability.mjs` checks all 406 public routes and the 404 page
+  for named buttons, labelled form fields, image alt text, native interactive
+  elements, and at least 200 words in each public page's raw HTML body. An empty
+  alt must explicitly mark a decorative image. The word count includes shared
+  navigation and footer text; it is not a measure of unique service copy.
+  On the seven target cities' pages it checks that the meta description is
+  the page's short answer (1–100 words) and that no comparison block renders.
+- `scripts/check-links.mjs` checks emitted `href` and `src` paths and HTML
+  fragments. Missing internal targets stop the build with the source page and
+  rule. External HTTP links get two attempts, each with a five-second timeout,
+  at most four at a time. Failures are warnings, not a deployment blocker.
+
+These checks inspect authored static HTML, not a computed browser accessibility
+tree. They cannot detect facts shown only inside photographs or event handlers
+that React attaches after hydration. They do not replace a browser accessibility
+review.
+
 The static publisher copies shared public assets and the job photographs listed
 in `src/projectPhotos.ts`. Camera originals, unused candidates and the GBP review
 package stay out of `dist/`. Local Vite still serves the full review library.
@@ -146,7 +165,7 @@ drain and sewer, filtration, heating and cooling, and boiler pages. `CITY_PATHS`
 in `src/sitePaths.ts` defines their flat public addresses. The former nested
 addresses remain supported and receive 301 rules in the generated `_redirects`.
 Unselected cities retain `/areas-we-serve/{city}/` addresses; only listed city-service
-combinations generate pages. Mercer Island also has 36 option pages, such as
+combinations generate pages. Mercer Island also has 37 option pages, such as
 `/gas-water-heaters-mercer-island/` and `/boiler-repair-mercer-island/`.
 `CITY_OPTION_PAGES` derives those pages from the existing service menus and
 explanations. Header, mobile, footer and sibling service links retain the selected
@@ -154,7 +173,7 @@ city context. Unselected cities and site-wide navigation keep their existing beh
 Mercer Island service pages reuse `ServicePage`, including the main page's photos,
 galleries and educational sections. Only location wording and navigation differ.
 Federal Way, Newcastle, Bellevue, Renton, Kirkland, Redmond and Issaquah replicate
-this same 43-page journey. Each uses `/plumber-{city}/` except Federal Way, whose
+this same 44-page journey. Each uses `/plumber-{city}/` except Federal Way, whose
 entry point is `/federal-way-residential-plumber/`. Federal Way's existing
 water-heater category uses `/federal-way-water-heater-installation/`; its former
 addresses redirect to the requested paths. Bellevue's former
@@ -163,7 +182,17 @@ addresses redirect to the requested paths. Bellevue's former
 `FULL_SERVICE_CITY_SLUGS` in `src/sitePaths.ts` opts cities into the shared
 paths and service catalog; `src/cities.ts` reuses Mercer Island's localized copy
 with the selected city's name. Other cities keep their current behavior.
-The production build includes 397 sitemap pages.
+The production build includes 406 sitemap pages. Each full city journey includes
+`/water-heater-repair-{city}/`, with its own question and repair guidance.
+City display labels use the approved search phrases without changing published
+slugs or the shared general-service labels. Each full city journey also has an
+Emergency plumber page under General plumbing at `/emergency-plumber-{city}/`;
+the heating page's old `/emergency-service-{city}/` addresses redirect to it.
+
+The seven `AGENT_READABLE_CITY_SLUGS` hubs additionally link every existing
+city-service category and option directly, so a crawler reaches all 43 pages
+from the hub. Every city's water heater repair page opens with its question and
+a short answer; the other pages keep their approved copy.
 
 Complete bathroom remodeling appears first under General Plumbing. Its fixtures,
 showers and tubs, and kitchen sections use page anchors and matching project photos.
@@ -186,6 +215,25 @@ Use `$drplumbing-city-pages` to repeat this work for another requested city.
 The build generates `/robots.txt` and `/sitemap.xml` for
 `https://drplumbingheating.com`. Submit the sitemap through the owner's Search
 Console after deployment; generating it does not submit it or guarantee ranking.
+
+Every sitemap URL includes `lastmod` from `src/pageDates.ts`, the date the
+page's content last changed (October 22, 2026 for every page, when the service
+names in the header changed). Change a route's date when its content changes;
+never advance dates just because a build ran.
+The build lists revisions older than 90 days. Production robots explicitly allow
+meta-webindexer, GPTBot, ClaudeBot, PerplexityBot and Google-Extended, while each
+group still excludes `/api/`. Private previews still disallow all crawling.
+
+The machine layer for the seven target cities lives in the head, not the copy:
+each page's meta description and WebPage description carry its short answer
+from `src/content/serviceAnswers.ts` (one record per page type, city filled
+in), and the business schema carries the facts from `businessFacts.ts`.
+Regular hours are 8 AM to 8 PM daily, Pacific time; overnight emergency service
+is 8 PM to 8 AM daily, confirmed by Jidè on October 21; both show in the footer
+and the schema. On October 21 Jidè rejected the visible question, comparison,
+review and dated-fact blocks the ticket had asked for; the record is in
+[`actions/2026-10-21/action.md`](actions/2026-10-21/action.md) and the saved
+scan evidence in [`actions/2026-10-20/`](actions/2026-10-20/).
 
 Development HTML remains `noindex`. The production build permits indexing on
 the registered domain. Host-specific `_headers` rules block both `*.pages.dev`

@@ -62,6 +62,10 @@ export const SERVICES: Service[] = [
         "heading": "Our plumbing services",
         "items": [
           [
+            "Emergency plumber",
+            "Burst pipes, active leaks and sewer backups. Call and we tell you what to do and when we can come."
+          ],
+          [
             "Leak detection",
             "We find hidden leaks in walls, floors and slabs before they do more damage."
           ],
@@ -146,7 +150,7 @@ export const SERVICES: Service[] = [
     "tab": "Drain & sewer",
     "title": "Drain and sewer",
     "cta": "drain or sewer line",
-    "short": "Drain cleaning, hydrojetting and sewer line repair.",
+    "short": "Drain cleaning, hydro jetting and sewer line repair.",
     "photo": "Sewer line or drain job",
     "lead": "We clear clogged drains and repair or replace damaged sewer lines.",
     "sections": [
@@ -177,7 +181,7 @@ export const SERVICES: Service[] = [
     "id": "water-filtration",
     "summary": "Different filters solve different water problems. We help you choose a softener or filtration system for the water in your home.",
     "tab": "Water filtration",
-    "title": "Water filtration and softener",
+    "title": "Water filtration system installation",
     "cta": "water",
     "short": "Softeners, reverse osmosis and carbon filters.",
     "photo": "Softener or filtration setup",
@@ -308,10 +312,6 @@ export const SERVICES: Service[] = [
           [
             "Repair",
             "We find the cause of the failure and fix it."
-          ],
-          [
-            "Emergency service",
-            "For emergency plumbing or hydronic heating, call (206) 671-8888."
           ]
         ]
       }
@@ -322,8 +322,7 @@ export const SERVICES: Service[] = [
       "Air conditioning",
       "Installation",
       "Maintenance",
-      "Repair",
-      "Emergency service"
+      "Repair"
     ]
   },
   {
@@ -341,7 +340,7 @@ export const SERVICES: Service[] = [
     "cta": "boiler",
     "short": "Hydronic boiler repair, service and replacement.",
     "photo": "Boiler or radiant heat job",
-    "lead": "We provide top-quality boiler services to keep your home's heating system running smoothly. Whether you need a routine maintenance check or repairs or replacement, we have the expertise to get the job done right. Our team of licensed professionals is available to handle all of your boiler service needs.",
+    "lead": "We maintain, repair and replace boilers, including the piping, pumps and controls that carry heat through your home.",
     "sections": [
       {
         "heading": "What is a hydronic boiler system?",

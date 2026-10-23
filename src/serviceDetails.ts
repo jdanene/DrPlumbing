@@ -20,6 +20,17 @@ export interface ServiceDetail {
 
 export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
   "plumbing": [
+    // Moved from the heating page's "Emergency service" line on October 21; the old city addresses redirect here.
+    {
+      item: "Emergency plumber",
+      cta: "emergency plumbing",
+      photo: "Emergency plumbing repair",
+      summary: "A burst pipe, an active leak or sewage backing up can't wait. Call us, tell us what you see, and we'll say what to do right now and the soonest we can come.",
+      sections: [
+        { heading: "Limit the damage safely", paras: ["If you can reach the main shutoff safely, turn the water off. If sewage is backing up, stop running water and flushing. Keep away from any water near outlets, appliances or the water heater's wiring. If you smell gas, get everyone outside and call the gas company or 911 from there."] },
+        { heading: "Tell us what you see", paras: ["Where the water is coming from, when it started, and whether you managed to shut it off. Send a photo if it is safe to take one. We confirm the next step and give you a flat-rate price before any work starts."] },
+      ],
+    },
     // Scope confirmed by the owner; existing fixture and shower URLs remain available.
     {
       item: "Complete bathroom remodeling",
@@ -519,12 +530,12 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
     },
     {
       "item": "Hydrojetting",
-      "summary": "Hydrojetting uses high-pressure water to clear buildup inside a drain or sewer line. If clogs keep returning or sewage backs up, we inspect the line and tell you whether it is the right fix.",
+      "summary": "Hydro jetting uses high-pressure water to clear buildup inside a drain or sewer line. If clogs keep returning or sewage backs up, we inspect the line and tell you whether it is the right fix.",
       "cta": "drains",
-      "photo": "Hydrojetting a main line",
+      "photo": "Hydro jetting a main line",
       "sections": [
         {
-          "heading": "How hydrojetting clears a pipe",
+          "heading": "How hydro jetting clears a pipe",
           "paras": [
             "A specialized nozzle sends water through the pipe at pressures up to 4,000 psi. The water breaks up stubborn clogs, loosens accumulated sludge and cleans the pipe walls. It can clear buildup that other methods leave behind."
           ]
@@ -548,7 +559,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail[]> = {
             ]
           ],
           "after": [
-            "We inspect the line before work begins, identify which sections need cleaning and explain whether hydrojetting is the right solution."
+            "We inspect the line before work begins, identify which sections need cleaning and explain whether hydro jetting is the right solution."
           ]
         }
       ]

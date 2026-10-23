@@ -7,8 +7,8 @@ import {
   servicesForGroup,
 } from "./content";
 import { Arrow } from "./SiteContent";
-import { serviceNavigationMenu } from "./serviceDetails";
-import { CITY_OPTION_PAGES, cityPageAt, serviceHrefFor } from "./cities";
+import { CITY_OPTION_PAGES, cityPageAt, optionLabel, cityServiceMenu, serviceHrefFor } from "./cities";
+import { BUSINESS, confirmed, formatHours } from "./businessFacts";
 
 // The old key includes automatically saved dark defaults, not just visitor choices.
 const THEME_STORAGE_KEY = "dr-plumbing-theme-v2";
@@ -28,7 +28,7 @@ const pageLinks = [
 function BrandLogo({ onDark = false }: { onDark?: boolean }) {
   return (
     <span className={`brand-lockup${onDark ? " on-dark" : ""}`}>
-      <img src="/brand/dr-logo.svg?v=20261004-3" alt="" width="180" height="46" />
+      <img src="/brand/dr-logo.svg?v=20261004-3" alt="" aria-hidden="true" width="180" height="46" />
     </span>
   );
 }
@@ -217,9 +217,9 @@ export default function SiteShell({
                           <span>{service.short}</span>
                         </a>
                         <ul>
-                          {serviceNavigationMenu(service).map((item) => (
+                          {cityServiceMenu(service, cityPage).map((item) => (
                             <li key={item}>
-                              <a href={serviceHrefFor(cityPage, service.id, item)}>{item}</a>
+                              <a href={serviceHrefFor(cityPage, service.id, item)}>{optionLabel(service.id, item)}</a>
                             </li>
                           ))}
                         </ul>
@@ -426,6 +426,7 @@ export default function SiteShell({
                     <a href="tel:2066718888">(206) 671-8888</a>
                   </li>
                   <li>Newcastle, WA</li>
+                  <li>{formatHours(confirmed(BUSINESS.hours))}. Emergency service {formatHours(confirmed(BUSINESS.emergencyHours))}.</li>
                   <li>
                     <a href="mailto:drplumbinggroup@gmail.com">
                       drplumbinggroup@gmail.com
@@ -433,7 +434,7 @@ export default function SiteShell({
                   </li>
                   <li>
                     <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
-                      WA plumbing contractor lic. {PLUMBING_LICENSE.number}
+                      Active WA plumbing contractor lic. {PLUMBING_LICENSE.number}
                     </a>
                   </li>
                 </ul>

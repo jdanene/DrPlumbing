@@ -27,24 +27,26 @@ describe("the business record", () => {
   });
 
   it("shows a pending fact's placeholder outside production and nothing in production", () => {
-    expect(confirmed(BUSINESS.hours)).toBeUndefined();
-    expect(displayText(BUSINESS.hours, formatHours)).toBe("[HOURS]");
+    const unconfirmed = pendingFact("[X]");
+    expect(confirmed(unconfirmed)).toBeUndefined();
+    expect(displayText(unconfirmed)).toBe("[X]");
     vi.stubEnv("PROD", true);
-    expect(displayText(BUSINESS.hours, formatHours)).toBeUndefined();
+    expect(displayText(unconfirmed)).toBeUndefined();
   });
 
   it("never emits a candidate value, even though it records one", () => {
-    expect(BUSINESS.hours.candidate).toEqual([{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }]);
+    const candidate = [{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }];
+    expect(pendingFact("[HOURS]", "", candidate).candidate).toEqual(candidate);
     expect(confirmed(pendingFact("[X]", "", 1))).toBeUndefined();
     for (const route of PUBLIC_ROUTES) {
       const head = headTags(route).map((tag) => `${JSON.stringify(tag.attributes)}${tag.text ?? ""}`).join("\n");
-      expect(head).not.toContain("openingHoursSpecification");
+      expect(head).toContain("openingHoursSpecification");
       expect(head).not.toMatch(PLACEHOLDER);
     }
   });
 
   it("lists exactly the facts still waiting on the owner", () => {
-    expect(pendingPlaceholders()).toEqual(["[HOURS]", "[SOCIAL PROFILES]", "[PRICE RANGE]", "[RESPONSE TIME]"]);
+    expect(pendingPlaceholders()).toEqual(["[SOCIAL PROFILES]", "[PRICE RANGE]", "[RESPONSE TIME]"]);
   });
 
   it("serves one city list that includes the home base and repeats nothing", () => {
@@ -61,6 +63,10 @@ describe("the business record", () => {
 });
 
 describe("hours as a customer reads them", () => {
+  it("reads the confirmed overnight emergency hours", () => {
+    expect(formatHours(confirmed(BUSINESS.emergencyHours))).toBe("8 PM to 8 AM daily");
+  });
+
   it("reads daily for seven days and names a run of days otherwise", () => {
     expect(formatHours([{ days: WEEKDAYS, opens: "08:00", closes: "20:00" }])).toBe("8 AM to 8 PM daily");
     expect(formatHours([
