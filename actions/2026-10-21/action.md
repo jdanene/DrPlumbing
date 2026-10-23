@@ -197,10 +197,10 @@ the description within minutes, services within a day.
     no leftovers of the removed blocks, placeholders, unfilled city tokens or old
     addresses remain in any built page.
 
-14. **A way to the emergency page from the home screen.** Jidè: "where do I
-    access the emergency page, not immediately clear from home screen". It was
-    reachable only through the header's Plumbing menu. The home hero now carries
-    one line under the tagline. Three drafts, the last one checked against the
+14. **A way to the emergency page from the home screen, tried and withdrawn.**
+    Jidè: "where do I access the emergency page, not immediately clear from
+    home screen". It was reachable only through the header's Plumbing menu. The
+    home hero carried one line under the tagline for an hour. Three drafts, the last one checked against the
     hci-design skill's UI-pattern and interaction references after Jidè showed
     the phone view and asked whether the skill had been used: the first draft
     mixed a dial command and a page link in one sentence with the same underline
@@ -212,9 +212,15 @@ the description within minutes, services within a day.
     "Emergency plumber: what to do first →", 15 px, product min-height,
     underline in the text color for contrast on the dark band; one line at
     375 px. The call stays where the product already puts it (header number,
-    sticky Call). The FAQ answer on emergencies names the page. Weighed and
-    rejected: a seventh tile in "How can we help?" (breaks the six-tile grid)
-    and a red Emergency link in the header (the phone is already there).
+    sticky Call). Then Jidè, seeing it live: "before the spacing was nice",
+    and the line came out again. Then: "but don't we need to show we can handle
+    emergency as well?" The answer that keeps the spacing: the tagline itself
+    says it, as a third phrase in the same line, linked to the page: "26+ years
+    in the trade. Emergencies day or night." No new element, no new style; one
+    more line of tagline on a phone. The page's other doors are Google (its real
+    one), the Plumbing menu, the FAQ answer, which names it, and each city hub. Weighed and rejected along the way: a seventh tile in
+    "How can we help?" (breaks the six-tile grid) and a red Emergency link in
+    the header (the phone is already there).
 
 15. **Our Work gets a heading per service, in Jidè's order.** Jidè: only
     Bathroom remodeling had a heading; "aren't H1 headings good for SEO/AEO?"
