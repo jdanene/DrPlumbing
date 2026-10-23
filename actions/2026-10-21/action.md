@@ -200,15 +200,21 @@ the description within minutes, services within a day.
 14. **A way to the emergency page from the home screen.** Jidè: "where do I
     access the emergency page, not immediately clear from home screen". It was
     reachable only through the header's Plumbing menu. The home hero now carries
-    one line under the tagline, checked with the hci-design skill after Jidè
-    asked whether it had been: "Plumbing emergency? Call (206) 671-8888, day or
-    night." with the phone as the one link in the sentence, then the site's
-    arrow text-link pattern naming what the page holds, "Burst pipe, leak or
-    backup: what to do first →" (the first draft's "What to do first." was a
-    vague trigger, two competing links in one sentence). The FAQ answer on
-    emergencies names the page. Weighed and rejected: a seventh tile in "How can
-    we help?" (breaks the six-tile grid) and a red Emergency link in the header
-    (the phone is already there).
+    one line under the tagline. Three drafts, the last one checked against the
+    hci-design skill's UI-pattern and interaction references after Jidè showed
+    the phone view and asked whether the skill had been used: the first draft
+    mixed a dial command and a page link in one sentence with the same underline
+    ("distinguish navigation links, commands"); the second kept the phone number
+    and a two-line link, four lines of underlines on a phone with the Call
+    button already in the sticky bar. Shipped form: a single text link in the
+    product's arrow pattern, named with the navigation's own term for the page
+    ("use the person's terms consistently across navigation, controls"):
+    "Emergency plumber: what to do first →", 15 px, product min-height,
+    underline in the text color for contrast on the dark band; one line at
+    375 px. The call stays where the product already puts it (header number,
+    sticky Call). The FAQ answer on emergencies names the page. Weighed and
+    rejected: a seventh tile in "How can we help?" (breaks the six-tile grid)
+    and a red Emergency link in the header (the phone is already there).
 
 15. **Our Work gets a heading per service, in Jidè's order.** Jidè: only
     Bathroom remodeling had a heading; "aren't H1 headings good for SEO/AEO?"

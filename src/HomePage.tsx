@@ -34,7 +34,7 @@ export default function HomePage() {
           <div className="opening-copy">
             <h1 id="home-title" tabIndex={-1}>Your local <br />plumbing &amp;<br /><span>heating team.</span></h1>
             <p>Family owned. Serving Greater Seattle.<br />26+ years in the trade.</p>
-            <p className="opening-emergency">Plumbing emergency? <a href="tel:2066718888">Call (206) 671-8888</a>, day or night.<br /><a className="text-link" href={routeHref("plumbing/emergency-plumber")}>Burst pipe, leak or backup: what to do first <Arrow /></a></p>
+            <p className="opening-emergency"><a className="text-link" href={routeHref("plumbing/emergency-plumber")}>Emergency plumber: what to do first <Arrow /></a></p>
             <a className="btn btn-primary opening-book" href={routeHref("book")}>Book a visit <Arrow /></a>
           </div>
           <span className="opening-caption">Copper connections · Hydronic heating work</span>
