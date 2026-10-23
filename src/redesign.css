@@ -101,6 +101,8 @@ a, button, summary { -webkit-tap-highlight-color: transparent; }
 .opening-copy h1 { font-size: clamp(52px, min(5.8vw, 8.8svh), 88px); line-height: 1.01; letter-spacing: -.04em; text-wrap: nowrap; }
 .opening-copy h1 span { color: #edb290; }
 .opening-copy p { margin-top: 28px; font-size: 18px; line-height: 1.6; color: #f0f3eb; }
+.opening-copy p a { color: inherit; white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(240, 243, 235, 0.55); }
+.opening-copy p a:hover { text-decoration-color: currentColor; }
 .opening-copy .btn { margin-top: 28px; background: #b64a27; }
 .opening-copy .btn:hover { background: #923718; }
 .opening-caption { position: absolute; left: 32px; bottom: 24px; max-width: 45%; font-size: 12px; background: #172017d9; padding: 8px 12px; border-radius: 2px; color: #fff; }
@@ -283,8 +285,6 @@ details[open] .disclosure-mark::after { transform: rotate(0deg); }
   .action-bar .btn { padding-inline: 12px; font-size: 15px; }
   .site-footer { padding-block: 48px 32px; }
 }
-.opening-emergency { margin-top: 4px; }
-.opening-emergency .text-link { color: inherit; font-size: 15px; gap: 10px; text-decoration-color: currentColor; }
 .city-service-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px 32px; }
 .city-service-groups h3 { font-size: 17px; margin: 0 0 8px; }
 .city-service-groups h3 a { text-decoration: none; color: inherit; }
