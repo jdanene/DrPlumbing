@@ -1,0 +1,176 @@
+<title>Utility Program Actions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: an answer, then ordered action cards with a checkbox each, then what Mehran must supply, then sources. MapPack's palette and type. */
+:root{
+  --bg:#ece5d8; --ov:#f3eee4; --ink:#2a2622; --body:#4a433b; --muted:#6e655a; --hair:#d9cfbe; --bs:#cfc3ae;
+  --acc:#5a4331; --onacc:#f3eee4; --now:#1f6f6a; --now-bg:#d6e6e2; --wait:#8a5a12; --wait-bg:#efe2bf; --later:#6e655a; --later-bg:#e6ded0;
+  --font:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1f2326; --ov:#262a2e; --ink:#e6e8e9; --body:#c3c7ca; --muted:#91989d; --hair:#353a3f; --bs:#4a5056;
+  --acc:#c4a586; --onacc:#1f2326; --now:#8fd0c9; --now-bg:#1b3634; --wait:#e6c27a; --wait-bg:#3a2c12; --later:#91989d; --later-bg:#2a2f33; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#1f2326; --ov:#262a2e; --ink:#e6e8e9; --body:#c3c7ca; --muted:#91989d; --hair:#353a3f; --bs:#4a5056;
+  --acc:#c4a586; --onacc:#1f2326; --now:#8fd0c9; --now-bg:#1b3634; --wait:#e6c27a; --wait-bg:#3a2c12; --later:#91989d; --later-bg:#2a2f33; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:15px/1.5 var(--font);padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;display:grid;gap:26px}
+header{padding-block:28px 0;display:grid;gap:10px}
+.wordmark{font-weight:700;letter-spacing:.02em;color:var(--ink);font-size:13px}
+.wordmark b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-right:7px;vertical-align:1px}
+h1{margin:0;color:var(--ink);font-size:27px;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+h2{margin:0;color:var(--ink);font-size:19px;font-weight:600}
+h3{margin:0;color:var(--ink);font-size:16px;font-weight:600}
+p{margin:0;max-width:66ch}
+.lede{font-size:16px}
+.stamp{color:var(--muted);font-size:13px}
+.chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;line-height:1.6}
+.chip.now{background:var(--now-bg);color:var(--now)}
+.chip.wait{background:var(--wait-bg);color:var(--wait)}
+.chip.later{background:var(--later-bg);color:var(--later)}
+.cards{display:grid;gap:14px}
+.card{background:var(--ov);border:1px solid var(--hair);border-radius:12px;padding:16px 18px;display:grid;gap:10px;min-width:0}
+.card-h{display:flex;gap:12px;align-items:flex-start}
+.card-h label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;flex:1;min-width:0}
+.card-h input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--acc);flex:none}
+.card-h .t{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:baseline}
+.card.done h3{text-decoration:line-through;color:var(--muted)}
+dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;font-size:14px}
+dt{color:var(--muted);font-weight:600}
+dd{margin:0;min-width:0}
+ul{margin:0;padding-left:18px;display:grid;gap:5px}
+.who{font-size:13px;color:var(--wait)}
+.src a{color:var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.two{grid-template-columns:1fr}dl{grid-template-columns:1fr}h1{font-size:23px}}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--hair);padding-top:14px}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="wordmark"><b></b>dr plumbing · utility programs</div>
+  <h1>Join PSE's Trade Ally network first. It is free, takes three weeks, and is the only one with a referral path.</h1>
+  <p class="lede">Utility programs do two things for a plumber: they let his customers get rebates through him, and they put him on a list that customers, Google and AI assistants read. None of them hands out jobs. Below are the actions worth taking now, in order, with what each one needs and who does it. Tick a box as it gets done; the ticks stay on this device.</p>
+  <p class="stamp">Researched October 25, 2026 from the utilities' own pages where they could be read; the rest is marked as needing a check on the day of applying.</p>
+</header>
+
+<section class="cards">
+  <article class="card" id="a1">
+    <div class="card-h"><label><input type="checkbox" data-done="a1"><div class="t"><h3>1 · Apply to PSE's Trade Ally network, Water Heating and Space Heating &amp; Cooling</h3><span class="chip now">Do now</span></div></label></div>
+    <dl>
+      <dt>What it gives</dt><dd>Instant rebates he can offer customers on qualifying heat pump water heaters and heating; a free listing; and, after meeting performance requirements, "Recommended Energy Professional" status with PSE-generated customer referrals and PSE co-branding. That referral tier is the one lead source on this page.</dd>
+      <dt>Requirements, from PSE's page</dt><dd>Active Washington business and contractor licenses plus the plumbing specialty license; workers' compensation with at least $1,000,000 coverage for employees on PSE projects; general liability of $1,000,000 per occurrence and $2,000,000 aggregate, umbrella allowed; auto liability of $1,000,000 per occurrence; industry memberships or certifications per trade. More applies to give instant rebates and to become a Recommended Energy Professional.</dd>
+      <dt>How</dt><dd>Enrollment application on PSE's Trade Ally Portal: company information, copies of licenses and insurance, products and territory, vendor account and ACH forms, a W-9. Review takes two to three weeks, then assigned training, then a Participation Agreement to sign. Questions: a monthly open call on the third Friday, or tradeallysupport@pse.com.</dd>
+      <dt>Cost</dt><dd>Free.</dd>
+    </dl>
+    <p class="who">Mehran applies; the portal wants his documents. I can fill the company profile, territory and product sections and draft the email.</p>
+  </article>
+
+  <article class="card" id="a2">
+    <div class="card-h"><label><input type="checkbox" data-done="a2"><div class="t"><h3>2 · Confirm the three facts that gate everything</h3><span class="chip wait">Mehran</span></div></label></div>
+    <ul>
+      <li><b>Insurance limits.</b> Does the business carry general liability at one million per occurrence and two million aggregate, and auto liability at one million? If not, the quote for raising it is the real cost of this whole page.</li>
+      <li><b>How long the company has been licensed under its current name.</b> It was MB Plumbing before the rename. Snohomish PUD and Tacoma Power are reported to require two and three years under the same name; PSE does not say so.</li>
+      <li><b>Memberships and certifications.</b> PSE asks for "industry memberships and/or certifications per trade". A manufacturer installer certification for heat pump water heaters, such as Rheem's or A. O. Smith's, is the usual answer for a plumber.</li>
+    </ul>
+    <p class="who">Mehran answers; I record the answers in the business record so the site and profile stay true.</p>
+  </article>
+
+  <article class="card" id="a3">
+    <div class="card-h"><label><input type="checkbox" data-done="a3"><div class="t"><h3>3 · Email Seattle City Light's Trade Ally Manager</h3><span class="chip now">Do now</span></div></label></div>
+    <dl>
+      <dt>What it gives</dt><dd>City Light runs heat pump water heater discounts at the point of sale through distributors, with a contractor payment on each qualifying unit: a $100 spiff is listed, and a time-limited small-business offer lists a $200 stacked spiff with a $1,750 rebate for businesses under 50 employees, until funds run out. Seattle is on the service-area list, so this is real territory.</dd>
+      <dt>Requirements</dt><dd>Not published as a checklist. The process on their page: apply, City Light estimates savings and sends a participation agreement, the contractor installs and submits product documentation and costs, City Light verifies, pays within 45 days.</dd>
+      <dt>How</dt><dd>One email to SCL_Trade_Ally@seattle.gov asking for the current trade ally enrollment and the heat pump water heater spiff terms for 2026.</dd>
+    </dl>
+    <p class="who">I draft and send once Mehran says the insurance answer; the email names the company and his number.</p>
+  </article>
+
+  <article class="card" id="a4">
+    <div class="card-h"><label><input type="checkbox" data-done="a4"><div class="t"><h3>4 · Put the rebates on the website and the profile</h3><span class="chip now">Do now, no application needed</span></div></label></div>
+    <dl>
+      <dt>What it gives</dt><dd>Pages that answer the question people actually type: "heat pump water heater rebate Bellevue", "PSE water heater rebate". The AEO research says assistants cite the page whose title matches the prompt, and a rebate page is the kind of concrete, dated fact they quote. PSE lists point-of-sale instant discounts of up to $500 on heat pump water heaters and up to $600 on heat pumps through regional distributors, which a plumber can pass on today without membership.</dd>
+      <dt>How</dt><dd>One page per utility under Water heaters, dated "as of October 2026", naming the rebate, who qualifies and how he applies it on the invoice; a line on the eight city water heater pages; a Google profile post. Once he is a Trade Ally, the page links to PSE's directory entry, and the directory links back, which is a citation from a utility.</dd>
+    </dl>
+    <p class="who">Me, as a Dr Plumbing pull request. The dollar amounts are checked on the utility's page the day the pull request opens.</p>
+  </article>
+
+  <article class="card" id="a5">
+    <div class="card-h"><label><input type="checkbox" data-done="a5"><div class="t"><h3>5 · Energy Smart Eastside: ask to join its installer network</h3><span class="chip wait">After the insurance answer</span></div></label></div>
+    <dl>
+      <dt>Why it matters</dt><dd>It is the electrification program of Bellevue, Issaquah, Kirkland, Mercer Island, Redmond and Sammamish, five of them our target cities. Its rebates are tied to installers from its network, and the network is a public list. Being on it is a listing in exactly the cities we fight for.</dd>
+      <dt>What is known</dt><dd>Heat pump rebates with a $1,500 income-qualified fuel-switch rebate; its heat pump water heater terms and the installer requirements are not published, and the site refused to open from here.</dd>
+      <dt>How</dt><dd>One email through the program's contact page asking how a licensed plumber joins the network for heat pump water heaters.</dd>
+    </dl>
+    <p class="who">I write it; Mehran sends it, or I send it from the business address.</p>
+  </article>
+
+  <article class="card" id="a6">
+    <div class="card-h"><label><input type="checkbox" data-done="a6"><div class="t"><h3>6 · Snohomish PUD and Tacoma Power</h3><span class="chip later">After the license-age answer</span></div></label></div>
+    <p>Both run registered-contractor networks with training and a contractor directory, and the PUD's program covers hybrid heat pump water heaters. Both are reported to want years under the same business name, two and three, which the rename may not satisfy yet. Snohomish is in his service area; Tacoma is not, so Tacoma waits regardless. The PUD's contractor pages moved, so the current link comes from its rebates page on the day of applying.</p>
+  </article>
+
+  <article class="card" id="a7">
+    <div class="card-h"><label><input type="checkbox" data-done="a7"><div class="t"><h3>7 · King County Energize roster, next round</h3><span class="chip later">Watch, 2027</span></div></label></div>
+    <p>King County's residential contractor roster for heat pumps and heat pump water heaters covers King, Pierce, Snohomish and Kitsap. The 2026 application closed on January 26, 2026. Put the next round on the calendar; the application is the same documents as PSE's.</p>
+  </article>
+
+  <article class="card" id="a8">
+    <div class="card-h"><label><input type="checkbox" data-done="a8"><div class="t"><h3>8 · Public procurement rosters</h3><span class="chip later">Not now</span></div></label></div>
+    <p>MRSC's small works roster, the state's WEBS system and Seattle's procurement portal post paid public repair work, with prevailing wage, bonding and bid paperwork. That is a different business from residential service calls and heavy for a one-man shop. Revisit when there is a crew.</p>
+  </article>
+</section>
+
+<section class="two">
+  <div class="card">
+    <h2>Documents to gather once</h2>
+    <ul>
+      <li>Washington business license and contractor registration, DRPLUPH740ND</li>
+      <li>Plumbing specialty license</li>
+      <li>Certificate of general liability insurance</li>
+      <li>Auto liability certificate</li>
+      <li>Workers' compensation account, or the sole-proprietor exemption</li>
+      <li>W-9 and ACH form for rebate reimbursements</li>
+      <li>Any manufacturer installer certification</li>
+      <li>A one-paragraph company profile with service area and specialties</li>
+    </ul>
+    <p>The same packet serves PSE, City Light, Energy Smart Eastside and the PUD.</p>
+  </div>
+  <div class="card">
+    <h2>What this feeds in MapPack</h2>
+    <ul>
+      <li><b>A lead source.</b> "Utility referral" gets its own row in the owner app's per-source table from day one.</li>
+      <li><b>A citation.</b> Each directory listing is a link from a utility to the site, and a place assistants shortlist from.</li>
+      <li><b>Pages.</b> The rebate pages are question pages, the unit of the AEO playbook.</li>
+      <li><b>An action record.</b> Each application is logged in the Dr Plumbing actions folder with the date, the values entered and the evidence, same day.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="card src">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.pse.com/rebates/trade-allies" target="_blank" rel="noreferrer">PSE Trade Ally Information</a>: requirements, process, categories, Recommended Energy Professional, read October 25, 2026.</li>
+    <li><a href="https://www.seattle.gov/city-light/about-us/working-with-us/trade-ally-hub/faqs-for-trade-allies" target="_blank" rel="noreferrer">Seattle City Light, Trade Ally FAQ</a> and <a href="https://www.seattle.gov/city-light/about-us/working-with-us/trade-ally-hub/incentives-for-trade-allies" target="_blank" rel="noreferrer">incentives for trade allies</a>; the small-business stacked offer is on a <a href="https://energy-solution.com/wp-content/uploads/2026/08/Small-Business-Stacked-Rebates-Flyer-v260804.pdf" target="_blank" rel="noreferrer">distributor flyer</a>, so confirm it is still open.</li>
+    <li><a href="https://www.redmond.gov/ESE" target="_blank" rel="noreferrer">Energy Smart Eastside, via Redmond</a> and <a href="https://kirklandwa.gov/Whats-Happening/News/Eastside-Cities-Launch-%E2%80%98Make-the-Switch%E2%80%99-Campaign-to-Electrify-Homes" target="_blank" rel="noreferrer">the Make the Switch campaign</a>.</li>
+    <li><a href="https://www.snopud.com/wp-content/uploads/2024/04/PUD_Heating_Rider_05012024.pdf" target="_blank" rel="noreferrer">Snohomish PUD heating rider</a>: orientation and training required; the two-year rule comes from the ChatGPT conversation and was not found on the PUD's pages.</li>
+    <li><a href="https://kingcounty.gov/en/dept/dnrp/buildings-property/green-sustainable-building/building-decarbonization/energize/contractor-roster-application" target="_blank" rel="noreferrer">King County Energize contractor roster</a>: 2026 round closed January 26, 2026.</li>
+    <li><a href="https://www.commerce.wa.gov/energy-incentives/hear/" target="_blank" rel="noreferrer">Washington Commerce, HEAR</a>: state rebates run through local administrators; amounts and eligibility vary.</li>
+  </ul>
+</section>
+
+<footer>Dollar amounts on this page are the utilities' published figures on October 25, 2026, and they change by year and by fund. Check the utility's own page the day an application or a web page goes out.</footer>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('input[data-done]').forEach(function(box){
+    var key='dp-utility-'+box.getAttribute('data-done'), card=box.closest('.card');
+    try{ if(localStorage.getItem(key)==='1'){ box.checked=true; card.classList.add('done'); } }catch(e){}
+    box.addEventListener('change',function(){ card.classList.toggle('done',box.checked); try{ localStorage.setItem(key, box.checked?'1':'0'); }catch(e){} });
+  });
+})();
+</script>
