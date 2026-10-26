@@ -190,3 +190,8 @@ Jidè: "simplify the insta and meta description, we don't need to say owners do 
 - **Instagram bio.** Was "Water heaters · Boilers · Radiant · Trenchless / Owners do the work · 26+ yrs · Flat-rate · 24/7 / WA lic. DRPLUPH740ND / Call/text (206) 671-8888". Now, 142 of 150 characters: "Water heaters · Boilers · Radiant heat · Drains · Sewer & water lines · Repiping / 26+ yrs · Flat-rate · 24/7 emergency / Call/text (206) 671-8888". The license came off, matching Jidè's call on the post ("not needed").
 - **Facebook bio.** Was "Licensed plumber serving the Greater Seattle area. Water heaters, boilers, drains, trenchless. 26+ years. Flat-rate prices. WA contractor license DRPLUPH740ND." Now "Plumbing and heating across the Greater Seattle area. Water heaters, boilers, radiant heat, drains, sewer and water lines, repiping. 26+ years. Flat-rate prices. 24/7 emergency."
 - Both read back after a reload.
+
+### 15. Website deployed with the social links and versioned icons (about 8:00 PM)
+
+- **PR #33**, merged at Jidè's "merge the fix": the five icon links in `index.html` carry `?v=20261025`, so browsers that cached the old monogram fetch the new DR. Live: the homepage serves `favicon.ico?v=20261025`.
+- **PR #35**, merged at Jidè's "deploy the website again" (merge commit 87892e7): the footer's Contact column shows the Facebook and Instagram marks, icon-only at Jidè's direction ("do we need the actual words"), and the business schema carries `sameAs` with both URLs. The business record's pending `[SOCIAL PROFILES]` fact is now confirmed. Live: the homepage's schema reads `"sameAs":["https://www.facebook.com/profile.php?id=61595138886629","https://www.instagram.com/dr.plumbinggroup/"]`.
