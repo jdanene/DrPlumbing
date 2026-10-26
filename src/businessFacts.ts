@@ -230,7 +230,14 @@ export const BUSINESS = {
     "Jide confirmed emergency service hours: 8 PM to 8 AM daily, America/Los_Angeles",
     "2026-10-21",
   ),
-  socialProfiles: pendingFact<readonly SocialProfile[]>("[SOCIAL PROFILES]", "No profiles exist yet under the current name, checked 2026-10-10"),
+  socialProfiles: confirmedFact<readonly SocialProfile[]>(
+    [
+      { label: "Facebook", url: "https://www.facebook.com/profile.php?id=61595138886629" },
+      { label: "Instagram", url: "https://www.instagram.com/dr.plumbinggroup/" },
+    ],
+    "Jide, 2026-10-25: the Facebook page and Instagram account set up and branded that day, now linked from the Google profile",
+    "2026-10-25",
+  ),
   priceRange: pendingFact<string>("[PRICE RANGE]", "schema.org wants a short marker such as $$; the owner has not set one"),
   responseTime: pendingFact<string>("[RESPONSE TIME]", "A time the owner will stand behind; none confirmed"),
 };
@@ -239,7 +246,7 @@ export const BUSINESS = {
  * Description: Lists the facts still waiting on the owner, for tests and for the review checklist.
  * Inputs: None.
  * Output: The placeholders of every pending entry in BUSINESS, in declaration order.
- * Examples: pendingPlaceholders() is ["[SOCIAL PROFILES]", "[PRICE RANGE]", "[RESPONSE TIME]"] today.
+ * Examples: pendingPlaceholders() is ["[PRICE RANGE]", "[RESPONSE TIME]"] today.
  */
 export function pendingPlaceholders(): string[] {
   const facts: Fact<unknown>[] = Object.values(BUSINESS);
