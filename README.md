@@ -264,8 +264,10 @@ Keep the transparent website lockup for the page header and footer. Shared links
 and small icons use opaque light backgrounds so the black lettering stays visible
 in light and dark apps. All variants use the approved DR mark: the orange italic
 DR from the October 2026 van wrap, drawn from the wrap's own vector paths in
-`public/brand/dr-mark.svg` (a gradient from #FF7700 to #D6501B and back). The
-wordmark beside it is unchanged.
+`public/brand/dr-mark.svg`. Its gradient is softened from the wrap's #FF7700 and
+#D6501B to #D8692F and #B4532B, so the DR sits with the site's copper accent; the
+van wrap itself keeps the original orange. The DR stands as tall as the two-line
+wordmark, and the logo's canvas is cropped to the lettering.
 
 | Surface | SVG source | Production export |
 | --- | --- | --- |

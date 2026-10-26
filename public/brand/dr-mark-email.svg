@@ -2,6 +2,6 @@
   <title id="title">DR Plumbing, Heating and Cooling email mark</title>
   <desc id="description">The orange DR monogram on a bordered light tile, with protected clear space.</desc>
   <rect x="2" y="2" width="356" height="356" rx="44" fill="#F7F5F1" stroke="#D8D4CE" stroke-width="4"/>
-  <defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="72.927" y1="174.795" x2="315.609" y2="-67.888"><stop offset="0" stop-color="#FF7700"/><stop offset=".1257" stop-color="#FF7700"/><stop offset=".4916" stop-color="#D6501B"/><stop offset="1" stop-color="#FF7700"/></linearGradient></defs>
+  <defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="72.927" y1="174.795" x2="315.609" y2="-67.888"><stop offset="0" stop-color="#D8692F"/><stop offset=".1257" stop-color="#D8692F"/><stop offset=".4916" stop-color="#B4532B"/><stop offset="1" stop-color="#D8692F"/></linearGradient></defs>
   <path transform="translate(38.000 111.009) scale(0.90895)" fill="url(#g)" d="M165.036 0.000L185.061 26.187L164.266 83.642L211.517 34.774L269.280 34.774L259.229 62.847L247.723 70.756L209.101 70.756L218.205 45.472L122.242 151.803L179.669 151.803L197.384 101.356L220.335 101.356L245.443 151.803L288.881 151.803L262.849 101.510L292.886 81.794L312.449 28.189L289.805 0.000ZM54.740 0.017L42.572 34.198L128.974 34.198L103.569 104.425L93.193 116.900L53.215 116.900L80.642 40.034L29.335 70.399L0.000 151.804L105.210 151.804L144.386 104.655L171.662 28.170L149.727 0.017ZM45.764 70.948L28.801 134.715L59.039 138.987L21.056 138.987Z"/>
 </svg>
