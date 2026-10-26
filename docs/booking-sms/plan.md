@@ -1,5 +1,50 @@
 # Plan: text the owner when a visit is booked
 
+**Superseded on October 25, 2026 (evening).** Jidè: "this should be easily
+installable, not just for Dr Plumbing, because we will offer it to other
+websites." The sending now lives in MapPack, not in this site. The current
+plan is
+[`docs/owner-app/plan.md`](https://github.com/jdanene/mappack/blob/project/owner-app-slice-1/docs/owner-app/plan.md)
+in the MapPack repository, branch `project/owner-app-slice-1`. This
+repository keeps one ticket, **D1**, copied below from that plan: the booking
+form's Function posts each booking to MapPack's `POST /api/leads` beside the
+email it already sends. Everything under "The original plan" is kept for its
+findings and edge cases; its tickets S1 and S2 are withdrawn.
+
+## D1 · Dr Plumbing's booking form posts the lead to MapPack
+
+**Size M, 3 files.** `functions/api/contact.ts`, `functions/api/contact.test.ts`,
+`README.md`. The Function awaits two calls together: the existing email and
+`POST ${MAPPACK_LEADS_URL}` with `Authorization: Bearer ${MAPPACK_LEAD_KEY}`,
+`Idempotency-Key` from a hash of the request's fields and minute, an 8-second
+timeout, the booking's fields mapped to the MapPack contract (`source` = the
+request's host, `page_url` = the referer). Outcome words
+`sent`/`skipped`/`failed` for each channel; success when either delivered;
+the response names both. Previews and local runs, which lack the two
+secrets, skip the lead post and say so. Tests: both delivered; email fails
+and lead delivered, 200; both fail, 502; secrets missing, email only. Waits
+on MapPack ticket M2's contract, not its deploy; live after MapPack's S1.
+
+Secrets, production only, set by Jidè: `MAPPACK_LEADS_URL` and
+`MAPPACK_LEAD_KEY` (`npx wrangler pages secret put <KEY> --project-name
+drplumbing`). The five AWS secrets in the original plan are no longer needed.
+
+**Edge cases** carry over from S2 below: honeypot and stale-form cases skip
+both calls; a MapPack 401 means a revoked key and is logged as such; a 429 is
+`failed` and the email still goes; a visitor's second submit makes a second
+lead unless the same minute's `Idempotency-Key` catches it. The edge cases
+above are the ones found before the build. Find the rest: for every call,
+every write and every state, ask what happens when it is missing, fails,
+repeats or races, and record each case you handle in the PR body.
+
+Skills: agent-skills `incremental-implementation`, `test-driven-development`,
+`api-and-interface-design`, `security-and-hardening`; the repo's
+engineering-ethos; `mappack/.agents/skills/explain-clearly`.
+
+---
+
+# The original plan (October 25, 2026, morning), kept for reference
+
 Scoped October 25, 2026, from Jidè's words: "Ability to send a text to [the
 owner's mobile] when someone clicks Book a visit, with all the information. Use
 the SMS we just got approved." Linear project: https://linear.app/jdanene39/project/drplumbing-text-the-owner-when-a-visit-is-booked-b184045c5553. Branch
