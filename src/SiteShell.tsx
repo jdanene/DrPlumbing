@@ -28,7 +28,7 @@ const pageLinks = [
 function BrandLogo({ onDark = false }: { onDark?: boolean }) {
   return (
     <span className={`brand-lockup${onDark ? " on-dark" : ""}`}>
-      <img src="/brand/dr-logo.svg?v=20261004-3" alt="" aria-hidden="true" width="180" height="46" />
+      <img src="/brand/dr-logo.svg?v=20261025-1" alt="" aria-hidden="true" width="180" height="46" />
     </span>
   );
 }

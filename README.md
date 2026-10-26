@@ -262,11 +262,14 @@ unless `src/seo.ts` has a specific override.
 
 Keep the transparent website lockup for the page header and footer. Shared links
 and small icons use opaque light backgrounds so the black lettering stays visible
-in light and dark apps. All variants use the approved DR mark.
+in light and dark apps. All variants use the approved DR mark: the orange italic
+DR from the October 2026 van wrap, drawn from the wrap's own vector paths in
+`public/brand/dr-mark.svg` (a gradient from #FF7700 to #D6501B and back). The
+wordmark beside it is unchanged.
 
 | Surface | SVG source | Production export |
 | --- | --- | --- |
-| Link previews, including messages | `public/brand/dr-social-card-v2.svg` | `public/brand/dr-social-card-v2.png` (1200 × 630; full website logo) |
+| Link previews, including messages | `public/brand/dr-social-card-v3.svg` | `public/brand/dr-social-card-v3.png` (1200 × 630; full website logo) |
 | Business logo in structured data | `public/brand/dr-brand-mark.svg` | `public/brand/dr-brand-mark.png` (512 × 512) |
 | Browser and search icons | `public/brand/dr-brand-mark.svg` | `public/brand/dr-favicon-48.png` (48 × 48), `public/brand/dr-favicon-96.png` (96 × 96), `public/favicon.ico` (16, 32, 48) |
 | iPhone home-screen icon | `public/brand/dr-brand-mark.svg` | `public/apple-touch-icon.png` (180 × 180) |
