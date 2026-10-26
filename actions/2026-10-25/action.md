@@ -62,3 +62,20 @@ Next stays disabled until at least two insurance records exist, each with its ce
 The license number goes in step 6, after Insurances, so whether PSE enforces "12 months under the same business name" shows only once the insurance step is done.
 
 Still ahead after Insurances: Licenses (DRPLUPH740ND and the L&I certificate), Tax Documents (the W-9), Other Documents (the vendor and ACH forms), Applicant Info, Final Agreement. Nothing was submitted.
+
+### 7. Facebook page "Dr Plumbing & Heating" brought in line with the business record (5:05 to 5:25 PM)
+
+Done in Jidè's Chrome while acting as the Page, with Jidè's approval of each change ("i approve of the changes including removing liminal earth"). Previous values are kept for rollback.
+
+- **Bio.** Was: "Family-owned plumbing and heating service in Newcastle, serving Greater Seattle and the Eastside. Free estimates and emergency callouts." Now: "Licensed plumber in Newcastle serving Greater Seattle. Water heaters, boilers, drains, trenchless. 26+ years. Flat-rate prices. WA contractor license DRPLUPH740ND." Why: "Free estimates" is not in the business record, and the site and Google profile say a flat-rate price is approved before work starts. Facebook pages have no license field, so the license sits in the bio.
+- **Categories.** Was: Plumbing Service · Heating, Ventilating & Air Conditioning Service. Now: Plumbing Service · Water Heater Installation & Repair Service · Sewer Service. Why, from the October 19 phrase standings: heating and cooling (heat pumps, AC) shows 0 top-3 spots anywhere; water heaters are the largest winnable target and the PSE program just applied to, and Google has no such category, so Facebook is where it can be claimed; trenchless and sewer is where we sit at #4 to #6 in Newcastle and Renton, and "trenchless sewer repair" in Renton has 43 of 90 top-3 slots held by listings under 20 reviews. Facebook has no boiler or radiant category ("boiler" returns only HVAC). Plumbing Service stays first to match the Google profile's primary, Plumber.
+- **Website.** Added "Dr Plumbing & Heating website", https://drplumbingheating.com (was none).
+- **Phone.** Added +1 206-671-8888 (was Messenger only). **Email.** Added drplumbinggroup@gmail.com.
+- **Address.** Added 6819 Lake Washington Blvd SE, Newcastle, WA 98056, at Jidè's direction, from the BBB profile (which also lists the license and phone). Facebook requires an address before hours. The Google profile keeps its address hidden as a service-area business.
+- **Hours.** Always open, matching the Google profile's Open 24 hours.
+- **Service area.** Newcastle, Bellevue, Renton, Mercer Island, Issaquah, Redmond, Federal Way, Kirkland (was none).
+- **Post removed.** The October 18 post addressed to @liminal.earth about a "strange encounters" map was moved to trash; Facebook deletes trash after 30 days, so it is recoverable until then.
+- **Cover photo.** The official wrap on the van, [fb-cover-van-1640x856.jpg](evidence/fb-cover-van-1640x856.jpg), cropped from the new presentable van image. Was none.
+- **Profile photo.** Waiting on the softened DR mark from the website change (draft PR #32); still the default "D".
+
+Found on BBB while looking up the address: the business started September 18, 2020 and the BBB file opened May 20, 2021, so PSE's "12 months under the same business name" rule should be met.
