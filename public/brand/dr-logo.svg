@@ -1,13 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1956" height="500" viewBox="0 0 1956 500" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="1956" height="347" viewBox="-224.675 60 2069.675 367" role="img" aria-labelledby="title description">
   <title id="title">DR Plumbing, Heating and Cooling</title>
-  <desc id="description">Black and copper DR monogram beside Plumbing, Heating and Cooling, with protected clear space.</desc>
-
-  <g transform="translate(90 88) scale(1.12)">
-    <path fill="#111111" fill-rule="evenodd" d="M34 32h102c70 0 112 41 112 108s-42 108-112 108H34V32Zm52 46v124h48c40 0 62-22 62-62s-22-62-62-62H86Z"/>
-    <path fill="#B4552A" fill-rule="evenodd" d="M126 32h71c53 0 82 27 82 70 0 31-16 54-46 65l57 81h-62l-49-73h-3v73h-50V32Zm50 45v58h19c22 0 33-10 33-29 0-20-11-29-33-29h-19Z"/>
-  </g>
-
+  <desc id="description">The orange DR monogram beside Plumbing, Heating and Cooling, cropped to the lettering.</desc>
+  <defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="72.927" y1="174.795" x2="315.609" y2="-67.888"><stop offset="0" stop-color="#D8692F"/><stop offset=".1257" stop-color="#D8692F"/><stop offset=".4916" stop-color="#B4532B"/><stop offset="1" stop-color="#D8692F"/></linearGradient></defs>
+  <path transform="translate(-218.675 66) scale(2.33854)" fill="url(#g)" d="M165.036 0.000L185.061 26.187L164.266 83.642L211.517 34.774L269.280 34.774L259.229 62.847L247.723 70.756L209.101 70.756L218.205 45.472L122.242 151.803L179.669 151.803L197.384 101.356L220.335 101.356L245.443 151.803L288.881 151.803L262.849 101.510L292.886 81.794L312.449 28.189L289.805 0.000ZM54.740 0.017L42.572 34.198L128.974 34.198L103.569 104.425L93.193 116.900L53.215 116.900L80.642 40.034L29.335 70.399L0.000 151.804L105.210 151.804L144.386 104.655L171.662 28.170L149.727 0.017ZM45.764 70.948L28.801 134.715L59.039 138.987L21.056 138.987Z"/>
   <text x="560" y="205" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="190" font-weight="900" lengthAdjust="spacingAndGlyphs" textLength="1280">PLUMBING</text>
-  <rect x="560" y="238" width="1280" height="18" fill="#B4552A"/>
+  <rect x="560" y="238" width="1280" height="18" fill="#B4532B"/>
   <text x="560" y="420" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="120" font-weight="700" lengthAdjust="spacingAndGlyphs" textLength="1280">HEATING &amp; COOLING</text>
 </svg>

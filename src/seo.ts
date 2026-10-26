@@ -124,7 +124,7 @@ function businessGraph(): Record<string, unknown>[] {
 export function headTags(route: string, indexable = true): HeadTag[] {
   const page = HOME_ANCHORS.includes(route) ? "home" : route;
   const canonical = `${SITE_ORIGIN}${routeHref(page)}`;
-  const socialImage = `${SITE_ORIGIN}/brand/dr-social-card-v2.png`;
+  const socialImage = `${SITE_ORIGIN}/brand/dr-social-card-v3.png`;
   const businessId = BUSINESS_ID;
   const [serviceId, detailKey] = page.split("/");
   const service = SERVICES.find((item) => item.id === serviceId);
