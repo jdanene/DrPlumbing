@@ -76,9 +76,35 @@ describe-phone-numbers`, `describe-sender-ids`, `describe-pools`,
 Two consequences for the build. First, in the sandbox a text to the owner
 fails until his mobile is a verified destination or the account leaves the
 sandbox ([AWS sandbox doc](https://docs.aws.amazon.com/sms-voice/latest/userguide/sandbox.html)).
-Second, the registration is MapPack's, so the texts will arrive from a number
-registered for MapPack notifications; Jidè decides whether that is what he
-means (open question 1).
+Second, the registration is MapPack's, so the texts arrive from a number
+registered for MapPack notifications. Jidè confirmed this is the number to use
+(see "Questions settled").
+
+### Shared to the MapPack account (October 25, 2026, evening)
+
+At Jidè's direction ("make the SMS number available for MapPack, not just
+Zen"), the number now serves both accounts in the organization. Dr Plumbing
+sends from the **MapPack account**, not the Zen account.
+
+- **How.** An AWS Resource Access Manager share, `mappack-sms-toll-free`, in
+  the Zen account (which owns the number and manages the organization) names
+  the number and the MapPack account. Sharing with AWS Organizations was
+  turned on first, as AWS requires for this resource
+  ([shared resources](https://docs.aws.amazon.com/sms-voice/latest/userguide/shared-resources.html)).
+  Zen's own share for SNS is unchanged.
+- **Checked.** `describe-phone-numbers --owner SHARED --profile mappack`
+  lists `+1 855-771-3501` as `ACTIVE`. A `--dry-run` send from the MapPack
+  account passed the permission check and stopped at
+  `DESTINATION_PHONE_NUMBER_NOT_VERIFIED`, the sandbox rule below.
+- **What sharing changes.** The number's ARN still carries the owner's (Zen's)
+  account id. The sender passes that full ARN as `OriginationIdentity`; AWS
+  allows a shared number only through the SMS API's `SendTextMessage`, never
+  through SNS or the console. The MapPack account pays for each text and its
+  own limits apply: it is in the sandbox too, with a `$1.00` monthly cap and
+  no verified destinations. The Zen account keeps paying the `$2.00` lease.
+- **What stays with the owner.** The `Default` opt-out list is the Zen
+  account's and is not shared, so clearing an opted-out number runs with
+  `--profile zen`.
 
 ### What exists in the repo (audit 1)
 
@@ -326,11 +352,14 @@ account enters a public file. `wrangler.jsonc` does not change.
 | `AWS_SMS_ACCESS_KEY_ID` | the IAM user's key id |
 | `AWS_SMS_SECRET_ACCESS_KEY` | its secret |
 | `AWS_SMS_REGION` | `us-west-2` |
-| `AWS_SMS_ORIGINATION_IDENTITY` | `arn:aws:sms-voice:us-west-2:<ACCOUNT_ID>:phone-number/phone-d2d175e381f14d48a070b3f3a92a2f13` |
+| `AWS_SMS_ORIGINATION_IDENTITY` | `arn:aws:sms-voice:us-west-2:<OWNER_ACCOUNT_ID>:phone-number/phone-d2d175e381f14d48a070b3f3a92a2f13` |
 | `SMS_OWNER_NUMBER` | the owner's mobile in E.164 (Jidè has it; it is in the Linear project, not here) |
 
-**The IAM policy.** A dedicated IAM user, `drplumbing-booking-sms`, with one
-inline policy and one access key. The key is long-lived because Cloudflare
+**The IAM policy.** A dedicated IAM user, `drplumbing-booking-sms`, in the
+**MapPack account**, with one inline policy and one access key. The policy
+names the shared number by its ARN, which carries `<OWNER_ACCOUNT_ID>`, the
+Zen account that owns it; the share supplies the cross-account permission and
+the policy grants it to this one user. The key is long-lived because Cloudflare
 has no way to assume an AWS role; the policy makes it worth one thing:
 
 ```json
@@ -340,7 +369,7 @@ has no way to assume an AWS role; the policy makes it worth one thing:
     "Sid": "SendBookingText",
     "Effect": "Allow",
     "Action": "sms-voice:SendTextMessage",
-    "Resource": "arn:aws:sms-voice:us-west-2:<ACCOUNT_ID>:phone-number/phone-d2d175e381f14d48a070b3f3a92a2f13"
+    "Resource": "arn:aws:sms-voice:us-west-2:<OWNER_ACCOUNT_ID>:phone-number/phone-d2d175e381f14d48a070b3f3a92a2f13"
   }]
 }
 ```
@@ -607,35 +636,37 @@ body.
 **Size S.** Files: `actions/<date>/booking-sms.md` (new; the repo's log of
 outside-facing actions, as `actions/2026-10-21/action.md`). Waits on S2. The
 steps are Jidè's; an agent may run the AWS CLI steps on his word.
-`<ACCOUNT_ID>` is the `zen` profile's account id (`aws sts
-get-caller-identity --profile zen --query Account --output text`);
-`<OWNER_MOBILE>` is the owner's number in E.164.
+Every step runs in the **MapPack account** (`--profile mappack`), which sends.
+`<OWNER_ACCOUNT_ID>` appears only inside the number's ARN; it is the Zen
+account id, the number's owner (`aws sts get-caller-identity --profile zen
+--query Account --output text`). `<OWNER_MOBILE>` is the owner's number in
+E.164.
 
 1. **Verify the owner's mobile as a destination** (sandbox rule; the first
    code is free; up to 10 numbers):
 
    ```sh
    aws pinpoint-sms-voice-v2 create-verified-destination-number \
-     --destination-phone-number <OWNER_MOBILE> --profile zen --region us-west-2
+     --destination-phone-number <OWNER_MOBILE> --profile mappack --region us-west-2
    # note VerifiedDestinationNumberId; AWS texts a code to the owner's phone
    aws pinpoint-sms-voice-v2 verify-destination-number \
      --verified-destination-number-id <VERIFIED_ID> --verification-code <CODE> \
-     --profile zen --region us-west-2
+     --profile mappack --region us-west-2
    ```
 
    If the code expires, `send-destination-number-verification-code
    --verified-destination-number-id <VERIFIED_ID> --verification-channel TEXT`
    sends another.
 
-2. **Create the IAM user, policy and key** in the same account. Save the
-   policy JSON above as a local file outside the repo, with `<ACCOUNT_ID>`
-   filled in.
+2. **Create the IAM user, policy and key** in the MapPack account. Save the
+   policy JSON above as a local file outside the repo, with
+   `<OWNER_ACCOUNT_ID>` filled in.
 
    ```sh
-   aws iam create-user --user-name drplumbing-booking-sms --profile zen
+   aws iam create-user --user-name drplumbing-booking-sms --profile mappack
    aws iam put-user-policy --user-name drplumbing-booking-sms \
-     --policy-name send-booking-text --policy-document file://policy.json --profile zen
-   aws iam create-access-key --user-name drplumbing-booking-sms --profile zen
+     --policy-name send-booking-text --policy-document file://policy.json --profile mappack
+   aws iam create-access-key --user-name drplumbing-booking-sms --profile mappack
    ```
 
    The last command prints the key once. Put it straight into a CLI profile
@@ -648,7 +679,7 @@ get-caller-identity --profile zen --query Account --output text`);
    ```sh
    aws pinpoint-sms-voice-v2 send-text-message --profile drplumbing-booking-sms \
      --region us-west-2 --destination-phone-number <OWNER_MOBILE> \
-     --origination-identity arn:aws:sms-voice:us-west-2:<ACCOUNT_ID>:phone-number/phone-d2d175e381f14d48a070b3f3a92a2f13 \
+     --origination-identity arn:aws:sms-voice:us-west-2:<OWNER_ACCOUNT_ID>:phone-number/phone-d2d175e381f14d48a070b3f3a92a2f13 \
      --message-body "Dry run" --message-type TRANSACTIONAL --dry-run
    ```
 
@@ -698,11 +729,16 @@ get-caller-identity --profile zen --query Account --output text`);
    by type; re-put the secret and redeploy.
 5. The owner texts STOP: texts fail with `DESTINATION_PHONE_NUMBER_OPTED_OUT`
    until he texts UNSTOP or START or Jidè runs `delete-opted-out-number
-   --opt-out-list-name Default --opted-out-number <OWNER_MOBILE>`.
+   --opt-out-list-name Default --opted-out-number <OWNER_MOBILE> --profile zen`
+   (the opt-out list belongs to the number's owner and is not shared).
 6. The $1 monthly cap binds (about 40 typical bookings): texts fail with
    `MONTHLY_SPEND_LIMIT_REACHED_FOR_TEXT` until the month turns; the email
    continues. Raising it is a Service Quotas request for
-   `TEXT_MESSAGE_MONTHLY_SPEND_LIMIT` in that account, Jidè's call.
+   `TEXT_MESSAGE_MONTHLY_SPEND_LIMIT` in the MapPack account, Jidè's call.
+8. The share is removed or the Zen account leaves the organization: sends
+   fail with `AccessDeniedException` or `ResourceNotFoundException` and are
+   reported as `failed` with that type; the email continues. Restore the
+   share `mappack-sms-toll-free` in the Zen account.
 7. Key rotation later: `create-access-key` again, `pages secret put` the two
    values, redeploy, then `delete-access-key` for the old one.
 
@@ -777,32 +813,24 @@ its own number and campaign fees, which we do not pay. Billing is per part
 ([character limits](https://docs.aws.amazon.com/sms-voice/latest/userguide/sms-limitations-character.html):
 "you're charged for the number of message parts"). The example text is two
 parts, about $0.024; the longest text the module allows is ten parts, about
-$0.12. The number's $2.00 monthly lease is MapPack's and has run since
-October 15. There is no subscription in this feature; the sandbox caps the
-account's texts at $1.00 a month, about 83 parts or 40 typical bookings,
-until Jidè raises it.
+$0.12. Each text is billed to the MapPack account, the sender. The number's
+$2.00 monthly lease stays on the Zen account, its owner, and has run since
+October 15. There is no subscription in this feature; the MapPack account's
+sandbox caps its texts at $1.00 a month, about 83 parts or 40 typical
+bookings, until Jidè raises it.
 
-## Open questions for Jidè
+## Questions settled
 
-1. **Is `+1 855-771-3501` the SMS you mean?** It is the only approved
-   origination identity in either AWS account, and its registration is
-   MapPack's (sole proprietor, MapPack sample messages, `mappack-fabf1.web.app`),
-   in the `zen` profile's account. Dr Plumbing's booking texts would come from
-   a MapPack-registered number. If that is fine, S3 proceeds as written. If
-   not, Dr Plumbing needs its own toll-free number and registration ($2 a
-   month, a registration wait), and S3 changes its ARN.
-2. **Sandbox: verify the owner's mobile now, or request production access
-   first?** The plan assumes verifying now (one code the owner reads back,
-   free). Production access is a support case with a 24-hour first response
-   and the same $1 cap until raised.
-3. **The $1 monthly cap: keep it as the guard, or raise it?** About 40
-   typical bookings a month before texts stop for the month; email continues.
-4. **First line wording.** The plan uses your words, "New booking from
-   drplumbingheating.com". "MapPack: new booking from drplumbingheating.com"
-   would match the registered brand on the number.
-5. **One destination or two?** The plan texts the owner only. Your own mobile
-   as a second destination is one more verified number and one more send
-   per booking.
+Jidè, October 25, 2026, asked to have these decided ("no idea"); each took the
+plan's default and is a one-line change later.
+
+1. **The number.** `+1 855-771-3501`, MapPack's registered toll-free number,
+   sent from the MapPack account through the share above.
+2. **Sandbox.** Verify the owner's mobile in the MapPack account now (S3 step
+   1); production access is a later, separate request.
+3. **The cap.** Keep the MapPack account's `$1.00` monthly limit as the guard.
+4. **First line.** "New booking from drplumbingheating.com", Jidè's words.
+5. **Destination.** The owner's mobile only, the number Jidè gave.
 
 ## Decided details (veto lines)
 
