@@ -124,3 +124,12 @@ Jidè signed in to Bing Places himself ("ur in bing ur fine"); the changes were 
 - **Locked by the Google sync, not changed.** Name "Dr. Plumbing & Heating Group", phone (206) 671-8888, website https://drplumbingheating.com/, email drplumbinggroup@gmail.com, and categories. Every Basic details field is disabled and Bing says to update Google and sync again. The primary category is still "Home service", with "Plumbing" and "Water heater installation/repair" as additional categories; Plumber as primary needs a fresh import from Google, which asks for a Google sign-in and permission grant. The address was already hidden ("No, hide this address in search results").
 - **Service areas.** Already 20 of 20, Bing's maximum, including all ten target cities. Unchanged.
 - **Services provided.** Unchanged. The list still includes "Ductless Heating And Ac Services" and "Install Ac".
+
+### 11. Greater Seattle leads, not Newcastle (about 7:00 PM)
+
+Jidè: "there is no reason to highlight Newcastle and not say the Greater Seattle area." Every profile now names the Greater Seattle area first; Newcastle stays only as one city in a list.
+
+- **Instagram name.** Was "Dr Plumbing & Heating · Newcastle Plumber". Now "Dr Plumbing & Heating · Greater Seattle Plumber". Changed in Accounts Center; Instagram allows two name changes in 14 days and this was the second, so the name is fixed until about November 8.
+- **Instagram bio.** Was "Licensed plumber · Newcastle, WA / Water heaters · Boilers · Radiant · Trenchless / 26+ yrs · Flat-rate prices · 24/7 emergency / WA lic. DRPLUPH740ND". Now, 140 of 150 characters: "Water heaters · Boilers · Radiant · Trenchless / Owners do the work · 26+ yrs · Flat-rate · 24/7 / WA lic. DRPLUPH740ND / Call/text (206) 671-8888". Why: the old first line repeated the name and narrowed the area to one city; the new one adds the phone, since the profile has no website link yet, and "owners do the work themselves" from the Google description.
+- **Facebook bio.** Was "Licensed plumber in Newcastle serving Greater Seattle. …". Now "Licensed plumber serving the Greater Seattle area. Water heaters, boilers, drains, trenchless. 26+ years. Flat-rate prices. WA contractor license DRPLUPH740ND."
+- **Bing description.** Now [bing-description-v3.txt](evidence/bing-description-v3.txt), 491 characters, opening "a licensed plumber serving the Greater Seattle area: Newcastle, Bellevue, Renton, Mercer Island, Issaquah, Redmond and Federal Way." Saved and checked after a reload.
