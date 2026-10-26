@@ -99,3 +99,13 @@ Done in Jidè's Chrome at his direction: "are u removing the old van from the gb
 - Yelp has no cover slot; it orders photos itself.
 
 **Bing Places.** Not changed. The listing page sent Chrome to the Bing Places sign-in screen. Per the standing rule, nothing was entered. The October 18 publish state could not be read for the same reason.
+
+### 9. Instagram @dr.plumbinggroup brought in line with the Facebook page (6:15 PM)
+
+Jidè signed in to the account in Chrome; the changes were made from instagram.com and Meta's Accounts Center.
+
+- **Display name.** Was "Mehran Bagheri". Now "Dr Plumbing & Heating · Newcastle Plumber". Instagram search reads the name and username, and mostly not the bio, so the name carries the brand and the word people search. Instagram allows two name changes in 14 days.
+- **Bio.** Was empty. Now four lines, 144 of 150 characters: "Licensed plumber · Newcastle, WA / Water heaters · Boilers · Radiant · Trenchless / 26+ yrs · Flat-rate prices · 24/7 emergency / WA lic. DRPLUPH740ND". The services are the phrases we hold or are closest on in the October 19 standings (radiant floor heating repair is our top phrase); 24/7 matches the Google profile's hours and the site's emergency page.
+- **Profile photo.** Was a photo of a van in the old design. Now the new DR mark, [fb-profile-dr-1080.png](evidence/fb-profile-dr-1080.png).
+- **Category.** Already Plumbing Service; unchanged.
+- **Not done.** The website link: Instagram's web editor says links can only be edited in the Instagram app, and Business Suite's editor stays locked behind a "Verify account" pop-up that did not open. The liminal.earth post (the same one trashed on Facebook): the web offers only Delete, which is permanent, so it stays until it is archived from the app.
