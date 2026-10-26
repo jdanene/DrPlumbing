@@ -133,3 +133,45 @@ Jidè: "there is no reason to highlight Newcastle and not say the Greater Seattl
 - **Instagram bio.** Was "Licensed plumber · Newcastle, WA / Water heaters · Boilers · Radiant · Trenchless / 26+ yrs · Flat-rate prices · 24/7 emergency / WA lic. DRPLUPH740ND". Now, 140 of 150 characters: "Water heaters · Boilers · Radiant · Trenchless / Owners do the work · 26+ yrs · Flat-rate · 24/7 / WA lic. DRPLUPH740ND / Call/text (206) 671-8888". Why: the old first line repeated the name and narrowed the area to one city; the new one adds the phone, since the profile has no website link yet, and "owners do the work themselves" from the Google description.
 - **Facebook bio.** Was "Licensed plumber in Newcastle serving Greater Seattle. …". Now "Licensed plumber serving the Greater Seattle area. Water heaters, boilers, drains, trenchless. 26+ years. Flat-rate prices. WA contractor license DRPLUPH740ND."
 - **Bing description.** Now [bing-description-v3.txt](evidence/bing-description-v3.txt), 491 characters, opening "a licensed plumber serving the Greater Seattle area: Newcastle, Bellevue, Renton, Mercer Island, Issaquah, Redmond and Federal Way." Saved and checked after a reload.
+
+### 12. First post published on Facebook and Instagram (7:21 PM)
+
+Jidè approved the post at 7:19 PM after eleven rounds of wording in the preview. Published once from Meta Business Suite to both accounts, with a caption written for each.
+
+- **Facebook:** https://www.facebook.com/permalink.php?story_fbid=122114912241504629&id=61595138886629 (post id 122114912241504629).
+- **Instagram:** https://www.instagram.com/dr.plumbinggroup/p/De8MraMATh4/
+- **Image:** [post-instagram-4x5.jpg](evidence/first-post/post-instagram-4x5.jpg), 1080 by 1350, used on both. It is the homepage opening photo (`103_IMG_3745`, Mehran pressing a one-inch copper joint) cut from the original HEIC, with the site's treatment: the dark shade, the Lexend Deca headline with the last line in the band accent `#ebae8c`, the Figtree subline, and a bar in the site's dark green with the DR mark, website and phone. The template is [compose.html](evidence/first-post/compose.html); a square cut, [post-square-1x1.jpg](evidence/first-post/post-square-1x1.jpg), was made and not used. Rendered with headless Chrome at 1080 wide.
+- **On the image:** "The owner does the work." / "A visit. A flat price. Then the work." / "26+ years. Greater Seattle."
+- **Why these words:** the photo is the owner doing the job himself, which the business record states ("the owners do the work themselves") and which the 500-to-2,000-review competitors in the October 19 standings cannot say. Jidè: "we are going for branding." Earlier drafts described the fitting ("Copper press connections · Hydronic heating"); Jidè: "the words I feel are informative rather than what's needed for Meta and Insta."
+- **New business facts from Jidè, not yet in `src/businessFacts.ts`:** Mehran has plumbed in the USA, Turkey and Canada (Iran was named, then removed at Jidè's direction); and the line "if he wouldn't do it in his own house, he won't recommend it for yours."
+
+**Facebook caption, as posted:**
+
+> The owner does the work.
+>
+> That's Mehran, owner of Dr Plumbing & Heating. He's been plumbing for 26+ years in the USA, Turkey and Canada, on every kind of plumbing project. He's seen it all. The one thing he guarantees: if he wouldn't do it in his own house, he won't recommend it for yours.
+>
+> A visit. A flat price. Then the work. Nothing starts until you say so.
+>
+> Water heaters, boilers, radiant heat, drains and hydro jetting, sewer and water service lines, trenchless repair, repiping, gas lines, water filtration, bathroom remodels. Greater Seattle, 24/7.
+>
+> Call or text (206) 671-8888, or book at https://drplumbingheating.com/book/
+
+**Instagram caption, as posted:**
+
+> The owner does the work.
+>
+> That's Mehran, owner of Dr Plumbing & Heating. He's been plumbing for 26+ years in the USA, Turkey and Canada, on every kind of plumbing project. He's seen it all. The one thing he guarantees: if he wouldn't do it in his own house, he won't recommend it for yours.
+>
+> A visit. A flat price. Then the work.
+>
+> Water heaters · Boilers · Radiant heat · Drains · Hydro jetting · Sewer lines · Water service lines · Trenchless · Repiping · Gas lines · Water filtration · Bathroom remodels
+> Greater Seattle · 24/7
+>
+> Call or text (206) 671-8888
+>
+> #seattleplumber #bellevueplumber #rentonplumber #newcastlewa #mercerisland #issaquah #redmondwa #eastside #familyowned #hydronicheating #boilerrepair #radiantheat
+
+- **Alt text:** not set. Business Suite's photo editor offers tagging only; Instagram alt text is set in the app under Advanced settings, Facebook's under the photo's Edit on the page. Text for both: "Mehran of Dr Plumbing & Heating, in black gloves, presses a copper joint on hydronic heating pipework with a Ridgid press tool. Text reads: The owner does the work. A visit. A flat price. Then the work."
+- **How the upload worked:** Business Suite's Add photo/video opens a native file dialog the browser tools cannot drive, so the page's hidden file input was captured when the button created it and given the file directly; the composer then read it as a normal upload.
+- **Queued second post:** the three-boiler hydronic plant, `063_IMG_2970`, with the same treatment.
