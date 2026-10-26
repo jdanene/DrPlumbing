@@ -79,3 +79,23 @@ Done in Jidè's Chrome while acting as the Page, with Jidè's approval of each c
 - **Profile photo.** The official DR mark in the softened orange (#D8692F to #B4532B, from draft PR #32), centered on white: [fb-profile-dr-1080.png](evidence/fb-profile-dr-1080.png). Was the default blue "D". Set at 5:45 PM.
 
 Found on BBB while looking up the address: the business started September 18, 2020 and the BBB file opened May 20, 2021, so PSE's "12 months under the same business name" rule should be met.
+
+### 8. Old van photos replaced on Google, Yelp and Bing (5:30 to 5:46 PM)
+
+Done in Jidè's Chrome at his direction: "are u removing the old van from the gbp?" and "remove it from bing and yelp as well". The old van is the AI-rendered white Sprinter with the black and copper DR monogram, plain "PLUMBING / HEATING & COOLING" lettering and copper stripes. Its files stay in the site repo for rollback: `public/van/dr-sprinter-side(-v9).jpg`, `dr-sprinter-opposite-side(-v9).jpg` and `dr-sprinter-rear(-v9).jpg`. The old logo is `public/brand/dr-brand-mark.png`. Job photos, Mehran's photos and tool photos were left alone.
+
+**Google Business Profile.**
+
+- **Cover.** Was the old van, side view facing right (24 views). Now the new van, [dr-van-side-presentable-1600.jpg](evidence/dr-van-side-presentable-1600.jpg). Google marked it pending at upload; the label was gone by 5:46 PM. The old cover no longer appears among the owner photos.
+- **Logo.** Was the old black and copper DR monogram. Now the new DR mark, [fb-profile-dr-1080.png](evidence/fb-profile-dr-1080.png), the same file as the Facebook profile photo.
+- **Deleted.** One owner photo of the old van, opposite side facing left, under 100 views. A full scroll of the owner photos found no other old-van photo.
+- **Posts.** The two published posts show job photos only, so they were left.
+
+**Yelp.**
+
+- **Added.** The new van, the same 1600-pixel file, no caption. Yelp confirmed "Your photo has been uploaded" and shows it first in the grid and the page preview.
+- **Removed.** Nothing. A full scroll of every photo, owner and customer, found no old van.
+- **Logo.** Not set. Yelp sells the logo slot as an upgrade at $1 a day, outside the $0 budget.
+- Yelp has no cover slot; it orders photos itself.
+
+**Bing Places.** Not changed. The listing page sent Chrome to the Bing Places sign-in screen. Per the standing rule, nothing was entered. The October 18 publish state could not be read for the same reason.
