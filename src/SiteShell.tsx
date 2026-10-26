@@ -36,20 +36,20 @@ function BrandLogo({ onDark = false }: { onDark?: boolean }) {
 /**
  * Description: Draws the Facebook or Instagram mark for a footer link, in the link's own color.
  * Inputs: label is a SocialProfile label from the business record; any other label draws nothing.
- * Output: A decorative 18-pixel SVG, hidden from screen readers because the link text names the site.
+ * Output: A decorative 24-pixel SVG, hidden from screen readers because the link's aria-label names the site.
  * Examples: SiteShell.test.tsx checks the footer links; <SocialIcon label="Instagram" /> is a rounded square and lens.
  */
 function SocialIcon({ label }: { label: string }) {
   if (label === "Facebook") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path fill="currentColor" d="M12 2a10 10 0 0 0-1.56 19.88v-7H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46H15.2c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v7A10 10 0 0 0 12 2Z" />
       </svg>
     );
   }
   if (label === "Instagram") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8">
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
@@ -465,9 +465,8 @@ export default function SiteShell({
                   </li>
                   <li className="foot-social">
                     {confirmed(BUSINESS.socialProfiles).map((profile) => (
-                      <a key={profile.label} href={profile.url} target="_blank" rel="noopener noreferrer">
+                      <a key={profile.label} href={profile.url} target="_blank" rel="noopener noreferrer" aria-label={profile.label} title={profile.label}>
                         <SocialIcon label={profile.label} />
-                        {profile.label}
                       </a>
                     ))}
                   </li>
