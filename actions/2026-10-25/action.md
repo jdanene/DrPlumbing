@@ -182,3 +182,11 @@ Jidè: "the gbp needs to have links to our meta and insta."
 
 - **Social profiles,** Contact tab of the Google profile editor. Was empty ("Add"). Now: Facebook https://www.facebook.com/profile.php?id=61595138886629 and Instagram https://www.instagram.com/dr.plumbinggroup/. Google marked both "Your edit is pending. It usually takes up to 10 minutes to be reviewed."
 - **Found, not changed:** the Service area section shows "Something went wrong and your edit wasn't published" over a NOT APPROVED list that adds Clyde Hill, WA 98004 to the current cities. It predates this session's changes; the current service area is intact. Not retried.
+
+### 14. Instagram and Facebook bios simplified (about 7:45 PM)
+
+Jidè: "simplify the insta and meta description, we don't need to say owners do the work all the time. Just say what [we do]." The first post now carries "The owner does the work," so the bios list the services.
+
+- **Instagram bio.** Was "Water heaters · Boilers · Radiant · Trenchless / Owners do the work · 26+ yrs · Flat-rate · 24/7 / WA lic. DRPLUPH740ND / Call/text (206) 671-8888". Now, 142 of 150 characters: "Water heaters · Boilers · Radiant heat · Drains · Sewer & water lines · Repiping / 26+ yrs · Flat-rate · 24/7 emergency / Call/text (206) 671-8888". The license came off, matching Jidè's call on the post ("not needed").
+- **Facebook bio.** Was "Licensed plumber serving the Greater Seattle area. Water heaters, boilers, drains, trenchless. 26+ years. Flat-rate prices. WA contractor license DRPLUPH740ND." Now "Plumbing and heating across the Greater Seattle area. Water heaters, boilers, radiant heat, drains, sewer and water lines, repiping. 26+ years. Flat-rate prices. 24/7 emergency."
+- Both read back after a reload.
