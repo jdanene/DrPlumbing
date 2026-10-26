@@ -398,8 +398,11 @@ attempt, as today.
 
 ## Tickets
 
-Tasks are tracked in the Linear project named at the top. Each ticket below is
-the ticket's text. Sizes count files touched; none exceeds five (audit 6).
+These tickets are the tickets. On October 25, 2026 (Pacific) Linear refused
+to create them ("You've exceeded the free issue limit for this workspace"),
+so, as `create-a-project` §2 says, they live here and the Linear project
+named at the top links to this section. Each ticket below is the ticket's
+text. Sizes count files touched; none exceeds five (audit 6).
 Conventions for every ticket: work in a worktree on a task branch cut from
 `project/booking-sms`, merge back fast-forward, push the project branch; run
 `npm run check` before handing off (`CLAUDE.md`); four-part headers on every
