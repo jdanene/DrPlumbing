@@ -28,3 +28,10 @@ it("offers the phone number, calling, texting, and booking in the header", () =>
   expect(header.getByRole("link", { name: "Call (206) 671-8888" }).getAttribute("tabindex")).toBe("-1");
   expect(header.getByRole("link", { name: "Text (206) 671-8888" }).getAttribute("tabindex")).toBe("-1");
 });
+
+it("links the Facebook page and Instagram account from the footer", () => {
+  render(<SiteShell route="home"><main id="main" /></SiteShell>);
+  const footer = within(screen.getByRole("contentinfo"));
+  expect(footer.getByRole("link", { name: "Facebook" }).getAttribute("href")).toBe("https://www.facebook.com/profile.php?id=61595138886629");
+  expect(footer.getByRole("link", { name: "Instagram" }).getAttribute("href")).toBe("https://www.instagram.com/dr.plumbinggroup/");
+});

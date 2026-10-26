@@ -45,8 +45,14 @@ describe("the business record", () => {
     }
   });
 
+  it("names the Facebook and Instagram profiles in the business schema", () => {
+    const script = headTags("home").find((tag) => tag.tag === "script")!;
+    const business = (JSON.parse(script.text!)["@graph"] as Record<string, unknown>[]).find((node) => node["@id"] === "https://drplumbingheating.com/#business")!;
+    expect(business.sameAs).toEqual(["https://www.facebook.com/profile.php?id=61595138886629", "https://www.instagram.com/dr.plumbinggroup/"]);
+  });
+
   it("lists exactly the facts still waiting on the owner", () => {
-    expect(pendingPlaceholders()).toEqual(["[SOCIAL PROFILES]", "[PRICE RANGE]", "[RESPONSE TIME]"]);
+    expect(pendingPlaceholders()).toEqual(["[PRICE RANGE]", "[RESPONSE TIME]"]);
   });
 
   it("serves one city list that includes the home base and repeats nothing", () => {

@@ -34,6 +34,32 @@ function BrandLogo({ onDark = false }: { onDark?: boolean }) {
 }
 
 /**
+ * Description: Draws the Facebook or Instagram mark for a footer link, in the link's own color.
+ * Inputs: label is a SocialProfile label from the business record; any other label draws nothing.
+ * Output: A decorative 18-pixel SVG, hidden from screen readers because the link text names the site.
+ * Examples: SiteShell.test.tsx checks the footer links; <SocialIcon label="Instagram" /> is a rounded square and lens.
+ */
+function SocialIcon({ label }: { label: string }) {
+  if (label === "Facebook") {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M12 2a10 10 0 0 0-1.56 19.88v-7H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46H15.2c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v7A10 10 0 0 0 12 2Z" />
+      </svg>
+    );
+  }
+  if (label === "Instagram") {
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+  return null;
+}
+
+/**
  * Description: Provides the shared brand, responsive navigation, and theme.
  * Inputs: route is the active page or homepage section; children is the current page.
  * Output: Header, accessible menus, page content, footer, and mobile contact links.
@@ -436,6 +462,14 @@ export default function SiteShell({
                     <a href={PLUMBING_LICENSE.url} target="_blank" rel="noopener noreferrer">
                       Active WA plumbing contractor lic. {PLUMBING_LICENSE.number}
                     </a>
+                  </li>
+                  <li className="foot-social">
+                    {confirmed(BUSINESS.socialProfiles).map((profile) => (
+                      <a key={profile.label} href={profile.url} target="_blank" rel="noopener noreferrer">
+                        <SocialIcon label={profile.label} />
+                        {profile.label}
+                      </a>
+                    ))}
                   </li>
                 </ul>
               </div>

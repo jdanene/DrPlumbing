@@ -72,7 +72,8 @@ const BUSINESS_ID = `${SITE_ORIGIN}/#business`;
 /**
  * Description: Describes the business and its website for search engines, the same on every page.
  * Inputs: None; the facts come from the business record.
- * Output: Two schema.org nodes: the Plumber/HVACBusiness identified by BUSINESS_ID and the WebSite it publishes.
+ * Output: Two schema.org nodes: the Plumber/HVACBusiness identified by BUSINESS_ID, with sameAs naming its
+ * Facebook and Instagram profiles, and the WebSite it publishes.
  * Examples: Seo.test.ts checks the business node's name, telephone and areaServed, and that both nodes
  * appear unchanged on the homepage and a service page.
  */
@@ -103,6 +104,7 @@ function businessGraph(): Record<string, unknown>[] {
         })),
       }],
       logo: `${SITE_ORIGIN}/brand/dr-brand-mark.png`,
+      sameAs: confirmed(BUSINESS.socialProfiles).map((profile) => profile.url),
       areaServed: CITIES.map((name) => ({ "@type": "City", name })),
     },
     {
