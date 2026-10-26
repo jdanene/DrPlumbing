@@ -175,3 +175,10 @@ Jidè approved the post at 7:19 PM after eleven rounds of wording in the preview
 - **Alt text:** not set. Business Suite's photo editor offers tagging only; Instagram alt text is set in the app under Advanced settings, Facebook's under the photo's Edit on the page. Text for both: "Mehran of Dr Plumbing & Heating, in black gloves, presses a copper joint on hydronic heating pipework with a Ridgid press tool. Text reads: The owner does the work. A visit. A flat price. Then the work."
 - **How the upload worked:** Business Suite's Add photo/video opens a native file dialog the browser tools cannot drive, so the page's hidden file input was captured when the button created it and given the file directly; the composer then read it as a normal upload.
 - **Queued second post:** the three-boiler hydronic plant, `063_IMG_2970`, with the same treatment.
+
+### 13. Google profile links the Facebook page and Instagram (about 7:35 PM)
+
+Jidè: "the gbp needs to have links to our meta and insta."
+
+- **Social profiles,** Contact tab of the Google profile editor. Was empty ("Add"). Now: Facebook https://www.facebook.com/profile.php?id=61595138886629 and Instagram https://www.instagram.com/dr.plumbinggroup/. Google marked both "Your edit is pending. It usually takes up to 10 minutes to be reviewed."
+- **Found, not changed:** the Service area section shows "Something went wrong and your edit wasn't published" over a NOT APPROVED list that adds Clyde Hill, WA 98004 to the current cities. It predates this session's changes; the current service area is intact. Not retried.
