@@ -76,6 +76,6 @@ Done in Jidè's Chrome while acting as the Page, with Jidè's approval of each c
 - **Service area.** Newcastle, Bellevue, Renton, Mercer Island, Issaquah, Redmond, Federal Way, Kirkland (was none).
 - **Post removed.** The October 18 post addressed to @liminal.earth about a "strange encounters" map was moved to trash; Facebook deletes trash after 30 days, so it is recoverable until then.
 - **Cover photo.** The official wrap on the van, [fb-cover-van-1640x856.jpg](evidence/fb-cover-van-1640x856.jpg), cropped from the new presentable van image. Was none.
-- **Profile photo.** Waiting on the softened DR mark from the website change (draft PR #32); still the default "D".
+- **Profile photo.** The official DR mark in the softened orange (#D8692F to #B4532B, from draft PR #32), centered on white: [fb-profile-dr-1080.png](evidence/fb-profile-dr-1080.png). Was the default blue "D". Set at 5:45 PM.
 
 Found on BBB while looking up the address: the business started September 18, 2020 and the BBB file opened May 20, 2021, so PSE's "12 months under the same business name" rule should be met.
