@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Lexend Deca';src:url('lexend-deca-bold.ttf');font-weight:700}
+@font-face{font-family:'Figtree';src:url('figtree-regular.ttf');font-weight:400}
+@font-face{font-family:'Figtree';src:url('figtree-semibold.ttf');font-weight:600}
+html,body{margin:0;background:#121a15}
+.post{position:relative;width:1080px;height:1350px;overflow:hidden;font-family:Figtree,sans-serif;color:#f3f5ee}
+.post.square{height:1080px}
+.post img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,#12191000 38%,#101a12b3 66%,#101a12f2 100%)}
+.chip{position:absolute;left:48px;top:48px;font-size:22px;font-weight:600;letter-spacing:.02em;background:#172017d9;padding:12px 18px;border-radius:3px}
+.copy{position:absolute;left:64px;right:64px;bottom:150px}
+h1{font-family:'Lexend Deca',sans-serif;font-weight:700;font-size:124px;line-height:1.0;letter-spacing:-.04em;margin:0;text-wrap:nowrap}
+h1 span{color:#ebae8c}
+.sub{margin-top:30px;font-size:30px;line-height:1.45;color:#f0f3eb}
+.sub b{font-weight:600}
+.bar{position:absolute;left:0;right:0;bottom:0;height:104px;background:#121a15;display:flex;align-items:center;justify-content:space-between;padding:0 56px 0 48px;border-top:3px solid #a84a25}
+.bar img{height:52px;width:auto;display:block}
+.bar .site{font-size:26px;font-weight:600;letter-spacing:.01em;color:#f3f5ee}
+.bar .site span{color:#bac5b9;font-weight:400;margin:0 14px}
+.square .copy{bottom:140px}
+h1.quote{font-size:86px;line-height:1.04;letter-spacing:-.035em}
+.square h1.quote{font-size:78px}.square .sub{font-size:27px;margin-top:24px}
+</style></head>
+<body>
+<div class="post" id="post">
+  <img class="photo" src="press-4x5.jpg" alt="">
+  <div class="shade"></div>
+  <div class="copy">
+    <h1>Owner-led.<br><span>Team-driven.</span></h1>
+    <div class="sub">Quality you can trust. Personal attention on every job.<br><b>26+ years.</b> Greater Seattle.</div>
+  </div>
+  <img src="bar.png" alt="" style="position:absolute;left:0;bottom:0;width:1080px;height:107px;display:block">
+</div>
+</body></html>
