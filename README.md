@@ -281,12 +281,17 @@ together in the shared assets folder. The social-card version appears in its URL
 increment it when replacing the image. Messaging apps control their own crops,
 text display, and caches, so an old message may retain its old preview.
 
-## Contact email
+## Contact delivery
 
 The browser posts to `/api/contact`. The Pages Function validates the request,
-filters a honeypot, and calls a private Worker through the `CONTACT_EMAIL`
-service binding. The Worker sends through Cloudflare's native `send_email`
-binding. It keeps the recipient on the server and never logs customer details.
+filters a honeypot, and starts email and MapPack lead delivery together. Each
+channel has its own eight-second deadline, including response parsing. The
+browser keeps its existing success and error flow. Honeypot and stale-form
+submissions reach neither channel.
+
+Email uses a private Worker through the `CONTACT_EMAIL` service binding. The
+Worker sends through Cloudflare's native `send_email` binding. It keeps the
+recipient on the server and never logs customer details.
 
 Two Cloudflare-native designs were considered:
 
@@ -316,6 +321,81 @@ delivery:
 
 The Worker has no public route. The sender is `website@drplumbingheating.com`.
 The server-owned recipient is `drplumbinggroup@gmail.com`.
+
+### MapPack leads
+
+The Function posts each validated booking to MapPack's
+[`POST /api/leads` contract, section 5.1](https://github.com/jdanene/mappack/blob/project/owner-app-slice-1/docs/owner-app/plan.md#51-post-apileads).
+The Function owns both calls so a failed or stalled channel cannot prevent
+the other from delivering. Moving the fan-out into the email Worker would
+add a second deployment and couple previews to that Worker's configuration.
+
+MapPack receives `name`, `phone`, `city`, `service`, and `urgency` unchanged
+after the existing validation. `time` becomes `preferred_time`; `message`
+becomes `details`. The request host becomes `source`, capped at 80 characters.
+The `Referer` header becomes `page_url`, capped at 500 characters or blank
+when absent. Form fields retain their current limits.
+
+Each call carries `Authorization: Bearer <lead key>` and a 64-character
+SHA-256 `Idempotency-Key`. The hash covers the mapped fields and the minute
+of the form's existing `startedAt` timestamp. Using that stable form-start
+minute preserves the key when a repeat request crosses a server clock minute.
+Identical submissions from the same open form share the key, even when that
+form stays open for up to two hours. Changed fields or another form-start
+minute produce a different key. MapPack answers a repeated key with the first
+result for 24 hours and sends no second text. Email has no duplicate guard.
+
+The lead call follows MapPack's install guide: one call, and one replay with
+the same key when the answer is a 5xx or a network error, both inside the one
+eight-second deadline. MapPack budgets the same eight seconds to store the
+lead and send the text, so a longer wait here would only hold the visitor.
+Nothing retries beyond that, and email never retries.
+
+Delivery responses name `email` and `lead`. `email` is `sent`, `skipped`, or
+`failed`. `lead` adds two words, because a stored lead and a texted owner are
+different facts:
+
+| `lead` | Meaning | Log line |
+| --- | --- | --- |
+| `sent` | MapPack stored the lead and texted the owner. | none |
+| `stored` | MapPack stored the lead; the text `failed` or was `skipped` (no owner phone, or a test key). The owner was not texted. | `booking lead stored: owner text failed, MapPack keeps the reason` |
+| `skipped` | Both secrets are absent (previews, local runs). | `booking lead skipped: configuration both lead secrets absent` |
+| `failed` | MapPack refused: 401 (revoked key), 422, 429, a redirect, an invalid body, or bad secrets. Nothing was stored. | `booking lead failed: http rate limited (429)` |
+| `unknown` | A timeout, or a network error or 5xx that survived the replay. The lead may be stored. | `booking lead unknown: timeout delivery exceeded 8 seconds` |
+
+Only `sent` on either channel counts as reaching the owner:
+
+| Outcomes | HTTP status |
+| --- | --- |
+| Either channel is `sent` | 200, `ok: true` |
+| Both channels are `skipped` | 503, `ok: false` |
+| Every other combination, including a `stored` or `unknown` lead with failed email | 502, `ok: false` |
+
+A 502 shows the visitor the existing message: the request did not go through,
+try again or call. The browser's success message promises a call or text to
+the visitor and never claims the owner was texted. A visitor's retry is safe:
+the same key replays the stored result without a second text. Failure logs
+contain fixed types and reasons, never customer fields, credentials, URLs, or
+upstream messages. Redirects are disabled so they cannot forward the lead key.
+
+After MapPack's endpoint is verified and S1 deployment and enrollment finish,
+Jidè sets two encrypted **production-only** Pages secrets:
+
+```sh
+npx wrangler pages secret put MAPPACK_LEADS_URL --project-name drplumbing
+npx wrangler pages secret put MAPPACK_LEAD_KEY --project-name drplumbing
+```
+
+`MAPPACK_LEADS_URL` must be the HTTPS `/api/leads` endpoint with no embedded
+credentials, query, or fragment. `MAPPACK_LEAD_KEY` must contain printable
+ASCII characters without spaces. Both absent secrets skip the lead post and
+log that configuration is absent, preserving email-only previews and local
+runs. A partial, blank, or invalid pair fails that channel with a configuration
+reason while email still runs. Keep both secrets out of previews, browser
+code, and source control. Test both channels with stubs using
+`npm test -- functions/api/contact.test.ts`. A test-key response does not complete
+S1: that gate still requires an owner-approved live booking with the real key,
+a stored lead, and a text received on the owner's phone.
 
 ## Analytics
 
