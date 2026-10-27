@@ -342,27 +342,41 @@ of the form's existing `startedAt` timestamp. Using that stable form-start
 minute preserves the key when a repeat request crosses a server clock minute.
 Identical submissions from the same open form share the key, even when that
 form stays open for up to two hours. Changed fields or another form-start
-minute produce a different key. MapPack retains duplicates for 24 hours.
-Email has no duplicate guard. Neither channel retries automatically; a timeout
-does not establish whether the upstream side effect completed.
+minute produce a different key. MapPack answers a repeated key with the first
+result for 24 hours and sends no second text. Email has no duplicate guard.
 
-Delivery responses name `email` and `lead`, each `sent`, `skipped`, or `failed`:
+The lead call follows MapPack's install guide: one call, and one replay with
+the same key when the answer is a 5xx or a network error, both inside the one
+eight-second deadline. MapPack budgets the same eight seconds to store the
+lead and send the text, so a longer wait here would only hold the visitor.
+Nothing retries beyond that, and email never retries.
+
+Delivery responses name `email` and `lead`. `email` is `sent`, `skipped`, or
+`failed`. `lead` adds two words, because a stored lead and a texted owner are
+different facts:
+
+| `lead` | Meaning | Log line |
+| --- | --- | --- |
+| `sent` | MapPack stored the lead and texted the owner. | none |
+| `stored` | MapPack stored the lead; the text `failed` or was `skipped` (no owner phone, or a test key). The owner was not texted. | `booking lead stored: owner text failed, MapPack keeps the reason` |
+| `skipped` | Both secrets are absent (previews, local runs). | `booking lead skipped: configuration both lead secrets absent` |
+| `failed` | MapPack refused: 401 (revoked key), 422, 429, a redirect, an invalid body, or bad secrets. Nothing was stored. | `booking lead failed: http rate limited (429)` |
+| `unknown` | A timeout, or a network error or 5xx that survived the replay. The lead may be stored. | `booking lead unknown: timeout delivery exceeded 8 seconds` |
+
+Only `sent` on either channel counts as reaching the owner:
 
 | Outcomes | HTTP status |
 | --- | --- |
 | Either channel is `sent` | 200, `ok: true` |
 | Both channels are `skipped` | 503, `ok: false` |
-| Every other combination | 502, `ok: false` |
+| Every other combination, including a `stored` or `unknown` lead with failed email | 502, `ok: false` |
 
-A valid MapPack 200 or 201 response with a UUID `lead_id` and an `owner_text`
-outcome means `lead: "sent"`. A live key stores the lead, including when the
-owner's text failed or was skipped. A test key accepts validation only: its
-201 response contains a generated UUID and `owner_text: "skipped"`, but stores
-no lead and sends no text. An invalid response, redirect, network error,
-timeout, or other HTTP status means `lead: "failed"`. A 401 logs an unknown or
-revoked lead key; a 429 logs a rate limit. Failure logs contain fixed types
-and reasons, never customer fields, credentials, URLs, or upstream messages.
-Redirects are disabled so they cannot forward the lead key.
+A 502 shows the visitor the existing message: the request did not go through,
+try again or call. The browser's success message promises a call or text to
+the visitor and never claims the owner was texted. A visitor's retry is safe:
+the same key replays the stored result without a second text. Failure logs
+contain fixed types and reasons, never customer fields, credentials, URLs, or
+upstream messages. Redirects are disabled so they cannot forward the lead key.
 
 After MapPack's endpoint is verified and S1 deployment and enrollment finish,
 Jidè sets two encrypted **production-only** Pages secrets:

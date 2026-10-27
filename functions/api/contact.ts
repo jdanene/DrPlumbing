@@ -1,16 +1,21 @@
 /**
  * Description: Validates public bookings and delivers them through independent server channels.
  * Inputs: Same-origin form JSON, a private email binding, and optional MapPack secrets.
- * Output: Private JSON outcomes; either delivered channel makes the request successful.
- * Examples: Both deliveries return 200; an email timeout with a stored lead also returns 200.
+ * Output: Private JSON outcomes; the request succeeds when either channel reached the owner.
+ * Examples: Both deliveries return 200; an email timeout with a texted lead also returns 200.
  */
 import { URGENCY_OPTIONS, validateBooking } from "../../src/booking";
 
 const MAX_BODY_BYTES = 8_192;
+// MapPack budgets the same 8 seconds to store a lead and send the owner's text (its docs/leads/README.md).
 const DELIVERY_TIMEOUT_MS = 8_000;
 type DeliveryOutcome = "sent" | "skipped" | "failed";
+// "stored": MapPack kept the lead but the owner was not texted. "unknown": MapPack may have kept it.
+type LeadOutcome = DeliveryOutcome | "stored" | "unknown";
 type DeliveryChannel = "email" | "lead";
 interface DeliveryFailure { type: string; reason: string }
+// Failure types after which the lead may still have been stored by MapPack.
+const UNSETTLED_FAILURES = new Set(["timeout", "network", "unavailable"]);
 
 interface ContactEnv {
   CONTACT_EMAIL?: {
@@ -65,8 +70,9 @@ export function onRequestPost(context: PagesContext): Promise<Response> {
 /**
  * Description: Validates bookings before starting email and lead delivery concurrently.
  * Inputs: request is untrusted; absent channels are skipped, invalid configuration fails.
- * Output: JSON with both outcomes after delivery; 200 if either sent, 503 if both skipped, else 502.
- * Examples: Email failure with a stored lead returns { ok: true, email: "failed", lead: "sent" }.
+ * Output: JSON with both outcomes; 200 when either reached the owner ("sent"), 503 if both skipped, else 502.
+ * Examples: Email failure with a texted lead returns { ok: true, email: "failed", lead: "sent" };
+ *   email failure with a lead MapPack stored but did not text returns 502 with lead: "stored".
  */
 export async function handleContactRequest(
   request: Request,
@@ -116,7 +122,7 @@ export async function handleContactRequest(
 async function sendEmail(payload: ContactPayload, env: ContactEnv): Promise<DeliveryOutcome> {
   if (!env.CONTACT_EMAIL) return "skipped";
   const binding = env.CONTACT_EMAIL;
-  return deliver("email", async (signal) => {
+  const result = await bounded<"sent">(async (signal) => {
     const response = await binding.fetch("https://contact-email.internal/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -126,75 +132,92 @@ async function sendEmail(payload: ContactPayload, env: ContactEnv): Promise<Deli
         text: contactMessage(payload),
       }),
     });
-    return response.ok ? null : { type: "http", reason: `upstream status ${response.status}` };
+    return response.ok ? "sent" : { type: "http", reason: `upstream status ${response.status}` };
   });
+  return isFailure(result) ? settle("email", "failed", result) : result;
 }
 
 /**
- * Description: Stores one lead under the documented MapPack contract without retrying.
+ * Description: Posts one lead to MapPack under its install guide: one call, one replay by the same key.
  * Inputs: request supplies host and referer; payload is validated; both secrets must be valid together.
- * Output: "sent" for valid 200/201 acceptance, even when owner text failed; test keys validate only.
- * Examples: Both absent secrets return "skipped"; a 401 logs a revoked-key failure and returns "failed".
+ * Output: "sent" only when MapPack texted the owner; "stored" when it kept the lead without a text;
+ *   "failed" when it refused (4xx, bad body, bad secrets); "unknown" after a timeout, a network
+ *   error or a 5xx that survived the replay, when the lead may still be stored. Test keys validate only.
+ * Examples: Both absent secrets return "skipped"; owner_text "failed" returns "stored" and logs it;
+ *   a 503 then a 201 returns the 201's outcome; two 503s return "unknown" after exactly two calls.
  */
-async function storeLead(request: Request, payload: ContactPayload, env: ContactEnv): Promise<DeliveryOutcome> {
+async function storeLead(request: Request, payload: ContactPayload, env: ContactEnv): Promise<LeadOutcome> {
   const { MAPPACK_LEADS_URL: endpoint, MAPPACK_LEAD_KEY: key } = env;
   if (endpoint === undefined && key === undefined) {
     console.info("booking lead skipped: configuration both lead secrets absent");
     return "skipped";
   }
-  if (!endpoint || !key) return failed("lead", { type: "configuration", reason: "both lead secrets required" });
+  if (!endpoint || !key) return settle("lead", "failed", { type: "configuration", reason: "both lead secrets required" });
   try {
     const url = new URL(endpoint);
     if (endpoint !== endpoint.trim() || url.protocol !== "https:" || url.username || url.password ||
         url.pathname !== "/api/leads" || url.search || url.hash) throw new Error();
   } catch {
-    return failed("lead", { type: "configuration", reason: "invalid HTTPS lead endpoint" });
+    return settle("lead", "failed", { type: "configuration", reason: "invalid HTTPS lead endpoint" });
   }
-  if (/[^\x21-\x7e]/.test(key)) return failed("lead", { type: "configuration", reason: "invalid lead key format" });
-  return deliver("lead", async (signal) => {
-    const fields = {
-      source: new URL(request.url).host.slice(0, 80), name: payload.name, phone: payload.phone,
-      city: payload.city, service: payload.service, urgency: payload.urgency,
-      preferred_time: payload.time, details: payload.message,
-      page_url: (request.headers.get("Referer") ?? "").trim().slice(0, 500),
-    };
-    // Form-start time survives retries across server minutes; unchanged fields on that form share a key.
-    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(
-      JSON.stringify([fields, Math.floor(payload.startedAt / 60_000)]),
-    ));
-    const idempotencyKey = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
-    const response = await fetch(endpoint, {
-      method: "POST", redirect: "manual", signal,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}`, "Idempotency-Key": idempotencyKey },
-      body: JSON.stringify(fields),
-    });
-    if (response.status !== 200 && response.status !== 201) {
-      const reason = response.status === 401 ? "unknown or revoked lead key (401)"
-        : response.status === 429 ? "rate limited (429)" : `upstream status ${response.status}`;
+  if (/[^\x21-\x7e]/.test(key)) return settle("lead", "failed", { type: "configuration", reason: "invalid lead key format" });
+  const fields = {
+    source: new URL(request.url).host.slice(0, 80), name: payload.name, phone: payload.phone,
+    city: payload.city, service: payload.service, urgency: payload.urgency,
+    preferred_time: payload.time, details: payload.message,
+    page_url: (request.headers.get("Referer") ?? "").trim().slice(0, 500),
+  };
+  // Form-start time survives retries across server minutes; unchanged fields on that form share a key.
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(
+    JSON.stringify([fields, Math.floor(payload.startedAt / 60_000)]),
+  ));
+  const idempotencyKey = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  const post = async (signal: AbortSignal): Promise<Response | DeliveryFailure> => {
+    try {
+      return await fetch(endpoint, {
+        method: "POST", redirect: "manual", signal,
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}`, "Idempotency-Key": idempotencyKey },
+        body: JSON.stringify(fields),
+      });
+    } catch {
+      return { type: "network", reason: "request failed" };
+    }
+  };
+  const unsettled = (answer: Response | DeliveryFailure) => isFailure(answer) || answer.status >= 500;
+  const result = await bounded<LeadOutcome>(async (signal) => {
+    let answer = await post(signal);
+    // A 5xx or a network error gets the guide's one replay; the same key makes MapPack answer the first result.
+    if (unsettled(answer) && !signal.aborted) answer = await post(signal);
+    if (isFailure(answer)) return answer;
+    if (answer.status >= 500) return { type: "unavailable", reason: `upstream status ${answer.status} after one replay` };
+    if (answer.status !== 200 && answer.status !== 201) {
+      const reason = answer.status === 401 ? "unknown or revoked lead key (401)"
+        : answer.status === 429 ? "rate limited (429)" : `upstream status ${answer.status}`;
       return { type: "http", reason };
     }
-    const body: unknown = await response.json().catch(() => null);
+    const body: unknown = await answer.json().catch(() => null);
     if (!body || typeof body !== "object" || Array.isArray(body) ||
         !("lead_id" in body) || typeof body.lead_id !== "string" ||
         !/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i.test(body.lead_id) ||
         !("owner_text" in body) || !["sent", "skipped", "failed"].includes(body.owner_text as string)) {
       return { type: "response", reason: "invalid stored-lead response" };
     }
-    if (body.owner_text === "failed") console.error("booking owner_text failed: upstream MapPack reported failed");
-    return null;
+    if (body.owner_text === "sent") return "sent";
+    return settle("lead", "stored", { type: "owner text", reason: `${body.owner_text}, MapPack keeps the reason` });
   });
+  if (!isFailure(result)) return result;
+  return settle("lead", UNSETTLED_FAILURES.has(result.type) ? "unknown" : "failed", result);
 }
 
 /**
  * Description: Bounds a complete delivery, including its response body, even if fetch ignores abort.
- * Inputs: channel names a private log label; send returns only fixed failure metadata or null on delivery.
- * Output: "sent" or "failed" within 8 seconds, with one redacted type and reason for each failure.
- * Examples: A hung email is aborted after 8 seconds; a rejected fetch logs a generic network failure.
+ * Inputs: send returns the channel's settled outcome, or fixed failure metadata; it may reject.
+ * Output: The send's result, or a failure within 8 seconds: "timeout" after the deadline, "network" on a rejection.
+ * Examples: A hung email becomes a timeout failure after 8 seconds; a rejected fetch becomes a network failure.
  */
-async function deliver(
-  channel: DeliveryChannel,
-  send: (signal: AbortSignal) => Promise<DeliveryFailure | null>,
-): Promise<DeliveryOutcome> {
+async function bounded<T>(
+  send: (signal: AbortSignal) => Promise<T | DeliveryFailure>,
+): Promise<T | DeliveryFailure> {
   const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
   const deadline = new Promise<DeliveryFailure>((resolve) => {
@@ -204,24 +227,34 @@ async function deliver(
     }, DELIVERY_TIMEOUT_MS);
   });
   try {
-    const failure = await Promise.race([send(controller.signal), deadline]);
-    return failure ? failed(channel, failure) : "sent";
+    return await Promise.race([send(controller.signal), deadline]);
   } catch {
-    return failed(channel, { type: "network", reason: "request failed" });
+    return { type: "network", reason: "request failed" };
   } finally {
     clearTimeout(timer);
   }
 }
 
 /**
- * Description: Records delivery failures without exposing visitor or upstream-controlled text.
- * Inputs: channel and failure contain only internal labels and numeric HTTP statuses.
- * Output: "failed" after one log line containing a type and reason.
- * Examples: A lead 429 logs "booking lead failed: http rate limited (429)".
+ * Description: Tells a delivery failure from a settled outcome or an upstream Response.
+ * Inputs: value is whatever a send step produced.
+ * Output: true only for the fixed { type, reason } failure shape.
+ * Examples: A Response is not a failure; { type: "http", reason: "upstream status 401" } is.
  */
-function failed(channel: DeliveryChannel, failure: DeliveryFailure): DeliveryOutcome {
-  console.error(`booking ${channel} failed: ${failure.type} ${failure.reason}`);
-  return "failed";
+function isFailure(value: unknown): value is DeliveryFailure {
+  return typeof value === "object" && value !== null && "type" in value && "reason" in value;
+}
+
+/**
+ * Description: Records an outcome short of "sent" without exposing visitor or upstream-controlled text.
+ * Inputs: channel, outcome and failure contain only internal labels and numeric HTTP statuses.
+ * Output: The outcome, after one log line naming the channel, the outcome, a type and a reason.
+ * Examples: A lead 429 logs "booking lead failed: http rate limited (429)";
+ *   two 503s log "booking lead unknown: unavailable upstream status 503 after one replay".
+ */
+function settle<T extends LeadOutcome>(channel: DeliveryChannel, outcome: T, failure: DeliveryFailure): T {
+  console.error(`booking ${channel} ${outcome}: ${failure.type} ${failure.reason}`);
+  return outcome;
 }
 
 /**

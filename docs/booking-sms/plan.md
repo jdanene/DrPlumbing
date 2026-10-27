@@ -20,7 +20,9 @@ findings and edge cases; its tickets S1 and S2 are withdrawn.
 timeout, the booking's fields mapped to the MapPack contract (`source` = the
 request's host, `page_url` = the referer). Outcome words
 `sent`/`skipped`/`failed` for each channel; success when either delivered;
-the response names both. Previews and local runs, which lack the two
+the response names both. (Built October 27 with two more lead words, `stored`
+and `unknown`, because only `owner_text: sent` means the owner was texted;
+the README's "MapPack leads" section is the record.) Previews and local runs, which lack the two
 secrets, skip the lead post and say so. Tests: both delivered; email fails
 and lead delivered, 200; both fail, 502; secrets missing, email only. Waits
 on MapPack ticket M2's contract, not its deploy; live after MapPack's S1.

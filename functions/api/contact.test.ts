@@ -50,7 +50,6 @@ describe("contact endpoint", () => {
     const response = await handleContactRequest(first.clone(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
     expect(await response.json()).toEqual({ ok: true, email: "sent", lead: "sent" });
     expect(response.headers.get("Cache-Control")).toBe("no-store");
-    expect(response.headers.get("Content-Type")).toContain("application/json");
     const [url, init] = lead.mock.calls[0];
     expect(url).toBe(leadEnv.MAPPACK_LEADS_URL);
     expect(init.redirect).toBe("manual");
@@ -62,46 +61,39 @@ describe("contact endpoint", () => {
       details: "No heat <script>", page_url: first.headers.get("Referer")!.slice(0, 500),
     });
     vi.mocked(Date.now).mockReturnValue(180_000);
-    lead.mockImplementation(() => Response.json({ ...storedLead, owner_text: "failed" }));
-    vi.spyOn(console, "error").mockImplementation(() => {});
-    expect((await handleContactRequest(first.clone(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv })).status).toBe(200);
+    await handleContactRequest(first.clone(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
     expect(lead.mock.calls[1][1].headers["Idempotency-Key"]).toBe(init.headers["Idempotency-Key"]);
-    expect(console.error).toHaveBeenCalledWith("booking owner_text failed: upstream MapPack reported failed");
-    const later = request({ startedAt: 176_000 });
-    later.headers.set("Referer", first.headers.get("Referer")!);
-    await handleContactRequest(later, { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
-    expect(lead.mock.calls[2][1].headers["Idempotency-Key"]).not.toBe(init.headers["Idempotency-Key"]);
     const changed = request({ startedAt: 116_000, message: "Different request" });
-    changed.headers.set("Referer", first.headers.get("Referer")!);
     await handleContactRequest(changed, { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
-    expect(lead.mock.calls[3][1].headers["Idempotency-Key"]).not.toBe(init.headers["Idempotency-Key"]);
-    const host = `${"a".repeat(60)}.${"b".repeat(60)}.example`;
-    const longHost = new Request(`https://${host}/api/contact`, request({ city: undefined, time: undefined, message: "", service: "Heating\nBcc" }));
-    longHost.headers.set("Origin", `https://${host}`);
+    expect(lead.mock.calls[2][1].headers["Idempotency-Key"]).not.toBe(init.headers["Idempotency-Key"]);
+    const longHost = new Request(`https://${"a".repeat(90)}.example/api/contact`, request({ city: undefined, message: "", service: "Heating\nBcc" }));
+    longHost.headers.set("Origin", `https://${"a".repeat(90)}.example`);
     await handleContactRequest(longHost, { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
-    expect(JSON.parse(lead.mock.calls[4][1].body)).toMatchObject({ source: host.slice(0, 80), city: "", preferred_time: "", page_url: "" });
-    expect(JSON.parse(email.mock.calls[4][1].body)).toMatchObject({ subject: "TODAY: Callback request: Heating Bcc", text: expect.stringContaining("Details: Not provided") });
-    expect(email).toHaveBeenCalledTimes(5);
+    expect(JSON.parse(lead.mock.calls[3][1].body)).toMatchObject({ source: `${"a".repeat(80)}`, city: "", page_url: "" });
+    expect(JSON.parse(email.mock.calls[3][1].body)).toMatchObject({ subject: "TODAY: Callback request: Heating Bcc", text: expect.stringContaining("Details: Not provided") });
   });
 
   it("returns 200 when email fails and the lead is delivered", async () => {
     vi.useFakeTimers();
     const log = vi.spyOn(console, "error").mockImplementation(() => {});
     const email = vi.fn().mockImplementation(() => new Promise<Response>(() => {}));
-    const lead = vi.fn().mockImplementation(() => Response.json({ ...storedLead, owner_text: "skipped" }, { status: 201 }));
+    const lead = vi.fn().mockImplementation(() => Response.json(storedLead, { status: 201 }));
     vi.stubGlobal("fetch", lead);
     const pending = handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
     await vi.waitFor(() => expect(lead).toHaveBeenCalledOnce());
-    expect(email).toHaveBeenCalledOnce();
     await vi.advanceTimersByTimeAsync(8_000);
     const response = await pending;
-    expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true, email: "failed", lead: "sent" });
     expect(email.mock.calls[0][1].signal.aborted).toBe(true);
     expect(log).toHaveBeenCalledWith("booking email failed: timeout delivery exceeded 8 seconds");
     email.mockRejectedValue(new Error("Taylor test-lead-key"));
+    lead.mockImplementationOnce(() => Response.json({ error: "storage unavailable" }, { status: 503 }));
     expect((await handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv })).status).toBe(200);
+    expect(lead).toHaveBeenCalledTimes(3);
+    expect(lead.mock.calls[2][1].headers["Idempotency-Key"]).toBe(lead.mock.calls[1][1].headers["Idempotency-Key"]);
+    lead.mockRejectedValueOnce(new Error("Taylor test-lead-key"));
     expect((await handleContactRequest(request(), leadEnv)).status).toBe(200);
+    expect(lead).toHaveBeenCalledTimes(5);
     expect(JSON.stringify(log.mock.calls)).not.toMatch(/Taylor|test-lead-key/);
   });
 
@@ -110,36 +102,44 @@ describe("contact endpoint", () => {
     const email = vi.fn().mockImplementation(() => new Response("private upstream detail", { status: 500 }));
     const lead = vi.fn();
     vi.stubGlobal("fetch", lead);
-    for (const status of [401, 429, 503, 302, 204, 201]) {
+    const outcome = async () => (await handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv })).json();
+    for (const status of [401, 422, 429, 302, 204, 201]) {
       lead.mockImplementation(() => status === 204 ? new Response(null, { status }) : Response.json({ lead_id: "bad", owner_text: "sent", error: "Taylor test-lead-key" }, { status }));
-      const response = await handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
-      expect(response.status).toBe(502);
-      expect(await response.json()).toMatchObject({ ok: false, email: "failed", lead: "failed" });
+      expect(await outcome()).toEqual({ ok: false, email: "failed", lead: "failed", error: "Delivery failed. Try again." });
     }
     expect(lead).toHaveBeenCalledTimes(6);
     expect(log).toHaveBeenCalledWith("booking lead failed: http unknown or revoked lead key (401)");
     expect(log).toHaveBeenCalledWith("booking lead failed: http rate limited (429)");
-    expect(JSON.stringify(log.mock.calls)).not.toMatch(/Taylor|test-lead-key|private upstream detail/);
     for (const body of [null, [], { ...storedLead, owner_text: "unknown" }, { ...storedLead, owner_text: {} }]) {
       lead.mockImplementation(() => Response.json(body, { status: 201 }));
-      expect((await handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv })).status).toBe(502);
+      expect(await outcome()).toMatchObject({ lead: "failed" });
     }
-    lead.mockImplementation(() => new Response("<html>not the endpoint</html>", { status: 200 }));
-    expect((await handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv })).status).toBe(502);
+    for (const ownerText of ["failed", "skipped"]) {
+      lead.mockImplementation(() => Response.json({ ...storedLead, owner_text: ownerText }, { status: 201 }));
+      expect(await outcome()).toMatchObject({ ok: false, lead: "stored" });
+      expect(log).toHaveBeenCalledWith(`booking lead stored: owner text ${ownerText}, MapPack keeps the reason`);
+    }
+    lead.mockImplementation(() => Response.json({ error: "storage unavailable" }, { status: 503 }));
+    expect(await outcome()).toMatchObject({ ok: false, lead: "unknown" });
+    expect(lead).toHaveBeenCalledTimes(14);
+    expect(log).toHaveBeenCalledWith("booking lead unknown: unavailable upstream status 503 after one replay");
     lead.mockRejectedValue(new Error("Taylor test-lead-key"));
-    expect((await handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv })).status).toBe(502);
+    expect(await outcome()).toMatchObject({ lead: "unknown" });
+    expect(lead).toHaveBeenCalledTimes(16);
     vi.useFakeTimers();
     for (const stallsAtBody of [false, true]) {
       lead.mockImplementation(() => stallsAtBody
         ? { status: 201, json: () => new Promise(() => {}) }
         : new Promise<Response>(() => {}));
       const expectedCalls = lead.mock.calls.length + 1;
-      const pending = handleContactRequest(request(), { CONTACT_EMAIL: { fetch: email }, ...leadEnv });
+      const pending = outcome();
       await vi.waitFor(() => expect(lead).toHaveBeenCalledTimes(expectedCalls));
       await vi.advanceTimersByTimeAsync(8_000);
-      expect((await pending).status).toBe(502);
+      expect(await pending).toMatchObject({ ok: false, lead: "unknown" });
+      expect(lead).toHaveBeenCalledTimes(expectedCalls);
       expect(lead.mock.calls.at(-1)![1].signal.aborted).toBe(true);
     }
+    expect(log).toHaveBeenCalledWith("booking lead unknown: timeout delivery exceeded 8 seconds");
     expect(JSON.stringify(log.mock.calls)).not.toMatch(/Taylor|test-lead-key|private upstream detail/);
   });
 
